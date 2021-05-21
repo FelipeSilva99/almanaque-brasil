@@ -1,9 +1,6 @@
 {
   "short_name": "React App",
   "name": "Create React App Sample",
-	"lang": "pt",
-	"description": "Projeto Almanaque Brasil - Gerdau",
-
   "icons": [
     {
       "src": "favicon.ico",
@@ -24,8 +21,5 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff",
-  "dir": "ltr",
-  "orientation": "any",
-  "prefer_related_applications": false
+  "background_color": "#ffffff"
 }

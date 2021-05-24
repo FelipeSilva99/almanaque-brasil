@@ -1,6 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Almanaque Brasil",
+  "name": "Almanaque Brasil",
+	"lang": "pt",
+	"description": "Almanaque Brasil",
+	"orientation": "any",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,7 +21,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "https://almanaquebrasil.netlify.app/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

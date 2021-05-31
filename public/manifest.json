@@ -1,9 +1,9 @@
 {
-  "short_name": "Almanaque Miguel Burnier",
-  "name": "Almanaque Miguel Burnier",
-  "lang": "pt",
-  "description": "Almanaque Miguel Burnier",
-  "orientation": "any",
+  "short_name": "Almanaque Brasil",
+  "name": "Almanaque Brasil",
+	"lang": "pt",
+	"description": "Almanaque Brasil",
+	"orientation": "any",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,7 +21,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "https://almanaquebrasil.netlify.app/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

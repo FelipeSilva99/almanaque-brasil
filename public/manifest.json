@@ -1,6 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Almanaque Miguel Burnier",
+  "name": "Almanaque Miguel Burnier",
+  "lang": "pt",
+  "description": "Almanaque Miguel Burnier",
+  "orientation": "any",
   "icons": [
     {
       "src": "favicon.ico",

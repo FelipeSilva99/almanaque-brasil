@@ -19,6 +19,6 @@ export default function(state = initialState, action) {
 }
 
 // Actions
-export const createtrails = () => ({
+export const createTrails = () => ({
   type: CREATE_NEW_TRAILS,
 });

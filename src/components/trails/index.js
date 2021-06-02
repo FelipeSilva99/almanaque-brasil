@@ -1,23 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import {
-  createNewTrails
-} from '../../modules/initiative-module';
+  getTrailsThunk
+} from '../../dataflow/thunks/trails-thunk';
 
 const mapStateToProps = state => ({
-  createNewTrails: state.trails.createNewTrails,
+
 });
 
 const mapDispatchToProps = dispatch => ({
-  createNewTrails: info => {
-    dispatch(createNewTrails(info));
+  getTrailsThunk: () => {
+    dispatch(getTrailsThunk())
   },
+
 });
 
-function Trails() {
+function Trails(props) {
+  const handleClick = () => {
+    props.getTrailsThunk();
+  }
+
   return (
     <div>
      <p>Almanaque Miguel Burnier</p>
+     <button onClick={handleClick}>GetTrails</button>
     </div>
   );
 }

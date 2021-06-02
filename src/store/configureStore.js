@@ -6,7 +6,7 @@ import {
 import thunkMiddleware from 'redux-thunk';
 
 // Reducers
-import Trails from '../modules/trails-module';
+import Trails from '../dataflow/modules/trails-module';
 
 const reducers = combineReducers({
   trails: Trails,

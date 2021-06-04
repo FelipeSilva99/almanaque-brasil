@@ -1,8 +1,6 @@
 // Action Type
 const CREATE_NEW_TRAILS = 'almanaque/trails/CREATE_NEW_TRAILS';
-const GET_TRAILS_STARTED = 'almanaque/trails/GET_TRAILS_STARTED'; 
-const GET_TRAILS_FAILURE = 'almanaque/trails/GET_TRAILS_FAILURE';
-const GET_TRAILS_SUCCESS = 'almanaque/trails/GET_TRAILS_SUCCESS';
+const GET_TRAILS = 'almanaque/trails/GET_TRAILS';
 
 // Store
 const initialState = {
@@ -17,7 +15,7 @@ export default function foo(state = initialState, action) {
         trails: !state.trails,
       }
 
-    case GET_TRAILS_STARTED: {
+    case GET_TRAILS: {
       return {
         ...state,
         data: action.data
@@ -46,33 +44,7 @@ export const createTrails = () => ({
 export const getTrails = (data) => {
   console.log("[ACTION] getTrails");
   return {
-    type: GET_TRAILS_SUCCESS,
+    type: GET_TRAILS,
     data: data
   }
-};
-
-export const getTrailsStarted = () => {
-  return {
-    type: GET_TRAILS_STARTED,
-  };
-};
-
-export const getTrailsSuccess = (data, selectedChamp) => {
-
-  return {
-    type: GET_TRAILS_SUCCESS,
-    selectedChamp: selectedChamp,
-    payload: {
-      ...data
-    }
-  };
-};
-
-const getTrailsFailure = (err) => {
-  return {
-    type: GET_TRAILS_FAILURE,
-    payload: {
-      err
-    }
-  };
 };

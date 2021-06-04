@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
@@ -99,6 +99,43 @@ const TrailsWhatIs = ({renderAnswer}) => {
   const [selectedLetter, setSetelectedLetter] = useState([]);
   const [letterAnswer, setLetterAnswer] = useState([]);
 
+  const choosingAlphabetLetters = (length) => {
+    let result = [];
+    let characters = 'abcdefghijklmnopqrstuvwxyz';
+    let charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result.push(characters.charAt(Math.floor(Math.random() *
+        charactersLength)));
+    }
+    return result.join('');
+  }
+
+  const radom = (text) => {
+    let temp = [];
+    let originalLength = text.length;
+    for (var i = 0; i < originalLength; i++) {
+      temp.push(text.splice(Math.floor(Math.random()*text.length),1));
+    }
+    console.log('temp', temp);
+    console.log('text', text);
+
+    return temp;
+  }
+
+  const separandoLetra = () => {
+    const alphabetLetters = choosingAlphabetLetters(5);
+    const letterAnswer = renderAnswer + alphabetLetters;
+    const lettersArray = letterAnswer.split('');
+    const shuffleLetter = radom(lettersArray).join('');
+
+		console.log('lettersArray', lettersArray)
+    return <AnswerOption letter={shuffleLetter} />
+  }
+
+  // useEffect(() => {
+  //   console.log('renderAnswer', renderAnswer)
+  //   TrailsWhatIs(renderAnswer);
+  // }, []);
 
   const handleClick = (event) => {
     event.stopPropagation() 
@@ -124,33 +161,10 @@ const TrailsWhatIs = ({renderAnswer}) => {
     </ContentAnswerOption>
   );
 
-  const choosingAlphabetLetters = (length) => {
-    let result = [];
-    let characters = 'abcdefghijklmnopqrstuvwxyz';
-    let charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result.push(characters.charAt(Math.floor(Math.random() *
-        charactersLength)));
-    }
-    return result.join('');
-  }
 
 
-  const separandoLetra = () => {
-    const alphabetLetters = choosingAlphabetLetters(5);
-    const allLetterAnswer = renderAnswer + alphabetLetters;
-    let allLetterAnswerLength = allLetterAnswer.length;
 
-    let letters = [];
-    for (var i = 0; i < allLetterAnswer.length; i++) {
-      // letters.push(allLetterAnswer.charAt(i));
-      letters.push(allLetterAnswer.charAt(Math.floor(Math.random() *
-        allLetterAnswerLength)));
-    }
-
-    
-    return letters.map(i => <AnswerOption letter={i} />);
-  }
+ 
 
   return (
     <Container>
@@ -161,7 +175,7 @@ const TrailsWhatIs = ({renderAnswer}) => {
         </Question>
         <BoxAnswerOption>
           {separandoLetra()}
-          {/* <ContainerLetterSquare>
+          <ContainerLetterSquare>
             <ContentLetterSquare />
             <ContentLetterSquare />
             <ContentLetterSquare />
@@ -182,7 +196,7 @@ const TrailsWhatIs = ({renderAnswer}) => {
             <AnswerOption letter='h' />
             <AnswerOption letter='i' />
             <AnswerOption letter='o' />
-          </ContainerAnswerOption> */}
+          </ContainerAnswerOption>
         </BoxAnswerOption>
 
         <Button handleClick={() => handleClick()}>Conferir Resposta</Button>

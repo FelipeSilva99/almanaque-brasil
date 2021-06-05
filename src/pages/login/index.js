@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 
-function App() {
+function Login() {
   return (
     <form>
         <label>
@@ -17,4 +17,4 @@ function App() {
   );
 }
 
-export default App;
+export default Login;

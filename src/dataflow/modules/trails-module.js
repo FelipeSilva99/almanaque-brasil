@@ -1,10 +1,11 @@
 // Action Type
 const CREATE_NEW_TRAILS = 'almanaque/trails/CREATE_NEW_TRAILS';
 const GET_TRAILS = 'almanaque/trails/GET_TRAILS';
+const GET_ACTIVITIES = 'almanaque/activities/GET_ACTIVITIES'
 
 // Store
 const initialState = {
-  trails: undefined,
+  trails: [],
 };
 
 // Reducer
@@ -18,16 +19,16 @@ export default function foo(state = initialState, action) {
     case GET_TRAILS: {
       return {
         ...state,
-        data: action.data
+        trails: action.data
       }
     }
 
-    // case GET_TRAILS_SUCCESS: {
-    //   return {
-    //     ...state,
-    //     data: 
-    //   }
-    // }
+    case GET_ACTIVITIES: {
+      return {
+        ...state,
+        activities: action.data
+      }
+    }
 
     default:
       return state;
@@ -45,6 +46,6 @@ export const getTrails = (data) => {
   console.log("[ACTION] getTrails");
   return {
     type: GET_TRAILS,
-    data: data
+    trails: data
   }
 };

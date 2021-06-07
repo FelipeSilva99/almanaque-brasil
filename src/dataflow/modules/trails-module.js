@@ -6,6 +6,7 @@ const GET_ACTIVITIES = 'almanaque/activities/GET_ACTIVITIES'
 // Store
 const initialState = {
   trails: [],
+  isTrails: undefined,
 };
 
 // Reducer

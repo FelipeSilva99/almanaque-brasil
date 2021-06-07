@@ -90,20 +90,29 @@ const ContentAnswerOption = styled.button`
   height: 33px;
   font-weight: bold;
   color: #fff;
-  background: #c7adfc;
+  background: ${props => props.isSelected ? 'red' : '#c7adfc'};
   border-radius: 8px;
   box-shadow: 0 5px 0 #9a72f6;
 `;
 
-const TrailsWhatIs = ({renderAnswer}) => {
+const TrailsWhatIs = ({ renderAnswer }) => {
   const [selectedLetter, setSetelectedLetter] = useState([]);
   const [letterAnswer, setLetterAnswer] = useState([]);
 
-  const choosingAlphabetLetters = (length) => {
+  useEffect(() => {
+    const alphabetLetters = choosingAlphabetLetters(5);
+    const letterAnswer = renderAnswer + alphabetLetters;
+    const lettersArray = letterAnswer.split('');
+    const shuffleLetter = radom(lettersArray).split('');
+
+    setLetterAnswer(shuffleLetter);
+  }, []);
+
+  const choosingAlphabetLetters = (quantity) => {
     let result = [];
     let characters = 'abcdefghijklmnopqrstuvwxyz';
     let charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < quantity; i++) {
       result.push(characters.charAt(Math.floor(Math.random() *
         charactersLength)));
     }
@@ -114,36 +123,33 @@ const TrailsWhatIs = ({renderAnswer}) => {
     let temp = [];
     let originalLength = text.length;
     for (var i = 0; i < originalLength; i++) {
-      temp.push(text.splice(Math.floor(Math.random()*text.length),1));
+      temp.push(text.splice(Math.floor(Math.random() * text.length), 1));
     }
-    console.log('temp', temp);
-    console.log('text', text);
 
-    return temp;
+    return temp.join('');
   }
 
-  const separandoLetra = () => {
-    const alphabetLetters = choosingAlphabetLetters(5);
-    const letterAnswer = renderAnswer + alphabetLetters;
-    const lettersArray = letterAnswer.split('');
-    const shuffleLetter = radom(lettersArray).join('');
-
-		console.log('lettersArray', lettersArray)
-    return <AnswerOption letter={shuffleLetter} />
+  const separatingLetter = () => {
+    
+    return letterAnswer.map((item, index) => {
+      const isTeste = [];
+      const letterSelected = selectedLetter.includes(item);
+      return (
+        <ContentAnswerOption isSelected={letterSelected} onClick={(e) => handleSelectedLetter(e, item)}>
+          {item}
+        </ContentAnswerOption>)
+    });
   }
-
-  // useEffect(() => {
-  //   console.log('renderAnswer', renderAnswer)
-  //   TrailsWhatIs(renderAnswer);
-  // }, []);
 
   const handleClick = (event) => {
-    event.stopPropagation() 
-    console.log('oiiiii')
+    event.stopPropagation();
   }
 
-  const handleSelectedLetter = (letter) => {
+  const handleSelectedLetter = (event, letter) => {
+    event.stopPropagation();
+
     let listSelectedLetter = [];
+    const letterSelected = selectedLetter.filter(i => i !== letter);
     listSelectedLetter = [...selectedLetter, letter];
 
     setSetelectedLetter(listSelectedLetter);
@@ -155,17 +161,6 @@ const TrailsWhatIs = ({renderAnswer}) => {
     </ContentLetterSquare>
   );
 
-  const AnswerOption = ({ letter }) => (
-    <ContentAnswerOption onClick={() => handleSelectedLetter(letter)}>
-      {letter}
-    </ContentAnswerOption>
-  );
-
-
-
-
- 
-
   return (
     <Container>
       <Title>O que é o que é?</Title>
@@ -174,7 +169,6 @@ const TrailsWhatIs = ({renderAnswer}) => {
           O que é redondo e chato, mas faz todo mundo dançar?
         </Question>
         <BoxAnswerOption>
-          {separandoLetra()}
           <ContainerLetterSquare>
             <ContentLetterSquare />
             <ContentLetterSquare />
@@ -183,20 +177,7 @@ const TrailsWhatIs = ({renderAnswer}) => {
             <ContentLetterSquare />
           </ContainerLetterSquare>
 
-          <ContainerAnswerOption>
-            <AnswerOption letter='a' />
-            <AnswerOption letter='b' />
-            <AnswerOption letter='c' />
-            <AnswerOption letter='s' />
-            <AnswerOption letter='e' />
-          </ContainerAnswerOption>
-          <ContainerAnswerOption>
-            <AnswerOption letter='f' />
-            <AnswerOption letter='g' />
-            <AnswerOption letter='h' />
-            <AnswerOption letter='i' />
-            <AnswerOption letter='o' />
-          </ContainerAnswerOption>
+          {separatingLetter()}
         </BoxAnswerOption>
 
         <Button handleClick={() => handleClick()}>Conferir Resposta</Button>

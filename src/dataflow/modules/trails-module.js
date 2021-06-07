@@ -19,14 +19,7 @@ export default function foo(state = initialState, action) {
     case GET_TRAILS: {
       return {
         ...state,
-        trails: action.data
-      }
-    }
-
-    case GET_ACTIVITIES: {
-      return {
-        ...state,
-        activities: action.data
+        data: action.trails
       }
     }
 

@@ -21,7 +21,7 @@ export const getTrailsThunk = () => async (dispatch) => {
     dispatch(getTrails(response.data));
   }
   catch (err) {
-
+    console.log(err)
   }
 }
 

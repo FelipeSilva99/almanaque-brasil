@@ -17,7 +17,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-function App() {
+function Login() {
   const [nextQuestion, setNextQuestion] = useState(0);
   const [isAnswer, setIsAnswer] = useState('disco');
 
@@ -43,4 +43,4 @@ function App() {
   );
 }
 
-export default App;
+export default Login;

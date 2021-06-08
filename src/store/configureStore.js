@@ -6,10 +6,12 @@ import {
 import thunkMiddleware from 'redux-thunk';
 
 // Reducers
-import Trails from '../modules/trails-module';
+import TrailsReducer from '../dataflow/modules/trails-module';
+import ActivitiesReducer from '../dataflow/modules/activities-module';
 
 const reducers = combineReducers({
-  trails: Trails,
+  trails: TrailsReducer,
+	activities: ActivitiesReducer
 });
 
 export default function configureStore(initialState) {

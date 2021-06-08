@@ -1,9 +1,9 @@
 {
   "short_name": "Almanaque Brasil",
   "name": "Almanaque Brasil",
-	"lang": "pt",
-	"description": "Almanaque Brasil",
-	"orientation": "any",
+  "lang": "pt",
+  "description": "Almanaque Brasil",
+  "orientation": "any",
   "icons": [
     {
       "src": "favicon.ico",

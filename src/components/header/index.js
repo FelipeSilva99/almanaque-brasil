@@ -1,26 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-
-// import {
-//   createNewTrails
-// } from '../../modules/trails-module';
-
-// const mapStateToProps = state => ({
-//   isTrails: state.trails.isTrails,
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   createNewTrails: info => {
-//     dispatch(createNewTrails(info));
-//   },
-// });
 
 //Components
 import Button from '../buttons/button';
 
 // Styles
 const Container = styled.div`
+  margin-top: 2rem;
   width: inherit;
   display: flex;
   justify-content: space-between;

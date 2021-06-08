@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getActivitiesThunk } from '../../dataflow/thunks/activities-thunk'
 import * as Styles from './styles'
-
 import styled from 'styled-components';
+
 
 //Components
 import Header from '../../components/header/index';
@@ -37,6 +37,23 @@ const Acitivities = (props) => {
   useEffect(() => {
     props.getActivities(trailId)
   }, []);
+
+  const handleTrails = () => {
+    const {type} = props.activities.data;
+
+    switch (type) {
+      case 'O que é o que é?':
+        return <TrailsWhatIs />
+        break;
+      case 'Coisas Nossas':
+        console.log('Coisas Nossas');
+      case 'Papayas':
+        console.log('De quem são esses olhos?');
+        break;
+      default:
+        console.log(`Error`);
+    }
+  }
 
   let listLetter = ['disco', 'chuva', 'rua'];
 

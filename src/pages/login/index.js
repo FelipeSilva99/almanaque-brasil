@@ -19,13 +19,13 @@ const Container = styled.div`
 
 function Login() {
   const [nextQuestion, setNextQuestion] = useState(0);
-  const [renderAnswer, setRenderAnswer] = useState('disco');
+  const [isAnswer, setIsAnswer] = useState('disco');
 
   let listLetter = ['disco', 'chuva', 'rua'];
 
   const handleNextQuestion = () => {
     setNextQuestion(nextQuestion + 1);
-    setRenderAnswer(listLetter[nextQuestion+1])
+    setIsAnswer(listLetter[nextQuestion+1])
   };
 
   return (
@@ -33,7 +33,7 @@ function Login() {
       <Header />
       <TrailsWhatIs 
         renderQuestion={nextQuestion}
-        renderAnswer={renderAnswer}
+        isAnswer={isAnswer}
       />
       <Footer
         // handleCleanAnswer={handleCleanAnswer}

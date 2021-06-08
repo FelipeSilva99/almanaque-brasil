@@ -54,111 +54,144 @@ const Question = styled.h2`
   align-items: center;
 `;
 
-const ContainerLetterSquare = styled.div`
-  display: flex;
-`;
-
-const ContentLetterSquare = styled.div`
+const ContentSquareAnswer = styled.div`
   margin-right: .3rem;
-  border: 1px dashed #272727;
   width: 3.438rem;
   height: 3.125rem;
+  font-size: 1.563rem;
+  font-weight: 700;
+  color: #fff;
   border-radius: 10px;
+  border: ${props => props.isLetter ? '1px solid #c7adfc' : '1px dashed #272727'};
+  background: ${props => props.isLetter && '#c7adfc'};
+  box-shadow: ${props => props.isLetter && '0 5px 0 #9a72f6'};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const BoxAnswerOption = styled.div`
+const BoxAnswer = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
-  flex-direction: row;
   align-items: center;
-  flex-wrap: wrap;
+  flex-direction: row;
+  flex-direction: column;
 `;
 
-const ContainerAnswerOption = styled.div`
-  margin-top: 20px;
+const ContainerAnswer = styled.div`
+  margin-bottom: ${props => props.bottom && '3.063rem'};
   display: flex;
   flex-wrap: wrap;
 `;
 
 const ContentAnswerOption = styled.button`
+  margin-right: .625rem;
+  margin-bottom: .875rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
-  width: 37px;
-  height: 33px;
+  width: 2.313rem;
+  height: 2.063rem;
   font-weight: bold;
   color: #fff;
-  background: ${props => props.isSelected ? 'red' : '#c7adfc'};
+  background: ${props => props.isSelected ? '#b9b9b9' : '#c7adfc'};
   border-radius: 8px;
-  box-shadow: 0 5px 0 #9a72f6;
+  box-shadow: ${props => props.isSelected ? '0 5px 0 #9c9c9c' : '0 5px 0 #9a72f6'};
 `;
 
-const TrailsWhatIs = ({ renderAnswer }) => {
+const TrailsWhatIs = ({ isAnswer }) => {
+  const [answer, setAnswer] = useState([]);
+  const [letterOption, setLetterOption] = useState([]);
   const [selectedLetter, setSetelectedLetter] = useState([]);
-  const [letterAnswer, setLetterAnswer] = useState([]);
 
   useEffect(() => {
     const alphabetLetters = choosingAlphabetLetters(5);
-    const letterAnswer = renderAnswer + alphabetLetters;
-    const lettersArray = letterAnswer.split('');
+    const letterOption = isAnswer + alphabetLetters;
+    const lettersArray = letterOption.split('');
     const shuffleLetter = radom(lettersArray).split('');
 
-    setLetterAnswer(shuffleLetter);
-  }, []);
+    let answerSplit = [];
+    isAnswer.split('').forEach((a, i) => {
+      answerSplit.push({ id: i, value: '' });
+    });
+
+    setLetterOption(shuffleLetter);
+    setAnswer(answerSplit);
+  }, [isAnswer]);
+
+
+  const handleClick = (event) => {
+    event.stopPropagation();
+  };
 
   const choosingAlphabetLetters = (quantity) => {
     let result = [];
     let characters = 'abcdefghijklmnopqrstuvwxyz';
     let charactersLength = characters.length;
+
     for (let i = 0; i < quantity; i++) {
       result.push(characters.charAt(Math.floor(Math.random() *
         charactersLength)));
     }
+
     return result.join('');
-  }
+  };
 
   const radom = (text) => {
     let temp = [];
     let originalLength = text.length;
+
     for (var i = 0; i < originalLength; i++) {
       temp.push(text.splice(Math.floor(Math.random() * text.length), 1));
     }
 
     return temp.join('');
-  }
+  };
 
-  const separatingLetter = () => {
-    
-    return letterAnswer.map((item, index) => {
-      const isTeste = [];
-      const letterSelected = selectedLetter.includes(item);
+
+  const handleSelectedLetter = (event, index, letter) => {
+    event.stopPropagation();
+    const isSetterSelected = selectedLetter.find(i => index === i.id);
+
+    let letterSelected = selectedLetter;
+    let newAnswer = answer || [];
+
+    if (isSetterSelected) {
+      letterSelected = selectedLetter.filter((i) => i.id !== index);
+      newAnswer = answer.map(i => {
+        if (i.oldId === index) {
+          return { id: i.id, value: '' };
+        } return i;
+      })
+    } else {
+      letterSelected = selectedLetter.concat({ id: index, value: letter });
+      let empty = answer.find(i => i.value === '');
+      newAnswer[empty.id].value = letter;
+      newAnswer[empty.id].oldId = index;
+    }
+
+    setSetelectedLetter(letterSelected);
+    setAnswer(newAnswer);
+  };
+
+  const individualLetters = () => {
+    return letterOption.map((item, index) => {
+      const letterSelected = selectedLetter.find(i => index === i.id);
       return (
-        <ContentAnswerOption isSelected={letterSelected} onClick={(e) => handleSelectedLetter(e, item)}>
+        <ContentAnswerOption
+          isSelected={letterSelected}
+          onClick={(e) => handleSelectedLetter(e, index, item)}
+        >
           {item}
         </ContentAnswerOption>)
     });
-  }
+  };
 
-  const handleClick = (event) => {
-    event.stopPropagation();
-  }
-
-  const handleSelectedLetter = (event, letter) => {
-    event.stopPropagation();
-
-    let listSelectedLetter = [];
-    const letterSelected = selectedLetter.filter(i => i !== letter);
-    listSelectedLetter = [...selectedLetter, letter];
-
-    setSetelectedLetter(listSelectedLetter);
-  }
-
-  const LetterSquare = () => (
-    <ContentLetterSquare>
-
-    </ContentLetterSquare>
+  const squareAnswer = (letter) => (
+    <ContentSquareAnswer isLetter={letter.value}>
+      {letter?.value}
+    </ContentSquareAnswer>
   );
 
   return (
@@ -168,27 +201,18 @@ const TrailsWhatIs = ({ renderAnswer }) => {
         <Question>
           O que é redondo e chato, mas faz todo mundo dançar?
         </Question>
-        <BoxAnswerOption>
-          <ContainerLetterSquare>
-            <ContentLetterSquare />
-            <ContentLetterSquare />
-            <ContentLetterSquare />
-            <ContentLetterSquare />
-            <ContentLetterSquare />
-          </ContainerLetterSquare>
-
-          {separatingLetter()}
-        </BoxAnswerOption>
-
-        <Button handleClick={() => handleClick()}>Conferir Resposta</Button>
+        <BoxAnswer>
+          <ContainerAnswer bottom>
+            {answer.map(i => squareAnswer(i))}
+          </ContainerAnswer>
+          <ContainerAnswer>
+            {individualLetters()}
+          </ContainerAnswer>
+        </BoxAnswer>
+        <Button handleClick={handleClick}>Conferir Resposta</Button>
       </Content>
     </Container>
   );
 }
 
 export default TrailsWhatIs;
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// )(TrailsWhatIs);

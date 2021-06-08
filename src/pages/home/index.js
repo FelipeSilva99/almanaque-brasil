@@ -1,7 +1,69 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import {
+  getTrailsThunk
+} from '../../dataflow/thunks/trails-thunk';
+import { Link } from 'react-router-dom';
+import {
+  Card,
+  Header,
+  Box,
+  Row
+} from './styles'
 
-const Home = () => {
-  return <div>Home</div>;
+const mapStateToProps = state => ({
+  trails: state.trails
+});
+
+const mapDispatchToProps = dispatch => ({
+  getTrailsThunk: () => {
+    dispatch(getTrailsThunk());
+  },
+});
+const Home = (props) => {
+
+  useEffect(() => {
+    props.getTrailsThunk()
+  }, [])
+
+  const returnTrails = (trails) => {
+    return trails.map((trail, key) => {
+      return (
+        <Link key={key} to={`/activities/${trail.id}`}>
+          <Card >
+            <h2>{`Trilha ${trail.id}`}</h2>
+          </Card>
+        </Link>
+      )
+    })
+  }
+  return (
+    <Box>
+      <Header><h1>Olá Fulano!</h1></Header>
+      {
+        props.trails && props.trails.data
+        ? returnTrails(props.trails.data)
+        : <p>carregando...</p>
+      }
+      {
+        (props.trails && props.trails.data) && (
+          <Row>
+          <Card width={'40%'}>
+            <h2>Biblioteoca</h2>
+          </Card>
+          <Card width={'40%'}>
+            <h2>Conteúdo por tema</h2>
+          </Card>
+        </Row>
+        )
+
+      }
+
+    </Box>
+  );
 }
 
-export default Home;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);

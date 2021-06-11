@@ -29,31 +29,68 @@ const Container = styled.div`
 
 const Acitivities = (props) => {
   const { trailId } = useParams();
-  const [nextQuestion, setNextQuestion] = useState(0);
-  const [isAnswer, setIsAnswer] = useState('disco');
+  // const [nextQuestion, setNextQuestion] = useState(0);
+  // const [isAnswer, setIsAnswer] = useState('disco');
+  const [activities, setActivities] = useState(null);
+  const [currentActivitie, setCurrentActivitie] = useState(0);
 
   useEffect(() => {
     props.getActivities(trailId)
   }, []);
 
-  let listLetter = ['disco', 'chuva', 'rua'];
+  useEffect(() => {
+    setActivities(props.activities.data)
+  })
 
-  const handleNextQuestion = () => {
-    setNextQuestion(nextQuestion + 1);
-    setIsAnswer(listLetter[nextQuestion + 1])
-  };
+  // let listLetter = ['disco', 'chuva', 'rua'];
+
+  // const handleNextQuestion = () => {
+  //   setNextQuestion(nextQuestion + 1);
+  //   setIsAnswer(listLetter[nextQuestion + 1])
+  // };
+
+  const renderActivitie = (currentActivitie) => {
+    // Renderizar component de acordo com o tipo de ativivdade
+    // switch (currentActivitie.type) {
+    //   case value:
+        
+    //     break;
+    
+    //   default:
+    //     break;
+    // }
+    console.log("CURRENTACTIVITIE:", currentActivitie)
+    return (
+      <h1>{currentActivitie.question}</h1>
+    );
+  } 
+
+  const handlerNextActivitie = () => {
+    if(hasNextActivitie) {
+      setCurrentActivitie(currentActivitie+1)
+    }
+  }
+
+  const hasNextActivitie = () => {
+    return true
+  }
 
   return (
+    console.log("ACTIVITIES.STATE", activities),
     <Container>
       <Header />
-      <TrailsWhatIs
+      {/* <TrailsWhatIs
         renderQuestion={nextQuestion}
         isAnswer={isAnswer}
-      />
-      <Footer
-        // handleCleanAnswer={handleCleanAnswer}
-        handleNextQuestion={handleNextQuestion}
-      />
+      /> */}
+      { 
+        activities ? renderActivitie(activities[currentActivitie+1]) : (<h1>Carregando</h1>) 
+      }
+
+      <button
+        onClick={handlerNextActivitie}
+      >próxima questão</button>
+
     </Container>
   );
 }

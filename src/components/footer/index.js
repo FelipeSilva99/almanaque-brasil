@@ -1,23 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-
-// import {
-//   createNewTrails
-// } from '../../modules/trails-module';
-
-// const mapStateToProps = state => ({
-//   isTrails: state.trails.isTrails,
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   createNewTrails: info => {
-//     dispatch(createNewTrails(info));
-//   },
-// });
-
-//Components
-import Button from '../buttons/button';
 
 // Styles
 const Container = styled.div`
@@ -29,9 +11,13 @@ const Container = styled.div`
 
 const Text = styled.button`
   margin: 1em 0; 
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 700;
   color: #535152;
+
+  @media (min-width: 1024px) {
+    font-size: 1rem;
+  }
 `;
 
 const Footer = ({ handleCleanAnswer, handleNextQuestion }) => {

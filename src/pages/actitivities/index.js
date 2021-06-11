@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getActivitiesThunk } from '../../dataflow/thunks/activities-thunk'
 import * as Styles from './styles'
-
 import styled from 'styled-components';
+
 
 //Components
 import Header from '../../components/header/index';
@@ -33,17 +33,41 @@ const Acitivities = (props) => {
   const { trailId } = useParams();
   const [nextQuestion, setNextQuestion] = useState(0);
   const [isAnswer, setIsAnswer] = useState('disco');
+  const [clearAnswer, setClearAnswer] = useState(undefined);
 
+  
   useEffect(() => {
     props.getActivities(trailId)
   }, []);
-
-  let listLetter = ['disco', 'chuva', 'rua'];
 
   const handleNextQuestion = () => {
     setNextQuestion(nextQuestion + 1);
     setIsAnswer(listLetter[nextQuestion + 1])
   };
+
+  const handleTrails = () => {
+    const activities = props.activities.data.map(item => item.type);
+
+    switch (activities) {
+      case 'O-que-e-o-que-e?':
+        return  <TrailsWhatIs handleNextQuestion={handleNextQuestion} isAnswer={isAnswer}/>
+        break;
+      case 'coisas-nossas':
+        console.log('Coisas Nossas');
+      case 'papayas':
+        console.log('De quem são esses olhos?');
+        break;
+      default:
+        console.log(`Error`);
+    }
+  }
+
+  let listLetter = ['disco', 'chuva', 'rua'];
+
+  const handleCleanAnswer = () => {
+    setClearAnswer(true);
+  }
+   
 
   const returnActivities = (activities) => {
     return activities.map((activitie, key) => {
@@ -54,16 +78,16 @@ const Acitivities = (props) => {
       );
     })
   }
-
+  
   return (
     <Container>
       <Header />
       <TrailsWhatIs
-        renderQuestion={nextQuestion}
+        handleNextQuestion={handleNextQuestion}
         isAnswer={isAnswer}
       />
       <Footer
-        // handleCleanAnswer={handleCleanAnswer}
+        handleCleanAnswer={handleCleanAnswer}
         handleNextQuestion={handleNextQuestion}
       />
     </Container>

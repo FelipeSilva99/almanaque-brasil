@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getActivitiesThunk } from '../../dataflow/thunks/activities-thunk'
-import * as Styles from './styles'
-
 import styled from 'styled-components';
 
 //Components
@@ -44,16 +42,6 @@ const Acitivities = (props) => {
     setNextQuestion(nextQuestion + 1);
     setIsAnswer(listLetter[nextQuestion + 1])
   };
-
-  const returnActivities = (activities) => {
-    return activities.map((activitie, key) => {
-      return (
-        <Styles.ActivitieDescription key={key}>
-          <p>{activitie.question}</p>
-        </Styles.ActivitieDescription>
-      );
-    })
-  }
 
   return (
     <Container>

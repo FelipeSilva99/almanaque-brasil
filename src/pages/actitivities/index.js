@@ -33,21 +33,28 @@ const Acitivities = (props) => {
   const { trailId } = useParams();
   const [nextQuestion, setNextQuestion] = useState(0);
   const [isAnswer, setIsAnswer] = useState('disco');
+  const [clearAnswer, setClearAnswer] = useState(undefined);
 
+  
   useEffect(() => {
     props.getActivities(trailId)
   }, []);
 
-  const handleTrails = () => {
-    const {type} = props.activities.data;
+  const handleNextQuestion = () => {
+    setNextQuestion(nextQuestion + 1);
+    setIsAnswer(listLetter[nextQuestion + 1])
+  };
 
-    switch (type) {
-      case 'O que é o que é?':
-        return <TrailsWhatIs />
+  const handleTrails = () => {
+    const activities = props.activities.data.map(item => item.type);
+
+    switch (activities) {
+      case 'O-que-e-o-que-e?':
+        return  <TrailsWhatIs handleNextQuestion={handleNextQuestion} isAnswer={isAnswer}/>
         break;
-      case 'Coisas Nossas':
+      case 'coisas-nossas':
         console.log('Coisas Nossas');
-      case 'Papayas':
+      case 'papayas':
         console.log('De quem são esses olhos?');
         break;
       default:
@@ -57,10 +64,10 @@ const Acitivities = (props) => {
 
   let listLetter = ['disco', 'chuva', 'rua'];
 
-  const handleNextQuestion = () => {
-    setNextQuestion(nextQuestion + 1);
-    setIsAnswer(listLetter[nextQuestion + 1])
-  };
+  const handleCleanAnswer = () => {
+    setClearAnswer(true);
+  }
+   
 
   const returnActivities = (activities) => {
     return activities.map((activitie, key) => {
@@ -71,16 +78,16 @@ const Acitivities = (props) => {
       );
     })
   }
-
+  
   return (
     <Container>
       <Header />
       <TrailsWhatIs
-        renderQuestion={nextQuestion}
+        handleNextQuestion={handleNextQuestion}
         isAnswer={isAnswer}
       />
       <Footer
-        // handleCleanAnswer={handleCleanAnswer}
+        handleCleanAnswer={handleCleanAnswer}
         handleNextQuestion={handleNextQuestion}
       />
     </Container>

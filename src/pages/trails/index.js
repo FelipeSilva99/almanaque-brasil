@@ -34,7 +34,6 @@ function Trails(props) {
         <Link to={`/activities/${trail.id}`}>
           <TrailsStyles.Trail key={key}>
             <h2>{`Trilha ${trail.id}`}</h2>
-            
           </TrailsStyles.Trail>
         </Link>
       )
@@ -43,8 +42,6 @@ function Trails(props) {
 
   return (
     <TrailsStyles.Box>
-    {console.log('trails', props.trails.data)}
-
       <h1>Trails</h1>
       <div>
         {

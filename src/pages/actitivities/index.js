@@ -7,6 +7,7 @@ import styled from 'styled-components';
 //Components
 import Header from '../../components/header/index';
 import TrailsWhatIs from '../../components/trails/whatIsWhatIs';
+import WhoseEyesAreThese from '../../components/trails/whoseEyesAreThese';
 import Footer from '../../components/footer/index';
 
 const mapDispatchToProps = dispatch => ({
@@ -19,12 +20,15 @@ const mapStateToProps = state => ({
 
 // Styles
 const Container = styled.div`
-  margin: auto;
-  width: 90vw;
+  /* margin: auto; */
+  background-color: #fff;
+  overflow: hidden;
+  width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
+  box-sizing: border-box;
 `;
 
 const Acitivities = (props) => {
@@ -51,18 +55,15 @@ const Acitivities = (props) => {
 
   const renderActivitie = (currentActivitie) => {
     // Renderizar component de acordo com o tipo de ativivdade
-    // switch (currentActivitie.type) {
-    //   case value:
-        
-    //     break;
+    switch (currentActivitie.type) {
+      case "de-quem-sao-estes-olhos":
+        return (
+          <WhoseEyesAreThese activitie={currentActivitie}/>
+        )
     
-    //   default:
-    //     break;
-    // }
-    console.log("CURRENTACTIVITIE:", currentActivitie)
-    return (
-      <h1>{currentActivitie.question}</h1>
-    );
+      default:
+        return <h1>{currentActivitie.question}</h1>;
+    }
   } 
 
   const handlerNextActivitie = () => {
@@ -76,15 +77,17 @@ const Acitivities = (props) => {
   }
 
   return (
-    console.log("ACTIVITIES.STATE", activities),
     <Container>
-      <Header />
+      
       {/* <TrailsWhatIs
         renderQuestion={nextQuestion}
         isAnswer={isAnswer}
       /> */}
-      { 
-        activities ? renderActivitie(activities[currentActivitie+1]) : (<h1>Carregando</h1>) 
+      {
+        // activities && activities.length > 0
+        activities
+        ? renderActivitie(activities[currentActivitie+1])
+        : (<h1>Carregando</h1>) 
       }
 
       <button

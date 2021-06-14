@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getActivitiesThunk } from '../../dataflow/thunks/activities-thunk'
 import styled from 'styled-components';
 
+
 //Components
 import Header from '../../components/header/index';
 import TrailsWhatIs from '../../components/trails/whatIsWhatIs';
@@ -19,6 +20,12 @@ const mapStateToProps = state => ({
 })
 
 // Styles
+const ActivitieDescription = styled.div`
+  margin: 10px 1% 0 1%;
+  min-height: 30px;
+  background-color: #35D461;
+`
+
 const Container = styled.div`
   /* margin: auto; */
   background-color: #fff;
@@ -33,11 +40,12 @@ const Container = styled.div`
 
 const Acitivities = (props) => {
   const { trailId } = useParams();
-  // const [nextQuestion, setNextQuestion] = useState(0);
-  // const [isAnswer, setIsAnswer] = useState('disco');
+  const [nextQuestion, setNextQuestion] = useState(0);
+  const [isAnswer, setIsAnswer] = useState('disco');
   const [activities, setActivities] = useState(null);
   const [currentActivitie, setCurrentActivitie] = useState(0);
 
+  
   useEffect(() => {
     props.getActivities(trailId)
   }, []);
@@ -57,9 +65,10 @@ const Acitivities = (props) => {
     // Renderizar component de acordo com o tipo de ativivdade
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
-        return (
-          <WhoseEyesAreThese activitie={currentActivitie}/>
-        )
+        return <WhoseEyesAreThese activitie={currentActivitie}/>
+
+      case "O que é o que é?":
+        return  <TrailsWhatIs handleNextQuestion={handleNextQuestion} isAnswer={isAnswer}/>
     
       default:
         return <h1>{currentActivitie.question}</h1>;
@@ -75,7 +84,28 @@ const Acitivities = (props) => {
   const hasNextActivitie = () => {
     return true
   }
+  const handleNextQuestion = () => {
+    setNextQuestion(nextQuestion + 1);
+    setIsAnswer(listLetter[nextQuestion + 1])
+  };
 
+  let listLetter = ['disco', 'chuva', 'rua'];
+
+  // const handleCleanAnswer = () => {
+  //   setClearAnswer(true);
+  // }
+   
+
+  // const returnActivities = (activities) => {
+  //   return activities.map((activitie, key) => {
+  //     return (
+  //       <ActivitieDescription key={key}>
+  //         <p>{activitie.question}</p>
+  //       </ActivitieDescription>
+  //     );
+  //   })
+  // }
+  
   return (
     <Container>
       

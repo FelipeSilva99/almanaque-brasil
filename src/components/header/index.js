@@ -6,8 +6,8 @@ import Button from '../buttons/button';
 
 // Styles
 const Container = styled.div`
-  margin-top: 2rem;
   width: inherit;
+  height: 7vh;
   display: flex;
   justify-content: space-between;
   align-items: center;

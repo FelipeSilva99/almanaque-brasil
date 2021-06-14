@@ -223,6 +223,9 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion }) => {
     )
   }
 
+  const backgroundButton = answerResult === 'checkAnswer' && '#19918d' || answerResult === 'wrong' && '#ec8383';
+	const boxShadowButton = answerResult === 'checkAnswer' && '0 12px 0 #275653' || answerResult === 'wrong' && '0 12px 0 #bb6060';
+
   return (
     <Container>
       <Title>O que é o que é?</Title>
@@ -240,7 +243,8 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion }) => {
           </ContainerAnswer>
         </BoxAnswer>
         <Button
-          answerResult={answerResult}
+          background={backgroundButton}
+          boxShadow={boxShadowButton}
           isError={isError}
           handleClick={handleClick}
         >

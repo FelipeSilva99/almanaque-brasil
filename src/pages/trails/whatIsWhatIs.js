@@ -13,11 +13,10 @@ const Container = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
   flex-direction: column;
 `;
 
-function Login() {
+function WhatIsWhatIs() {
   const [nextQuestion, setNextQuestion] = useState(0);
   const [isAnswer, setIsAnswer] = useState('disco');
 
@@ -43,4 +42,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default WhatIsWhatIs;

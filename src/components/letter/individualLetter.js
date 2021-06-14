@@ -16,6 +16,11 @@ const Content = styled.div`
   border: ${props => props.border};
   background: ${props => props.background};
   box-shadow: ${props => props.boxShadow};
+
+  @media (max-width: 375px) {
+    width: 3rem;
+    height: 2.5rem;
+  }
 `;
 
 const IndividualLetter = ({background, boxShadow, border, letter}) => {

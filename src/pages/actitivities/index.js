@@ -36,6 +36,10 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+
+  @media (max-width: 375px) {
+    height: 100%;
+  }
 `;
 
 const Acitivities = (props) => {
@@ -68,7 +72,7 @@ const Acitivities = (props) => {
         return <WhoseEyesAreThese activitie={currentActivitie}/>
 
       case "O que é o que é?":
-        return  <TrailsWhatIs handleNextQuestion={handleNextQuestion} isAnswer={isAnswer}/>
+        return  <TrailsWhatIs handleNextQuestion={handleNextQuestion} isAnswer={isAnswer} history={props.history}/>
     
       default:
         return <h1>{currentActivitie.question}</h1>;

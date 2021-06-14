@@ -17,6 +17,10 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  @media (max-width: 375px) {
+    height: 100%;
+  }
 `;
 
 const Content = styled.div`
@@ -30,6 +34,10 @@ const Title = styled.p`
   font-size: 1.5rem;
   font-weight: 500;
   color: #272727;
+
+  @media (max-width: 375px) {
+    margin-bottom: 2rem;
+  }
 `;
 
 const TextRightAnswer = styled.p`
@@ -46,17 +54,27 @@ const ConteinerIndividualLetter = styled.div`
   flex-wrap: wrap;
   width: 100%;
   max-width: 425px;
+
+  @media (max-width: 375px) {
+    margin-bottom: 2rem;
+  }
 `;
 
 const Image = styled.p`
   width: 100%;
+  max-width: 425px;
   height: 10.9375rem;
   background: #76146c;
+
+  @media (max-width: 375px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const Text = styled.p`
   padding: ${props => props.padding};
   width: 80%;
+  max-width: 425px;
   font-size: 1rem;
   line-height: 1.25rem;
   color: #272727;
@@ -65,7 +83,14 @@ const Text = styled.p`
 const ContentButton = styled.div`
   width: 100%;
   position: absolute;
-  bottom: 0;
+  bottom: 2rem;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 375px) {
+    position: relative;
+    bottom: 0;
+  }
 `;
 
 const CorrectAnswer = () => {
@@ -92,7 +117,12 @@ const CorrectAnswer = () => {
           Veja mais na nossa biblioteca!
         </Text>
         <ContentButton>
-          <Button background='#3daf1b' boxShadow='#26770f'>Continuar trilha</Button>
+          <Button
+            background='#3daf1b'
+            boxShadow='0 10px 0 #26770f'
+          >
+            Continuar trilha
+          </Button>
         </ContentButton>
       </Content>
       <Footer />

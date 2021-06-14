@@ -48,13 +48,13 @@ const Home = (props) => {
       {
         (props.trails && props.trails.data) && (
           <Row>
-          <Card width={'40%'}>
-            <h2>Biblioteoca</h2>
-          </Card>
-          <Card width={'40%'}>
-            <h2>Conteúdo por tema</h2>
-          </Card>
-        </Row>
+            <Card>
+              <h2>Biblioteoca</h2>
+            </Card>
+            <Card>
+              <h2>Conteúdo por tema</h2>
+            </Card>
+          </Row>
         )
 
       }

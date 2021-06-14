@@ -29,7 +29,7 @@ const BoxAnswers = styled.div`
   align-items: center;
   bottom: 0;
   width: 100%;
-  background-color: silver;
+  background-color: #fff;
   height: 100vh;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;

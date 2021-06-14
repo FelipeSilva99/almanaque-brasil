@@ -117,7 +117,12 @@ const CorrectAnswer = () => {
           Veja mais na nossa biblioteca!
         </Text>
         <ContentButton>
-          <Button background='#3daf1b' boxShadow='0 10px 0 #26770f'>Continuar trilha</Button>
+          <Button
+            background='#3daf1b'
+            boxShadow='0 10px 0 #26770f'
+          >
+            Continuar trilha
+          </Button>
         </ContentButton>
       </Content>
       <Footer />

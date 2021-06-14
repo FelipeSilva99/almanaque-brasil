@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 // Styles
 const Content = styled.div`
-  margin-right: .3rem;
+  margin-right: 0.5rem;
+  margin-bottom: 1rem;
   width: 3.438rem;
   height: 3.125rem;
   display: flex;

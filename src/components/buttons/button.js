@@ -29,27 +29,27 @@ const Content = styled.button`
   }
 
   @media (max-width: 375px) {
-    height: 3rem;
+    min-height: 3rem;
   }
 `;
 
 const Button = ({
-	background,
+  background,
   boxShadow,
-	children,
-	disabled,
-	handleClick
+  children,
+  disabled,
+  handleClick
 }) => {
-	return (
-		<Content
-			background={background}
-			boxShadow={boxShadow}
-			disabled={disabled}
-			onClick={handleClick}
-		>
-			{children}
-		</Content>
-	);
+  return (
+    <Content
+      background={background}
+      boxShadow={boxShadow}
+      disabled={disabled}
+      onClick={handleClick}
+    >
+      {children}
+    </Content>
+  );
 }
 
 export default Button;

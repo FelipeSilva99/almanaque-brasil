@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 //Components
 import Header from '../../components/header/index';
-import TrailsWhatIs from '../../components/trails/whatIsWhatIs';
+import TrailsWhatIs from '../trails/whatIsWhatIs';
 import Footer from '../../components/footer/index';
 
 const mapDispatchToProps = dispatch => ({
@@ -27,6 +27,10 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  @media (max-width: 375px) {
+    height: 100%;
+  }
 `;
 
 const Acitivities = (props) => {
@@ -41,8 +45,9 @@ const Acitivities = (props) => {
   }, []);
 
   const handleNextQuestion = () => {
-    setNextQuestion(nextQuestion + 1);
-    setIsAnswer(listLetter[nextQuestion + 1])
+    
+    // setNextQuestion(nextQuestion + 1);
+    // setIsAnswer(listLetter[nextQuestion + 1]);
   };
 
   const handleTrails = () => {
@@ -50,7 +55,7 @@ const Acitivities = (props) => {
 
     switch (activities) {
       case 'O-que-e-o-que-e?':
-        return  <TrailsWhatIs handleNextQuestion={handleNextQuestion} isAnswer={isAnswer}/>
+        return  <TrailsWhatIs handleNextQuestion={handleNextQuestion} isAnswer={isAnswer} history={props.history}/>
         break;
       case 'coisas-nossas':
         console.log('Coisas Nossas');
@@ -85,6 +90,7 @@ const Acitivities = (props) => {
       <TrailsWhatIs
         handleNextQuestion={handleNextQuestion}
         isAnswer={isAnswer}
+        history={props.history}
       />
       <Footer
         handleCleanAnswer={handleCleanAnswer}

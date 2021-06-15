@@ -2,25 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 
 //Components
-import Header from '../../components/header/index';
-import IndividualLetter from '../../components/letter/individualLetter';
-import Button from '../../components/buttons/button';
-import Footer from '../../components/footer/index';
+import Header from '../header/index';
+import IndividualLetter from '../letter/individualLetter';
+import Button from '../buttons/button';
+import Footer from '../footer/index';
 
 // Styles
 const Container = styled.div`
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   margin: auto;
   width: 90vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  @media (max-width: 375px) {
-    height: 100%;
-  }
+  background: #fff;
 `;
 
 const Content = styled.div`
@@ -60,7 +59,7 @@ const ConteinerIndividualLetter = styled.div`
   }
 `;
 
-const Image = styled.p`
+const Image = styled.img`
   width: 100%;
   max-width: 425px;
   height: 10.9375rem;
@@ -93,23 +92,21 @@ const ContentButton = styled.div`
   }
 `;
 
-const CorrectAnswer = () => {
+const CorrectAnswer = ({answer, image, handlerNextActivitie}) => {
   return (
     <Container>
-      <Header />
+      {/* <Header /> */}
       <Content>
         <Title>
           O que é o que é?
         </Title>
         <TextRightAnswer>Resposta Correta</TextRightAnswer>
         <ConteinerIndividualLetter>
-          <IndividualLetter letter='d' background='#3daf1b' boxShadow='0 5px 0 #26770f' />
-          <IndividualLetter letter='i' background='#3daf1b' boxShadow='0 5px 0 #26770f' />
-          <IndividualLetter letter='s' background='#3daf1b' boxShadow='0 5px 0 #26770f' />
-          <IndividualLetter letter='c' background='#3daf1b' boxShadow='0 5px 0 #26770f' />
-          <IndividualLetter letter='o' background='#3daf1b' boxShadow='0 5px 0 #26770f' />
+          {answer.split('').map((item, index) => (
+            <IndividualLetter key={index} letter={item} background='#3daf1b' boxShadow='0 5px 0 #26770f' />)
+          )}
         </ConteinerIndividualLetter>
-        <Image />
+        <Image src={image}/>
         <Text padding='1rem 0 0 0'>
           Você sabia que em Belo Horizonte existe uma feira anual dedicada aos amantes do velho e bom disco vinil?
         </Text>
@@ -120,12 +117,13 @@ const CorrectAnswer = () => {
           <Button
             background='#3daf1b'
             boxShadow='0 10px 0 #26770f'
+            handleClick={handlerNextActivitie}
           >
             Continuar trilha
           </Button>
         </ContentButton>
       </Content>
-      <Footer />
+      {/* <Footer /> */}
     </Container>
   );
 }

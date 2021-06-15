@@ -4,12 +4,9 @@ import { connect } from 'react-redux';
 import { getActivitiesThunk } from '../../dataflow/thunks/activities-thunk'
 import styled from 'styled-components';
 
-
 //Components
-import Header from '../../components/header/index';
 import TrailsWhatIs from '../../components/trails/whatIsWhatIs';
 import WhoseEyesAreThese from '../../components/trails/whoseEyesAreThese';
-import Footer from '../../components/footer/index';
 
 const mapDispatchToProps = dispatch => ({
   getActivities: (trailId) => dispatch(getActivitiesThunk(trailId))
@@ -28,7 +25,6 @@ const ActivitieDescription = styled.div`
 `
 
 const Container = styled.div`
-  /* margin: auto; */
   display: flex;
   background-color: #fff;
   overflow: hidden;
@@ -66,20 +62,6 @@ const Acitivities = (props) => {
   //   setIsAnswer(listLetter[nextQuestion + 1])
   // };
 
-  const renderActivitie = (currentActivitie) => {
-    // Renderizar component de acordo com o tipo de ativivdade
-    switch (currentActivitie.type) {
-      case "de-quem-sao-estes-olhos":
-        return <WhoseEyesAreThese activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
-
-      case "O que é o que é?":
-        return  <TrailsWhatIs handleNextQuestion={handleNextQuestion} isAnswer={isAnswer} history={props.history}/>
-    
-      default:
-        return <h1>{currentActivitie.question}</h1>;
-    }
-  } 
-
   const handlerNextActivitie = () => {
     if(hasNextActivitie) {
       setCurrentActivitie(currentActivitie+1)
@@ -89,6 +71,21 @@ const Acitivities = (props) => {
   const hasNextActivitie = () => {
     return true
   }
+
+  const renderActivitie = (currentActivitie) => {
+    // Renderizar component de acordo com o tipo de ativivdade
+    switch (currentActivitie.type) {
+      case "de-quem-sao-estes-olhos":
+        return <WhoseEyesAreThese activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
+
+      case "O que é o que é?":
+        return  <TrailsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+    
+      default:
+        return <h1>{currentActivitie.question}</h1>;
+    }
+  } 
+
   const handleNextQuestion = () => {
     setNextQuestion(nextQuestion + 1);
     setIsAnswer(listLetter[nextQuestion + 1])
@@ -113,18 +110,12 @@ const Acitivities = (props) => {
   
   return (
     <Container>
-      
-      {/* <TrailsWhatIs
-        renderQuestion={nextQuestion}
-        isAnswer={isAnswer}
-      /> */}
       {
         activities && activities.length > 0
         // activities
         ? renderActivitie(activities[currentActivitie+1])
         : (<h1>Carregando</h1>) 
       }
-
       <button
         onClick={handlerNextActivitie}
       >próxima questão</button>

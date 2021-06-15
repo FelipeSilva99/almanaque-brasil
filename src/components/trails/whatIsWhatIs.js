@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 //Components
-import IndividualLetter from '../../components/letter/individualLetter';
-import Button from '../../components/buttons/button';
+import IndividualLetter from '../letter/individualLetter';
+import Button from '../buttons/button';
+import CorrectAnswer from '../trails/correctAnswer';
 
 // Styles
 const Container = styled.div`
+  padding-top: 2rem;
   position: relative;
-  height: 100%;
+  width: 90vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -88,16 +91,17 @@ const AnswerOption = styled.button`
   box-shadow: ${props => props.isSelected ? '0 5px 0 #9c9c9c' : '0 5px 0 #9a72f6'};
 `;
 
-const TrailsWhatIs = ({ isAnswer, handleNextQuestion, history }) => {
+const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const [answer, setAnswer] = useState([]);
   const [letterOption, setLetterOption] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState([]);
-  const [isError, setIsError] = useState(undefined);
   const [answerResult, setAnswerResult] = useState('');
+  const [activitie, setActivitie] = useState(null);
+  const [isModal, setIsModal] = useState(null);
 
   const handleAnswerSize = () => {
     let answerSplit = [];
-    isAnswer?.split('').forEach((a, i) => {
+    isActivitie?.correctAnswer?.split('').forEach((a, i) => {
       answerSplit.push({ id: i, value: '' });
     });
 
@@ -106,7 +110,7 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion, history }) => {
 
   const handleShuffleLetter = () => {
     const alphabetLetters = choosingAlphabetLetters(5);
-    const letterOption = isAnswer + alphabetLetters;
+    const letterOption = isActivitie?.correctAnswer + alphabetLetters;
     const lettersArray = letterOption.split('');
     const shuffleLetter = radom(lettersArray).split('');
 
@@ -116,7 +120,8 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion, history }) => {
   useEffect(() => {
     setLetterOption(handleShuffleLetter());
     setAnswer(handleAnswerSize());
-  }, [isAnswer]);
+    setActivitie(isActivitie);
+  }, [isActivitie?.correctAnswer]);
 
   const handleClenAnswer = () => {
     setAnswer([]);
@@ -125,12 +130,13 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion, history }) => {
 
   const handleClick = (event) => {
     event.stopPropagation();
+    const isAnswer = isActivitie?.correctAnswer;
     const selectedAnswer = selectedLetter.map(item => item.value).join("");
 
     if (selectedAnswer === isAnswer) {
       // handleNextQuestion();
-      history.push('/trails');
-      // handleClenAnswer();
+      setIsModal(true);
+      handleClenAnswer();
     } else if (answerResult === 'wrong') {
       setAnswerResult('');
       setSelectedLetter([]);
@@ -140,6 +146,11 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion, history }) => {
       setAnswerResult('wrong');
     }
   };
+
+  const handlerNextActivitie = () => {
+    setIsModal(false);
+    handleNextQuestion();
+  }
 
   const choosingAlphabetLetters = (quantity) => {
     let result = [];
@@ -210,9 +221,9 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion, history }) => {
   };
 
   const squareAnswer = (letter) => {
-    const background = answerResult === 'wrong' && '#ec8383' || letter.value && '#c7adfc';
-    const boxShadow = answerResult === 'wrong' && '0 5px 0 #bb6060' || letter.value && '0 5px 0 #9a72f6';
-    const border = answerResult === 'wrong' || letter.value ? '1px solid #c7adfc' : '1px dashed #272727';
+    const background = (answerResult === 'wrong' && '#ec8383') || (letter.value && '#c7adfc');
+    const boxShadow = (answerResult === 'wrong' && '0 5px 0 #bb6060') || (letter.value && '0 5px 0 #9a72f6');
+    const border = (answerResult === 'wrong' || letter.value) ? '1px solid #c7adfc' : '1px dashed #272727';
 
     return (
       <IndividualLetter
@@ -224,16 +235,16 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion, history }) => {
     )
   }
 
-  const backgroundButton = answerResult === 'checkAnswer' && '#19918d' || answerResult === 'wrong' && '#ec8383';
-	const boxShadowButton = answerResult === 'checkAnswer' && '0 12px 0 #275653' || answerResult === 'wrong' && '0 12px 0 #bb6060';
+  const backgroundButton = (answerResult === 'checkAnswer' && '#19918d') || (answerResult === 'wrong' && '#ec8383');
+  const boxShadowButton = (answerResult === 'checkAnswer' && '0 12px 0 #275653') || (answerResult === 'wrong' && '0 12px 0 #bb6060');
 
   return (
     <Container>
       <Title>O que é o que é?</Title>
-      {console.log('oi', history)}
+      {console.log('activitie 212121', activitie)}
       <Content>
         <Question>
-          O que é redondo e chato, mas faz todo mundo dançar?
+          {activitie?.question}
         </Question>
         <BoxAnswer>
           {answerResult === 'wrong' && <TextError>Resposta errada</TextError>}
@@ -247,12 +258,12 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion, history }) => {
         <Button
           background={backgroundButton}
           boxShadow={boxShadowButton}
-          isError={isError}
           handleClick={handleClick}
         >
           {answerResult === 'wrong' ? 'Tente novamente' : 'Conferir Resposta'}
         </Button>
       </Content>
+      {isModal && <CorrectAnswer answer={activitie?.correctAnswer} image={activitie?.image} handlerNextActivitie={handlerNextActivitie}/>}
     </Container>
   );
 }

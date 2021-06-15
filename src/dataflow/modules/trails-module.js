@@ -1,7 +1,6 @@
 // Action Type
 const CREATE_NEW_TRAILS = 'almanaque/trails/CREATE_NEW_TRAILS';
 const GET_TRAILS = 'almanaque/trails/GET_TRAILS';
-const GET_ACTIVITIES = 'almanaque/activities/GET_ACTIVITIES'
 
 // Store
 const initialState = {

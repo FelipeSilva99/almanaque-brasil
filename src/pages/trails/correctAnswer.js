@@ -93,7 +93,7 @@ const ContentButton = styled.div`
   }
 `;
 
-const CorrectAnswer = () => {
+const CorrectAnswer = ({history}) => {
   return (
     <Container>
       <Header />

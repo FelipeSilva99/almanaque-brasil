@@ -27,7 +27,6 @@ const ActivitieDescription = styled.div`
 `
 
 const Container = styled.div`
-  /* margin: auto; */
   background-color: #fff;
   overflow: hidden;
   width: 100vw;
@@ -112,18 +111,12 @@ const Acitivities = (props) => {
   
   return (
     <Container>
-      
-      {/* <TrailsWhatIs
-        renderQuestion={nextQuestion}
-        isAnswer={isAnswer}
-      /> */}
       {
         // activities && activities.length > 0
         activities
         ? renderActivitie(activities[currentActivitie+1])
         : (<h1>Carregando</h1>) 
       }
-
       <button
         onClick={handlerNextActivitie}
       >próxima questão</button>

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Redirect } from 'react-router';
 
 //Components
-import IndividualLetter from '../../components/letter/individualLetter';
-import Button from '../../components/buttons/button';
+import IndividualLetter from '../letter/individualLetter';
+import Button from '../buttons/button';
 
 // Styles
 const Container = styled.div`
   position: relative;
-  height: 100%;
+  height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -128,9 +129,9 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion, history }) => {
     const selectedAnswer = selectedLetter.map(item => item.value).join("");
 
     if (selectedAnswer === isAnswer) {
-      // handleNextQuestion();
-      history.push('/trails');
-      // handleClenAnswer();
+      handleNextQuestion();
+      // history.push('/activities/correctAnswer');
+      handleClenAnswer();
     } else if (answerResult === 'wrong') {
       setAnswerResult('');
       setSelectedLetter([]);
@@ -253,6 +254,8 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion, history }) => {
           {answerResult === 'wrong' ? 'Tente novamente' : 'Conferir Resposta'}
         </Button>
       </Content>
+      
+      
     </Container>
   );
 }

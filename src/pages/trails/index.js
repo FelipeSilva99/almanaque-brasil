@@ -1,58 +1,35 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import * as TrailsStyles from './styles';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import styled from 'styled-components';
 
-import {
-  getTrailsThunk
-} from '../../dataflow/thunks/trails-thunk';
+//Components
+import Header from '../../components/header/index';
+import Footer from '../../components/footer/index';
 
-const mapStateToProps = state => ({
-  trails: state.trails
-});
+// Styles
+const Container = styled.div`
+  background-color: #fff;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
 
-const mapDispatchToProps = dispatch => ({
-  getTrailsThunk: () => {
-    dispatch(getTrailsThunk());
-  },
-
-});
-
-function Trails(props) {
-  const handleClick = () => {
-    props.getTrailsThunk();
+  @media (max-width: 375px) {
+    height: 100%;
   }
+`;
 
-  useEffect(() => {
-    props.getTrailsThunk();
-  }, []);
-
-
-  const returnTrails = (trails) => {
-    return trails.map((trail, key) => {
-      return (
-        <Link to={`/activities/${trail.id}`}>
-          <TrailsStyles.Trail key={key}>
-            <h2>{`Trilha ${trail.id}`}</h2>
-          </TrailsStyles.Trail>
-        </Link>
-      )
-    })
-  }
-
+const Layout = (props) => {
   return (
-    <TrailsStyles.Box>
-      <h1>Trails</h1>
-      <div>
-        {
-          props.trails && props.trails.data ? returnTrails(props.trails.data) : <p>carregando...</p>
-        }
-      </div>
-    </TrailsStyles.Box>
+    <Container>
+      {/* <button
+        onClick={handlerNextActivitie}
+      >próxima questão</button> */}
+
+    </Container>
   );
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Trails);
+export default Layout;

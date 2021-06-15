@@ -62,20 +62,6 @@ const Acitivities = (props) => {
   //   setIsAnswer(listLetter[nextQuestion + 1])
   // };
 
-  const renderActivitie = (currentActivitie) => {
-    // Renderizar component de acordo com o tipo de ativivdade
-    switch (currentActivitie.type) {
-      case "de-quem-sao-estes-olhos":
-        return <WhoseEyesAreThese activitie={currentActivitie}/>
-
-      case "O que é o que é?":
-        return  <TrailsWhatIs handleNextQuestion={handleNextQuestion} isAnswer={isAnswer} history={props.history}/>
-    
-      default:
-        return <h1>{currentActivitie.question}</h1>;
-    }
-  } 
-
   const handlerNextActivitie = () => {
     if(hasNextActivitie) {
       setCurrentActivitie(currentActivitie+1)
@@ -85,6 +71,21 @@ const Acitivities = (props) => {
   const hasNextActivitie = () => {
     return true
   }
+
+  const renderActivitie = (currentActivitie) => {
+    // Renderizar component de acordo com o tipo de ativivdade
+    switch (currentActivitie.type) {
+      case "de-quem-sao-estes-olhos":
+        return <WhoseEyesAreThese activitie={currentActivitie}/>
+
+      case "O que é o que é?":
+        return  <TrailsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+    
+      default:
+        return <h1>{currentActivitie.question}</h1>;
+    }
+  } 
+
   const handleNextQuestion = () => {
     setNextQuestion(nextQuestion + 1);
     setIsAnswer(listLetter[nextQuestion + 1])

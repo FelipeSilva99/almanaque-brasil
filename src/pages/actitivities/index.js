@@ -19,6 +19,7 @@ const mapStateToProps = state => ({
   activities: state.activities
 })
 
+
 // Styles
 const ActivitieDescription = styled.div`
   margin: 10px 1% 0 1%;
@@ -114,8 +115,8 @@ const Acitivities = (props) => {
         isAnswer={isAnswer}
       /> */}
       {
-        // activities && activities.length > 0
-        activities
+        activities && activities.length > 0
+        // activities
         ? renderActivitie(activities[currentActivitie+1])
         : (<h1>Carregando</h1>) 
       }

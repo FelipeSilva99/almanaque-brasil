@@ -79,6 +79,7 @@ const ContentAnswerOption = styled.button`
 `;
 
 const WhoseEyesAreThese = (props) => {
+  const [attempt, setAttempt] = useState(null)
   const [answers, setAnswers] = useState({
     loading: true,
     data: [],
@@ -110,31 +111,71 @@ const WhoseEyesAreThese = (props) => {
   }, []);
 
   const handleCheckAnswer = (isCorrectAnswer) => {
-    console.log(isCorrectAnswer)
     if(isCorrectAnswer) {
-      return alert('certo')
+      return setAttempt(true)
     } else {
-      return alert('errado')
+      return setAttempt(false)
     }
+  }
+
+  const setScreen = () => {
+    switch (attempt) {
+      case true:
+        return correctAnswerScreen()
+
+      case false:
+        return wrongAnswerScreen()
+    
+      default:
+        return answersScreen()
+
+    }
+  }
+
+  const answersScreen = () => {
+    return (
+      <BoxAnswers>
+        {
+          answers.data && answers.data.length > 0 && (
+            answers.data[0].map((answer) => {
+              return (
+                <ContentAnswerOption
+                  onClick={() => handleCheckAnswer(answer.isCorrectAnswer)}
+                  key={answer.id}
+                >
+                  {answer.answer}
+                </ContentAnswerOption>)
+            })
+          )
+        }
+      </BoxAnswers>
+    ); 
+  }
+
+  const correctAnswerScreen = () => {
+    return (
+      <div>
+        <h1>RESPOSTA CORRETA</h1>
+      </div>
+    )
+  }
+
+  const wrongAnswerScreen = () => {
+    return (
+      <div>
+        <h1>RESPOSTA ERRADA</h1>
+        <button
+          onClick={() => setAttempt(null)}
+        >Tentar novamente</button>
+      </div>
+    )
   }
 
   return(
     <>
       <Header>{props.activitie.question}</Header>
         <Img src={props.activitie.image}></Img>
-        <BoxAnswers>
-          {/* Get answers and map */}
-          {
-            answers.data && answers.data.length > 0 && (
-              answers.data[0].map((answer) => {
-                return (
-                  <ContentAnswerOption onClick={() => handleCheckAnswer(answer.isCorrectAnswer)} key={answer.id}>
-                    {answer.answer}
-                  </ContentAnswerOption>)
-              })
-            )
-          }
-        </BoxAnswers>
+        { setScreen() }
     </>
   );
 }

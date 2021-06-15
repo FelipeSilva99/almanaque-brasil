@@ -1,10 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-//Components
-import Header from '../../components/header/index';
-import Footer from '../../components/footer/index';
-
 // Styles
 const Container = styled.div`
   background-color: #fff;
@@ -27,7 +23,6 @@ const Layout = (props) => {
       {/* <button
         onClick={handlerNextActivitie}
       >próxima questão</button> */}
-
     </Container>
   );
 }

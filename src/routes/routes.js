@@ -10,7 +10,6 @@ import Home from '../pages/home';
 import Trails from '../pages/trails';
 import Activities from '../pages/actitivities';
 import CorrectAnswer from '../pages/trails/correctAnswer';
-import { fetchWrapper } from 'workbox-core/_private';
 
 // import PrivateRoute from './PrivateRoute';
 

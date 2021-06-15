@@ -4,12 +4,9 @@ import { connect } from 'react-redux';
 import { getActivitiesThunk } from '../../dataflow/thunks/activities-thunk'
 import styled from 'styled-components';
 
-
 //Components
-import Header from '../../components/header/index';
 import TrailsWhatIs from '../../components/trails/whatIsWhatIs';
 import WhoseEyesAreThese from '../../components/trails/whoseEyesAreThese';
-import Footer from '../../components/footer/index';
 
 const mapDispatchToProps = dispatch => ({
   getActivities: (trailId) => dispatch(getActivitiesThunk(trailId))

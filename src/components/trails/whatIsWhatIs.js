@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Redirect } from 'react-router';
 
 //Components
 import IndividualLetter from '../letter/individualLetter';
@@ -93,7 +92,7 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion, history }) => {
   const [answer, setAnswer] = useState([]);
   const [letterOption, setLetterOption] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState([]);
-  const [isError, setIsError] = useState(undefined);
+  const [isError] = useState(undefined);
   const [answerResult, setAnswerResult] = useState('');
 
   const handleAnswerSize = () => {
@@ -211,9 +210,9 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion, history }) => {
   };
 
   const squareAnswer = (letter) => {
-    const background = answerResult === 'wrong' && '#ec8383' || letter.value && '#c7adfc';
-    const boxShadow = answerResult === 'wrong' && '0 5px 0 #bb6060' || letter.value && '0 5px 0 #9a72f6';
-    const border = answerResult === 'wrong' || letter.value ? '1px solid #c7adfc' : '1px dashed #272727';
+    const background = (answerResult === 'wrong' && '#ec8383') || (letter.value && '#c7adfc');
+    const boxShadow = (answerResult === 'wrong' && '0 5px 0 #bb6060') || (letter.value && '0 5px 0 #9a72f6');
+    const border = (answerResult === 'wrong' || letter.value) ? '1px solid #c7adfc' : '1px dashed #272727';
 
     return (
       <IndividualLetter
@@ -225,13 +224,12 @@ const TrailsWhatIs = ({ isAnswer, handleNextQuestion, history }) => {
     )
   }
 
-  const backgroundButton = answerResult === 'checkAnswer' && '#19918d' || answerResult === 'wrong' && '#ec8383';
-	const boxShadowButton = answerResult === 'checkAnswer' && '0 12px 0 #275653' || answerResult === 'wrong' && '0 12px 0 #bb6060';
+  const backgroundButton = (answerResult === 'checkAnswer' && '#19918d') || (answerResult === 'wrong' && '#ec8383');
+	const boxShadowButton = (answerResult === 'checkAnswer' && '0 12px 0 #275653') || (answerResult === 'wrong' && '0 12px 0 #bb6060');
 
   return (
     <Container>
       <Title>O que é o que é?</Title>
-      {console.log('oi', history)}
       <Content>
         <Question>
           O que é redondo e chato, mas faz todo mundo dançar?

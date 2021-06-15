@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-//Components
-import Button from '../buttons/button';
-
 // Styles
 const Container = styled.div`
   width: inherit;

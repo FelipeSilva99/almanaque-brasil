@@ -13,7 +13,6 @@ export const getActivitiesThunk = (trailId) => async (dispatch) => {
 				Authorization: "Bearer valeu",
 			},
 		})
-    console.log(response.data)
     dispatch(getActivities(response.data));
   }
   catch (err) {

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { act } from 'react-dom/cjs/react-dom-test-utils.production.min';
 import axios from 'axios';
 import styled from 'styled-components';
 
-
-
+//Styled
 const Back = styled.p`
   font-size: 3.125rem;
   font-weight: 700;
@@ -57,7 +55,7 @@ const Header = (props) => {
     <Container>
       <Back>{'<'}</Back>
       {props.children}
-      {/* <Time>{'/||'}</Time> */}
+      <Time>{'/||'}</Time>
     </Container>
   );
 }
@@ -110,7 +108,6 @@ const WhoseEyesAreThese = (props) => {
   }, []);
 
   const handleCheckAnswer = (isCorrectAnswer) => {
-    console.log(isCorrectAnswer)
     if(isCorrectAnswer) {
       return alert('certo')
     } else {

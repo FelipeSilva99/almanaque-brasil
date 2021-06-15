@@ -1,7 +1,7 @@
 const GET_ACTIVITIES = 'almanaque/activities/GET_ACTIVITIES'
 
 const INITIAL_STATE = {
-  activities: []
+  data: []
 }
 
 // Reducer
@@ -20,9 +20,14 @@ export default function reducer(state=INITIAL_STATE, action) {
 
 // Actions
 export const getActivities = (data) => {
-  console.log("[ACTION] getActivities")
   return {
     type: GET_ACTIVITIES,
     data: data
   }
 } 
+
+// export const cleanActivities = () => {
+//   return {
+//     type: CLEAN_ACTIVITIES,
+//   }
+// }

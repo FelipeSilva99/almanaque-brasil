@@ -29,18 +29,18 @@ const ActivitieDescription = styled.div`
 
 const Container = styled.div`
   /* margin: auto; */
+  display: flex;
   background-color: #fff;
   overflow: hidden;
   width: 100vw;
   height: 100vh;
-  display: flex;
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
 
-  @media (max-width: 375px) {
+  /* @media (max-width: 375px) {
     height: 100%;
-  }
+  } */
 `;
 
 const Acitivities = (props) => {
@@ -70,7 +70,7 @@ const Acitivities = (props) => {
     // Renderizar component de acordo com o tipo de ativivdade
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
-        return <WhoseEyesAreThese activitie={currentActivitie}/>
+        return <WhoseEyesAreThese activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
       case "O que é o que é?":
         return  <TrailsWhatIs handleNextQuestion={handleNextQuestion} isAnswer={isAnswer} history={props.history}/>

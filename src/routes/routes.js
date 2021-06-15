@@ -9,7 +9,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from '../pages/home';
 import Trails from '../pages/trails';
 import Activities from '../pages/actitivities';
-import { fetchWrapper } from 'workbox-core/_private';
 
 // import PrivateRoute from './PrivateRoute';
 
@@ -18,7 +17,7 @@ const Routes = () => (
 		<Switch>
 			{/* <Route exact path='/' component={Login} /> */}
 			<Route exact path='/' component={Home} />
-			{/* <Route exact path='/trails' component={Trails} /> */}
+			<Route exact path='/trails' component={Trails} />
 			<Route exact path='/activities/:trailId' component={Activities} />
 			{/* <PrivateRoute path='/documents' component={DocumentsScreen} /> */}
 		</Switch>

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { act } from 'react-dom/cjs/react-dom-test-utils.production.min';
+import axios from 'axios';
 import styled from 'styled-components';
 
 
@@ -77,16 +79,61 @@ const ContentAnswerOption = styled.button`
 `;
 
 const WhoseEyesAreThese = (props) => {
+  const [answers, setAnswers] = useState({
+    loading: true,
+    data: [],
+    error: false
+  });
+  useEffect(() => {
+    const activitie = props.activitie
+    axios({
+      method: 'get',
+      url: `https://a19dfcwa29.execute-api.us-east-1.amazonaws.com/dev/answers/${activitie.id}`,
+      headers: {
+        Authorization: "Bearer valeu",
+      },
+    })
+    .then((response) => {
+      setAnswers({
+        loading: false,
+        data: [response.data],
+        error: false
+      });
+    })
+    .catch(err => {
+      setAnswers({
+        loading: false,
+        data: [],
+        error: true
+      });
+    })
+  }, []);
+
+  const handleCheckAnswer = (isCorrectAnswer) => {
+    console.log(isCorrectAnswer)
+    if(isCorrectAnswer) {
+      return alert('certo')
+    } else {
+      return alert('errado')
+    }
+  }
 
   return(
     <>
       <Header>{props.activitie.question}</Header>
         <Img src={props.activitie.image}></Img>
         <BoxAnswers>
-            <ContentAnswerOption>CLARA NUNES</ContentAnswerOption>
-            <ContentAnswerOption>CARMEN MIRANDA</ContentAnswerOption>
-            <ContentAnswerOption>BETH CARVALHO</ContentAnswerOption>
-            <ContentAnswerOption>ALCIONE</ContentAnswerOption>
+          {/* Get answers and map */}
+          {
+            answers.data && answers.data.length > 0 && (
+              answers.data[0].map((answer) => {
+                return (
+                  <ContentAnswerOption onClick={() => handleCheckAnswer(answer.isCorrectAnswer)} key={answer.id}>
+                    {answer.answer}
+                  </ContentAnswerOption>)
+              })
+            )
+          }
         </BoxAnswers>
     </>
   );

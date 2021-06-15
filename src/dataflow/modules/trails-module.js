@@ -5,7 +5,7 @@ const GET_ACTIVITIES = 'almanaque/activities/GET_ACTIVITIES'
 
 // Store
 const initialState = {
-  trails: [],
+  data: [],
   isTrails: undefined,
 };
 

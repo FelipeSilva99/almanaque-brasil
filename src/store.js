@@ -1,25 +1,39 @@
-import {createStore, applyMiddleware, combineReducers} from 'redux';
 
+// Libs
+import {
+	compose, createStore, applyMiddleware, combineReducers,
+} from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import {logger} from 'redux-logger';
-import {composeWithDevTools} from 'remote-redux-devtools';
+// redux-persist
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'
 
 // Reducers
-import Trails from './modules/trails-module';
+import TrailsReducer from './dataflow/modules/trails-module';
+import ActivitiesReducer from './dataflow/modules/activities-module';
 
 const reducers = combineReducers({
-  trails: Trails,
+  trails: TrailsReducer,
+	activities: ActivitiesReducer
 });
 
-function configureStore(initialState) {
-  const bundle = composeWithDevTools(applyMiddleware(thunkMiddleware, logger));
-  const createStoreWithMiddleware = bundle(createStore);
-  const store = createStoreWithMiddleware(
-    reducers,
-    initialState,
-    window.devToolsExtension ? window.devToolsExtension() : f => f,
-  );
-  return store;
+const persistConfig = {
+  key: 'root',
+  storage,
 }
 
-export default configureStore({});
+const persistedReducer = persistReducer(persistConfig, reducers);
+
+export function configureStore() {
+	const bundle = compose(applyMiddleware(thunkMiddleware));
+	const createStoreWithMiddleware = bundle(createStore);
+	const store = createStoreWithMiddleware(
+		persistedReducer,
+		{},
+		window.devToolsExtension ? window.devToolsExtension() : f => f,
+	);
+
+	return store;
+}
+
+export const persistor = persistStore(configureStore());

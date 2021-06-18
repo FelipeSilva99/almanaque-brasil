@@ -69,7 +69,6 @@ const Acitivities = (props) => {
   
   return (
     <Container>
-    {console.log('activities', activities)}
       {
         activities && activities.length > 0
         ? renderActivitie(activities[currentActivitie+1])

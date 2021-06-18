@@ -1,6 +1,8 @@
 // Libs
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 
 // Onboarding
 // import Login from '../screens/onboarding/Login/LoginScreen';
@@ -11,17 +13,35 @@ import Trails from '../pages/trails';
 import Activities from '../pages/actitivities';
 
 // import PrivateRoute from './PrivateRoute';
+import {
+  getTrailsThunk,
+} from '../dataflow/thunks/trails-thunk';
 
-const Routes = () => (
-	<BrowserRouter>
-		<Switch>
-			{/* <Route exact path='/' component={Login} /> */}
-			<Route exact path='/' component={Home} />
-			<Route exact path='/trails' component={Trails} />
-			<Route exact path='/activities/:trailId' component={Activities} />
-			{/* <PrivateRoute path='/documents' component={DocumentsScreen} /> */}
-		</Switch>
-	</BrowserRouter>
-);
+const mapDispatchToProps = dispatch => ({
+  getTrailsThunk: () => {
+    dispatch(getTrailsThunk());
+  },
+});
 
-export default Routes;
+const Routes = (props) => {
+	useEffect(() => {
+    props.getTrailsThunk();
+	}, []);
+
+	return (
+		<BrowserRouter>
+			<Switch>
+				{/* <Route exact path='/' component={Login} /> */}
+				<Route exact path='/' component={Home} />
+				<Route exact path='/trails' component={Trails} />
+				<Route exact path='/activities/:trailId' component={Activities} />
+				{/* <PrivateRoute path='/documents' component={DocumentsScreen} /> */}
+			</Switch>
+		</BrowserRouter>
+	)
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Routes);

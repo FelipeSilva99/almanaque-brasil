@@ -34,9 +34,7 @@ export const createTrails = () => ({
   type: CREATE_NEW_TRAILS,
 });
 
-
 export const getTrails = (data) => {
-  console.log("[ACTION] getTrails");
   return {
     type: GET_TRAILS,
     trails: data

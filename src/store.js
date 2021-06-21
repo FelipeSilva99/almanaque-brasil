@@ -24,16 +24,13 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
-export function configureStore() {
-	const bundle = compose(applyMiddleware(thunkMiddleware));
-	const createStoreWithMiddleware = bundle(createStore);
-	const store = createStoreWithMiddleware(
-		persistedReducer,
-		{},
-		window.devToolsExtension ? window.devToolsExtension() : f => f,
-	);
 
-	return store;
-}
+const bundle = compose(applyMiddleware(thunkMiddleware));
+const createStoreWithMiddleware = bundle(createStore);
+export const store = createStoreWithMiddleware(
+	persistedReducer,
+	{},
+	window.devToolsExtension ? window.devToolsExtension() : f => f,
+);
 
-export const persistor = persistStore(configureStore());
+export const persistor = persistStore(store);

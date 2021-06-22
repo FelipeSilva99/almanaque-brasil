@@ -58,9 +58,12 @@ const Acitivities = (props) => {
       case "de-quem-sao-estes-olhos":
         return <WhoseEyesAreThese activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
-      case "O que é o que é?":
+      case "o-que-e-o-que-e":
         return  <TrailsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
     
+      case "coisas-nossas":
+        return  console.log('coisas-nossas');
+
       default:
         return <h1>{currentActivitie.question}</h1>;
     }

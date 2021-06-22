@@ -1,18 +1,18 @@
-const GET_ACTIVITIES = 'almanaque/activities/GET_ACTIVITIES'
+const GET_ACTIVITIES = 'almanaque/activities/GET_ACTIVITIES';
 
 const INITIAL_STATE = {
-  data: []
+  data: [],
 }
 
 // Reducer
-export default function reducer(state=INITIAL_STATE, action) {
+export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_ACTIVITIES:
       return {
         ...state,
-        data: action.data
+        data: action.data,
       }
-  
+
     default:
       return state;
   }
@@ -24,10 +24,4 @@ export const getActivities = (data) => {
     type: GET_ACTIVITIES,
     data: data
   }
-} 
-
-// export const cleanActivities = () => {
-//   return {
-//     type: CLEAN_ACTIVITIES,
-//   }
-// }
+}

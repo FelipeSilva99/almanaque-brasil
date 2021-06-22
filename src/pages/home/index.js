@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {
-  getTrailsThunk
-} from '../../dataflow/thunks/trails-thunk';
 import { Link } from 'react-router-dom';
 import {
   Card,
@@ -15,17 +12,7 @@ const mapStateToProps = state => ({
   trails: state.trails
 });
 
-const mapDispatchToProps = dispatch => ({
-  getTrailsThunk: () => {
-    dispatch(getTrailsThunk());
-  },
-});
 const Home = (props) => {
-
-  useEffect(() => {
-    props.getTrailsThunk()
-  }, [])
-
   const returnTrails = (trails) => {
     return trails.map((trail, key) => {
       return (
@@ -65,5 +52,4 @@ const Home = (props) => {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
 )(Home);

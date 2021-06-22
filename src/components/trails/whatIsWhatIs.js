@@ -241,7 +241,6 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   return (
     <Container>
       <Title>O que é o que é?</Title>
-      {console.log('activitie 212121', activitie)}
       <Content>
         <Question>
           {activitie?.question}

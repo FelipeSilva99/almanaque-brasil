@@ -1,21 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getActivitiesThunk } from '../../dataflow/thunks/activities-thunk'
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 //Components
 import TrailsWhatIs from '../../components/actitivities/whatIsWhatIs';
 import WhoseEyesAreThese from '../../components/actitivities/whoseEyesAreThese';
 
-const mapDispatchToProps = dispatch => ({
-  getActivities: (trailId) => dispatch(getActivitiesThunk(trailId))
-});
-
 const mapStateToProps = state => ({
-  activities: state.activities
+  activities: state.trails,
 })
 
 // Styles
@@ -30,22 +22,23 @@ const Container = styled.div`
   box-sizing: border-box;
 `;
 
-const Acitivities = (props) => {
-  const { trailId } = useParams();
+const Activities = (props) => {
   const [activities, setActivities] = useState(null);
   const [currentActivitie, setCurrentActivitie] = useState(0);
 
   useEffect(() => {
-    props.getActivities(trailId);
-  }, []);
+    const { trail } = props.history.location.state;
+    const allActivities = props.activities.data[trail].activities;
 
-  useEffect(() => {
-    setActivities(props.activities.data);
-  })
+    setActivities(allActivities);
+  }, []);
 
   const handlerNextActivitie = () => {
     if (hasNextActivitie) {
-      setCurrentActivitie(currentActivitie + 1)
+      setCurrentActivitie(currentActivitie + 1);
+      props.history.push({
+        pathname: `/activities/${currentActivitie + 1}`,
+      });
     }
   }
 
@@ -63,7 +56,7 @@ const Acitivities = (props) => {
         return <TrailsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "coisas-nossas":
-        return console.log('coisas-nossas');
+        return <p>coisas-nossas</p>;
 
       default:
         return <h1>{currentActivitie.question}</h1>;
@@ -71,11 +64,11 @@ const Acitivities = (props) => {
   }
 
   const renderBtnNextQuestion = () => (
-    <Link to={`/activities/${currentActivitie + 1}`}>
-      <button
-        onClick={handlerNextActivitie}
-      >próxima questão</button>
-    </Link>
+    <button
+      onClick={handlerNextActivitie}
+    >
+      próxima questão
+    </button>
   )
 
   return (
@@ -84,7 +77,7 @@ const Acitivities = (props) => {
         activities && activities.length > 0
           ? (
             <>
-              {renderActivitie(activities[currentActivitie + 1])}
+              {renderActivitie(activities[currentActivitie])}
               {renderBtnNextQuestion()}
             </>
           )
@@ -94,4 +87,4 @@ const Acitivities = (props) => {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Acitivities);
+export default connect(mapStateToProps)(Activities);

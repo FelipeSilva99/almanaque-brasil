@@ -14,14 +14,19 @@ const mapStateToProps = state => ({
 
 const Home = (props) => {
 
+  const handleClick = (trail) => {
+    props.history.push({
+      pathname: `/activities/${trail}`,
+      state: { trail: trail }
+    });
+  }
+
   const renderTrails = (trails) => {
     return trails.map((trail, key) => {
       return (
-        <Link key={key} to={`/activities/${trail.id}`}>
-          <Card>
-            <h2>{`Trilha ${trail.id}`}</h2>
-          </Card>
-        </Link>
+        <Card key={key} onClick={() => handleClick(trail.id)}>
+          <h2>{`Trilha ${trail.id}`}</h2>
+        </Card>
       )
     })
   }

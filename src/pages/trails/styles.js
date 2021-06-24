@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Card = styled.div`
+export const Card = styled.button`
   min-height: 150px;
   margin: 10px;
   border-radius: 25px;

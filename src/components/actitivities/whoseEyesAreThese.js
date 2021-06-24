@@ -84,18 +84,18 @@ const ContentAnswerOption = styled.button`
   box-shadow: ${props => props.isSelected ? '0 5px 0 #9c9c9c' : '0 5px 0 #9a72f6'};
 `;
 
-
-
 const WhoseEyesAreThese = (props) => {
   const [attempt, setAttempt] = useState({
     attempt: null,
     answer: null
   })
+
   const [answers, setAnswers] = useState({
     loading: true,
     data: [],
     error: false
   });
+
   useEffect(() => {
     const activitie = props.activitie
     axios({
@@ -218,7 +218,7 @@ const WhoseEyesAreThese = (props) => {
     )
   }
 
-  return setScreen()
+  return setScreen();
 }
 
 export default WhoseEyesAreThese;

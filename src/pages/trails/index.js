@@ -1,30 +1,63 @@
 import React from 'react';
-import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import {
+  Card,
+  Header,
+  Box,
+  Row
+} from './styles'
 
-// Styles
-const Container = styled.div`
-  background-color: #fff;
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  box-sizing: border-box;
+const mapStateToProps = state => ({
+  trails: state.trails
+});
 
-  @media (max-width: 375px) {
-    height: 100%;
+const Home = (props) => {
+
+  const renderTrails = (trails) => {
+    return trails.map((trail, key) => {
+      return (
+        <Link key={key} to={`/activities/${trail.id}`}>
+          <Card>
+            <h2>{`Trilha ${trail.id}`}</h2>
+          </Card>
+        </Link>
+      )
+    })
   }
-`;
 
-const Layout = (props) => {
+  const renderOptions = () => {
+    return (
+      <Row>
+        <Card>
+          <h2>Biblioteoca</h2>
+        </Card>
+        <Card>
+          <h2>Conteúdo por tema</h2>
+        </Card>
+      </Row>
+    )
+  }
+
+  const trails = props?.trails?.data;
+
   return (
-    <Container>
-      {/* <button
-        onClick={handlerNextActivitie}
-      >próxima questão</button> */}
-    </Container>
+    <Box>
+      <Header><h1>Olá Fulano!</h1></Header>
+      {
+        trails
+        ? (
+          <>
+            {renderTrails(trails)}
+            {renderOptions()}
+          </>
+        ) 
+        : <p>carregando...</p>
+      }
+    </Box>
   );
 }
 
-export default Layout;
+export default connect(
+  mapStateToProps,
+)(Home);

@@ -32,7 +32,7 @@ const Routes = (props) => {
 		<BrowserRouter>
 			<Switch>
 				{/* <Route exact path='/' component={Login} /> */}
-				<Route exact path='/' component={Home} />
+				<Route exact path='/' component={Trails} />
 				<Route exact path='/trails' component={Trails} />
 				<Route exact path='/activities/:trailId' component={Activities} />
 				{/* <PrivateRoute path='/documents' component={DocumentsScreen} /> */}

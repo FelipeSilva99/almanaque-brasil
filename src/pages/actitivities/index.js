@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -6,8 +7,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 //Components
-import TrailsWhatIs from '../../components/trails/whatIsWhatIs';
-import WhoseEyesAreThese from '../../components/trails/whoseEyesAreThese';
+import TrailsWhatIs from '../../components/actitivities/whatIsWhatIs';
+import WhoseEyesAreThese from '../../components/actitivities/whoseEyesAreThese';
 
 const mapDispatchToProps = dispatch => ({
   getActivities: (trailId) => dispatch(getActivitiesThunk(trailId))
@@ -33,7 +34,7 @@ const Acitivities = (props) => {
   const { trailId } = useParams();
   const [activities, setActivities] = useState(null);
   const [currentActivitie, setCurrentActivitie] = useState(0);
-  
+
   useEffect(() => {
     props.getActivities(trailId);
   }, []);
@@ -43,8 +44,8 @@ const Acitivities = (props) => {
   })
 
   const handlerNextActivitie = () => {
-    if(hasNextActivitie) {
-      setCurrentActivitie(currentActivitie+1)
+    if (hasNextActivitie) {
+      setCurrentActivitie(currentActivitie + 1)
     }
   }
 
@@ -56,34 +57,39 @@ const Acitivities = (props) => {
     // Renderizar component de acordo com o tipo de ativivdade
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
-        return <WhoseEyesAreThese activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
+        return <WhoseEyesAreThese activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} />
 
       case "o-que-e-o-que-e":
-        return  <TrailsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
-    
+        return <TrailsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+
       case "coisas-nossas":
-        return  console.log('coisas-nossas');
+        return console.log('coisas-nossas');
 
       default:
         return <h1>{currentActivitie.question}</h1>;
     }
   }
 
-  
+  const renderBtnNextQuestion = () => (
+    <Link to={`/activities/${currentActivitie + 1}`}>
+      <button
+        onClick={handlerNextActivitie}
+      >próxima questão</button>
+    </Link>
+  )
+
   return (
     <Container>
       {
         activities && activities.length > 0
-        ? renderActivitie(activities[currentActivitie+1])
-        : (<h1>Carregando</h1>) 
+          ? (
+            <>
+              {renderActivitie(activities[currentActivitie + 1])}
+              {renderBtnNextQuestion()}
+            </>
+          )
+          : <h1>Carregando</h1>
       }
-      <Link  to={`/activities/${currentActivitie+1}`}>
-        <button
-          onClick={handlerNextActivitie}
-        >próxima questão</button>
-
-      </Link>
-
     </Container>
   );
 }

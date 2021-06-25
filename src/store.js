@@ -1,7 +1,7 @@
 
 // Libs
 import {
-	compose, createStore, applyMiddleware, combineReducers,
+  compose, createStore, applyMiddleware, combineReducers,
 } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
@@ -13,12 +13,12 @@ import storage from 'redux-persist/lib/storage'
 import TrailsReducer from './dataflow/modules/trails-module';
 
 const reducers = combineReducers({
-	trails: TrailsReducer,
+  trails: TrailsReducer,
 });
 
 const persistConfig = {
-	key: 'root',
-	storage,
+  key: 'root',
+  storage,
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers);
@@ -26,9 +26,9 @@ const bundle = compose(applyMiddleware(thunkMiddleware));
 const createStoreWithMiddleware = bundle(createStore);
 
 export const store = createStoreWithMiddleware(
-	persistedReducer,
-	{},
-	window.devToolsExtension ? window.devToolsExtension() : f => f,
+  persistedReducer,
+  {},
+  window.devToolsExtension ? window.devToolsExtension() : f => f,
 );
 
 export const persistor = persistStore(store);

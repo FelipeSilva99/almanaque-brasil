@@ -14,18 +14,18 @@ import Activities from '../pages/actitivities';
 
 // import PrivateRoute from './PrivateRoute';
 import {
-  getTrailsThunk,
+	getTrailsThunk,
 } from '../dataflow/thunks/trails-thunk';
 
 const mapDispatchToProps = dispatch => ({
-  getTrailsThunk: () => {
-    dispatch(getTrailsThunk());
-  },
+	getTrailsThunk: () => {
+		dispatch(getTrailsThunk());
+	},
 });
 
 const Routes = (props) => {
 	useEffect(() => {
-    props.getTrailsThunk();
+		props.getTrailsThunk();
 	}, []);
 
 	return (
@@ -42,6 +42,6 @@ const Routes = (props) => {
 };
 
 export default connect(
-  null,
-  mapDispatchToProps
+	null,
+	mapDispatchToProps
 )(Routes);

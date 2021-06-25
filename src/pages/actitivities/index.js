@@ -8,6 +8,7 @@ import WhoseEyesAreThese from '../../components/actitivities/whoseEyesAreThese';
 
 const mapStateToProps = state => ({
   activities: state.trails,
+  selectedTrails: state.trails.selectedTrails,
 })
 
 // Styles
@@ -27,9 +28,9 @@ const Activities = (props) => {
   const [currentActivitie, setCurrentActivitie] = useState(0);
 
   useEffect(() => {
-    const { trail } = props.history.location.state;
+    const trail = props.selectedTrails;
     const allActivities = props.activities.data[trail].activities;
-
+    
     setActivities(allActivities);
   }, []);
 
@@ -63,6 +64,23 @@ const Activities = (props) => {
     }
   }
 
+  const renderScreen = (currentActivitie) => {
+    return (
+      <>
+        {
+          currentActivitie
+            ? (
+              <>
+                {renderActivitie(currentActivitie)}
+                {renderBtnNextQuestion()}
+              </>
+            )
+            : <h1>não tem mais atividades</h1>
+        }
+      </>
+    )
+  }
+
   const renderBtnNextQuestion = () => (
     <button
       onClick={handlerNextActivitie}
@@ -75,12 +93,7 @@ const Activities = (props) => {
     <Container>
       {
         activities && activities.length > 0
-          ? (
-            <>
-              {renderActivitie(activities[currentActivitie])}
-              {renderBtnNextQuestion()}
-            </>
-          )
+          ? renderScreen(activities[currentActivitie])
           : <h1>Carregando</h1>
       }
     </Container>

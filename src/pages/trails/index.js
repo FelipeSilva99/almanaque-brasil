@@ -59,18 +59,18 @@ const Home = (props) => {
 
   const trails = props?.trails;
 
+
   return (
+    console.log(trails),
     <Box>
       <Header><h1>Olá Fulano!</h1></Header>
       {
-        trails
-        ? (
+        trails && (
           <>
             {renderTrails(trails)}
             {renderOptions()}
           </>
         ) 
-        : <p>carregando...</p>
       }
     </Box>
   );

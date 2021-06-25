@@ -137,11 +137,11 @@ const WhoseEyesAreThese = (props) => {
   }
 
   const answersScreen = () => {
+    const imgData = props.activitie.imageBase64
     return (
       <>
         <Header>{props.activitie.question}</Header>
-        {/* <Img src={answers.data.imageBase64}></Img> */}
-        {console.log('olaa', answers)}
+        <Img src={`data:image/jpeg;base64,${imgData}`}></Img>
         <BoxAnswers>
           {answers.data && answers.data.answers.map((answer, key) => {
             return (

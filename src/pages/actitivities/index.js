@@ -28,7 +28,9 @@ const Activities = (props) => {
 
   useEffect(() => {
     const { trail } = props.history.location.state;
-    const allActivities = props.activities.data[trail].activities;
+    const allActivities = props.activities.data[0].activities;
+
+    {console.log(props.history)}
 
     setActivities(allActivities);
   }, []);

@@ -6,10 +6,21 @@ import {
   Header,
   Box,
   Row
-} from './styles'
+} from './styles';
+
+//Redux
+import {
+  selectedTrails,
+} from '../../dataflow/modules/trails-module';
 
 const mapStateToProps = state => ({
-  trails: state.trails
+  trails: state.trails.data
+});
+
+const mapDispatchToProps = dispatch => ({
+  selectedTrails: (info) => {
+    dispatch(selectedTrails(info));
+  },
 });
 
 const Home = (props) => {
@@ -19,6 +30,8 @@ const Home = (props) => {
       pathname: `/activities/${trail}`,
       state: { trail: trail }
     });
+
+    props.selectedTrails(trail);
   }
 
   const renderTrails = (trails) => {
@@ -44,7 +57,7 @@ const Home = (props) => {
     )
   }
 
-  const trails = props?.trails?.data;
+  const trails = props?.trails;
 
   return (
     <Box>
@@ -65,4 +78,5 @@ const Home = (props) => {
 
 export default connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(Home);

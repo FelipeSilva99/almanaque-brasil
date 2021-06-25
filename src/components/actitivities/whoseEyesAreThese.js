@@ -92,33 +92,18 @@ const WhoseEyesAreThese = (props) => {
 
   const [answers, setAnswers] = useState({
     loading: true,
-    data: [],
+    data: undefined,
     error: false
   });
 
   useEffect(() => {
-    const activitie = props.activitie
-    axios({
-      method: 'get',
-      url: `https://a19dfcwa29.execute-api.us-east-1.amazonaws.com/dev/answers/${activitie.id}`,
-      headers: {
-        Authorization: "Bearer valeu",
-      },
-    })
-    .then((response) => {
-      setAnswers({
-        loading: false,
-        data: [response.data],
-        error: false
-      });
-    })
-    .catch(err => {
-      setAnswers({
-        loading: false,
-        data: [],
-        error: true
-      });
-    })
+    const activitie = props.activitie;
+
+    setAnswers({
+      loading: false,
+      data: activitie,
+      error: false,
+    });
   }, []);
 
   const Button = (props) => {
@@ -130,7 +115,7 @@ const WhoseEyesAreThese = (props) => {
   }
 
   const handleCheckAnswer = (answer) => {
-    if(answer.isCorrectAnswer) {
+    if (answer.isCorrectAnswer) {
       return setAttempt({
         attempt: true,
         answer: answer
@@ -155,30 +140,29 @@ const WhoseEyesAreThese = (props) => {
     return (
       <>
         <Header>{props.activitie.question}</Header>
-        <Img src={props.activitie.image}></Img>
+        {/* <Img src={answers.data.imageBase64}></Img> */}
+        {console.log('olaa', answers)}
         <BoxAnswers>
-          {
-            answers.data && answers.data.length > 0 && (
-              answers.data[0].map((answer) => {
-                return (
-                  <ContentAnswerOption
-                    onClick={() => handleCheckAnswer(answer)}
-                    key={answer.id}
-                  >
-                    {answer.answer}
-                  </ContentAnswerOption>)
-              })
+          {answers.data && answers.data.answers.map((answer, key) => {
+            return (
+              <ContentAnswerOption
+                onClick={() => handleCheckAnswer(answer.answer)}
+                key={answer}
+              >
+                {answer.answer}
+              </ContentAnswerOption>
+
             )
-          }
+          })}
         </BoxAnswers>
       </>
-    ); 
+    );
   }
 
   const correctAnswerScreen = () => {
     return (
       <ContainerWrong >
-        <img style={{width: '100%'}}src={attempt.answer.image}></img>
+        <img style={{ width: '100%' }} src={attempt.answer.image}></img>
         <CorrectAnswerContainer>
           <div>
             <p>Você acertou!</p>

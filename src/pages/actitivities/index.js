@@ -63,6 +63,23 @@ const Activities = (props) => {
     }
   }
 
+  const renderScreen = (currentActivitie) => {
+    return (
+      <>
+        {
+          currentActivitie
+            ? (
+              <>
+                {renderActivitie(currentActivitie)}
+                {renderBtnNextQuestion()}
+              </>
+            )
+            : <h1>não tem mais atividades</h1>
+        }
+      </>
+    )
+  }
+
   const renderBtnNextQuestion = () => (
     <button
       onClick={handlerNextActivitie}
@@ -75,12 +92,7 @@ const Activities = (props) => {
     <Container>
       {
         activities && activities.length > 0
-          ? (
-            <>
-              {renderActivitie(activities[currentActivitie])}
-              {renderBtnNextQuestion()}
-            </>
-          )
+          ? renderScreen(activities[currentActivitie])
           : <h1>Carregando</h1>
       }
     </Container>

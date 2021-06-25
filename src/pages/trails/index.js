@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   Card,
   Header,
@@ -23,7 +22,7 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-const Home = (props) => {
+const Trails = (props) => {
 
   const handleClick = (trail) => {
     props.history.push({
@@ -79,4 +78,4 @@ const Home = (props) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Home);
+)(Trails);

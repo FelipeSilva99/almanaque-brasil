@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 // import Login from '../screens/onboarding/Login/LoginScreen';
 
 // import Login from '../pages/login';
-import Home from '../pages/home';
 import Trails from '../pages/trails';
 import Activities from '../pages/actitivities';
 

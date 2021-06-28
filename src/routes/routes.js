@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 
 // import Login from '../pages/login';
 import Trails from '../pages/trails';
-import Activities from '../pages/actitivities';
+import Activities from '../pages/activities';
 
 // import PrivateRoute from './PrivateRoute';
 import {

@@ -140,13 +140,12 @@ const WhoseEyesAreThese = (props) => {
       <>
         <Header>{props.activitie.question}</Header>
         {/* <Img src={answers.data.imageBase64}></Img> */}
-        {console.log('olaa', answers)}
         <BoxAnswers>
           {answers.data && answers.data.answers.map((answer, key) => {
             return (
               <ContentAnswerOption
                 onClick={() => handleCheckAnswer(answer.answer)}
-                key={answer}
+                key={key}
               >
                 {answer.answer}
               </ContentAnswerOption>

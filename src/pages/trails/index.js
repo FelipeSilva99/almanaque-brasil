@@ -25,11 +25,7 @@ const mapDispatchToProps = dispatch => ({
 const Trails = (props) => {
 
   const handleClick = (trail) => {
-    props.history.push({
-      pathname: `/activities/${trail}`,
-      state: { trail: trail }
-    });
-
+    props.history.push({pathname: '/activities/1'});
     props.selectedTrails(trail);
   }
 

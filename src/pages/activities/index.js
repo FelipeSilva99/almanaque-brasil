@@ -40,7 +40,7 @@ const Activities = (props) => {
 
   useEffect(() => {
     const convertIdToNumber = parseInt(trailId);
-    
+
     setCurrentActivitie(convertIdToNumber);
   }, [trailId]);
   

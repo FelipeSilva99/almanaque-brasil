@@ -89,22 +89,6 @@ const WhoseEyesAreThese = (props) => {
     answer: null
   })
 
-  const [answers, setAnswers] = useState({
-    loading: true,
-    data: undefined,
-    error: false
-  });
-
-  useEffect(() => {
-    const activitie = props.activitie;
-
-    setAnswers({
-      loading: false,
-      data: activitie,
-      error: false,
-    });
-  }, []);
-
   const Button = (props) => {
     return (
       <ContentAnswerOption onClick={props.onClick}>
@@ -114,7 +98,8 @@ const WhoseEyesAreThese = (props) => {
   }
 
   const handleCheckAnswer = (answer) => {
-    if (answer.isCorrectAnswer) {
+    console.log(answer)
+    if (answer.isCorrect) {
       return setAttempt({
         attempt: true,
         answer: answer
@@ -136,12 +121,13 @@ const WhoseEyesAreThese = (props) => {
   }
 
   const answersScreen = () => {
+    const imgData = props.activitie.imageBase64
     return (
       <>
         <Header>{props.activitie.question}</Header>
-        {/* <Img src={answers.data.imageBase64}></Img> */}
+        <Img src={`data:image/jpeg;base64,${imgData}`}></Img>
         <BoxAnswers>
-          {answers.data && answers.data.answers.map((answer, key) => {
+          {props.activitie.answers.map((answer, key) => {
             return (
               <ContentAnswerOption
                 onClick={() => handleCheckAnswer(answer.answer)}

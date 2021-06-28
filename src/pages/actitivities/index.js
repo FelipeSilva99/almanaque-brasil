@@ -93,8 +93,7 @@ const Activities = (props) => {
     <Container>
       {
         activities && activities.length > 0
-          ? renderScreen(activities[currentActivitie])
-          : <h1>Carregando</h1>
+          && renderScreen(activities[currentActivitie])
       }
     </Container>
   );

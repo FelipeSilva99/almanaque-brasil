@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 
 //Component
@@ -123,7 +122,6 @@ const WhoseEyesAreThese = (props) => {
 
   const answersScreen = () => {
     const imgData = props.activitie.imageBase64
-    console.log(props.activitie.answers)
     return (
       <>
         <Header>{props.activitie.question}</Header>
@@ -132,7 +130,7 @@ const WhoseEyesAreThese = (props) => {
           {props.activitie.answers.map((answer, key) => {
             return (
               <ContentAnswerOption
-                onClick={() => handleCheckAnswer(answer)}
+                onClick={() => handleCheckAnswer(answer.answer)}
                 key={key}
               >
                 {answer.answer}

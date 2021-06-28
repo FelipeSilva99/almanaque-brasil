@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import {
+  useParams,
+} from "react-router-dom";
 
 //Components
-import TrailsWhatIs from '../../components/actitivities/whatIsWhatIs';
-import WhoseEyesAreThese from '../../components/actitivities/whoseEyesAreThese';
+import TrailsWhatIs from '../../components/activities/whatIsWhatIs';
+import WhoseEyesAreThese from '../../components/activities/whoseEyesAreThese';
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -25,7 +28,8 @@ const Container = styled.div`
 
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
-  const [currentActivitie, setCurrentActivitie] = useState(0);
+  const [currentActivitie, setCurrentActivitie] = useState(1);
+  const { trailId } = useParams();
 
   useEffect(() => {
     const trail = props.selectedTrails;
@@ -34,9 +38,15 @@ const Activities = (props) => {
     setActivities(allActivities);
   }, []);
 
+  useEffect(() => {
+    const convertIdToNumber = parseInt(trailId);
+
+    setCurrentActivitie(convertIdToNumber);
+  }, [trailId]);
+  
   const handlerNextActivitie = () => {
+    
     if (hasNextActivitie) {
-      setCurrentActivitie(currentActivitie + 1);
       props.history.push({
         pathname: `/activities/${currentActivitie + 1}`,
       });
@@ -61,6 +71,7 @@ const Activities = (props) => {
 
       default:
         return <h1>{currentActivitie.question}</h1>;
+
     }
   }
 
@@ -93,7 +104,8 @@ const Activities = (props) => {
     <Container>
       {
         activities && activities.length > 0
-          && renderScreen(activities[currentActivitie])
+          ? renderScreen(activities[currentActivitie-1])
+          : <h1>Carregando</h1>
       }
     </Container>
   );

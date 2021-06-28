@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   Card,
   Header,
@@ -23,14 +22,10 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-const Home = (props) => {
+const Trails = (props) => {
 
   const handleClick = (trail) => {
-    props.history.push({
-      pathname: `/activities/${trail}`,
-      state: { trail: trail }
-    });
-
+    props.history.push({pathname: '/activities/1'});
     props.selectedTrails(trail);
   }
 
@@ -79,4 +74,4 @@ const Home = (props) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Home);
+)(Trails);

@@ -1,26 +1,27 @@
 // Action Type
-const CREATE_NEW_TRAILS = 'almanaque/trails/CREATE_NEW_TRAILS';
 const GET_TRAILS = 'almanaque/trails/GET_TRAILS';
+const SELECTED_TRAILS = 'almanaque/trails/SELECTED_TRAILS';
 
 // Store
 const initialState = {
   data: [],
-  isTrails: undefined,
+  selectedTrails: undefined,
 };
 
 // Reducer
 export default function foo(state = initialState, action) {
   switch (action.type) {
-    case CREATE_NEW_TRAILS:
-      return {
-        trails: !state.trails,
-      }
-
     case GET_TRAILS: {
-      return {
+      return Object.assign({}, state, {
         ...state,
         data: action.trails
-      }
+      });
+    }
+
+    case SELECTED_TRAILS: {
+      return Object.assign({}, state, {
+        selectedTrails: action.info,
+      });
     }
 
     default:
@@ -30,13 +31,16 @@ export default function foo(state = initialState, action) {
 
 
 // Actions
-export const createTrails = () => ({
-  type: CREATE_NEW_TRAILS,
-});
-
 export const getTrails = (data) => {
   return {
     type: GET_TRAILS,
     trails: data
+  }
+};
+
+export const selectedTrails = (info) => {
+  return {
+    type: SELECTED_TRAILS,
+    info,
   }
 };

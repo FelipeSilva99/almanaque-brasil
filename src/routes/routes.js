@@ -8,31 +8,30 @@ import { connect } from 'react-redux';
 // import Login from '../screens/onboarding/Login/LoginScreen';
 
 // import Login from '../pages/login';
-import Home from '../pages/home';
 import Trails from '../pages/trails';
-import Activities from '../pages/actitivities';
+import Activities from '../pages/activities';
 
 // import PrivateRoute from './PrivateRoute';
 import {
-  getTrailsThunk,
+	getTrailsThunk,
 } from '../dataflow/thunks/trails-thunk';
 
 const mapDispatchToProps = dispatch => ({
-  getTrailsThunk: () => {
-    dispatch(getTrailsThunk());
-  },
+	getTrailsThunk: () => {
+		dispatch(getTrailsThunk());
+	},
 });
 
 const Routes = (props) => {
 	useEffect(() => {
-    props.getTrailsThunk();
+		props.getTrailsThunk();
 	}, []);
 
 	return (
 		<BrowserRouter>
 			<Switch>
 				{/* <Route exact path='/' component={Login} /> */}
-				<Route exact path='/' component={Home} />
+				<Route exact path='/' component={Trails} />
 				<Route exact path='/trails' component={Trails} />
 				<Route exact path='/activities/:trailId' component={Activities} />
 				{/* <PrivateRoute path='/documents' component={DocumentsScreen} /> */}
@@ -42,6 +41,6 @@ const Routes = (props) => {
 };
 
 export default connect(
-  null,
-  mapDispatchToProps
+	null,
+	mapDispatchToProps
 )(Routes);

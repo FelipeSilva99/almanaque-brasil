@@ -2,10 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 //Components
-import Header from '../header/index';
 import IndividualLetter from '../letter/individualLetter';
 import Button from '../buttons/button';
-import Footer from '../footer/index';
 
 // Styles
 const Container = styled.div`
@@ -95,7 +93,6 @@ const ContentButton = styled.div`
 const CorrectAnswer = ({answer, image, handlerNextActivitie}) => {
   return (
     <Container>
-      {/* <Header /> */}
       <Content>
         <Title>
           O que é o que é?
@@ -123,7 +120,6 @@ const CorrectAnswer = ({answer, image, handlerNextActivitie}) => {
           </Button>
         </ContentButton>
       </Content>
-      {/* <Footer /> */}
     </Container>
   );
 }

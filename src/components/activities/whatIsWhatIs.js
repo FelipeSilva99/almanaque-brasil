@@ -4,7 +4,7 @@ import styled from 'styled-components';
 //Components
 import IndividualLetter from '../letter/individualLetter';
 import Button from '../buttons/button';
-import CorrectAnswer from '../trails/correctAnswer';
+import CorrectAnswer from './correctAnswer';
 
 // Styles
 const Container = styled.div`
@@ -134,7 +134,6 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     const selectedAnswer = selectedLetter.map(item => item.value).join("");
 
     if (selectedAnswer === isAnswer) {
-      // handleNextQuestion();
       setIsModal(true);
       handleClenAnswer();
     } else if (answerResult === 'wrong') {

@@ -9,7 +9,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Text = styled.button`
+const Button = styled.button`
   margin: 1em 0; 
   font-size: 0.75rem;
   font-weight: 700;
@@ -23,8 +23,8 @@ const Text = styled.button`
 const Footer = ({ handleCleanAnswer, handleNextQuestion }) => {
   return (
     <Container>
-      <Text onClick={handleCleanAnswer}>Limpar tudo</Text>
-      <Text onClick={handleNextQuestion}>Próximo desafio {'>'}</Text>
+      <Button onClick={handleCleanAnswer}>Limpar tudo</Button>
+      <Button onClick={handleNextQuestion}>Próximo desafio {'>'}</Button>
     </Container>
   );
 }

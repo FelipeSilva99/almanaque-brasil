@@ -1,30 +1,77 @@
 import React from 'react';
-import styled from 'styled-components';
+import { connect } from 'react-redux';
+import {
+  Card,
+  Header,
+  Box,
+  Row
+} from './styles';
 
-// Styles
-const Container = styled.div`
-  background-color: #fff;
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  box-sizing: border-box;
+//Redux
+import {
+  selectedTrails,
+} from '../../dataflow/modules/trails-module';
 
-  @media (max-width: 375px) {
-    height: 100%;
+const mapStateToProps = state => ({
+  trails: state.trails.data
+});
+
+const mapDispatchToProps = dispatch => ({
+  selectedTrails: (info) => {
+    dispatch(selectedTrails(info));
+  },
+});
+
+const Trails = (props) => {
+
+  const handleClick = (trail) => {
+    props.history.push({pathname: '/activities/1'});
+    props.selectedTrails(trail);
   }
-`;
 
-const Layout = (props) => {
+  const renderTrails = (trails) => {
+    return trails.map((trail, key) => {
+      return (
+        <Card key={key} onClick={() => handleClick(trail.id)}>
+          <h2>{`Trilha ${trail.id}`}</h2>
+        </Card>
+      )
+    })
+  }
+
+  const renderOptions = () => {
+    return (
+      <Row>
+        <Card>
+          <h2>Biblioteoca</h2>
+        </Card>
+        <Card>
+          <h2>Conteúdo por tema</h2>
+        </Card>
+      </Row>
+    )
+  }
+
+  const trails = props?.trails;
+
+
   return (
-    <Container>
-      {/* <button
-        onClick={handlerNextActivitie}
-      >próxima questão</button> */}
-    </Container>
+    console.log(trails),
+    <Box>
+      <Header><h1>Olá Fulano!</h1></Header>
+      {
+        trails && (
+          <>
+            {renderTrails(trails)}
+            {renderOptions()}
+          </>
+        ) 
+      }
+    </Box>
   );
 }
 
-export default Layout;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Trails);

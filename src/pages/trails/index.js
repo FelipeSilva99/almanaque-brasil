@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
 const Trails = (props) => {
 
   const handleClick = (trail) => {
-    props.history.push({pathname: '/activities/1'});
+    props.history.push({pathname: '/activitiesList'});
     props.selectedTrails(trail);
   }
 
@@ -54,9 +54,7 @@ const Trails = (props) => {
 
   const trails = props?.trails;
 
-
   return (
-    console.log(trails),
     <Box>
       <Header><h1>Olá Fulano!</h1></Header>
       {

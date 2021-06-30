@@ -6,7 +6,7 @@ const Content = styled.button`
 	margin-bottom: 2rem;
 	width: 100%;
 	max-height: 4rem;
-	height: 6rem;
+	height: ${props => props.height || '6rem'};
   max-width: 425px;
 	display: flex;
 	justify-content: center;
@@ -34,6 +34,7 @@ const Content = styled.button`
 `;
 
 const Button = ({
+  height,
   background,
   boxShadow,
   children,
@@ -42,6 +43,7 @@ const Button = ({
 }) => {
   return (
     <Content
+      height={height}
       background={background}
       boxShadow={boxShadow}
       disabled={disabled}

@@ -96,7 +96,7 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const [letterOption, setLetterOption] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState([]);
   const [answerResult, setAnswerResult] = useState('');
-  const [activitie, setActivitie] = useState(null);
+  const [activitie, setActivitive] = useState(null);
   const [isModal, setIsModal] = useState(null);
 
   const handleAnswerSize = () => {
@@ -120,8 +120,8 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   useEffect(() => {
     setLetterOption(handleShuffleLetter());
     setAnswer(handleAnswerSize());
-    setActivitie(isActivitie);
-  }, [isActivitie?.correctAnswer]);
+    setActivitive(isActivitie);
+  }, [isActivitie]);
 
   const handleClenAnswer = () => {
     setAnswer([]);

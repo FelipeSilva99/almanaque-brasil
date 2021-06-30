@@ -99,6 +99,7 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const [answerResult, setAnswerResult] = useState('');
   const [activitie, setActivitive] = useState(null);
   const [isModal, setIsModal] = useState(null);
+  const [isLoading, setIsLoading] = useState(true)
 
   const handleAnswerSize = () => {
     let answerSplit = [];
@@ -123,6 +124,14 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     setAnswer(handleAnswerSize());
     setActivitive(isActivitie);
   }, [isActivitie]);
+
+  useEffect(() => {
+      let timer1 = setTimeout(() => setIsLoading(false), 2000);
+
+      return () => {
+        clearTimeout(timer1);
+      };
+    },[]);
 
   const handleClenAnswer = () => {
     setAnswer([]);
@@ -239,33 +248,34 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const boxShadowButton = (answerResult === 'checkAnswer' && '0 12px 0 #275653') || (answerResult === 'wrong' && '0 12px 0 #bb6060');
 
   return (
-    <SplashScreen></SplashScreen>
-
-    // <Container>
-    //   <Title>O que é o que é?</Title>
-    //   <Content>
-    //     <Question>
-    //       {activitie?.question}
-    //     </Question>
-    //     <BoxAnswer>
-    //       {answerResult === 'wrong' && <TextError>Resposta errada</TextError>}
-    //       <ContainerAnswer>
-    //         {answer?.map(i => squareAnswer(i))}
-    //       </ContainerAnswer>
-    //       <ContainerAnswer margin>
-    //         {individualLetters()}
-    //       </ContainerAnswer>
-    //     </BoxAnswer>
-    //     <Button
-    //       background={backgroundButton}
-    //       boxShadow={boxShadowButton}
-    //       handleClick={handleClick}
-    //     >
-    //       {answerResult === 'wrong' ? 'Tente novamente' : 'Conferir Resposta'}
-    //     </Button>
-    //   </Content>
-    //   {isModal && <CorrectAnswer answer={activitie?.correctAnswer} image={activitie?.image} handlerNextActivitie={handlerNextActivitie}/>}
-    // </Container>
+    console.log(isLoading),
+    isLoading ? <SplashScreen /> : (
+      <Container>
+        <Title>O que é o que é?</Title>
+        <Content>
+          <Question>
+            {activitie?.question}
+          </Question>
+          <BoxAnswer>
+            {answerResult === 'wrong' && <TextError>Resposta errada</TextError>}
+            <ContainerAnswer>
+              {answer?.map(i => squareAnswer(i))}
+            </ContainerAnswer>
+            <ContainerAnswer margin>
+              {individualLetters()}
+            </ContainerAnswer>
+          </BoxAnswer>
+          <Button
+            background={backgroundButton}
+            boxShadow={boxShadowButton}
+            handleClick={handleClick}
+          >
+            {answerResult === 'wrong' ? 'Tente novamente' : 'Conferir Resposta'}
+          </Button>
+        </Content>
+        {isModal && <CorrectAnswer answer={activitie?.correctAnswer} image={activitie?.image} handlerNextActivitie={handlerNextActivitie}/>}
+      </Container>
+    )
   );
 }
 

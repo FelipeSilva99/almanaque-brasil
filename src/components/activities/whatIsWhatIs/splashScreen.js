@@ -6,12 +6,13 @@ import plant from './images/folhas.svg'
 import clearPlant from './images/folhas_claras.svg'
 import logo from './images/what_is_logo.svg'
 import background from './images/splash_background.svg'
+import ABLogo from './images/AB_logo.svg';
 
 const Container = styled.div`
-  background-image: url("${background}");
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url("${background}");
   padding-top: 2rem;
   position: relative;
   width: 100vw;
@@ -24,7 +25,16 @@ const Container = styled.div`
     justify-content: center;
   }
 `
+const LogoContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+`;
+
 const WhatIsLogo = styled.img`
+  @media (max-width: 370px) { width: 90%; }
   z-index: 1;
   position: relative;
   bottom: 10vh;
@@ -38,19 +48,36 @@ const Plant = styled.img`
   top: ${props => props.top};
 `;
 
+const PlantTop = styled.img`
+  z-index: 2;
+  position: absolute;
+  bottom: 58%;
+  right: 31%;
+
+  @media (min-width: 553px) { right: 42%; }
+  @media (min-width: 768px) { right: 59%; }
+`;
+
+const PlantBottom = styled.img`
+  position: absolute;
+  left: 66%;
+  top: 77%;
+`;
+
+const LogoAB = styled.img`
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+`;
+
 
 function SplashScreen() {
   return (
     <Container>
-      <Plant
-        bottom={"349px"}
-        right={"68px"}
-        src={plant} />
+      <PlantTop src={plant} />
       <WhatIsLogo src={logo} />
-      <Plant
-        left={"183px"}
-        top={"500px"}
-      src={clearPlant} />
+      <PlantBottom src={clearPlant} />
+      <LogoAB src={ABLogo} />
     </Container>
   )
 }

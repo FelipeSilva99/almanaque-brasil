@@ -34,8 +34,9 @@ const Activities = (props) => {
   useEffect(() => {
     const trail = props.selectedTrails;
     const allActivities = props.activities.data[trail].activities;
+    const filterActivities = allActivities.filter(item => item.type !== "origem-da-expressao");
     
-    setActivities(allActivities);
+    setActivities(filterActivities);
   }, []);
 
   useEffect(() => {

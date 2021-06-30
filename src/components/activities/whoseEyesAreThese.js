@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 //Component
@@ -98,7 +98,6 @@ const WhoseEyesAreThese = (props) => {
   }
 
   const handleCheckAnswer = (answer) => {
-    console.log(answer)
     if (answer.isCorrect) {
       return setAttempt({
         attempt: true,
@@ -130,7 +129,7 @@ const WhoseEyesAreThese = (props) => {
           {props.activitie.answers.map((answer, key) => {
             return (
               <ContentAnswerOption
-                onClick={() => handleCheckAnswer(answer.answer)}
+                onClick={() => handleCheckAnswer(answer)}
                 key={key}
               >
                 {answer.answer}

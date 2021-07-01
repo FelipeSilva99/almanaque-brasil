@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // Assets
 import plant from './images/folhas.svg'
-import clearPlant from './images/folhas_claras.svg'
+import clearPlant from './images/pale_leaves.svg'
 import logo from './images/what_is_logo.svg'
 import background from './images/splash_background.svg'
 import ABLogo from './images/AB_logo.svg';

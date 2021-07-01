@@ -6,6 +6,7 @@ import IndividualLetter from '../../letter/individualLetter';
 import Button from '../../buttons/button';
 import CorrectAnswer from '../correctAnswer';
 import SplashScreen from './splashScreen';
+import WrongAnswer from './wrongAnswer';
 
 // Styles
 const Container = styled.div`
@@ -248,33 +249,34 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const boxShadowButton = (answerResult === 'checkAnswer' && '0 12px 0 #275653') || (answerResult === 'wrong' && '0 12px 0 #bb6060');
 
   return (
-    console.log(isLoading),
-    isLoading ? <SplashScreen /> : (
-      <Container>
-        <Title>O que é o que é?</Title>
-        <Content>
-          <Question>
-            {activitie?.question}
-          </Question>
-          <BoxAnswer>
-            {answerResult === 'wrong' && <TextError>Resposta errada</TextError>}
-            <ContainerAnswer>
-              {answer?.map(i => squareAnswer(i))}
-            </ContainerAnswer>
-            <ContainerAnswer margin>
-              {individualLetters()}
-            </ContainerAnswer>
-          </BoxAnswer>
-          <Button
-            background={backgroundButton}
-            boxShadow={boxShadowButton}
-            handleClick={handleClick}
-          >
-            {answerResult === 'wrong' ? 'Tente novamente' : 'Conferir Resposta'}
-          </Button>
-        </Content>
-        {isModal && <CorrectAnswer answer={activitie?.correctAnswer} image={activitie?.image} handlerNextActivitie={handlerNextActivitie}/>}
-      </Container>
+    // isLoading ? <SplashScreen /> : (
+    false ? <SplashScreen /> : (
+      <WrongAnswer></WrongAnswer>
+      // <Container>
+      //   <Title>O que é o que é?</Title>
+      //   <Content>
+      //     <Question>
+      //       {activitie?.question}
+      //     </Question>
+      //     <BoxAnswer>
+      //       {answerResult === 'wrong' && <TextError>Resposta errada</TextError>}
+      //       <ContainerAnswer>
+      //         {answer?.map(i => squareAnswer(i))}
+      //       </ContainerAnswer>
+      //       <ContainerAnswer margin>
+      //         {individualLetters()}
+      //       </ContainerAnswer>
+      //     </BoxAnswer>
+      //     <Button
+      //       background={backgroundButton}
+      //       boxShadow={boxShadowButton}
+      //       handleClick={handleClick}
+      //     >
+      //       {answerResult === 'wrong' ? 'Tente novamente' : 'Conferir Resposta'}
+      //     </Button>
+      //   </Content>
+      //   {isModal && <CorrectAnswer answer={activitie?.correctAnswer} image={activitie?.image} handlerNextActivitie={handlerNextActivitie}/>}
+      // </Container>
     )
   );
 }

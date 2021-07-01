@@ -2,44 +2,79 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 //Components
+import Header from '../../header';
 import IndividualLetter from '../../letter/individualLetter';
-import Button from '../../buttons/button';
+import Button from '../../buttons/containerButton';
 import CorrectAnswer from '../correctAnswer';
 import SplashScreen from './splashScreen';
 import WrongAnswer from './wrongAnswer';
 
+//Images
+import paleLeaves from './images/pale_leaves.svg';
+import iconBack from './images/iconBack.svg';
+import logo from './images/what_is_logo.svg';
+
 // Styles
 const Container = styled.div`
-  padding-top: 2rem;
   position: relative;
-  width: 90vw;
+  width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
+  background: #f3f3f3;
 
   @media (min-width: 1024px) {
     justify-content: center;
   }
 `;
 
-const Title = styled.h1`
-  font-size: 1.375rem;
-  font-weight: 500;
-  color: #272727;
-`;
-
 const Content = styled.div`
-  height: 100%;
-  max-width: 475px;
+  flex: 1;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  z-index: 1;
 
-  @media (min-width: 1024px) {
-    height: 80%;
+  span {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #36A39A;
+    line-height: 0;
+
+    :last-child {
+      padding-top: 1rem;
+    }
   }
 `;
+const Title = styled.h1`
+  width: 19rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 2rem;
+  color: #373737;
+  text-align: center;
+`;
+
+const IconLeaves = styled.img`
+  position: absolute;
+  bottom: -14rem;
+  right: -18.5rem;
+  width: 36rem;
+
+  @media (max-width: 360px) { width: 33rem; }
+`;
+
+// const Content = styled.div`
+//   height: 100%;
+//   max-width: 475px;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+
+//   @media (min-width: 1024px) {
+//     height: 80%;
+//   }
+// `;
 
 const Question = styled.h2`
   padding: 1rem 0;
@@ -249,34 +284,46 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const boxShadowButton = (answerResult === 'checkAnswer' && '0 12px 0 #275653') || (answerResult === 'wrong' && '0 12px 0 #bb6060');
 
   return (
-    // isLoading ? <SplashScreen /> : (
-    false ? <SplashScreen /> : (
-      <WrongAnswer></WrongAnswer>
-      // <Container>
-      //   <Title>O que é o que é?</Title>
-      //   <Content>
-      //     <Question>
-      //       {activitie?.question}
-      //     </Question>
-      //     <BoxAnswer>
-      //       {answerResult === 'wrong' && <TextError>Resposta errada</TextError>}
-      //       <ContainerAnswer>
-      //         {answer?.map(i => squareAnswer(i))}
-      //       </ContainerAnswer>
-      //       <ContainerAnswer margin>
-      //         {individualLetters()}
-      //       </ContainerAnswer>
-      //     </BoxAnswer>
-      //     <Button
-      //       background={backgroundButton}
-      //       boxShadow={boxShadowButton}
-      //       handleClick={handleClick}
-      //     >
-      //       {answerResult === 'wrong' ? 'Tente novamente' : 'Conferir Resposta'}
-      //     </Button>
-      //   </Content>
-      //   {isModal && <CorrectAnswer answer={activitie?.correctAnswer} image={activitie?.image} handlerNextActivitie={handlerNextActivitie}/>}
-      // </Container>
+    console.log(isLoading),
+    isLoading ? <SplashScreen /> : (
+      <Container>
+        <Header iconBack={iconBack} logo={logo} />
+        <Content>
+          {/* <Title><span>"</span>{activitie?.question}<span>"</span></Title> */}
+          <Title><span>"</span>É redondo e chato, mas faz todo mundo dançar?</Title><span>"</span>
+        </Content>
+        <figure>
+          <IconLeaves src={paleLeaves} />
+        </figure>
+        <Button
+          background='#fcd029'
+          boxShadow='0 7px 0 #ee892f'
+        >
+          responder
+        </Button>
+        {/* <Content>
+          <Question>
+            
+          </Question>
+          <BoxAnswer>
+            {answerResult === 'wrong' && <TextError>Resposta errada</TextError>}
+            <ContainerAnswer>
+              {answer?.map(i => squareAnswer(i))}
+            </ContainerAnswer>
+            <ContainerAnswer margin>
+              {individualLetters()}
+            </ContainerAnswer>
+          </BoxAnswer>
+          <Button
+            background={backgroundButton}
+            boxShadow={boxShadowButton}
+            handleClick={handleClick}
+          >
+            {answerResult === 'wrong' ? 'Tente novamente' : 'Conferir Resposta'}
+          </Button>
+        </Content>
+        {isModal && <CorrectAnswer answer={activitie?.correctAnswer} image={activitie?.image} handlerNextActivitie={handlerNextActivitie}/>} */}
+      </Container>
     )
   );
 }

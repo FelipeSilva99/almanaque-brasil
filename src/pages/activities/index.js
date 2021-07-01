@@ -84,7 +84,7 @@ const Activities = (props) => {
             ? (
               <>
                 {renderActivitie(currentActivitie)}
-                {renderBtnNextQuestion()}
+                {/* {renderBtnNextQuestion()} */}
               </>
             )
             : <h1>não tem mais atividades</h1>

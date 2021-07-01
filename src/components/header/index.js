@@ -3,40 +3,39 @@ import styled from 'styled-components';
 
 // Styles
 const Container = styled.div`
-  position: fixed;
+  /* position: fixed; */
   /* margin-top: 2rem; */
-  width: inherit;
-  height: 10vh;
-  min-height: 50px;
+  width: 100vw;
+  height: 4rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  background-color: #fff;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  /* background-color: #fff; */
+  /* box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
   border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
+  border-bottom-right-radius: 25px; */
+
+  @media (min-width: 1024px) { height: 5rem; }
 `;
 
-const Back = styled.p`
-  font-size: 3.125rem;
-  font-weight: 700;
-  line-height: 0;
-  color: #272727;
+const ImgIconBack = styled.img`
+  width: 19px;
+  position: absolute;
+  left: .8rem;
 `;
 
-const Time = styled.p`
-  font-size: 1.875rem;
-  font-weight: 700;
-  line-height: 0;
-  color: #272727;
+const Image = styled.img`
+  width: 4.375rem;
+
+  @media (min-width: 1024px) { width: 6rem; }
+
 `;
 
-const Header = ({ children }) => {
+const Header = ({ iconBack, logo }) => {
   return (
     <Container>
-      <Back>{'<'}</Back>
-      {children}
-      <Time>{'/||'}</Time>
+      <ImgIconBack src={iconBack} />
+      <Image src={logo} />
     </Container>
   );
 }

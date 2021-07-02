@@ -6,18 +6,19 @@ const Content = styled.button`
 	/* margin-bottom: 2rem; */
 	width: 100%;
 	/* max-height: 4rem; */
-	height: ${props => props.height || '38px'};
+	height: ${props => props.height || '2.375rem'};
   max-width: 425px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: .85rem;
-	font-weight: bold;
+	font-size: .75rem;
+	font-weight: 900;
+  letter-spacing: .05rem;
 	color: #373737;
   text-transform: uppercase;
-	background: ${props => props.background || '#b9b9b9'};
+	background: ${props => props.background || '#fcd029'};
 	border-radius: 20px;
-	box-shadow: ${props => props.boxShadow || '0 12px 0 #888888'};
+	box-shadow: ${props => props.boxShadow || '0 7px 0 #ee892f'};
   
   :disabled {
     background: ${props => props.backgroundDisabled};

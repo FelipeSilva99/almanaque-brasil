@@ -54,6 +54,9 @@ const Title = styled.h1`
   line-height: 2rem;
   color: #373737;
   text-align: center;
+  
+  @media (max-width: 320px) { width: 18rem; }
+
 `;
 
 const IconLeaves = styled.img`
@@ -101,9 +104,10 @@ const TextError = styled.h1`
 `;
 
 const BoxAnswer = styled.div`
-  padding: 2.625rem 2.6875rem 3.8125rem 2.6875rem;
+  padding: 0 2.6875rem;
   max-width: 425px;
   height: 100%;
+  min-height: 52vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -137,10 +141,17 @@ const AnswerOption = styled.button`
   background: ${props => props.isSelected ? '#D5D5D5' : '#36A39A'};
   border-radius: 12px;
   box-shadow: ${props => props.isSelected ? '0 5px 0 #9F9F9F' : '0 5px 0 #148077'};
+
+  @media (max-width: 360px) { margin: 2%; }
+  @media (max-width: 320px) { margin: 2% 1% 3% 1%; }
+
 `;
 
 const IconDelete = styled.img`
   margin: 2% 3% 2% 3%;
+
+  @media (max-width: 360px) { margin: 2%; }
+  @media (max-width: 320px) { margin: 2% 1% 3% 1%; }
 `;
 
 const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
@@ -163,8 +174,11 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   }
 
   const handleShuffleLetter = () => {
-    const alphabetLetters = choosingAlphabetLetters(5);
-    const letterOption = isActivitie?.answers[0]?.answer + alphabetLetters;
+    const answer = isActivitie?.answers[0]?.answer;
+    const answerLength = answer.length;
+    const qtdAmount = (answerLength <= 7 && 9 - answerLength ) || (answerLength <= 8 && 14 - answerLength);
+    const alphabetLetters = choosingAlphabetLetters(qtdAmount);
+    const letterOption = answer + alphabetLetters;
     const lettersArray = letterOption.split('');
     const shuffleLetter = radom(lettersArray).split('');
 

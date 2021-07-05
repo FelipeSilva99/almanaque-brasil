@@ -284,47 +284,49 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const boxShadowButton = (answerResult === 'checkAnswer' && '0 12px 0 #275653') || (answerResult === 'wrong' && '0 12px 0 #bb6060');
 
   return (
-    console.log(isLoading),
-    isLoading ? <SplashScreen /> : (
-      <Container>
-        <Header iconBack={iconBack} logo={logo} />
-        <Content>
-          {/* <Title><span>"</span>{activitie?.question}<span>"</span></Title> */}
-          <Title><span>"</span>É redondo e chato, mas faz todo mundo dançar?</Title><span>"</span>
-        </Content>
-        <figure>
-          <IconLeaves src={paleLeaves} />
-        </figure>
-        <Button
-          background='#fcd029'
-          boxShadow='0 7px 0 #ee892f'
-        >
-          responder
-        </Button>
-        {/* <Content>
-          <Question>
+    <WrongAnswer />
+    
+    // isLoading ? <SplashScreen /> : 
+    // (
+    //   <Container>
+    //     <Header iconBack={iconBack} logo={logo} />
+    //     <Content>
+    //       {/* <Title><span>"</span>{activitie?.question}<span>"</span></Title> */}
+    //       <Title><span>"</span>É redondo e chato, mas faz todo mundo dançar?</Title><span>"</span>
+    //     </Content>
+    //     <figure>
+    //       <IconLeaves src={paleLeaves} />
+    //     </figure>
+    //     <Button
+    //       background='#fcd029'
+    //       boxShadow='0 7px 0 #ee892f'
+    //     >
+    //       responder
+    //     </Button>
+    //     {/* <Content>
+    //       <Question>
             
-          </Question>
-          <BoxAnswer>
-            {answerResult === 'wrong' && <TextError>Resposta errada</TextError>}
-            <ContainerAnswer>
-              {answer?.map(i => squareAnswer(i))}
-            </ContainerAnswer>
-            <ContainerAnswer margin>
-              {individualLetters()}
-            </ContainerAnswer>
-          </BoxAnswer>
-          <Button
-            background={backgroundButton}
-            boxShadow={boxShadowButton}
-            handleClick={handleClick}
-          >
-            {answerResult === 'wrong' ? 'Tente novamente' : 'Conferir Resposta'}
-          </Button>
-        </Content>
-        {isModal && <CorrectAnswer answer={activitie?.correctAnswer} image={activitie?.image} handlerNextActivitie={handlerNextActivitie}/>} */}
-      </Container>
-    )
+    //       </Question>
+    //       <BoxAnswer>
+    //         {answerResult === 'wrong' && <TextError>Resposta errada</TextError>}
+    //         <ContainerAnswer>
+    //           {answer?.map(i => squareAnswer(i))}
+    //         </ContainerAnswer>
+    //         <ContainerAnswer margin>
+    //           {individualLetters()}
+    //         </ContainerAnswer>
+    //       </BoxAnswer>
+    //       <Button
+    //         background={backgroundButton}
+    //         boxShadow={boxShadowButton}
+    //         handleClick={handleClick}
+    //       >
+    //         {answerResult === 'wrong' ? 'Tente novamente' : 'Conferir Resposta'}
+    //       </Button>
+    //     </Content>
+    //     {isModal && <CorrectAnswer answer={activitie?.correctAnswer} image={activitie?.image} handlerNextActivitie={handlerNextActivitie}/>} */}
+    //   </Container>
+    // )
   );
 }
 

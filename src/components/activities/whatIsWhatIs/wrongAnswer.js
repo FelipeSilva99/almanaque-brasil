@@ -9,6 +9,9 @@ import leaf from './images/pale_leaves.svg'
 import Button from '../../buttons/button';
 
 const Container = styled.div`
+  /* position: absolute;
+  top: 0;
+  left: 0; */
   display: flex;
   background-color: #F3F3F3; 
   padding-top: 2rem;
@@ -90,7 +93,7 @@ const ButtonsBox = styled.div`
   }
 `;
 
-function WrongAnswer({ chances=2 }) {
+function WrongAnswer({ chances=2, handleClick }) {
   const [hasChances, setHasChance] = useState(true)
   const [isFirstMistake, setIsFirstMistake] = useState(true)
   useEffect(() => {
@@ -132,6 +135,7 @@ function WrongAnswer({ chances=2 }) {
             background={"#ff3d4a"}
             color={"#FFFFFF"}
             boxShadow={"#e61a28 0px 7px 0px"}
+            handleClick={handleClick}
           >Tente Novamente</Button>
         ) : (
           <Button

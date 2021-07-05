@@ -19,7 +19,7 @@ const Container = styled.div`
 `;
 
 const ImgIconBack = styled.img`
-  width: 19px;
+  width: 1.0625rem;
   position: absolute;
   left: .8rem;
 `;

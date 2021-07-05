@@ -7,6 +7,7 @@ import IndividualLetter from '../../letter/individualLetter';
 import Button from '../../buttons/containerButton';
 import CorrectAnswer from '../correctAnswer';
 import SplashScreen from './splashScreen';
+import WrongAnswer from './wrongAnswer';
 
 //Images
 import paleLeaves from './images/pale_leaves.svg';
@@ -97,12 +98,6 @@ const Question = styled.h2`
   color: #272727;
 `;
 
-const TextError = styled.h1`
-  margin-bottom: 2rem;
-  font-size: 1.125rem;
-  color: #ec8383;
-`;
-
 const BoxAnswer = styled.div`
   padding: 0 2.6875rem;
   max-width: 425px;
@@ -162,6 +157,7 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const [activitie, setActivitive] = useState(null);
   const [isModal, setIsModal] = useState(null);
   const [isModalAnswer, setIsModalAnswer] = useState(undefined);
+  const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true)
 
   const handleAnswerSize = () => {
@@ -208,6 +204,10 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     setSelectedLetter([]);
   }
 
+  const handleWrongAnswer = () => {
+    setModalWrongAnswer(false);
+  }
+
   const handleClick = (event) => {
     event.stopPropagation();
     const isAnswer = isActivitie?.correctAnswer;
@@ -221,8 +221,10 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
       setSelectedLetter([]);
       setLetterOption(handleShuffleLetter());
       setAnswer(handleAnswerSize());
+      setModalWrongAnswer(true);
     } else {
       setAnswerResult('wrong');
+      setModalWrongAnswer(true);
     }
   };
 
@@ -300,8 +302,6 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   };
 
   const squareAnswer = (letter) => {
-    // const background = (answerResult === 'wrong' && '#ec8383') || (letter.value && '#c7adfc');
-    // const border = (answerResult === 'wrong' || letter.value) ? '1px solid #c7adfc' : '1px dashed #272727';
     const background = letter.value && '#36A39A';
     const border = letter.value && '1px solid #36A39A';
 
@@ -314,48 +314,46 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     )
   }
 
-  const backgroundButton = (answerResult === 'checkAnswer' && '#19918d') || (answerResult === 'wrong' && '#ec8383');
-  const boxShadowButton = (answerResult === 'checkAnswer' && '0 12px 0 #275653') || (answerResult === 'wrong' && '0 12px 0 #bb6060');
-
   return (
     isLoading ? <SplashScreen /> : (
       <Container>
-        <Header iconBack={iconBack} logo={logo} />
-        <Content isModal={isModalAnswer}>
-          <Title><span>"</span>{activitie?.question}</Title><span>"</span>
-        </Content>
-        <figure>
-          <IconLeaves src={paleLeaves} />
-        </figure>
-        <Button
-          handleClick={handleIsModalAnswer}
-        >
-          responder
-        </Button>
-        {isModalAnswer && (
-          <ContainerAnswer>
-            <figure>
-              <IconLeaves top left zIndex src={paleLeaves} />
-            </figure>
-            <BoxAnswer>
-              {answerResult === 'wrong' && <TextError>Resposta errada</TextError>}
-              <ContentAnswer>
-                {answer?.map(i => squareAnswer(i))}
-              </ContentAnswer>
-              <ContentAnswer padding>
-                {individualLetters()}
-                <IconDelete src={iconDelete} />
-              </ContentAnswer>
-            </BoxAnswer>
-            <Button
-              height='auto'
-              background={backgroundButton}
-              boxShadow={boxShadowButton}
-              handleClick={handleClick}
-            >
-              {answerResult === 'wrong' ? 'Tente novamente' : 'Confirmar Resposta'}
-            </Button>
-          </ContainerAnswer>
+      {modalWrongAnswer ? <WrongAnswer handleClick={handleWrongAnswer}/> : (
+        <>
+          <Header iconBack={iconBack} logo={logo} />
+          <Content isModal={isModalAnswer}>
+            <Title><span>"</span>{activitie?.question}</Title><span>"</span>
+          </Content>
+          <figure>
+            <IconLeaves src={paleLeaves} />
+          </figure>
+          <Button
+            handleClick={handleIsModalAnswer}
+          >
+            responder
+          </Button>
+          {isModalAnswer && (
+            <ContainerAnswer>
+              <figure>
+                <IconLeaves top left zIndex src={paleLeaves} />
+              </figure>
+              <BoxAnswer>
+                <ContentAnswer>
+                  {answer?.map(i => squareAnswer(i))}
+                </ContentAnswer>
+                <ContentAnswer padding>
+                  {individualLetters()}
+                  <IconDelete src={iconDelete} />
+                </ContentAnswer>
+              </BoxAnswer>
+              <Button
+                height='auto'
+                handleClick={handleClick}
+              >
+                Confirmar Resposta
+              </Button>
+            </ContainerAnswer>
+          )}
+          </>
         )}
         {/* {isModal && <CorrectAnswer answer={activitie?.correctAnswer} image={activitie?.image} handlerNextActivitie={handlerNextActivitie}/>} */}
       </Container>

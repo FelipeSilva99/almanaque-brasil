@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // Styles
 const Content = styled.button`
 	/* margin-bottom: 2rem; */
+  margin: ${props => props.margin};
 	width: 100%;
 	/* max-height: 4rem; */
 	height: ${props => props.height || '2.375rem'};
@@ -14,7 +15,7 @@ const Content = styled.button`
 	font-size: .75rem;
 	font-weight: 900;
   letter-spacing: .05rem;
-	color: #373737;
+	color: ${props => props.color || "#373737"};
   text-transform: uppercase;
 	background: ${props => props.background || '#fcd029'};
 	border-radius: 20px;
@@ -41,13 +42,17 @@ const Button = ({
   boxShadow,
   children,
   disabled,
-  handleClick
+  handleClick,
+  margin,
+  color
 }) => {
   return (
     <Content
       height={height}
       background={background}
       boxShadow={boxShadow}
+      color={color}
+      margin={margin}
       disabled={disabled}
       onClick={handleClick}
     >

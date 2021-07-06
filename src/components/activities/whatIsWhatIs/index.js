@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Header from '../../header';
 import IndividualLetter from '../../letter/individualLetter';
 import Button from '../../buttons/containerButton';
-import CorrectAnswer from '../correctAnswer';
+import CorrectAnswer from './correctAnswer';
 import SplashScreen from './splashScreen';
 import WrongAnswer from './wrongAnswer';
 
@@ -315,49 +315,52 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   }
 
   return (
-    isLoading ? <SplashScreen /> : (
-      <Container>
-      {modalWrongAnswer ? <WrongAnswer handleClick={handleWrongAnswer}/> : (
-        <>
-          <Header iconBack={iconBack} logo={logo} />
-          <Content isModal={isModalAnswer}>
-            <Title><span>"</span>{activitie?.question}</Title><span>"</span>
-          </Content>
-          <figure>
-            <IconLeaves src={paleLeaves} />
-          </figure>
-          <Button
-            handleClick={handleIsModalAnswer}
-          >
-            responder
-          </Button>
-          {isModalAnswer && (
-            <ContainerAnswer>
-              <figure>
-                <IconLeaves top left zIndex src={paleLeaves} />
-              </figure>
-              <BoxAnswer>
-                <ContentAnswer>
-                  {answer?.map(i => squareAnswer(i))}
-                </ContentAnswer>
-                <ContentAnswer padding>
-                  {individualLetters()}
-                  <IconDelete src={iconDelete} />
-                </ContentAnswer>
-              </BoxAnswer>
-              <Button
-                height='auto'
-                handleClick={handleClick}
-              >
-                Confirmar Resposta
-              </Button>
-            </ContainerAnswer>
-          )}
-          </>
-        )}
-        {/* {isModal && <CorrectAnswer answer={activitie?.correctAnswer} image={activitie?.image} handlerNextActivitie={handlerNextActivitie}/>} */}
-      </Container>
-    )
+    isLoading ? <SplashScreen /> : 
+    <CorrectAnswer />
+    
+    // (
+    //   <Container>
+    //   {modalWrongAnswer ? <WrongAnswer handleClick={handleWrongAnswer}/> : (
+    //     <>
+    //       <Header iconBack={iconBack} logo={logo} />
+    //       <Content isModal={isModalAnswer}>
+    //         <Title><span>"</span>{activitie?.question}</Title><span>"</span>
+    //       </Content>
+    //       <figure>
+    //         <IconLeaves src={paleLeaves} />
+    //       </figure>
+    //       <Button
+    //         handleClick={handleIsModalAnswer}
+    //       >
+    //         responder
+    //       </Button>
+    //       {isModalAnswer && (
+    //         <ContainerAnswer>
+    //           <figure>
+    //             <IconLeaves top left zIndex src={paleLeaves} />
+    //           </figure>
+    //           <BoxAnswer>
+    //             <ContentAnswer>
+    //               {answer?.map(i => squareAnswer(i))}
+    //             </ContentAnswer>
+    //             <ContentAnswer padding>
+    //               {individualLetters()}
+    //               <IconDelete src={iconDelete} />
+    //             </ContentAnswer>
+    //           </BoxAnswer>
+    //           <Button
+    //             height='auto'
+    //             handleClick={handleClick}
+    //           >
+    //             Confirmar Resposta
+    //           </Button>
+    //         </ContainerAnswer>
+    //       )}
+    //       </>
+    //     )}
+    //     {/* {isModal && <CorrectAnswer answer={activitie?.correctAnswer} image={activitie?.image} handlerNextActivitie={handlerNextActivitie}/>} */}
+    //   </Container>
+    // )
   );
 }
 

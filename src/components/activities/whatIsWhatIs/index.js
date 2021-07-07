@@ -158,7 +158,8 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const [isModal, setIsModal] = useState(null);
   const [isModalAnswer, setIsModalAnswer] = useState(undefined);
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
+  const [amountTrial, setAmountTrial] = useState(3);
 
   const handleAnswerSize = () => {
     let answerSplit = [];
@@ -166,7 +167,7 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
       answerSplit.push({ id: i, value: '' });
     });
 
-    return answerSplit;
+    return answerSplit || [];
   }
 
   const handleShuffleLetter = () => {
@@ -176,7 +177,10 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     const alphabetLetters = choosingAlphabetLetters(qtdAmount);
     const letterOption = answer + alphabetLetters;
     const lettersArray = letterOption.split('');
-    const shuffleLetter = radom(lettersArray).split('');
+    // const shuffleLetter = radom(lettersArray).split('');
+
+    let shuffleLetter = radom(lettersArray).split('');
+    shuffleLetter = shuffleLetter.map((a, i) => ({ id: i, value: a }));
 
     return shuffleLetter;
   }
@@ -216,15 +220,14 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     if (selectedAnswer === isAnswer) {
       setIsModal(true);
       handleClenAnswer();
-    } else if (answerResult === 'wrong') {
+    } else {
       setAnswerResult('');
       setSelectedLetter([]);
       setLetterOption(handleShuffleLetter());
       setAnswer(handleAnswerSize());
       setModalWrongAnswer(true);
-    } else {
+      setAmountTrial(amountTrial-1);
       setAnswerResult('wrong');
-      setModalWrongAnswer(true);
     }
   };
 
@@ -265,18 +268,18 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     let newAnswer = answer || [];
 
     if (isSetterSelected) {
-      letterSelected = selectedLetter.filter((i) => i.id !== index);
-      newAnswer = answer.map(i => {
-        if (i.oldId === index) {
-          setAnswerResult('')
-          return { id: i.id, value: '' };
-        } return i;
-      })
+      // letterSelected = selectedLetter.filter((i) => i.id !== index);
+      // newAnswer = answer.map(i => {
+      //   if (i.oldId === index) {
+      //     setAnswerResult('')
+      //     return { id: i.id, value: '' };
+      //   } return i;
+      // })
     } else {
       if (selectedLetter.length <= answer.length) {
         letterSelected = selectedLetter.concat({ id: index, value: letter });
         let empty = answer.find(i => i.value === '');
-        newAnswer[empty.id].value = letter;
+        newAnswer[empty.id].value = letter.value;
         newAnswer[empty.id].oldId = index;
       }
       if (selectedLetter.length === answer.length - 1) {
@@ -287,6 +290,19 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     setAnswer(newAnswer);
   };
 
+  const handleEraseLetter = () => {
+    // event.stopPropagation();
+    let newAnswer = answer;
+    let newList = [];  
+    // let empty = answer.find(i => i.value !== ''); // inverto a ordem do array e procuro o primeiro item com um value valido
+    let qtdItem = answer.filter(i => i.value !== '').length;
+    newAnswer[qtdItem-1].value = '';           // zero o value
+    newAnswer[qtdItem-1].oldId = undefined;    // zero o oldId
+    newList.push(newAnswer);
+    setAnswer(newList[0]);
+  };
+
+
   const individualLetters = () => {
     return letterOption.map((item, index) => {
       const letterSelected = selectedLetter.find(i => index === i.id);
@@ -295,7 +311,7 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
           isSelected={letterSelected}
           onClick={(e) => handleSelectedLetter(e, index, item)}
         >
-          {item}
+          {item.value}
         </AnswerOption>
       )
     });
@@ -317,7 +333,7 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   return (
     isLoading ? <SplashScreen /> : (
       <Container>
-      {modalWrongAnswer ? <WrongAnswer handleClick={handleWrongAnswer}/> : (
+      {modalWrongAnswer ? <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} /> : (
         <>
           <Header iconBack={iconBack} logo={logo} />
           <Content isModal={isModalAnswer}>
@@ -342,7 +358,7 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
                 </ContentAnswer>
                 <ContentAnswer padding>
                   {individualLetters()}
-                  <IconDelete src={iconDelete} />
+                  <IconDelete src={iconDelete} onClick={handleEraseLetter}/>
                 </ContentAnswer>
               </BoxAnswer>
               <Button

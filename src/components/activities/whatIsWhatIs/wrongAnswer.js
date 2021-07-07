@@ -1,6 +1,9 @@
 // Libs
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import {
+  Link,
+} from "react-router-dom";
 
 // Assets
 import bento from './images/bento.png'
@@ -93,13 +96,17 @@ const ButtonsBox = styled.div`
   }
 `;
 
-function WrongAnswer({ chances=2, handleClick }) {
+const ALink = styled(Link)`
+  width: 100%;
+`;
+
+function WrongAnswer({ chances, handleClick }) {
   const [hasChances, setHasChance] = useState(true)
   const [isFirstMistake, setIsFirstMistake] = useState(true)
   useEffect(() => {
     if(chances < 2) setIsFirstMistake(false) 
     if(chances <= 0) setHasChance(false)
-  }, [])
+  }, []);
 
   return (
     <Container>
@@ -147,11 +154,13 @@ function WrongAnswer({ chances=2, handleClick }) {
         )
 
         }
-        <Button
-          margin={"0 0 20px 0"}
-          background={"rgb(252, 208, 41)"}
-          boxShadow={"rgb(238 137 47) 0px 7px 0px"}
-        >Voltar a trilha</Button>
+        <ALink to="/" >
+          <Button
+            margin={"0 0 20px 0"}
+            background={"rgb(252, 208, 41)"}
+            boxShadow={"rgb(238 137 47) 0px 7px 0px"}
+          >Voltar a trilha</Button>
+        </ALink>
       </ButtonsBox>
     </Container>
   )

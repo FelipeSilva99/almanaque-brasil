@@ -8,6 +8,7 @@ import {
 //Components
 import TrailsWhatIs from '../../components/activities/whatIsWhatIs';
 import WhoseEyesAreThese from '../../components/activities/whoseEyesAreThese';
+import InfoScreen from '../../components/activities/infoScreen';
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -34,9 +35,9 @@ const Activities = (props) => {
   useEffect(() => {
     const trail = props.selectedTrails;
     const allActivities = props.activities.data[trail].activities;
-    const filterActivities = allActivities.filter(item => item.type !== "origem-da-expressao");
+    // const filterActivities = allActivities.filter(item => item.type !== "origem-da-expressao");
     
-    setActivities(filterActivities);
+    setActivities(allActivities);
   }, []);
 
   useEffect(() => {
@@ -69,6 +70,9 @@ const Activities = (props) => {
 
       case "coisas-nossas":
         return <p>coisas-nossas</p>;
+      
+      case "origem-da-expressao":
+        return <InfoScreen />
 
       default:
         return <h1>{currentActivitie.question}</h1>;

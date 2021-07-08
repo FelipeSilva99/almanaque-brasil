@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import Trails from '../pages/trails';
 import Activities from '../pages/activities';
 import ActivitiesList from '../pages/activities/activitiesList';
-import OriginOfTheExpression from '../components/activities/originOfTheExpression';
+import OriginOfTheExpression from '../pages/activities/originOfTheExpression';
 
 
 // import PrivateRoute from './PrivateRoute';

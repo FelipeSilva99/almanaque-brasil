@@ -42,14 +42,6 @@ const Activities = (props) => {
   const handlerNextActivitie = (item) => {
     
     if (hasNextActivitie) {
-      if(item.type === 'origem-da-expressao') {
-        props.history.push({
-          pathname: `/origin-of-the-expression`,
-        });
-
-        return null;
-      }
-
       props.history.push({
         pathname: `/activities/${item.id+1}`,
       });

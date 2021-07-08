@@ -100,7 +100,7 @@ const ALink = styled(Link)`
   width: 100%;
 `;
 
-function WrongAnswer({ chances, handleClick }) {
+function WrongAnswer({ chances, handleClick, handleShowAnswer }) {
   const [hasChances, setHasChance] = useState(true)
   const [isFirstMistake, setIsFirstMistake] = useState(true)
   useEffect(() => {
@@ -146,6 +146,7 @@ function WrongAnswer({ chances, handleClick }) {
           >Tente Novamente</Button>
         ) : (
           <Button
+            handleClick={handleShowAnswer}
             margin={"0 0 20px 0"}
             background={"#399119"}
             color={"#FFFFFF"}

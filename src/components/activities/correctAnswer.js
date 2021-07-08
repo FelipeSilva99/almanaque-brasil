@@ -99,9 +99,9 @@ const CorrectAnswer = ({answer, image, handlerNextActivitie}) => {
         </Title>
         <TextRightAnswer>Resposta Correta</TextRightAnswer>
         <ConteinerIndividualLetter>
-          {answer.split('').map((item, index) => (
+          {/* {answer.split('').map((item, index) => (
             <IndividualLetter key={index} letter={item} background='#3daf1b' boxShadow='0 5px 0 #26770f' />)
-          )}
+          )} */}
         </ConteinerIndividualLetter>
         <Image src={image}/>
         <Text padding='1rem 0 0 0'>

@@ -1,10 +1,17 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 //Components
 import Button from '../../buttons/button';
 
 //Styles
+const StlyedLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
 const Container = styled.div`
   position: relative;
   width: 100vw;
@@ -30,7 +37,7 @@ const MessageBox = styled.div`
   padding-top: 4vh;
   background-color: #FFFFFF;
   width: 100vw;
-  height: 90vh;
+  height: ${props => props.height || "90vh"};
 
   @media(max-width: 425px) {
     padding-left: 5vw;
@@ -82,19 +89,41 @@ const ButtonBox = styled.div`
   }
 `;
 
+const Img = styled.img`
+  max-width: 500px;
+  width: 100%;
+`;
 
-const CorrectAnswer = () => {
+const ComplementaryInformationBox = styled.div`
+  /* margin: 10vh 0 18vh 0; */
+  text-align: center;
+  color: #373737;
+  p {
+    strong{ font-size: 2rem; }
+  }
+
+  div {
+    margin-top: 4vh;
+    width: 80vw;
+    max-width: 348px;
+    text-align: left;
+    p {
+
+    }
+  }
+`;
+
+const CorrectAnswer = ({ answer, handlerNextActivitie }) => {
   const modals = {
     congratulations: "congratulations",
     answerDescription: "answerDescription"
   }
   const [actualModal, setActualModal] = useState(modals.congratulations)
 
-  const hanleContinue = () => {
+  const handleContinue = () => {
     switch (actualModal) {
       case modals.congratulations:
-        setActualModal(modals.answerDescription);
-        break;
+        return setActualModal(modals.answerDescription);
     
       default:
         break;
@@ -113,6 +142,7 @@ const CorrectAnswer = () => {
             <ScoreText><strong>10</strong> pts</ScoreText>
             <ButtonBox>
               <Button
+                handleClick={() => handleContinue()}
                 color={"#fff"}
                 margin={"0 0 20px 0"}
                 background={"#399119"}
@@ -125,13 +155,34 @@ const CorrectAnswer = () => {
     
       case modals.answerDescription:
         return(
-          <h1>Continuee</h1>
+          <MessageBox height={"50vh"}>
+            <ComplementaryInformationBox>
+              <p>A reposta é:<br/><strong>{answer[0].answer}</strong></p>
+              <div>
+                <p>{answer[0].complementaryInformation}</p>
+              </div>
+
+            </ComplementaryInformationBox>
+            <ButtonBox>
+              {/* <StlyedLink to="/">  */}
+              <Button
+                handleClick={() => handlerNextActivitie()}
+                color={"#fff"}
+                margin={"0 0 20px 0"}
+                background={"#399119"}
+                boxShadow={"#245812 0px 7px 0px"}
+              >Continuar Trilha</Button>
+              {/* </StlyedLink> */}
+            </ButtonBox>
+          </MessageBox>
         );
     }
   }
 
   return(
+    console.log(answer),
     <Container>
+      {(answer[0]?.imageBase64) && <Img src={`data:image/jpeg;base64,${answer[0].imageBase64}`}></Img>}
       {renderModal()}
     </Container>
   );

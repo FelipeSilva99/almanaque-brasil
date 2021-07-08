@@ -331,6 +331,9 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   }
 
   return (
+    // <CorrectAnswer
+    //   handlerNextActivitie={handleNextQuestion}
+    //   answer={isActivitie.answers}/>
     isLoading ? <SplashScreen /> : (
       <Container>
       {modalWrongAnswer ? <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} /> : (

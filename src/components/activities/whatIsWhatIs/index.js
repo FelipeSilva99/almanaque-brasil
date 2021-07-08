@@ -157,6 +157,7 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const [activitie, setActivitive] = useState(null);
   const [isModal, setIsModal] = useState(null);
   const [isModalAnswer, setIsModalAnswer] = useState(undefined);
+  const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [amountTrial, setAmountTrial] = useState(3);
@@ -214,11 +215,11 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
 
   const handleClick = (event) => {
     event.stopPropagation();
-    const isAnswer = isActivitie?.correctAnswer;
-    const selectedAnswer = selectedLetter.map(item => item.value).join("");
+    const correctAnser = isActivitie?.answers[0].answer
+    const selectedAnswer = selectedLetter.map(item => (item.value.value)).join("");
 
-    if (selectedAnswer === isAnswer) {
-      setIsModal(true);
+    if (selectedAnswer === correctAnser) {
+      setModalCorrectAnswer(true)
       handleClenAnswer();
     } else {
       setAnswerResult('');
@@ -331,12 +332,12 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   }
 
   return (
-    // <CorrectAnswer
-    //   handlerNextActivitie={handleNextQuestion}
-    //   answer={isActivitie.answers}/>
+    console.log(isActivitie.correctAnswer),
     isLoading ? <SplashScreen /> : (
       <Container>
-      {modalWrongAnswer ? <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} /> : (
+      {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} />}
+      {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers}/>}
+      {!modalWrongAnswer && !modalCorrectAnswer && (
         <>
           <Header iconBack={iconBack} logo={logo} />
           <Content isModal={isModalAnswer}>

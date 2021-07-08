@@ -38,7 +38,7 @@ const Subtitle = styled.p`
 `;
 
 const ContainerButton = styled.div`
-margin: auto;
+  margin: auto;
   width: 117px;
   position: absolute;
   bottom: 1rem;

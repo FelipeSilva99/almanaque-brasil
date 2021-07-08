@@ -12,7 +12,8 @@ const Content = styled.div`
   align-items: center;
   font-size: 1.563rem;
   font-weight: 700;
-  color: #fff;
+  /* color: #fff; */
+  color: green;
   border-radius: 11px;
   border: ${props => props.border || '1px dashed #707070'};
   background: ${props => props.background};

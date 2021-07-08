@@ -124,7 +124,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
     toScore
       ? setActualModal(modals.toScore)
       : setActualModal(modals.answerDescription)
-  })
+  }, [])
   const handleContinue = () => {
     switch (actualModal) {
       case modals.toScore:
@@ -181,6 +181,10 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
             </ButtonBox>
           </MessageBox>
         );
+
+      default:
+        console.log("Carregando")
+        return <h1>Carregando</h1>
     }
   }
 

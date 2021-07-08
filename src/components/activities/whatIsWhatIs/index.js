@@ -159,6 +159,7 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const [isModalAnswer, setIsModalAnswer] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
+  const [showAnswer, setShowAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [amountTrial, setAmountTrial] = useState(3);
 
@@ -331,13 +332,20 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     )
   }
 
+  const showModalAnswer = () => {
+    setModalWrongAnswer(false)
+    setModalCorrectAnswer(false)
+    setShowAnswer(true)
+  }
+
   return (
     console.log(isActivitie.correctAnswer),
     isLoading ? <SplashScreen /> : (
       <Container>
-      {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} />}
+      {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer}/>}
       {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} toScore/>}
-      {!modalWrongAnswer && !modalCorrectAnswer && (
+      {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} />}
+      {(!modalWrongAnswer && !modalCorrectAnswer && !showAnswer) &&  (
         <>
           <Header iconBack={iconBack} logo={logo} />
           <Content isModal={isModalAnswer}>

@@ -172,9 +172,7 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     return answerSplit || [];
   }
 
-  const handleShuffleLetter = () => {
-    const answer = isActivitie?.answers[0]?.answer;
-    const answerLength = answer.length;
+  const handleShuffleLetter = (answer, answerLength) => {
     const qtdAmount = (answerLength <= 7 && 9 - answerLength ) || (answerLength <= 8 && 14 - answerLength);
     const alphabetLetters = choosingAlphabetLetters(qtdAmount);
     const letterOption = answer + alphabetLetters;
@@ -182,14 +180,17 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     // const shuffleLetter = radom(lettersArray).split('');
 
     let shuffleLetter = radom(lettersArray).split('');
-    shuffleLetter = shuffleLetter.map((a, i) => ({ id: i, value: a }));
+    // shuffleLetter = shuffleLetter.map((a, i) => ({ id: i, value: a }));
 
     return shuffleLetter;
   }
 
   useEffect(() => {
-    setLetterOption(handleShuffleLetter());
-    setAnswer(handleAnswerSize());
+    const answer = isActivitie?.answers[0]?.answer;
+    const answerLength = answer.length;
+    setLetterOption(handleShuffleLetter(answer, answerLength));
+    // setAnswer(handleAnswerSize());
+    setAnswer(answer.split(''));
     setActivitive(isActivitie);
   }, [isActivitie]);
 
@@ -306,14 +307,15 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
 
 
   const individualLetters = () => {
+    console.log({letterOption});
     return letterOption.map((item, index) => {
       const letterSelected = selectedLetter.find(i => index === i.id);
       return (
         <AnswerOption
-          isSelected={letterSelected}
-          onClick={(e) => handleSelectedLetter(e, index, item)}
+          // isSelected={letterSelected}
+          // onClick={(e) => handleSelectedLetter(e, index, item)}
         >
-          {item.value}
+          {item}
         </AnswerOption>
       )
     });
@@ -327,7 +329,7 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
       <IndividualLetter
         background={background}
         border={border}
-        letter={letter?.value}
+        letter={letter}
       />
     )
   }

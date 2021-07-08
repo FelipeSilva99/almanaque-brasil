@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -113,16 +113,21 @@ const ComplementaryInformationBox = styled.div`
   }
 `;
 
-const CorrectAnswer = ({ answer, handlerNextActivitie }) => {
+const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
   const modals = {
-    congratulations: "congratulations",
+    toScore: "toScore",
     answerDescription: "answerDescription"
   }
-  const [actualModal, setActualModal] = useState(modals.congratulations)
+  const [actualModal, setActualModal] = useState(undefined)
 
+  useEffect(() => {
+    toScore
+      ? setActualModal(modals.toScore)
+      : setActualModal(modals.answerDescription)
+  })
   const handleContinue = () => {
     switch (actualModal) {
-      case modals.congratulations:
+      case modals.toScore:
         return setActualModal(modals.answerDescription);
     
       default:
@@ -132,7 +137,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie }) => {
 
   const renderModal = () => {
     switch (actualModal) {
-      case modals.congratulations:
+      case modals.toScore:
         return(
           <MessageBox>
             <CongratulationsText>

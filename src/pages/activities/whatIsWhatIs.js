@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 //Components
-import Header from '../../header';
-import IndividualLetter from '../../letter/individualLetter';
-import Button from '../../buttons/containerButton';
-import CorrectAnswer from './correctAnswer';
-import SplashScreen from './splashScreen';
-import WrongAnswer from './wrongAnswer';
+import Header from '../../components/header';
+import IndividualLetter from '../../components/letter/individualLetter';
+import Button from '../../components/buttons/containerButton';
+import CorrectAnswer from '../../components/activities/whatIsWhatIs/correctAnswer';
+import SplashScreen from '../../pages/activities/splashScreen';
+import WrongAnswer from '../../components/activities/whatIsWhatIs/wrongAnswer';
 
 //Images
-import paleLeaves from './images/pale_leaves.svg';
-import iconBack from './images/iconBack.svg';
-import logo from './images/what_is_logo.svg';
-import iconDelete from './images/iconDelete.svg';
+import paleLeaves from '../../components/activities/whatIsWhatIs/images/pale_leaves.svg';
+import iconBack from '../../components/activities/whatIsWhatIs/images/iconBack.svg';
+import logo from '../../components/activities/whatIsWhatIs/images/what_is_logo.svg';
+import iconDelete from '../../components/activities/whatIsWhatIs/images/iconDelete.svg';
 
 // Styles
 const Container = styled.div`

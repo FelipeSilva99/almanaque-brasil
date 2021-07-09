@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 
 //Components
-import TrailsWhatIs from '../../components/activities/whatIsWhatIs';
-import WhoseEyesAreThese from '../../components/activities/whoseEyesAreThese';
+import TrailsWhatIs from '../../pages/activities/whatIsWhatIs';
+import WhoseEyesAreThese from '../../pages/activities/whoseEyesAreThese';
 import InfoScreen from '../../components/activities/infoScreen';
 
 const mapStateToProps = state => ({

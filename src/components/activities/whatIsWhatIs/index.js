@@ -143,7 +143,6 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const [answer, setAnswer] = useState([]);
   const [letterOption, setLetterOption] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState([]);
-  const [answerResult, setAnswerResult] = useState('');
   const [activitie, setActivitive] = useState(null);
   const [isModal, setIsModal] = useState(null);
   const [isModalAnswer, setIsModalAnswer] = useState(undefined);
@@ -210,19 +209,17 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const handleClick = (event) => {
     event.stopPropagation();
     const correctAnser = isActivitie?.answers[0].answer;
-    const selectedAnswer = selectedLetter.map(item => (item)).join("");
+    const selectedAnswer = answer.map(item => (item)).join("");
 
     if (selectedAnswer === correctAnser) {
       setModalCorrectAnswer(true)
       handleClenAnswer();
     } else {
-      setAnswerResult('');
       setSelectedLetter([]);
       setLetterOption(handleShuffleLetter());
       setAnswer(handleAnswerSize());
       setModalWrongAnswer(true);
       setAmountTrial(amountTrial-1);
-      setAnswerResult('wrong');
     }
   };
 
@@ -263,14 +260,11 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     let newAnswer = answer || [];
 
     if (!isSetterSelected) {
-      if (selectedLetter.length <= answer.length) {
+      if (selectedLetter.length <= answer.length -1) {
         let empty = newAnswer.findIndex(i => i === '');
         newAnswer[empty] = letter;
 
         itemSelected = selectedLetter.concat(index);
-      }
-      if (selectedLetter.length === answer.length - 1) {
-        setAnswerResult('checkAnswer');
       }
     }
     setSelectedLetter(itemSelected);
@@ -311,8 +305,8 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   };
 
   const squareAnswer = (letter) => {
-    const background = letter.value  && '#36A39A';
-    const border = letter.value && '1px solid #36A39A';
+    const background = letter  && '#36A39A';
+    const border = letter && '1px solid #36A39A';
 
     return (
       <IndividualLetter

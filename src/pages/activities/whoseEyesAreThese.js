@@ -4,6 +4,11 @@ import styled from 'styled-components';
 //Component
 import Header from '../../components/header/index';
 
+//Images
+import selectedTips from '../../assets/selectedTips.svg';
+import tips from '../../assets/tips.svg';
+import logo from '../../assets/whose_eyes_are_these_logo.svg';
+
 //Styled
 const ContainerWrong = styled.div`
   display: flex;
@@ -123,7 +128,7 @@ const WhoseEyesAreThese = (props) => {
     const imgData = props.activitie.imageBase64
     return (
       <>
-        <Header>{props.activitie.question}</Header>
+        <Header logo={logo} tips={tips}>{props.activitie.question}</Header>
         <Img src={`data:image/jpeg;base64,${imgData}`}></Img>
         <BoxAnswers>
           {props.activitie.answers.map((answer, key) => {

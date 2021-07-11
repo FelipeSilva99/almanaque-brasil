@@ -42,7 +42,6 @@ const Content = styled.div`
     font-weight: 700;
     color: #36A39A;
     line-height: 0;
-
     :last-child {
       padding-top: ${props => props.isModal ? '2.5rem' : '1rem'}
     }
@@ -57,7 +56,6 @@ const Title = styled.h1`
   text-align: center;
   
   @media (max-width: 320px) { width: 18rem; }
-
 `;
 
 const IconLeaves = styled.img`
@@ -88,16 +86,6 @@ const ContainerAnswer = styled.div`
   }
 `;
 
-const Question = styled.h2`
-  padding: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1.875rem;
-  font-weight: 500;
-  color: #272727;
-`;
-
 const BoxAnswer = styled.div`
   padding: 0 2.6875rem;
   max-width: 425px;
@@ -113,14 +101,8 @@ const BoxAnswer = styled.div`
 const ContentAnswer = styled.div`
   padding-top: ${props => props.padding && '2rem'};
   display: flex;
-  /* justify-content: center; */
   flex-wrap: wrap;
   width: 100%;
-  /* max-width: 425px; */
-
-  /* @media (max-width: 375px) {
-    padding: ${props => props.margin && '1rem 0 1rem 0'};
-  } */
 `;
 
 const AnswerOption = styled.button`
@@ -136,15 +118,14 @@ const AnswerOption = styled.button`
   background: ${props => props.isSelected ? '#D5D5D5' : '#36A39A'};
   border-radius: 12px;
   box-shadow: ${props => props.isSelected ? '0 5px 0 #9F9F9F' : '0 5px 0 #148077'};
-
+  
   @media (max-width: 360px) { margin: 2%; }
   @media (max-width: 320px) { margin: 2% 1% 3% 1%; }
-
 `;
 
 const IconDelete = styled.img`
   margin: 2% 3% 2% 3%;
-
+ 
   @media (max-width: 360px) { margin: 2%; }
   @media (max-width: 320px) { margin: 2% 1% 3% 1%; }
 `;
@@ -153,9 +134,7 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const [answer, setAnswer] = useState([]);
   const [letterOption, setLetterOption] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState([]);
-  const [answerResult, setAnswerResult] = useState('');
   const [activitie, setActivitive] = useState(null);
-  const [isModal, setIsModal] = useState(null);
   const [isModalAnswer, setIsModalAnswer] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
@@ -166,31 +145,29 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const handleAnswerSize = () => {
     let answerSplit = [];
     isActivitie?.answers[0]?.answer.split('').forEach((a, i) => {
-      answerSplit.push({ id: i, value: '' });
+      answerSplit.push('');
     });
 
     return answerSplit || [];
   }
 
-  const handleShuffleLetter = (answer, answerLength) => {
-    const qtdAmount = (answerLength <= 7 && 9 - answerLength ) || (answerLength <= 8 && 14 - answerLength);
+  const handleShuffleLetter = () => {
+    const answer = isActivitie?.answers[0]?.answer;
+    const answerLength = answer.length;
+    const qtdAmount = (answerLength <= 7 && 9 - answerLength) || (answerLength <= 8 && 14 - answerLength);
     const alphabetLetters = choosingAlphabetLetters(qtdAmount);
     const letterOption = answer + alphabetLetters;
     const lettersArray = letterOption.split('');
-    // const shuffleLetter = radom(lettersArray).split('');
 
     let shuffleLetter = radom(lettersArray).split('');
-    // shuffleLetter = shuffleLetter.map((a, i) => ({ id: i, value: a }));
+    shuffleLetter = shuffleLetter.map(a => (a));
 
     return shuffleLetter;
   }
 
   useEffect(() => {
-    const answer = isActivitie?.answers[0]?.answer;
-    const answerLength = answer.length;
-    setLetterOption(handleShuffleLetter(answer, answerLength));
-    // setAnswer(handleAnswerSize());
-    setAnswer(answer.split(''));
+    setLetterOption(handleShuffleLetter());
+    setAnswer(handleAnswerSize());
     setActivitive(isActivitie);
   }, [isActivitie]);
 
@@ -201,6 +178,10 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
       clearTimeout(timer1);
     };
   }, []);
+
+  useEffect(() => {
+
+  }, [answer]);
 
   const handleIsModalAnswer = () => {
     setIsModalAnswer(true);
@@ -217,27 +198,20 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
 
   const handleClick = (event) => {
     event.stopPropagation();
-    const correctAnser = isActivitie?.answers[0].answer
-    const selectedAnswer = selectedLetter.map(item => (item.value.value)).join("");
+    const correctAnser = isActivitie?.answers[0].answer;
+    const selectedAnswer = answer.map(item => (item)).join("");
 
     if (selectedAnswer === correctAnser) {
       setModalCorrectAnswer(true)
       handleClenAnswer();
     } else {
-      setAnswerResult('');
       setSelectedLetter([]);
       setLetterOption(handleShuffleLetter());
       setAnswer(handleAnswerSize());
       setModalWrongAnswer(true);
-      setAmountTrial(amountTrial-1);
-      setAnswerResult('wrong');
+      setAmountTrial(amountTrial - 1);
     }
   };
-
-  const handlerNextActivitie = () => {
-    setIsModal(false);
-    handleNextQuestion();
-  }
 
   const choosingAlphabetLetters = (quantity) => {
     let result = [];
@@ -266,64 +240,50 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
 
   const handleSelectedLetter = (event, index, letter) => {
     event.stopPropagation();
-    const isSetterSelected = selectedLetter.find(i => index === i.id);
-    let letterSelected = selectedLetter;
+    const isSetterSelected = selectedLetter.find(i => index === i);
+    let itemSelected = selectedLetter;
     let newAnswer = answer || [];
 
-    if (isSetterSelected) {
-      // letterSelected = selectedLetter.filter((i) => i.id !== index);
-      // newAnswer = answer.map(i => {
-      //   if (i.oldId === index) {
-      //     setAnswerResult('')
-      //     return { id: i.id, value: '' };
-      //   } return i;
-      // })
-    } else {
-      if (selectedLetter.length <= answer.length) {
-        letterSelected = selectedLetter.concat({ id: index, value: letter });
-        let empty = answer.find(i => i.value === '');
-        newAnswer[empty.id].value = letter.value;
-        newAnswer[empty.id].oldId = index;
-      }
-      if (selectedLetter.length === answer.length - 1) {
-        setAnswerResult('checkAnswer');
+    if (!isSetterSelected) {
+      if (selectedLetter.length <= answer.length - 1) {
+        let empty = newAnswer.findIndex(i => i === '');
+        newAnswer[empty] = letter;
+
+        itemSelected = selectedLetter.concat(index);
       }
     }
-    setSelectedLetter(letterSelected);
+
+    setSelectedLetter(itemSelected);
     setAnswer(newAnswer);
   };
 
   const handleEraseLetter = () => {
-    // event.stopPropagation();
     let newAnswer = answer;
-    let newList = [];  
-    // let empty = answer.find(i => i.value !== ''); // inverto a ordem do array e procuro o primeiro item com um value valido
-    let qtdItem = answer.filter(i => i.value !== '').length;
-    newAnswer[qtdItem-1].value = '';           // zero o value
-    newAnswer[qtdItem-1].oldId = undefined;    // zero o oldId
-    newList.push(newAnswer);
-    setAnswer(newList[0]);
+    let removeLastItem = selectedLetter;
+    let empty = newAnswer.findIndex(i => i === '') - 1;
+
+    if (empty === -2) {
+      newAnswer[newAnswer.length - 1] = '';
+    } else {
+      newAnswer[empty] = '';
+    }
+
+    removeLastItem.pop();
+
+    setAnswer([...newAnswer]);
+    setSelectedLetter([...removeLastItem]);
   };
 
+  const showModalAnswer = () => {
+    setModalWrongAnswer(false);
+    setModalCorrectAnswer(false);
+    setShowAnswer(true);
+  }
 
-  const individualLetters = () => {
-    console.log({letterOption});
-    return letterOption.map((item, index) => {
-      const letterSelected = selectedLetter.find(i => index === i.id);
-      return (
-        <AnswerOption
-          // isSelected={letterSelected}
-          // onClick={(e) => handleSelectedLetter(e, index, item)}
-        >
-          {item}
-        </AnswerOption>
-      )
-    });
-  };
 
-  const squareAnswer = (letter) => {
-    const background = letter.value && '#36A39A';
-    const border = letter.value && '1px solid #36A39A';
+  const renderSquareAnswer = (letter) => {
+    const background = letter && '#36A39A';
+    const border = letter && '1px solid #36A39A';
 
     return (
       <IndividualLetter
@@ -334,58 +294,74 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     )
   }
 
-  const showModalAnswer = () => {
-    setModalWrongAnswer(false)
-    setModalCorrectAnswer(false)
-    setShowAnswer(true)
+  const renderIndividualLetters = () => {
+    return letterOption.map((item, index) => {
+      const letterSelected = selectedLetter.filter(i => index === i).length;
+
+      return (
+        <AnswerOption
+          isSelected={letterSelected}
+          onClick={(e) => handleSelectedLetter(e, index, item)}
+        >
+          {item}
+        </AnswerOption>
+      )
+    });
+  };
+
+  const renderScreen = () => {
+    return (
+      <>
+        <Header iconBack={iconBack} logo={logo} />
+        <Content isModal={isModalAnswer}>
+          <Title><span>"</span>{activitie?.question}</Title><span>"</span>
+        </Content>
+        <figure>
+          <IconLeaves src={paleLeaves} />
+        </figure>
+        <Button
+          handleClick={handleIsModalAnswer}
+        >
+          responder
+        </Button>
+        {isModalAnswer && (
+          <ContainerAnswer>
+            <figure>
+              <IconLeaves top left zIndex src={paleLeaves} />
+            </figure>
+            <BoxAnswer>
+              <ContentAnswer>
+                {answer.map(i => renderSquareAnswer(i))}
+              </ContentAnswer>
+              <ContentAnswer padding>
+                {renderIndividualLetters()}
+                <IconDelete src={iconDelete} onClick={handleEraseLetter} />
+              </ContentAnswer>
+            </BoxAnswer>
+            <Button
+              height='auto'
+              handleClick={handleClick}
+            >
+              Confirmar Resposta
+            </Button>
+          </ContainerAnswer>
+        )}
+      </>
+    )
   }
 
   return (
-    console.log(isActivitie.correctAnswer),
     isLoading ? <SplashScreen /> : (
       <Container>
-      {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer}/>}
-      {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} toScore/>}
-      {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} />}
-      {(!modalWrongAnswer && !modalCorrectAnswer && !showAnswer) &&  (
-        <>
-          <Header iconBack={iconBack} logo={logo} />
-          <Content isModal={isModalAnswer}>
-            <Title><span>"</span>{activitie?.question}</Title><span>"</span>
-          </Content>
-          <figure>
-            <IconLeaves src={paleLeaves} />
-          </figure>
-          <Button
-            handleClick={handleIsModalAnswer}
-          >
-            responder
-          </Button>
-          {isModalAnswer && (
-            <ContainerAnswer>
-              <figure>
-                <IconLeaves top left zIndex src={paleLeaves} />
-              </figure>
-              <BoxAnswer>
-                <ContentAnswer>
-                  {answer?.map(i => squareAnswer(i))}
-                </ContentAnswer>
-                <ContentAnswer padding>
-                  {individualLetters()}
-                  <IconDelete src={iconDelete} onClick={handleEraseLetter}/>
-                </ContentAnswer>
-              </BoxAnswer>
-              <Button
-                height='auto'
-                handleClick={handleClick}
-              >
-                Confirmar Resposta
-              </Button>
-            </ContainerAnswer>
-          )}
-          </>
-        )}
-        {/* {isModal && <CorrectAnswer answer={activitie?.correctAnswer} image={activitie?.image} handlerNextActivitie={handlerNextActivitie}/>} */}
+        {(
+          !modalWrongAnswer
+          && !modalCorrectAnswer
+          && !showAnswer)
+          && renderScreen()
+        }
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} toScore />}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} />}
       </Container>
     )
   );

@@ -73,7 +73,10 @@ const Activities = (props) => {
         return <p>coisas-nossas</p>;
       
       case "origem-da-expressao":
-        return <InfoScreen isActivitie={currentActivitie} />
+        return <InfoScreen isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+
+      case "eureka":
+        return <InfoScreen isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       default:
         return <h1>{currentActivitie.question}</h1>;

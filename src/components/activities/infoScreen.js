@@ -72,8 +72,8 @@ const OriginOfTheExpression = (props) => {
     <Container>
       <ImgOrigin src={LogoOrigin} alt="" />
       <div>
-        {/* <Img src={`data:image/jpeg;base64,${image}`} alt="" /> */}
-        <Img src={ImagePill} alt="" />
+        <Img src={`data:image/jpeg;base64,${image}`} alt="" />
+        {/* <Img src={ImagePill} alt="" /> */}
       </div>
       <Title 
       fontWeight="900"
@@ -90,7 +90,7 @@ const OriginOfTheExpression = (props) => {
           height='39px'
           background='#ffd000'
           boxShadow='0 10px 0 #f08800'
-          handleClick={handleClick}
+          handleClick={props.handleNextQuestion}
         >
           Continuar
         </Button>

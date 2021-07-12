@@ -16,11 +16,11 @@ const Container = styled.div`
   border: 2px red solid;
 `;
 
-const OriginOfTheExpression = () => {
+const OriginOfTheExpression = (handleNextQuestion) => {
   
   return (
     <Container>
-        <InfoScreen />
+        <InfoScreen handleNextQuestion={handleNextQuestion} />
     </Container>
   );
 }

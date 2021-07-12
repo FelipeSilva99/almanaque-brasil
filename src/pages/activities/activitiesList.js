@@ -21,10 +21,10 @@ const Container = styled.div`
 
 const Content = styled.button`
   margin: 1.5rem;
-  width: ${props => props.type === 'origem-da-expressao' ? '30px' : '56px'};
-  height: ${props => props.type === 'origem-da-expressao' ? '30px' : '56px'};
-  background-color: ${props => props.type === 'origem-da-expressao' ? '#cfa151' : '#f8cc80'};
-  border: ${props => props.type === 'origem-da-expressao' ? '2px solid #956517' : '2px solid #cfa151'};
+  width: ${props => props.type === 'origem-da-expressao' || props.type === 'eureka' ? '30px' : '56px'};
+  height: ${props => props.type === 'origem-da-expressao' || props.type === 'eureka' ? '30px' : '56px'};
+  background-color: ${props => props.type === 'origem-da-expressao' || props.type === 'eureka' ? '#cfa151' : '#f8cc80'};
+  border: ${props => props.type === 'origem-da-expressao' || props.type === 'eureka' ? '2px solid #956517' : '2px solid #cfa151'};
   border-radius: 50%;
   cursor: pointer;
 `;

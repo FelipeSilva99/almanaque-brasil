@@ -8,7 +8,7 @@ import {
 //Components
 import TrailsWhatIs from '../../components/activities/whatIsWhatIs';
 import WhoseEyesAreThese from '../../components/activities/whoseEyesAreThese';
-import InfoScreen from '../../components/activities/infoScreen';
+import InfoScreen from './infoScreen';
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
 // Styles
 const Container = styled.div`
   display: flex;
-  background-color: #fff;
+  justify-content: center;
   overflow: hidden;
   width: 100vw;
   height: 100vh;
@@ -61,7 +61,7 @@ const Activities = (props) => {
 
   const renderActivitie = (currentActivitie) => {
     // Renderizar component de acordo com o tipo de ativivdade
-    // {console.log(currentActivitie)}
+    // {console.log("to aqui",currentActivitie)}
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
         return <WhoseEyesAreThese activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} />
@@ -73,10 +73,10 @@ const Activities = (props) => {
         return <p>coisas-nossas</p>;
       
       case "origem-da-expressao":
-        return <InfoScreen isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+        return <InfoScreen isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} isShowLogo />
 
       case "eureka":
-        return <InfoScreen isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+        return <InfoScreen isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} btnEureka />
 
       default:
         return <h1>{currentActivitie.question}</h1>;

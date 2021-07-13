@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
-import LogoOrigin from '../../components/activities/whatIsWhatIs/images/origin-logo.svg'
-import LogoEureka from '../../components/activities/whatIsWhatIs/images/image-eureka.svg'
+import LogoOrigin from '../../images/whatIsWhatIs/origin-logo.svg'
+import LogoEureka from '../../images/whatIsWhatIs/image-eureka.svg'
 
 //Components
 import Button from '../../components/buttons/button';
@@ -36,6 +36,11 @@ const Content = styled.div`
 
 const ImgOrigin = styled.img`
   width: 150px;
+  ${({ eureka }) => eureka && `
+    width: 100px,
+    position: relative,
+    bottom: 5px,
+  `}
   `
 
 const BoxImg = styled.div`
@@ -79,50 +84,40 @@ const ContainerButton = styled.div`
   margin-top: ${props => props.marginTop};
 `;
 
-const OriginOfTheExpression = (props) => {
-  console.log("info props:", props)
-  let history = useHistory();
+const OriginOfTheExpression = ({isActivitie, isShowLogo, eureka, handleNextQuestion}) => {
 
-  const handleClick = () => {
-    history.goBack()
-  }
-
-  const image = props.isActivitie.imageBase64
+  const image = isActivitie.imageBase64
 
   return (
     <Container>
       <Content>
         {
-          props.isShowLogo ? <ImgOrigin src={LogoOrigin} alt="" /> :
+          isShowLogo ? <ImgOrigin src={LogoOrigin} alt="logo" /> :
             <ImgOrigin
               src={LogoEureka}
-              alt=""
-              style={{
-                width: "100px",
-                position: "relative",
-                bottom: "5px",
-              }}
+              alt="logo"
+              eureka={eureka}
             />
         }
         <BoxImg>
-          <Img src={`data:image/jpeg;base64,${image}`} alt="" />
+          <Img src={`data:image/jpeg;base64,${image}`} alt={`image${isActivitie.answers[0].answer}`} />
         </BoxImg>
         <Title
           fontWeight="900"
           textTransform='uppercase'
           fontSize="1.3rem"
         >
-          {props.isActivitie.question}.
+          {isActivitie.question}.
         </Title>
         <Subtitle>
-          {props.isActivitie.answers[0].answer}
+          {isActivitie.answers[0].answer}
         </Subtitle>
-        <ContainerButton marginTop={props.btnEureka ? '9.5rem' : '4rem'}>
+        <ContainerButton marginTop={eureka ? '9.5rem' : '4rem'}>
           <Button
             height='39px'
             background='#ffd000'
             boxShadow='0 7px 0 #f08800'
-            handleClick={props.handleNextQuestion}
+            handleClick={handleNextQuestion}
           >
             Continuar
           </Button>

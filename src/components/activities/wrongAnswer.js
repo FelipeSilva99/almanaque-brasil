@@ -6,10 +6,10 @@ import {
 } from "react-router-dom";
 
 // Assets
-import bento from './images/bento.png'
-import leaf from './images/pale_leaves.svg'
+import bento from '../../images/whatIsWhatIs/bento.png'
+import leaf from '../../images/whatIsWhatIs/pale_leaves.svg'
 // Components
-import Button from '../../buttons/button';
+import Button from '../buttons/button';
 
 const Container = styled.div`
   /* position: absolute;

@@ -8,6 +8,9 @@ import Header from '../../components/header/index';
 import selectedTips from '../../assets/selectedTips.svg';
 import tips from '../../assets/tips.svg';
 import logo from '../../assets/whose_eyes_are_these_logo.svg';
+import dialogBox from '../../assets/dialogBox.svg';
+import bento from '../../assets/bento.png';
+import iconClose from '../../assets/iconClose.svg';
 
 //Styled
 const ContainerWrong = styled.div`
@@ -88,11 +91,69 @@ const ContentAnswerOption = styled.button`
   box-shadow: ${props => props.isSelected ? '0 5px 0 #9c9c9c' : '0 5px 0 #9a72f6'};
 `;
 
+const ContainerTip = styled.div`
+  background: #70707073;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+
+  @media (min-width: 1024px) { align-items: center; }
+`;
+
+const ContentTip = styled.div`
+  max-width: 340px;
+`;
+
+const ContentInfoTip = styled.div`
+  position: relative;
+  top: 1.5rem;
+  display: flex;
+  justify-content: center;
+
+  /* @media (max-width: 320px) { width: 80vw; } */
+
+`;
+
+const ImgDialogBox = styled.img`
+  width: 100%;
+`;
+
+const ContentInfo = styled.div`
+  position: absolute;
+  padding-top: 2rem;
+  max-width: 260px;
+  /* max-width: 300px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const TextTip = styled.p`
+  padding: ${props => props.padding && '1.5rem 0 .8rem 0 '};
+  color: #373737F2;
+  line-height: 1.2rem;
+
+  @media (max-width: 320px) { padding: ${props => props.padding && '1.5rem 0 .4rem 0 '}; }
+`;
+
+const ImgBento = styled.img`
+  position: relative;
+  top: -1rem;
+  left: -3rem;
+`;
+
+
 const WhoseEyesAreThese = (props) => {
   const [attempt, setAttempt] = useState({
     attempt: null,
     answer: null
-  })
+  });
+  const [isModalTip, setIsModalTip] = useState(undefined)
 
   const Button = (props) => {
     return (
@@ -116,6 +177,10 @@ const WhoseEyesAreThese = (props) => {
     }
   }
 
+  const handleModalTip = () => {
+    setIsModalTip(!isModalTip)
+  }
+
   const setScreen = () => {
     switch (attempt.attempt) {
       case true: return correctAnswerScreen()
@@ -125,10 +190,19 @@ const WhoseEyesAreThese = (props) => {
   }
 
   const answersScreen = () => {
-    const imgData = props.activitie.imageBase64
+    const imgData = props.activitie.imageBase64;
+    const hasSelectedTips =  isModalTip ? selectedTips : tips;
+
     return (
       <>
-        <Header logo={logo} tips={tips}>{props.activitie.question}</Header>
+        <Header
+          logo={logo}
+          tips={hasSelectedTips}
+          isSelectedTips={isModalTip}
+          handleModalTip={handleModalTip}
+        >
+          {props.activitie.question}
+        </Header>
         <Img src={`data:image/jpeg;base64,${imgData}`}></Img>
         <BoxAnswers>
           {props.activitie.answers.map((answer, key) => {
@@ -190,7 +264,38 @@ const WhoseEyesAreThese = (props) => {
     )
   }
 
-  return setScreen();
+  const renderTip = () => {
+    return (
+      <ContainerTip>
+        <ContentTip>
+          <ContentInfoTip>
+            {/* <img src={selectedTips} /> */}
+            <ImgDialogBox src={dialogBox} />
+            <ContentInfo>
+              <TextTip>
+                Ela nasceu na cidade de Paraopeba Minas Gerais, em 14 de
+                Agosto de 1942. Se tornou uma das principais cantoras do
+                samba brasileiro. Morreu tragicamente em decorrência de
+                complicações de uma cirurgia. Seu apelido era Gerreira!
+              </TextTip>
+              <TextTip padding>
+                Entre seus sucessos está MORENA DE ANGOLA.
+              </TextTip>
+              <img src={iconClose} onClick={handleModalTip}/>
+            </ContentInfo>
+            </ContentInfoTip>
+          <ImgBento src={bento} />
+        </ContentTip>
+      </ContainerTip>
+    );
+  }
+
+  return (
+    <>
+      {setScreen()}
+      {isModalTip && renderTip()}
+    </>
+  )
 }
 
 export default WhoseEyesAreThese;

@@ -17,8 +17,18 @@ const Container = styled.div`
   @media (min-width: 1024px) { height: 5rem; }
 `;
 
-const Figure = styled.figure`
+const Button = styled.button`
   width: 2.5rem;
+`;
+
+const ButtonTip = styled.button`
+  padding: .5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  z-index: 1;
 `;
 
 const Image = styled.img`
@@ -27,16 +37,18 @@ const Image = styled.img`
   @media (min-width: 1024px) { width: 6rem; }
 `;
 
-const Header = ({ logo, tips }) => {
+const Header = ({ logo, tips, isSelectedTips, handleModalTip }) => {
   return (
     <Container>
-      <Figure>
+      <Button>
         <img src={iconBack} />
-      </Figure>
-        <Image src={logo} />
-      <Figure>
-        {tips ? <img src={tips} /> : <div/>}
-      </Figure>
+      </Button>
+      <Image src={logo} />
+      {tips ? (
+        <ButtonTip isSelectedTips={isSelectedTips} onClick={handleModalTip}>
+          <img src={tips} />
+        </ButtonTip>
+      ) : <div/>}
     </Container>
   );
 }

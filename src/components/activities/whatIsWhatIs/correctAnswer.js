@@ -183,13 +183,11 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
         );
 
       default:
-        console.log("Carregando")
         return <h1>Carregando</h1>
     }
   }
 
   return(
-    console.log(answer),
     <Container>
       {(answer[0]?.imageBase64) && <Img src={`data:image/jpeg;base64,${answer[0].imageBase64}`}></Img>}
       {renderModal()}

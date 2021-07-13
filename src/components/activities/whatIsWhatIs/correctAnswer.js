@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 //Components
-import Button from '../buttons/button';
+import Button from '../../buttons/button';
 
 //Styles
 const StlyedLink = styled(Link)`

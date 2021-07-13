@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import Header from '../../components/header';
 import IndividualLetter from '../../components/letter/individualLetter';
 import Button from '../../components/buttons/containerButton';
-import CorrectAnswer from '../../components/activities/correctAnswer';
-import SplashScreen from '../../components/activities/splashScreen';
+import CorrectAnswer from '../../components/activities/whatIsWhatIs/correctAnswer';
+import SplashScreen from '../../pages/activities/splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 
 //Images

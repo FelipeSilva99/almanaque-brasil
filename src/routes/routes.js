@@ -13,7 +13,6 @@ import Activities from '../pages/activities';
 import ActivitiesList from '../pages/activities/activitiesList';
 // import OriginOfTheExpression from '../pages/activities/originOfTheExpression';
 
-
 // import PrivateRoute from './PrivateRoute';
 import {
 	getTrailsThunk,

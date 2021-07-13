@@ -61,7 +61,6 @@ const Activities = (props) => {
 
   const renderActivitie = (currentActivitie) => {
     // Renderizar component de acordo com o tipo de ativivdade
-    // {console.log("to aqui",currentActivitie)}
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
         return <WhoseEyesAreThese isActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} />

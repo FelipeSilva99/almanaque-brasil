@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useHistory } from "react-router-dom";
-import LogoOrigin from '../../images/whatIsWhatIs/origin-logo.svg'
-import LogoEureka from '../../images/whatIsWhatIs/image-eureka.svg'
 
 //Components
 import Button from '../../components/buttons/button';
+
+//Images
+import LogoOrigin from '../../images/whatIsWhatIs/origin-logo.svg';
+import LogoEureka from '../../images/whatIsWhatIs/image-eureka.svg';
 
 // Styles
 const Container = styled.div`
@@ -21,27 +22,27 @@ const Container = styled.div`
   `;
 
 const Content = styled.div`
-    width: 90vw;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    background: #F3F3F3;
-    box-shadow: 0px 3px 6px #00000029;
-    border-radius: 24px;
-    
-  `;
+  width: 90vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: #F3F3F3;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 24px;
+`;
 
 const ImgOrigin = styled.img`
   width: 150px;
+
   ${({ eureka }) => eureka && `
     width: 100px,
     position: relative,
     bottom: 5px,
   `}
-  `
+`
 
 const BoxImg = styled.div`
   width: 90%;
@@ -84,8 +85,7 @@ const ContainerButton = styled.div`
   margin-top: ${props => props.marginTop};
 `;
 
-const OriginOfTheExpression = ({isActivitie, isShowLogo, eureka, handleNextQuestion}) => {
-
+const OriginOfTheExpression = ({isActivitie, isShowLogo, eureka, handleNextQuestion }) => {
   const image = isActivitie.imageBase64
 
   return (

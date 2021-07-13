@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
-import LogoOrigin from '../activities/whatIsWhatIs/images/origin-logo.svg'
-import ImagePill from '../activities/whatIsWhatIs/images/image-pill.png'
+import LogoOrigin from '../../images/whatIsWhatIs/origin-logo.svg'
+import ImagePill from '../../images/whatIsWhatIs/image-pill.png'
 
 //Components
 import Button from '../buttons/button';

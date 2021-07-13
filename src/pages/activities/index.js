@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 //Components
-import TrailsWhatIs from '../../components/activities/whatIsWhatIs';
+import WhatIsWhatIs from './whatIsWhatIs';
 import WhoseEyesAreThese from '../../components/activities/whoseEyesAreThese';
 import InfoScreen from '../../components/activities/infoScreen';
 
@@ -67,7 +67,7 @@ const Activities = (props) => {
         return <WhoseEyesAreThese activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} />
 
       case "o-que-e-o-que-e":
-        return <TrailsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+        return <WhatIsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "coisas-nossas":
         return <p>coisas-nossas</p>;

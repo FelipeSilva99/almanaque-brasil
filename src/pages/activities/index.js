@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 
 //Components
-import TrailsWhatIs from '../../pages/activities/whatIsWhatIs';
-import WhoseEyesAreThese from '../../pages/activities/whoseEyesAreThese';
+import WhatIsWhatIs from './whatIsWhatIs';
+import WhoseEyesAreThese from './whoseEyesAreThese';
 import InfoScreen from '../../components/activities/infoScreen';
 
 const mapStateToProps = state => ({
@@ -63,16 +63,16 @@ const Activities = (props) => {
     // Renderizar component de acordo com o tipo de ativivdade
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
-        return <WhoseEyesAreThese activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} />
+        return <WhoseEyesAreThese isActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} />
 
       case "o-que-e-o-que-e":
-        return <TrailsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+        return <WhatIsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "coisas-nossas":
         return <p>coisas-nossas</p>;
       
       case "origem-da-expressao":
-        return <InfoScreen />
+        return <InfoScreen isActivitie={currentActivitie} />
 
       default:
         return <h1>{currentActivitie.question}</h1>;

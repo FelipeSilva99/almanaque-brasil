@@ -5,12 +5,12 @@ import styled from 'styled-components';
 import Header from '../../components/header/index';
 
 //Images
-import selectedTips from '../../assets/selectedTips.svg';
-import tips from '../../assets/tips.svg';
-import logo from '../../assets/whose_eyes_are_these_logo.svg';
-import dialogBox from '../../assets/dialogBox.svg';
-import bento from '../../assets/bento.png';
-import iconClose from '../../assets/iconClose.svg';
+import selectedTips from '../../images/whoseEyesAreThese/selectedTips.svg';
+import tips from '../../images/whoseEyesAreThese/tips.svg';
+import logo from '../../images/whoseEyesAreThese/logo.svg';
+import dialogBox from '../../images/whoseEyesAreThese/dialogBox.svg';
+import bento from '../../images/whoseEyesAreThese/bento.png';
+import iconClose from '../../images/whoseEyesAreThese/iconClose.svg';
 
 //Styled
 const ContainerWrong = styled.div`
@@ -190,7 +190,8 @@ const WhoseEyesAreThese = (props) => {
   }
 
   const answersScreen = () => {
-    const imgData = props.activitie.imageBase64;
+    const activitie = props?.isActivitie;
+    const imgData = activitie.imageBase64;
     const hasSelectedTips =  isModalTip ? selectedTips : tips;
 
     return (
@@ -201,11 +202,11 @@ const WhoseEyesAreThese = (props) => {
           isSelectedTips={isModalTip}
           handleModalTip={handleModalTip}
         >
-          {props.activitie.question}
+          {activitie.question}
         </Header>
         <Img src={`data:image/jpeg;base64,${imgData}`}></Img>
         <BoxAnswers>
-          {props.activitie.answers.map((answer, key) => {
+          {activitie.answers.map((answer, key) => {
             return (
               <ContentAnswerOption
                 onClick={() => handleCheckAnswer(answer)}

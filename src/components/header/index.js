@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 //Images
-import iconBack from '../../assets/iconBack.svg';
+import iconBack from '../../images/icons/iconBack.svg';
 
 // Styles
 const Container = styled.div`

@@ -1,125 +1,196 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 //Components
-import IndividualLetter from '../letter/individualLetter';
 import Button from '../buttons/button';
 
-// Styles
+//Styles
+const StlyedLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
 const Container = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: auto;
-  width: 90vw;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background: #fff;
-`;
-
-const Content = styled.div`
-  height: 100%;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
-`;
+  background: #f3f3f3;
 
-const Title = styled.p`
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #272727;
-
-  @media (max-width: 375px) {
-    margin-bottom: 2rem;
+  @media (min-width: 1024px) {
+    justify-content: center;
   }
 `;
 
-const TextRightAnswer = styled.p`
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 2rem;
-  color: #3daf1b;
-`;
-
-const ConteinerIndividualLetter = styled.div`
-  margin-bottom: 1.5rem;
+const MessageBox = styled.div`
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
-  max-width: 425px;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  padding-top: 4vh;
+  background-color: #FFFFFF;
+  width: 100vw;
+  height: ${props => props.height || "90vh"};
 
-  @media (max-width: 375px) {
-    margin-bottom: 2rem;
+  @media(max-width: 425px) {
+    padding-left: 5vw;
+    padding-right: 5vw;
   }
 `;
 
-const Image = styled.img`
-  width: 100%;
-  max-width: 425px;
-  height: 10.9375rem;
-  background: #76146c;
-
-  @media (max-width: 375px) {
-    margin-bottom: 1rem;
+const CongratulationsText = styled.div`
+  margin: 10vh 0 18vh 0;
+  text-align: center;
+  h1{
+    font-size: 3rem;
+    color: #399119;
+  }
+  p{
+    font-size: 1.5rem;
+    strong{
+      font-size: 3rem;
+      color: #399119;
+    }
   }
 `;
 
-const Text = styled.p`
-  padding: ${props => props.padding};
-  width: 80%;
-  max-width: 425px;
-  font-size: 1rem;
-  line-height: 1.25rem;
-  color: #272727;
+const ScoreText = styled.p`
+  font-size: 2.5rem;
+  font-weight: 900;
+  strong{
+    font-size: 4rem;
+    color: #399119;
+  }
 `;
 
-const ContentButton = styled.div`
-  width: 100%;
-  position: absolute;
-  bottom: 2rem;
+const ButtonBox = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  padding-top: 4vh;
+  background-color: #FFFFFF;
+  width: 100vw;
 
-  @media (max-width: 375px) {
-    position: relative;
-    bottom: 0;
+
+  @media(max-width: 425px) {
+    padding-left: 5vw;
+    padding-right: 5vw;
   }
 `;
 
-const CorrectAnswer = ({answer, image, handlerNextActivitie}) => {
-  return (
+const Img = styled.img`
+  max-width: 500px;
+  width: 100%;
+`;
+
+const ComplementaryInformationBox = styled.div`
+  /* margin: 10vh 0 18vh 0; */
+  text-align: center;
+  color: #373737;
+  p {
+    strong{ font-size: 2rem; }
+  }
+
+  div {
+    margin-top: 4vh;
+    width: 80vw;
+    max-width: 348px;
+    text-align: left;
+    p {
+
+    }
+  }
+`;
+
+const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
+  const modals = {
+    toScore: "toScore",
+    answerDescription: "answerDescription"
+  }
+  const [actualModal, setActualModal] = useState(undefined)
+
+  useEffect(() => {
+    toScore
+      ? setActualModal(modals.toScore)
+      : setActualModal(modals.answerDescription)
+  }, [])
+  const handleContinue = () => {
+    switch (actualModal) {
+      case modals.toScore:
+        return setActualModal(modals.answerDescription);
+    
+      default:
+        break;
+    }
+  }
+
+  const renderModal = () => {
+    switch (actualModal) {
+      case modals.toScore:
+        return(
+          <MessageBox>
+            <CongratulationsText>
+              <h1>Parabéns</h1>
+              <p>Você acertou e ganhou:</p>
+            </CongratulationsText>
+            <ScoreText><strong>10</strong> pts</ScoreText>
+            <ButtonBox>
+              <Button
+                handleClick={() => handleContinue()}
+                color={"#fff"}
+                margin={"0 0 20px 0"}
+                background={"#399119"}
+                boxShadow={"#245812 0px 7px 0px"}
+              >Continuar</Button>
+            </ButtonBox>
+          </MessageBox>
+        );
+
+    
+      case modals.answerDescription:
+        return(
+          <MessageBox height={"50vh"}>
+            <ComplementaryInformationBox>
+              <p>A reposta é:<br/><strong>{answer[0].answer}</strong></p>
+              <div>
+                <p>{answer[0].complementaryInformation}</p>
+              </div>
+
+            </ComplementaryInformationBox>
+            <ButtonBox>
+              {/* <StlyedLink to="/">  */}
+              <Button
+                handleClick={() => handlerNextActivitie()}
+                color={"#fff"}
+                margin={"0 0 20px 0"}
+                background={"#399119"}
+                boxShadow={"#245812 0px 7px 0px"}
+              >Continuar Trilha</Button>
+              {/* </StlyedLink> */}
+            </ButtonBox>
+          </MessageBox>
+        );
+
+      default:
+        return <h1>Carregando</h1>
+    }
+  }
+
+  return(
     <Container>
-      <Content>
-        <Title>
-          O que é o que é?
-        </Title>
-        <TextRightAnswer>Resposta Correta</TextRightAnswer>
-        <ConteinerIndividualLetter>
-          {/* {answer.split('').map((item, index) => (
-            <IndividualLetter key={index} letter={item} background='#3daf1b' boxShadow='0 5px 0 #26770f' />)
-          )} */}
-        </ConteinerIndividualLetter>
-        <Image src={image}/>
-        <Text padding='1rem 0 0 0'>
-          Você sabia que em Belo Horizonte existe uma feira anual dedicada aos amantes do velho e bom disco vinil?
-        </Text>
-        <Text padding='1.25rem 0 1.25rem 0'>
-          Veja mais na nossa biblioteca!
-        </Text>
-        <ContentButton>
-          <Button
-            background='#3daf1b'
-            boxShadow='0 10px 0 #26770f'
-            handleClick={handlerNextActivitie}
-          >
-            Continuar trilha
-          </Button>
-        </ContentButton>
-      </Content>
+      {(answer[0]?.imageBase64) && <Img src={`data:image/jpeg;base64,${answer[0].imageBase64}`}></Img>}
+      {renderModal()}
     </Container>
   );
 }

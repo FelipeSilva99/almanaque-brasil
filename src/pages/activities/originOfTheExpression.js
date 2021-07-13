@@ -13,6 +13,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   background: #fff;
+  border: 2px red solid;
 `;
 
 const OriginOfTheExpression = () => {

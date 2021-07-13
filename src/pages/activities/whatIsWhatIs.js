@@ -7,13 +7,13 @@ import IndividualLetter from '../../components/letter/individualLetter';
 import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/whatIsWhatIs/correctAnswer';
 import SplashScreen from '../../pages/activities/splashScreen';
-import WrongAnswer from '../../components/activities/whatIsWhatIs/wrongAnswer';
+import WrongAnswer from '../../components/activities/wrongAnswer';
 
 //Images
-import paleLeaves from '../../components/activities/whatIsWhatIs/images/pale_leaves.svg';
-import iconBack from '../../components/activities/whatIsWhatIs/images/iconBack.svg';
-import logo from '../../components/activities/whatIsWhatIs/images/what_is_logo.svg';
-import iconDelete from '../../components/activities/whatIsWhatIs/images/iconDelete.svg';
+import paleLeaves from '../../images/whatIsWhatIs/pale_leaves.svg';
+import iconBack from '../../images/whatIsWhatIs/iconBack.svg';
+import logo from '../../images/whatIsWhatIs/what_is_logo.svg';
+import iconDelete from '../../images/whatIsWhatIs/iconDelete.svg';
 
 // Styles
 const Container = styled.div`
@@ -130,7 +130,7 @@ const IconDelete = styled.img`
   @media (max-width: 320px) { margin: 2% 1% 3% 1%; }
 `;
 
-const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
+const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const [answer, setAnswer] = useState([]);
   const [letterOption, setLetterOption] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState([]);
@@ -367,4 +367,4 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   );
 }
 
-export default TrailsWhatIs;
+export default WhatIsWhatIs;

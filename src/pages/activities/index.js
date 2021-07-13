@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 
 //Components
-import TrailsWhatIs from '../../components/activities/whatIsWhatIs';
-import WhoseEyesAreThese from '../../components/activities/whoseEyesAreThese';
+import WhatIsWhatIs from './whatIsWhatIs';
+import WhoseEyesAreThese from './whoseEyesAreThese';
 import InfoScreen from '../../components/activities/infoScreen';
 
 const mapStateToProps = state => ({
@@ -64,10 +64,10 @@ const Activities = (props) => {
     // {console.log(currentActivitie)}
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
-        return <WhoseEyesAreThese activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} />
+        return <WhoseEyesAreThese isActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} />
 
       case "o-que-e-o-que-e":
-        return <TrailsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+        return <WhatIsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "coisas-nossas":
         return <p>coisas-nossas</p>;

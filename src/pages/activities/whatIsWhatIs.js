@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 //Components
-import Header from '../../header';
-import IndividualLetter from '../../letter/individualLetter';
-import Button from '../../buttons/containerButton';
-import CorrectAnswer from './correctAnswer';
-import SplashScreen from './splashScreen';
-import WrongAnswer from './wrongAnswer';
+import Header from '../../components/header';
+import IndividualLetter from '../../components/letter/individualLetter';
+import Button from '../../components/buttons/containerButton';
+import CorrectAnswer from '../../components/activities/correctAnswer';
+import SplashScreen from '../../components/activities/splashScreen';
+import WrongAnswer from '../../components/activities/wrongAnswer';
 
 //Images
-import paleLeaves from './images/pale_leaves.svg';
-import iconBack from './images/iconBack.svg';
-import logo from './images/what_is_logo.svg';
-import iconDelete from './images/iconDelete.svg';
+import paleLeaves from '../../images/whatIsWhatIs/pale_leaves.svg';
+import iconBack from '../../images/whatIsWhatIs/iconBack.svg';
+import logo from '../../images/whatIsWhatIs/what_is_logo.svg';
+import iconDelete from '../../images/whatIsWhatIs/iconDelete.svg';
 
 // Styles
 const Container = styled.div`
@@ -130,7 +130,7 @@ const IconDelete = styled.img`
   @media (max-width: 320px) { margin: 2% 1% 3% 1%; }
 `;
 
-const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
+const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   const [answer, setAnswer] = useState([]);
   const [letterOption, setLetterOption] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState([]);
@@ -367,4 +367,4 @@ const TrailsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   );
 }
 
-export default TrailsWhatIs;
+export default WhatIsWhatIs;

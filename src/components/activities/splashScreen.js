@@ -4,7 +4,6 @@ import styled from 'styled-components';
 // Assets
 import plant from '../../images/whatIsWhatIs/folhas.svg'
 import clearPlant from '../../images/whatIsWhatIs/pale_leaves.svg'
-import logo from '../../images/whatIsWhatIs/what_is_logo.svg'
 import background from '../../images/whatIsWhatIs/splash_background.svg'
 import ABLogo from '../../images/whatIsWhatIs/AB_logo.svg';
 
@@ -34,7 +33,7 @@ const LogoContainer = styled.div`
   height: 100vh;
 `;
 
-const WhatIsLogo = styled.img`
+const ActivitieLogo = styled.img`
   @media (max-width: 370px) { width: 90%; }
   z-index: 1;
   position: relative;
@@ -72,11 +71,11 @@ const LogoAB = styled.img`
 `;
 
 
-function SplashScreen() {
+function SplashScreen({ activitieLogo }) {
   return (
     <Container>
-      <PlantTop src={plant} />
-      <WhatIsLogo src={logo} />
+      {/* <PlantTop src={plant} /> */}
+      <ActivitieLogo src={activitieLogo} />
       <PlantBottom src={clearPlant} />
       <LogoAB src={ABLogo} />
     </Container>

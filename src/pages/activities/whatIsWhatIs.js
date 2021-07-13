@@ -351,7 +351,7 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   }
 
   return (
-    isLoading ? <SplashScreen /> : (
+    isLoading ? <SplashScreen activitieLogo={logo}/> : (
       <Container>
         {(
           !modalWrongAnswer

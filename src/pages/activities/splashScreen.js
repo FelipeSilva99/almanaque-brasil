@@ -4,7 +4,6 @@ import styled from 'styled-components';
 // Assets
 import plant from '../../images/whatIsWhatIs/folhas.svg';
 import clearPlant from '../../images/whatIsWhatIs/pale_leaves.svg';
-import logo from '../../images/whatIsWhatIs/what_is_logo.svg';
 import background from '../../images/whatIsWhatIs/splash_background.svg';
 import ABLogo from '../../images/whatIsWhatIs/AB_logo.svg';
 
@@ -56,7 +55,7 @@ const LogoAB = styled.img`
   bottom: 20px;
 `;
 
-function SplashScreen() {
+function SplashScreen({logo}) {
   return (
     <Container>
       <PlantTop src={plant} />

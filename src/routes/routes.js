@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import Trails from '../pages/trails';
 import Activities from '../pages/activities';
 import ActivitiesList from '../pages/activities/activitiesList';
-import OriginOfTheExpression from '../pages/activities/originOfTheExpression';
+// import OriginOfTheExpression from '../pages/activities/originOfTheExpression';
 
 
 // import PrivateRoute from './PrivateRoute';
@@ -38,7 +38,7 @@ const Routes = (props) => {
 				<Route exact path='/trails' component={Trails} />
 				<Route exact path='/activities/:trailId' component={Activities} />
 				<Route exact path='/activitiesList' component={ActivitiesList} />
-				<Route exact path='/origin-of-the-expression' component={OriginOfTheExpression} />
+				{/* <Route exact path='/origin-of-the-expression' component={OriginOfTheExpression} /> */}
 				{/* <PrivateRoute path='/documents' component={DocumentsScreen} /> */}
 			</Switch>
 		</BrowserRouter>

@@ -5,15 +5,19 @@ import styled from 'styled-components';
 import Header from '../../components/header';
 import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/correctAnswer';
-import SplashScreen from '../../components/activities/splashScreen';
+import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 
 //Images
 import paleLeaves from '../../images/whatIsWhatIs/pale_leaves.svg';
-import iconBack from '../../images/whatIsWhatIs/iconBack.svg';
 import logo from '../../images/whoseEyesAreThese/logo.svg';
 import logoBig from '../../images/whoseEyesAreThese/logoBig.svg'
 import cactus from '../../images/cactus.svg';
+import selectedTips from '../../images/whoseEyesAreThese/selectedTips.svg';
+import tips from '../../images/whoseEyesAreThese/tips.svg';
+import dialogBox from '../../images/whoseEyesAreThese/dialogBox.svg';
+import bento from '../../images/whoseEyesAreThese/bento.png';
+import iconClose from '../../images/whoseEyesAreThese/iconClose.svg';
 
 // Styles
 const Container = styled.div`
@@ -24,7 +28,6 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   background: #f3f3f3;
-
   @media (min-width: 1024px) {
     justify-content: center;
   }
@@ -39,7 +42,6 @@ const Content = styled.div`
   display: flex;
   align-items: ${props => !props.isModal && 'center'};
   z-index: 1;
-
   h1 {
     font-size: 1.1rem;
     margin-top: 2vh;
@@ -53,7 +55,6 @@ const Content = styled.div`
       padding-top: ${props => props.isModal ? '2.5rem' : '1rem'}
     }
   }
-
   img {
     max-width: 300px;
     border-radius: 10px;
@@ -78,7 +79,6 @@ const IconLeaves = styled.img`
   right: -5.5rem;
   width: 17rem;
   z-index: ${props => props.zIndex && '-1'};
-
   /* @media (max-width: 360px) { width: 17rem; } */
 `;
 
@@ -93,7 +93,6 @@ const ContainerAnswer = styled.div`
   border-top-right-radius: 25px;
   overflow: hidden;
   z-index: 1;
-
   @media (min-width: 1024px) {
     height: 60%;
   }
@@ -143,6 +142,64 @@ const IconDelete = styled.img`
   @media (max-width: 320px) { margin: 2% 1% 3% 1%; }
 `;
 
+
+const ContainerTip = styled.div`
+  background: #70707073;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+
+  @media (min-width: 1024px) { align-items: center; }
+`;
+
+const ContentTip = styled.div`
+  max-width: 340px;
+`;
+
+const ContentInfoTip = styled.div`
+  position: relative;
+  top: 1.5rem;
+  display: flex;
+  justify-content: center;
+
+  /* @media (max-width: 320px) { width: 80vw; } */
+
+`;
+
+const ImgDialogBox = styled.img`
+  width: 100%;
+`;
+
+const ContentInfo = styled.div`
+  position: absolute;
+  padding-top: 2rem;
+  max-width: 260px;
+  /* max-width: 300px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const TextTip = styled.p`
+  padding: ${props => props.padding && '1.5rem 0 .8rem 0 '};
+  color: #373737F2;
+  line-height: 1.2rem;
+
+  @media (max-width: 320px) { padding: ${props => props.padding && '1.5rem 0 .4rem 0 '}; }
+`;
+
+const ImgBento = styled.img`
+  position: relative;
+  top: -1rem;
+  left: -3rem;
+`;
+
 const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
   const [isModalAnswer, setIsModalAnswer] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
@@ -151,6 +208,7 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [amountTrial, setAmountTrial] = useState(3);
+  const [isModalTip, setIsModalTip] = useState(undefined);
 
   useEffect(() => {
     let timer1 = setTimeout(() => setIsLoading(false), 2000);
@@ -159,9 +217,14 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
       clearTimeout(timer1);
     };
   }, []);
+
   useEffect(() => {
     setActivitie(isActivitie);
   }, [isActivitie]);
+
+  const handleModalTip = () => {
+    setIsModalTip(!isModalTip)
+  }
 
   const handleIsModalAnswer = () => {
     setIsModalAnswer(true);
@@ -177,12 +240,43 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
     setShowAnswer(true);
   }
 
+  const renderTip = () => {
+    return (
+      <ContainerTip>
+        <ContentTip>
+          <ContentInfoTip>
+            {/* <img src={selectedTips} /> */}
+            <ImgDialogBox src={dialogBox} />
+            <ContentInfo>
+              <TextTip>
+                Ela nasceu na cidade de Paraopeba Minas Gerais, em 14 de
+                Agosto de 1942. Se tornou uma das principais cantoras do
+                samba brasileiro. Morreu tragicamente em decorrência de
+                complicações de uma cirurgia. Seu apelido era Gerreira!
+              </TextTip>
+              <TextTip padding>
+                Entre seus sucessos está MORENA DE ANGOLA.
+              </TextTip>
+              <img src={iconClose} onClick={handleModalTip}/>
+            </ContentInfo>
+            </ContentInfoTip>
+          <ImgBento src={bento} />
+        </ContentTip>
+      </ContainerTip>
+    );
+  }
 
   const renderScreen = () => {
-    console.log(activitie.imageBase64)
+    const hasSelectedTips =  isModalTip ? selectedTips : tips;
+
     return (
       <>
-        <Header iconBack={iconBack} logo={logo} />
+        <Header
+          logo={logo} 
+          tips={hasSelectedTips}
+          isSelectedTips={isModalTip}
+          handleModalTip={handleModalTip}
+        />
         <Content isModal={isModalAnswer}>
           <img src={`data:image/jpeg;base64,${activitie.imageBase64}`}></img>
           <Title><span></span>{activitie?.question}</Title>
@@ -208,6 +302,7 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
           && !showAnswer)
           && renderScreen()
         }
+        {isModalTip && renderTip()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} toScore />}
         {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} />}
@@ -216,4 +311,4 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
   );
 }
 
-export default WhoseEyesAreThese;
+export default WhoseEyesAreThese; 

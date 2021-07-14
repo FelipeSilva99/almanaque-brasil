@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 //Components
-import Button from '../buttons/button';
+import Button from '../../buttons/button';
 
 //Styles
 const StlyedLink = styled(Link)`
@@ -98,8 +98,9 @@ const ComplementaryInformationBox = styled.div`
   /* margin: 10vh 0 18vh 0; */
   text-align: center;
   color: #373737;
-
-  strong{ font-size: 2rem; }
+  p {
+    strong{ font-size: 2rem; }
+  }
 
   div {
     margin-top: 4vh;
@@ -134,27 +135,6 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
     }
   }
 
-  const renderModalOfPoints = () => {
-    return(
-      <MessageBox>
-        <CongratulationsText>
-          <h1>Parabéns</h1>
-          <p>Você acertou e ganhou:</p>
-        </CongratulationsText>
-        <ScoreText><strong>10</strong> pts</ScoreText>
-        <ButtonBox>
-          <Button
-            handleClick={() => handleContinue()}
-            color={"#fff"}
-            margin={"0 0 20px 0"}
-            background={"#399119"}
-            boxShadow={"#245812 0px 7px 0px"}
-          >Continuar</Button>
-        </ButtonBox>
-      </MessageBox>
-    );
-  }
-
   const renderModal = () => {
     switch (actualModal) {
       case modals.toScore:
@@ -182,11 +162,11 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
         return(
           <MessageBox height={"50vh"}>
             <ComplementaryInformationBox>
-              <p>A reposta é:</p>
-              <strong>{answer.answer}</strong>
+              <p>A reposta é:<br/><strong>{answer[0].answer}</strong></p>
               <div>
-                <p>{answer.complementaryInformation}</p>
+                <p>{answer[0].complementaryInformation}</p>
               </div>
+
             </ComplementaryInformationBox>
             <ButtonBox>
               {/* <StlyedLink to="/">  */}
@@ -209,10 +189,8 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
 
   return(
     <Container>
-      {(answer?.imageBase64) && <Img src={`data:image/jpeg;base64,${answer.imageBase64}`}></Img>}
+      {(answer[0]?.imageBase64) && <Img src={`data:image/jpeg;base64,${answer[0].imageBase64}`}></Img>}
       {renderModal()}
-      {/* {renderModalOfPoints()} */}
-
     </Container>
   );
 }

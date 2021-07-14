@@ -7,7 +7,6 @@ import clearPlant from '../../images/whatIsWhatIs/pale_leaves.svg'
 import background from '../../images/whatIsWhatIs/splash_background.svg'
 import ABLogo from '../../images/whatIsWhatIs/AB_logo.svg';
 
-
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -25,34 +24,22 @@ const Container = styled.div`
     justify-content: center;
   }
 `
-const LogoContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-`;
 
 const ActivitieLogo = styled.img`
   @media (max-width: 370px) { width: 90%; }
   z-index: 1;
   position: relative;
   bottom: 10vh;
-`;
+  z-index: 1;
 
-const Plant = styled.img`
-  position: absolute;
-  left: ${props => props.left};
-  right: ${props => props.right};
-  bottom: ${props => props.bottom};
-  top: ${props => props.top};
+  @media (max-width: 370px) { width: 90%; }
 `;
 
 const PlantTop = styled.img`
-  z-index: 2;
   position: absolute;
   bottom: 58%;
   right: 31%;
+  z-index: 2;
 
   @media (min-width: 553px) { right: 42%; }
   @media (min-width: 768px) { right: 59%; }

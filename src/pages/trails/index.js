@@ -30,7 +30,6 @@ const Trails = (props) => {
   }
 
   const renderTrails = (trails) => {
-    console.log("trails:",trails)
     return trails.map((trail, key) => {
       return (
         <Card key={key} onClick={() => handleClick(trail.id)}>

@@ -6,7 +6,7 @@ import Header from '../../components/header';
 import IndividualLetter from '../../components/letter/individualLetter';
 import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/correctAnswer';
-import SplashScreen from '../../components/activities/splashScreen';
+import SplashScreen from '../../pages/activities/splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 
 //Images
@@ -360,7 +360,7 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
           && renderScreen()
         }
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} toScore />}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers[0]} toScore />}
         {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} />}
       </Container>
     )

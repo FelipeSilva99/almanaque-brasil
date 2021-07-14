@@ -12,7 +12,8 @@ import WrongAnswer from '../../components/activities/wrongAnswer';
 import paleLeaves from '../../images/whatIsWhatIs/pale_leaves.svg';
 import iconBack from '../../images/whatIsWhatIs/iconBack.svg';
 import logo from '../../images/whoseEyesAreThese/logo.svg';
-import cactus from '../../images/whoseEyesAreThese/cactus.svg';
+import logoBig from '../../images/whoseEyesAreThese/logoBig.svg'
+import cactus from '../../images/cactus.svg';
 
 // Styles
 const Container = styled.div`
@@ -199,7 +200,7 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
   }
 
   return (
-    isLoading ? <SplashScreen /> : (
+    isLoading ? <SplashScreen activitieLogo={logoBig}/> : (
       <Container>
         {(
           !modalWrongAnswer

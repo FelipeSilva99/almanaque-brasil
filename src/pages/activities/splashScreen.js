@@ -61,7 +61,7 @@ const LogoAB = styled.img`
 function SplashScreen({ activitieLogo }) {
   return (
     <Container>
-      {/* <PlantTop src={plant} /> */}
+      <PlantTop src={plant} />
       <ActivitieLogo src={activitieLogo} />
       <PlantBottom src={clearPlant} />
       <LogoAB src={ABLogo} />

@@ -22,6 +22,7 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   justify-content: center;
+  z-index: 2;
 `
 
 const RandomBox = styled.div`

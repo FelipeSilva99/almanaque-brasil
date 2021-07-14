@@ -10,7 +10,8 @@ import WrongAnswer from '../../components/activities/wrongAnswer';
 
 //Images
 import logo from '../../images/whoseEyesAreThese/logo.svg';
-import cactus from '../../images/whoseEyesAreThese/cactus.svg';
+import logoBig from '../../images/whoseEyesAreThese/logoBig.svg'
+import cactus from '../../images/cactus.svg';
 import selectedTips from '../../images/whoseEyesAreThese/selectedTips.svg';
 import tips from '../../images/whoseEyesAreThese/tips.svg';
 import dialogBox from '../../images/whoseEyesAreThese/dialogBox.svg';
@@ -287,7 +288,7 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
   }
 
   return (
-    isLoading ? <SplashScreen logo={logo} /> : (
+    isLoading ? <SplashScreen activitieLogo={logoBig}/> : (
       <Container>
         {(
           !modalWrongAnswer

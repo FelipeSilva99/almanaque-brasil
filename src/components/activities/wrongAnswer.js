@@ -41,7 +41,7 @@ const DialogBox = styled.div`
   align-items: center;
   flex-direction: column;
   width: 326px;
-  height: 219px;
+  min-height: 219px;
   background-color: #FFFFFF;
   border-radius: 25px;
   box-shadow: silver 0px 5px 15px 0px;
@@ -50,8 +50,9 @@ const DialogBox = styled.div`
   background-repeat: no-repeat;
   background-position: 132px -328px;
   background-size: 497px;
+  padding: 1rem 1rem 1rem 1rem;
 
-  :before{
+  /* :before{
     content: "";
     position: absolute;
     right: 43%;
@@ -61,16 +62,15 @@ const DialogBox = styled.div`
     border-top: 13px solid transparent;
     border-left: 42px solid #FFF;
     border-bottom: 26px solid transparent;
-  }
+  } */
   @media(max-width: 375px) {
     width: 95vw;
   }
 
   h1 {
-    margin-bottom: 1rem;
     color: #FB6C76;
   }
-  p { color: #161616; }
+  p { margin: 1rem 0 1rem 0; color: #161616; }
 `;
 
 const Avatar = styled.img`
@@ -101,7 +101,7 @@ const ALink = styled(Link)`
   width: 100%;
 `;
 
-function WrongAnswer({ chances, handleClick, handleShowAnswer }) {
+function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
   const [hasChances, setHasChance] = useState(true)
   const [isFirstMistake, setIsFirstMistake] = useState(true)
   useEffect(() => {
@@ -109,30 +109,62 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer }) {
     if(chances <= 0) setHasChance(false)
   }, []);
 
-  return (
-    <Container>
-      <RandomBox>
-        <DialogBox>
-
-          {isFirstMistake ? (
+  const renderText = (firstMistake, hasTips) => {
+    if (firstMistake) {
+      switch (!!tips?.length) {
+        case true:
+          return(
+            <>
+              <h1>Ixi, você errou!</h1>
+              <p>Você tem mais {chances} chances de marcar<br/>pontos. Se liga na dica:</p>
+              <strong>{tips[0]}</strong>
+            </>
+          );
+      
+        default:
+          return(
             <>
               <h1>Ixi, você errou!</h1>
               <p>Você tem mais {chances} chances de marcar<br/>pontos. O que acha de tentar<br/>novamente?</p>
             </>
-          ) : (
-            hasChances ? (
+          );
+      }
+    } else {
+      if(hasChances) {
+        switch (!!tips?.length) {
+          case true:
+            return(
               <>
                 <h1>Ixi, você errou de novo!</h1>
-                <p>Você tem mais {chances} {chances>1 ? "chances" : "chance"} de marcar<br/>pontos. O que acha de tentar<br/>novamente?</p>
+                <p>Você tem mais 1 chance de marcar<br/>pontos. Se liga em outra dica:</p>
+                <strong>{tips[1]}</strong>
               </>
-            ) : (
+            );
+        
+          default:
+            return(
               <>
-                <h1>Esta foi a sua<br/>última chance!</h1>
-                <p>Gostaria de saber a resposta?</p>
+                <h1>Ixi, você errou de novo!</h1>
+                <p>Você tem mais 1 chance de marcar<br/>pontos. O que acha de tentar<br/>novamente?</p>
               </>
-            )
-          )
-          }
+            );
+        }
+      } else {
+        return(
+          <>
+            <h1>Esta foi a sua<br/>última chance!</h1>
+            <p>Gostaria de saber a resposta?</p>
+          </>
+        );
+      }
+    }
+  }
+
+  return (
+    <Container>
+      <RandomBox>
+        <DialogBox>
+          {renderText(isFirstMistake, tips)}
         </DialogBox>
         <Avatar src={bento} />
       </RandomBox>

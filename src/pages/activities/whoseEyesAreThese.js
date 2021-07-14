@@ -290,7 +290,7 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
   }
 
   return (
-    console.log(isActivitie.answers),
+    console.log(isActivitie),
     isLoading ? <SplashScreen activitieLogo={logoBig}/> : (
       <Container>
         {(
@@ -301,7 +301,7 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
         }
         {isModalAnswerOption && renderAnswerOption()}
         {isModalTip && renderTip()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={isActivitie.tips}/>}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore />}
         {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers[3]} />}
       </Container>

@@ -9,7 +9,6 @@ import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 
 //Images
-import paleLeaves from '../../images/whatIsWhatIs/pale_leaves.svg';
 import logo from '../../images/whoseEyesAreThese/logo.svg';
 import cactus from '../../images/whoseEyesAreThese/cactus.svg';
 import selectedTips from '../../images/whoseEyesAreThese/selectedTips.svg';
@@ -33,18 +32,14 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: ${props => props.isModal && '2rem'};
+  padding-top: ${props => props.isModal && '1rem'};
   flex: 1;
   display: flex;
+  flex-direction: column;
+  justify-content: ${props => !props.isModal && 'center'};
   align-items: ${props => !props.isModal && 'center'};
   z-index: 1;
-  h1 {
-    font-size: 1.1rem;
-    margin-top: 2vh;
-  }
+ 
   span {
     font-size: 2.5rem;
     font-weight: 700;
@@ -61,9 +56,10 @@ const Content = styled.div`
   }
 `;
 const Title = styled.h1`
+  margin-top: 2vh;
   width: 20rem;
-  font-size: 1.5rem;
-  font-weight: 900;
+  font-size: 1rem;
+  font-weight: 800;
   line-height: 2rem;
   color: #373737;
   text-align: center;
@@ -73,74 +69,50 @@ const Title = styled.h1`
 
 const IconLeaves = styled.img`
   position: absolute;
-  top: ${props => props.top && '-20rem'};
-  bottom: -1rem;
+  bottom: -3.8rem;
   right: -5.5rem;
   width: 17rem;
-  z-index: ${props => props.zIndex && '-1'};
-  /* @media (max-width: 360px) { width: 17rem; } */
+`;
+
+const ContentAnswerOption = styled.button`
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  height: 2.313rem;
+  font-size: .75rem;
+  font-weight: 900;
+  color: #373737;
+  letter-spacing: .05rem;
+  text-transform: uppercase;
+  background: #FFD000;
+  border-radius: 17px;
+  box-shadow: 0 5px 0  #F08800;
+
+  :last-child{
+    margin-bottom: 0;
+  }
 `;
 
 const ContainerAnswer = styled.div`
   position: absolute;
   bottom: 0;
+  width: 100vw;
+  min-height: 40vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   background: #fff;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   overflow: hidden;
   z-index: 1;
-  @media (min-width: 1024px) {
-    height: 60%;
-  }
-`;
 
-const BoxAnswer = styled.div`
-  padding: 0 2.6875rem;
-  max-width: 425px;
-  height: 100%;
-  min-height: 52vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  flex-direction: column;
+  @media (min-width: 1024px) {height: 60%;}
+  @media (max-width: 320px) {min-height: 45vh;}
 `;
-
-const ContentAnswer = styled.div`
-  padding-top: ${props => props.padding && '2rem'};
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-`;
-
-const AnswerOption = styled.button`
-  margin: 2% 3% 2% 3%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 2.5rem;
-  height: 2.25rem;
-  font-size: 1.375rem;
-  font-weight: bold;
-  color: #fff;
-  background: ${props => props.isSelected ? '#D5D5D5' : '#36A39A'};
-  border-radius: 12px;
-  box-shadow: ${props => props.isSelected ? '0 5px 0 #9F9F9F' : '0 5px 0 #148077'};
-  
-  @media (max-width: 360px) { margin: 2%; }
-  @media (max-width: 320px) { margin: 2% 1% 3% 1%; }
-`;
-
-const IconDelete = styled.img`
-  margin: 2% 3% 2% 3%;
- 
-  @media (max-width: 360px) { margin: 2%; }
-  @media (max-width: 320px) { margin: 2% 1% 3% 1%; }
-`;
-
 
 const ContainerTip = styled.div`
   background: #70707073;
@@ -165,9 +137,6 @@ const ContentInfoTip = styled.div`
   top: 1.5rem;
   display: flex;
   justify-content: center;
-
-  /* @media (max-width: 320px) { width: 80vw; } */
-
 `;
 
 const ImgDialogBox = styled.img`
@@ -178,7 +147,6 @@ const ContentInfo = styled.div`
   position: absolute;
   padding-top: 2rem;
   max-width: 260px;
-  /* max-width: 300px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -200,7 +168,7 @@ const ImgBento = styled.img`
 `;
 
 const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
-  const [isModalAnswer, setIsModalAnswer] = useState(undefined);
+  const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [activitie, setActivitie] = useState(undefined)
@@ -225,12 +193,21 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
     setIsModalTip(!isModalTip)
   }
 
-  const handleIsModalAnswer = () => {
-    setIsModalAnswer(true);
+  const handleIsModalAnswerOption = () => {
+    setIsModalAnswerOption(true);
   }
 
   const handleWrongAnswer = () => {
     setModalWrongAnswer(false);
+  }
+
+  const handleCheckAnswer = (answer) => {
+    if (answer.isCorrect) {
+      setModalCorrectAnswer(true);
+    } else {
+      setAmountTrial(amountTrial - 1);
+      setModalWrongAnswer(true);
+    }
   }
 
   const showModalAnswer = () => {
@@ -256,9 +233,9 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
               <TextTip padding>
                 Entre seus sucessos está MORENA DE ANGOLA.
               </TextTip>
-              <img src={iconClose} onClick={handleModalTip}/>
+              <img src={iconClose} onClick={handleModalTip} />
             </ContentInfo>
-            </ContentInfoTip>
+          </ContentInfoTip>
           <ImgBento src={bento} />
         </ContentTip>
       </ContainerTip>
@@ -266,25 +243,25 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
   }
 
   const renderScreen = () => {
-    const hasSelectedTips =  isModalTip ? selectedTips : tips;
+    const hasSelectedTips = isModalTip ? selectedTips : tips;
 
     return (
       <>
         <Header
-          logo={logo} 
+          logo={logo}
           tips={hasSelectedTips}
           isSelectedTips={isModalTip}
           handleModalTip={handleModalTip}
         />
-        <Content isModal={isModalAnswer}>
+        <Content isModal={isModalAnswerOption}>
           <img src={`data:image/jpeg;base64,${activitie.imageBase64}`}></img>
-          <Title><span></span>{activitie?.question}</Title>
+          <Title>{activitie?.question}</Title>
         </Content>
         <figure>
           <IconLeaves src={cactus} />
         </figure>
         <Button
-          handleClick={handleIsModalAnswer}
+          handleClick={handleIsModalAnswerOption}
         >
           responder
         </Button>
@@ -292,8 +269,25 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
     )
   }
 
+  const renderAnswerOption = () => {
+    return (
+      <ContainerAnswer>
+        {activitie.answers.map((answer, key) => {
+          return (
+            <ContentAnswerOption
+              onClick={() => handleCheckAnswer(answer)}
+              key={key}
+            >
+              {answer.answer}
+            </ContentAnswerOption>
+          )
+        })}
+      </ContainerAnswer>
+    )
+  }
+
   return (
-    isLoading ? <SplashScreen logo={logo}/> : (
+    isLoading ? <SplashScreen logo={logo} /> : (
       <Container>
         {(
           !modalWrongAnswer
@@ -301,6 +295,7 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
           && !showAnswer)
           && renderScreen()
         }
+        {isModalAnswerOption && renderAnswerOption()}
         {isModalTip && renderTip()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} toScore />}
@@ -310,4 +305,4 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
   );
 }
 
-export default WhoseEyesAreThese; 
+export default WhoseEyesAreThese;

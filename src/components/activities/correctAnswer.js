@@ -20,6 +20,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   background: #f3f3f3;
+  z-index: 2;
 
   @media (min-width: 1024px) {
     justify-content: center;
@@ -191,7 +192,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
             <ButtonBox>
               {/* <StlyedLink to="/">  */}
               <Button
-                handleClick={() => handlerNextActivitie()}
+                handleClick={handlerNextActivitie}
                 color={"#fff"}
                 margin={"0 0 20px 0"}
                 background={"#399119"}
@@ -212,7 +213,6 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
       {(answer?.imageBase64) && <Img src={`data:image/jpeg;base64,${answer.imageBase64}`}></Img>}
       {renderModal()}
       {/* {renderModalOfPoints()} */}
-
     </Container>
   );
 }

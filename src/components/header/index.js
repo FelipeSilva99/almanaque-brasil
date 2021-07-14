@@ -17,7 +17,7 @@ const Container = styled.div`
   @media (min-width: 1024px) { height: 5rem; }
 `;
 
-const Button = styled.button`
+const Figure = styled.figure`
   width: 2.5rem;
 `;
 
@@ -28,7 +28,7 @@ const ButtonTip = styled.button`
   justify-content: center;
   align-items: center;
   background: #fff;
-  z-index: 1;
+  z-index: 2;
 `;
 
 const Image = styled.img`
@@ -40,9 +40,9 @@ const Image = styled.img`
 const Header = ({ logo, tips, isSelectedTips, handleModalTip }) => {
   return (
     <Container>
-      <Button>
+      <Figure>
         <img src={iconBack} />
-      </Button>
+      </Figure>
       <Image src={logo} />
       {tips ? (
         <ButtonTip isSelectedTips={isSelectedTips} onClick={handleModalTip}>

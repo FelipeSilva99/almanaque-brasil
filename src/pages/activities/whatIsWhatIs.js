@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Header from '../../components/header';
 import IndividualLetter from '../../components/letter/individualLetter';
 import Button from '../../components/buttons/containerButton';
-import CorrectAnswer from '../../components/activities/whatIsWhatIs/correctAnswer';
+import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from '../../pages/activities/splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 
@@ -351,7 +351,7 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   }
 
   return (
-    isLoading ? <SplashScreen /> : (
+    isLoading ? <SplashScreen logo={logo}/> : (
       <Container>
         {(
           !modalWrongAnswer
@@ -360,7 +360,7 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
           && renderScreen()
         }
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} toScore />}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers[0]} toScore />}
         {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} />}
       </Container>
     )

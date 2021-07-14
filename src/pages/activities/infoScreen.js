@@ -30,6 +30,7 @@ const Content = styled.div`
     background: #F3F3F3;
     box-shadow: 0px 3px 6px #00000029;
     border-radius: 24px;
+    max-width: 360px;
   `;
 
 const ImgOrigin = styled.img`

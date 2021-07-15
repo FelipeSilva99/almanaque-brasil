@@ -22,12 +22,12 @@ const Figure = styled.figure`
 `;
 
 const ButtonTip = styled.button`
-  padding: .5rem;
+  padding: ${props => props.isSelectedTips && '.5rem'};
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fff;
+  background: ${props => props.isSelectedTips && '#fff'};
   z-index: 2;
 `;
 

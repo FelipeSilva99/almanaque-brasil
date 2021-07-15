@@ -81,6 +81,7 @@ const ContentAnswerOption = styled.button`
   justify-content: center;
   align-items: center;
   width: 80vw;
+  max-width: 328px;
   height: 2.313rem;
   font-size: .75rem;
   font-weight: 900;

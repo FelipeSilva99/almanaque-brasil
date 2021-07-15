@@ -21,10 +21,6 @@ const Container = styled.div`
   flex-direction: column;
   background: #f3f3f3;
   z-index: 2;
-
-  @media (min-width: 1024px) {
-    justify-content: center;
-  }
 `;
 
 const MessageBox = styled.div`
@@ -92,7 +88,8 @@ const ButtonBox = styled.div`
 
 const Img = styled.img`
   max-width: 500px;
-  width: 100%;
+  max-height: 300px;
+  /* width: 100%; */
 `;
 
 const ComplementaryInformationBox = styled.div`
@@ -135,26 +132,6 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
     }
   }
 
-  const renderModalOfPoints = () => {
-    return(
-      <MessageBox>
-        <CongratulationsText>
-          <h1>Parabéns</h1>
-          <p>Você acertou e ganhou:</p>
-        </CongratulationsText>
-        <ScoreText><strong>10</strong> pts</ScoreText>
-        <ButtonBox>
-          <Button
-            handleClick={() => handleContinue()}
-            color={"#fff"}
-            margin={"0 0 20px 0"}
-            background={"#399119"}
-            boxShadow={"#245812 0px 7px 0px"}
-          >Continuar</Button>
-        </ButtonBox>
-      </MessageBox>
-    );
-  }
 
   const renderModal = () => {
     switch (actualModal) {
@@ -181,7 +158,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
     
       case modals.answerDescription:
         return(
-          <MessageBox height={"50vh"}>
+          <MessageBox height={"calc(100vh - 280px)"}>
             <ComplementaryInformationBox>
               <p>A reposta é:</p>
               <strong>{answer.answer}</strong>

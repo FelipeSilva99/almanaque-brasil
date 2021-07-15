@@ -102,7 +102,9 @@ const ContentAnswer = styled.div`
   padding-top: ${props => props.padding && '2rem'};
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   width: 100%;
+  max-width: 300px;
 `;
 
 const AnswerOption = styled.button`
@@ -282,13 +284,8 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
 
 
   const renderSquareAnswer = (letter) => {
-    const background = letter && '#36A39A';
-    const border = letter && '1px solid #36A39A';
-
     return (
       <IndividualLetter
-        background={background}
-        border={border}
         letter={letter}
       />
     )

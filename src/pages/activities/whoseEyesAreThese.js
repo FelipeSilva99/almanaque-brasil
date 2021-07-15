@@ -11,7 +11,6 @@ import WrongAnswer from '../../components/activities/wrongAnswer';
 //Images
 import logo from '../../images/whoseEyesAreThese/logo.svg';
 import logoBig from '../../images/whoseEyesAreThese/logoBig.svg'
-import cactus from '../../images/cactus.svg';
 import selectedTips from '../../images/whoseEyesAreThese/selectedTips.svg';
 import tips from '../../images/whoseEyesAreThese/tips.svg';
 import dialogBox from '../../images/whoseEyesAreThese/dialogBox.svg';
@@ -38,7 +37,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: ${props => !props.isModal && 'center'};
-  align-items: ${props => !props.isModal && 'center'};
+  align-items: center;
   z-index: 1;
  
   span {
@@ -51,6 +50,7 @@ const Content = styled.div`
     }
   }
   img {
+    width: 17.188rem;
     max-width: 300px;
     border-radius: 10px;
     box-shadow: 0px 5px 6px silver;
@@ -68,19 +68,13 @@ const Title = styled.h1`
   @media (max-width: 320px) { width: 18rem; }
 `;
 
-const IconLeaves = styled.img`
-  position: absolute;
-  bottom: -3.8rem;
-  right: -5.5rem;
-  width: 17rem;
-`;
-
 const ContentAnswerOption = styled.button`
   margin-bottom: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 80vw;
+  max-width: 328px;
   height: 2.313rem;
   font-size: .75rem;
   font-weight: 900;
@@ -154,8 +148,31 @@ const ContentInfo = styled.div`
   justify-content: space-between;
 `;
 
+
+const ScrollTip  = styled.div`
+  padding-top: 1rem;
+  height: 15rem;
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+		width: 4px;
+		height: 10px;
+	}
+	::-webkit-scrollbar-track {
+		background: transparent;
+		border-radius: 20px;
+	}
+	::-webkit-scrollbar-thumb {
+		background: #ccc;
+		border-radius: 13px;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #ccc;
+	}
+`;
+
 const TextTip = styled.p`
-  padding: ${props => props.padding && '1.5rem 0 .8rem 0 '};
+  padding-bottom: .8rem;
   color: #373737F2;
   line-height: 1.2rem;
 
@@ -224,18 +241,11 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
       <ContainerTip>
         <ContentTip>
           <ContentInfoTip>
-            {/* <img src={selectedTips} /> */}
             <ImgDialogBox src={dialogBox} />
             <ContentInfo>
-              <TextTip>
-                Ela nasceu na cidade de Paraopeba Minas Gerais, em 14 de
-                Agosto de 1942. Se tornou uma das principais cantoras do
-                samba brasileiro. Morreu tragicamente em decorrência de
-                complicações de uma cirurgia. Seu apelido era Gerreira!
-              </TextTip>
-              <TextTip padding>
-                Entre seus sucessos está MORENA DE ANGOLA.
-              </TextTip>
+              <ScrollTip>
+                {activitie.tips.map(item =>  <TextTip>{item}</TextTip>)}
+              </ScrollTip>
               <img src={iconClose} onClick={handleModalTip} />
             </ContentInfo>
           </ContentInfoTip>
@@ -252,17 +262,14 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
       <>
         <Header
           logo={logo}
-          tips={hasSelectedTips}
+          tips={isModalAnswerOption && hasSelectedTips}
           isSelectedTips={isModalTip}
           handleModalTip={handleModalTip}
         />
         <Content isModal={isModalAnswerOption}>
-          <img src={`data:image/jpeg;base64,${activitie.imageBase64}`}></img>
+          <img src={`data:image/jpeg;base64,${activitie.imageBase64}`} />
           <Title>{activitie?.question}</Title>
         </Content>
-        <figure>
-          <IconLeaves src={cactus} />
-        </figure>
         <Button
           handleClick={handleIsModalAnswerOption}
         >
@@ -290,7 +297,6 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
   }
 
   return (
-    console.log(isActivitie),
     isLoading ? <SplashScreen activitieLogo={logoBig}/> : (
       <Container>
         {(

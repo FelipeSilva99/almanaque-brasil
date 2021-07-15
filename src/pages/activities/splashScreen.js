@@ -8,41 +8,33 @@ import background from '../../images/whatIsWhatIs/splash_background.svg'
 import ABLogo from '../../images/whatIsWhatIs/AB_logo.svg';
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   background-image: url("${background}");
   padding-top: 2rem;
-  position: relative;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 
   @media (min-width: 1024px) {
     justify-content: center;
   }
 `
 
-const ActivitieLogo = styled.img`
-  @media (max-width: 370px) { width: 90%; }
-  z-index: 1;
-  position: relative;
-  bottom: 10vh;
-  z-index: 1;
-
+const ActivitieLogo = styled.img`  
   @media (max-width: 370px) { width: 90%; }
 `;
 
 const PlantTop = styled.img`
   position: absolute;
-  bottom: 58%;
   right: 31%;
+  bottom: 58%;
   z-index: 2;
 
-  @media (min-width: 553px) { right: 42%; }
   @media (min-width: 768px) { right: 59%; }
+  @media (min-width: 553px) { right: 42%; }
 `;
 
 const PlantBottom = styled.img`

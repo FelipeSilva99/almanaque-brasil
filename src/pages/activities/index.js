@@ -36,8 +36,7 @@ const Activities = (props) => {
   useEffect(() => {
     const trail = props.selectedTrails;
     const allActivities = props.activities.data[trail].activities;
-    // const filterActivities = allActivities.filter(item => item.type !== "origem-da-expressao");
-    
+
     setActivities(allActivities);
   }, []);
 
@@ -63,9 +62,12 @@ const Activities = (props) => {
   const renderActivitie = (currentActivitie) => {
     console.log("Activitie:", currentActivitie)
     // Renderizar component de acordo com o tipo de ativivdade
+    {console.log('test', currentActivitie.type)}
+    {console.log('test', currentActivitie)}
+
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
-        return <WhoseEyesAreThese isActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} />
+        return <WhoseEyesAreThese isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "o-que-e-o-que-e":
         return <WhatIsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
@@ -93,31 +95,18 @@ const Activities = (props) => {
       <>
         {
           currentActivitie
-            ? (
-              <>
-                {renderActivitie(currentActivitie)}
-                {/* {renderBtnNextQuestion()} */}
-              </>
-            )
+            ? renderActivitie(currentActivitie)
             : <h1>não tem mais atividades</h1>
         }
       </>
     )
   }
 
-  const renderBtnNextQuestion = () => (
-    <button
-      onClick={handlerNextActivitie}
-    >
-      próxima questão
-    </button>
-  )
-
   return (
     <Container>
       {
         activities && activities.length > 0
-          ? renderScreen(activities[currentActivitie-1])
+          ? renderScreen(activities[currentActivitie])
           : <h1>Carregando</h1>
       }
     </Container>

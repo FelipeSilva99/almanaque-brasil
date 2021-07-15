@@ -65,9 +65,27 @@ const Title = styled.h1`
 `;
 
 const Subtitle = styled.p`
+  height: 11.25rem;
   font-size: 1rem;
   color: #272727;
   line-height: 1.4;
+  overflow-y: auto; 
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 13px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ccc;
+  }
 `;
 
 const ContainerButton = styled.div`
@@ -79,7 +97,7 @@ const ContainerButton = styled.div`
 
 const OriginOfTheExpression = ({isActivitie, isShowLogo, eureka, handleNextQuestion}) => {
 
-  const image = isActivitie.imageBase64
+  const image = isActivitie.imageBase64;
 
   return (
     <Container>

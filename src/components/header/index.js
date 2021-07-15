@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 
 //Images
 import iconBack from '../../images/icons/iconBack.svg';
@@ -17,7 +18,7 @@ const Container = styled.div`
   @media (min-width: 1024px) { height: 5rem; }
 `;
 
-const Figure = styled.figure`
+const Figure = styled(Link)`
   width: 2.25rem;
 `;
 
@@ -41,7 +42,7 @@ const Image = styled.img`
 const Header = ({ logo, tips, isSelectedTips, handleModalTip }) => {
   return (
     <Container>
-      <Figure>
+      <Figure to="/activities">
         <img src={iconBack} />
       </Figure>
       <Image src={logo} />

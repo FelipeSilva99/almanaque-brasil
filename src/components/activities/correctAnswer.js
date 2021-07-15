@@ -94,8 +94,27 @@ const Img = styled.img`
 
 const ComplementaryInformationBox = styled.div`
   /* margin: 10vh 0 18vh 0; */
+  padding-bottom: 3rem;
+	height: 85%;
   text-align: center;
   color: #373737;
+  overflow-y: auto; 
+
+  ::-webkit-scrollbar {
+		width: 4px;
+		height: 10px;
+	}
+	::-webkit-scrollbar-track {
+		background: transparent;
+		border-radius: 20px;
+	}
+	::-webkit-scrollbar-thumb {
+		background: #ccc;
+		border-radius: 13px;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #ccc;
+	}
 
   strong{ font-size: 2rem; }
 
@@ -174,7 +193,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
                 margin={"0 0 20px 0"}
                 background={"#399119"}
                 boxShadow={"#245812 0px 7px 0px"}
-              >Continuar Trilha</Button>
+              >Continuar</Button>
               {/* </StlyedLink> */}
             </ButtonBox>
           </MessageBox>

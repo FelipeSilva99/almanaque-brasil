@@ -18,11 +18,12 @@ const Container = styled.div`
 `;
 
 const Figure = styled.figure`
-  width: 2.5rem;
+  width: 2.25rem;
 `;
 
 const ButtonTip = styled.button`
   padding: ${props => props.isSelectedTips && '.5rem'};
+  width: 2.25rem;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -48,7 +49,7 @@ const Header = ({ logo, tips, isSelectedTips, handleModalTip }) => {
         <ButtonTip isSelectedTips={isSelectedTips} onClick={handleModalTip}>
           <img src={tips} />
         </ButtonTip>
-      ) : <div/>}
+      ) : <ButtonTip/>}
     </Container>
   );
 }

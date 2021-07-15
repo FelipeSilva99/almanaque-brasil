@@ -12,9 +12,6 @@ import leaf from '../../images/whatIsWhatIs/pale_leaves.svg'
 import Button from '../buttons/button';
 
 const Container = styled.div`
-  /* position: absolute;
-  top: 0;
-  left: 0; */
   display: flex;
   background-color: #F3F3F3; 
   padding-top: 2rem;
@@ -42,6 +39,7 @@ const DialogBox = styled.div`
   flex-direction: column;
   width: 326px;
   min-height: 219px;
+  max-height: 285px;
   background-color: #FFFFFF;
   border-radius: 25px;
   box-shadow: silver 0px 5px 15px 0px;
@@ -51,26 +49,33 @@ const DialogBox = styled.div`
   background-position: 132px -328px;
   background-size: 497px;
   padding: 1rem 1rem 1rem 1rem;
+  padding-top: 1rem;
+  overflow-y: auto; 
 
-  /* :before{
-    content: "";
-    position: absolute;
-    right: 43%;
-    top: 205px;
-    width: 0;
-    height: 0;
-    border-top: 13px solid transparent;
-    border-left: 42px solid #FFF;
-    border-bottom: 26px solid transparent;
-  } */
-  @media(max-width: 375px) {
-    width: 95vw;
-  }
-
+  ::-webkit-scrollbar {
+		width: 4px;
+		height: 10px;
+	}
+	::-webkit-scrollbar-track {
+		background: transparent;
+		border-radius: 20px;
+	}
+	::-webkit-scrollbar-thumb {
+		background: #ccc;
+		border-radius: 13px;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #ccc;
+	}
+  
   h1 {
     color: #FB6C76;
   }
   p { margin: 1rem 0 1rem 0; color: #161616; }
+  
+  @media(max-width: 375px) {
+    width: 95vw;
+  }
 `;
 
 const Avatar = styled.img`
@@ -99,60 +104,62 @@ const ButtonsBox = styled.div`
 
 const ALink = styled(Link)`
   width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
   const [hasChances, setHasChance] = useState(true)
   const [isFirstMistake, setIsFirstMistake] = useState(true)
   useEffect(() => {
-    if(chances < 2) setIsFirstMistake(false) 
-    if(chances <= 0) setHasChance(false)
+    if (chances < 2) setIsFirstMistake(false)
+    if (chances <= 0) setHasChance(false)
   }, []);
 
-  const renderText = (firstMistake, hasTips) => {
+  const renderText = (firstMistake) => {
     if (firstMistake) {
       switch (!!tips?.length) {
         case true:
-          return(
+          return (
             <>
               <h1>Ixi, você errou!</h1>
-              <p>Você tem mais {chances} chances de marcar<br/>pontos. Se liga na dica:</p>
+              <p>Você tem mais {chances} chances de marcar<br />pontos. Se liga na dica:</p>
               <strong>{tips[0]}</strong>
             </>
           );
-      
+
         default:
-          return(
+          return (
             <>
               <h1>Ixi, você errou!</h1>
-              <p>Você tem mais {chances} chances de marcar<br/>pontos. O que acha de tentar<br/>novamente?</p>
+              <p>Você tem mais {chances} chances de marcar<br />pontos. O que acha de tentar<br />novamente?</p>
             </>
           );
       }
     } else {
-      if(hasChances) {
+      if (hasChances) {
         switch (!!tips?.length) {
           case true:
-            return(
+            return (
               <>
                 <h1>Ixi, você errou de novo!</h1>
-                <p>Você tem mais 1 chance de marcar<br/>pontos. Se liga em outra dica:</p>
+                <p>Você tem mais 1 chance de marcar<br />pontos. Se liga em outra dica:</p>
                 <strong>{tips[1]}</strong>
               </>
             );
-        
+
           default:
-            return(
+            return (
               <>
                 <h1>Ixi, você errou de novo!</h1>
-                <p>Você tem mais 1 chance de marcar<br/>pontos. O que acha de tentar<br/>novamente?</p>
+                <p>Você tem mais 1 chance de marcar<br />pontos. O que acha de tentar<br />novamente?</p>
               </>
             );
         }
       } else {
-        return(
+        return (
           <>
-            <h1>Esta foi a sua<br/>última chance!</h1>
+            <h1>Esta foi a sua<br />última chance!</h1>
             <p>Gostaria de saber a resposta?</p>
           </>
         );

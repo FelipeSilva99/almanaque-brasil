@@ -40,7 +40,6 @@ const Activities = (props) => {
   }, []);
 
   const handlerNextActivitie = (item) => {
-    
     if (hasNextActivitie) {
       props.history.push({
         pathname: `/activities/${item.id+1}`,
@@ -54,6 +53,7 @@ const Activities = (props) => {
 
   return (
     <Container>
+    {console.log('oi', activities)}
       {
         activities && activities.length > 0
           ? activities.map(item => <Content type={item.type} onClick={() => handlerNextActivitie(item)}/>)

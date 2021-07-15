@@ -9,6 +9,7 @@ import {
 import WhatIsWhatIs from './whatIsWhatIs';
 import WhoseEyesAreThese from './whoseEyesAreThese';
 import InfoScreen from './infoScreen';
+import DidYouKnow from './didYouKnow';
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -59,6 +60,7 @@ const Activities = (props) => {
   }
 
   const renderActivitie = (currentActivitie) => {
+    console.log("Activitie:", currentActivitie)
     // Renderizar component de acordo com o tipo de ativivdade
     {console.log('test', currentActivitie.type)}
     {console.log('test', currentActivitie)}
@@ -78,6 +80,9 @@ const Activities = (props) => {
 
       case "eureka":
         return <InfoScreen isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} eureka />
+      
+      case "voce-sabia":
+        return <DidYouKnow isActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
       default:
         return <h1>{currentActivitie.question}</h1>;

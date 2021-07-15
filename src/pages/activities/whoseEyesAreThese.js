@@ -172,6 +172,7 @@ const ImgBento = styled.img`
 const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
+  const [answer, setAnswer] = useState(undefined);
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [activitie, setActivitie] = useState(undefined)
   const [showAnswer, setShowAnswer] = useState(false);
@@ -206,6 +207,7 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
   const handleCheckAnswer = (answer) => {
     if (answer.isCorrect) {
       setModalCorrectAnswer(true);
+      setAnswer(answer)
     } else {
       setAmountTrial(amountTrial - 1);
       setModalWrongAnswer(true);
@@ -289,6 +291,7 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
   }
 
   return (
+    console.log(isActivitie),
     isLoading ? <SplashScreen activitieLogo={logoBig}/> : (
       <Container>
         {(
@@ -299,9 +302,9 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
         }
         {isModalAnswerOption && renderAnswerOption()}
         {isModalTip && renderTip()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} toScore />}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} />}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={isActivitie.tips}/>}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore />}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers[3]} />}
       </Container>
     )
   );

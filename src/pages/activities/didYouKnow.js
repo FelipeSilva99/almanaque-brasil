@@ -9,7 +9,6 @@ import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 
 //Images
-import logo from '../../images/whoseEyesAreThese/logo.svg';
 import logoBig from '../../images/didYouKnow/logoBig.svg'
 import cactus from '../../images/cactus.svg';
 
@@ -112,59 +111,6 @@ const ContainerAnswer = styled.div`
   @media (max-width: 320px) {min-height: 45vh;}
 `;
 
-const ContainerTip = styled.div`
-  background: #70707073;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  z-index: 1;
-
-  @media (min-width: 1024px) { align-items: center; }
-`;
-
-const ContentTip = styled.div`
-  max-width: 340px;
-`;
-
-const ContentInfoTip = styled.div`
-  position: relative;
-  top: 1.5rem;
-  display: flex;
-  justify-content: center;
-`;
-
-const ImgDialogBox = styled.img`
-  width: 100%;
-`;
-
-const ContentInfo = styled.div`
-  position: absolute;
-  padding-top: 2rem;
-  max-width: 260px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const TextTip = styled.p`
-  padding: ${props => props.padding && '1.5rem 0 .8rem 0 '};
-  color: #373737F2;
-  line-height: 1.2rem;
-
-  @media (max-width: 320px) { padding: ${props => props.padding && '1.5rem 0 .4rem 0 '}; }
-`;
-
-const ImgBento = styled.img`
-  position: relative;
-  top: -1rem;
-  left: -3rem;
-`;
-
 const DidYouKnow = ({ isActivitie, handleNextQuestion }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
@@ -221,7 +167,7 @@ const DidYouKnow = ({ isActivitie, handleNextQuestion }) => {
           logo={logoBig}
         />
         <Content isModal={isModalAnswerOption}>
-          <img src={`data:image/jpeg;base64,${activitie.imageBase64}`}></img>
+          <img src={`data:image/jpeg;base64,${activitie.imageBase64}}`} alt={"Imagem da atividade"}></img>
           <Title>{activitie?.question}</Title>
           {!isModalAnswerOption && <p>{activitie?.complementaryInformation}</p>}
         </Content>

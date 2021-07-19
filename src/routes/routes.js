@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => ({
 const Routes = (props) => {
 	useEffect(() => {
 		props.getTrailsThunk();
-	}, []);
+	}, [props]);
 
 	return (
 		<BrowserRouter>

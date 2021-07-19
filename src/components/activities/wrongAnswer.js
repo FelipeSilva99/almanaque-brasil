@@ -114,7 +114,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
   useEffect(() => {
     if (chances < 2) setIsFirstMistake(false)
     if (chances <= 0) setHasChance(false)
-  }, []);
+  }, [chances]);
 
   const renderText = (firstMistake) => {
     if (firstMistake) {

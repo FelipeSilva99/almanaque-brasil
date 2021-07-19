@@ -298,20 +298,19 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
 
   return (
     isLoading ? <SplashScreen activitieLogo={logoBig}/> : (
-      <SplashScreen activitieLogo={logoBig}/> 
-      // <Container>
-      //   {(
-      //     !modalWrongAnswer
-      //     && !modalCorrectAnswer
-      //     && !showAnswer)
-      //     && renderScreen()
-      //   }
-      //   {isModalAnswerOption && renderAnswerOption()}
-      //   {isModalTip && renderTip()}
-      //   {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={isActivitie.tips}/>}
-      //   {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore />}
-      //   {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers[3]} />}
-      // </Container>
+      <Container>
+        {(
+          !modalWrongAnswer
+          && !modalCorrectAnswer
+          && !showAnswer)
+          && renderScreen()
+        }
+        {isModalAnswerOption && renderAnswerOption()}
+        {isModalTip && renderTip()}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={isActivitie.tips}/>}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore />}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers[3]} />}
+      </Container>
     )
   );
 }

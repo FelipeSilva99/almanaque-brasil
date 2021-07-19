@@ -39,7 +39,7 @@ const IconTop = styled.img`
 
 const IconBottom = styled.img`
   position: absolute;
-  left: 66%;
+  right: -80px;
   top: 70%;
 `;
 

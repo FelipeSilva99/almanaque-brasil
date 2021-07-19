@@ -63,10 +63,6 @@ const Title = styled.h1`
   font-weight: 900;
   text-transform: uppercase;
   color: #373737;
-
-  @media(max-width: 360px){
-    margin-bottom: 1rem;
-  }
 `;
 
 const Subtitle = styled.p`

@@ -180,8 +180,8 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
         return(
           <MessageBox height={'65vh'}>
             <ComplementaryInformationBox>
-              <p>A reposta é:</p>
-              <strong>{answer.answer}oi</strong>
+              <p>A reposta é</p>
+              <strong>{answer.answer}</strong>
               <div>
                 <p>{answer.complementaryInformation}</p>
               </div>

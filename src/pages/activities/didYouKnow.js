@@ -77,6 +77,7 @@ const ContentAnswerOption = styled.button`
   justify-content: center;
   align-items: center;
   width: 80vw;
+  max-width: 425px;
   height: 2.313rem;
   font-size: .75rem;
   font-weight: 900;
@@ -111,7 +112,7 @@ const ContainerAnswer = styled.div`
   @media (max-width: 320px) {min-height: 45vh;}
 `;
 
-const DidYouKnow = ({ isActivitie, handleNextQuestion }) => {
+const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
@@ -211,8 +212,8 @@ const DidYouKnow = ({ isActivitie, handleNextQuestion }) => {
         }
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={isActivitie.tips}/>}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore  didYouKnowScreen/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers[3]} didYouKnowScreen/>}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore  didYouKnowScreen/>}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={isActivitie.answers[3]} didYouKnowScreen/>}
       </Container>
     )
   );

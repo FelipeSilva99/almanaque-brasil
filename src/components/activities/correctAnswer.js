@@ -25,7 +25,7 @@ const MessageBox = styled.div`
   bottom: 0;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  padding-top: 4vh;
+  padding-top: 1.5rem;
   background-color: #FFFFFF;
   width: 100vw;
   height: ${props => props.height || "90vh"};
@@ -81,9 +81,12 @@ const ButtonBox = styled.div`
 `;
 
 const Img = styled.img`
+  width: 100vw;
   max-width: 500px;
   max-height: 300px;
-  /* width: 100%; */
+  object-fit: initial;
+    /* width: 100%; */
+  @media(max-width: 425px) {width: 100%;}
 `;
 
 const ComplementaryInformationBox = styled.div`
@@ -111,17 +114,19 @@ const ComplementaryInformationBox = styled.div`
 	}
 
   strong{ font-size: 1.625rem; }
+  `;
 
-  div {
-    margin-top: 4vh;
-    width: 80vw;
-    max-width: 348px;
-    text-align: left;
-  }
+const Text  = styled.p`
+  margin-top: 4vh;
+  width: 80vw;
+  max-width: 348px;
+  font-size: .875rem;
+  text-align: left;
 `;
 
 const ALink = styled(Link)`
   width: 100%;
+  max-width: 425px;
 `;
 
 const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen }) => {
@@ -176,9 +181,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
             <ComplementaryInformationBox>
               <p>A reposta é</p>
               <strong>{answer.answer}</strong>
-              <div>
-                <p>{answer.complementaryInformation}</p>
-              </div>
+              <Text>{answer.complementaryInformation}</Text>
             </ComplementaryInformationBox>
             <ButtonBox>
               {/* <StlyedLink to="/">  */}

@@ -6,12 +6,6 @@ import { Link } from 'react-router-dom';
 import Button from '../buttons/button';
 
 //Styles
-const StlyedLink = styled(Link)`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-`;
-
 const Container = styled.div`
   position: relative;
   width: 100vw;
@@ -141,7 +135,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
     toScore
       ? setActualModal(modals.toScore)
       : setActualModal(modals.answerDescription)
-  }, []);
+  }, [toScore, modals.answerDescription, modals.toScore]);
 
   const handleContinue = () => {
     switch (actualModal) {

@@ -38,7 +38,7 @@ const Activities = (props) => {
     const allActivities = props.activities.data[trail].activities;
 
     setActivities(allActivities);
-  }, []);
+  }, [props.activities.data, props.selectedTrails]);
 
   useEffect(() => {
     const convertIdToNumber = parseInt(trailId);

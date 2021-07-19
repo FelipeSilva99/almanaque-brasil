@@ -167,7 +167,7 @@ const DidYouKnow = ({ isActivitie, handleNextQuestion }) => {
           logo={logoBig}
         />
         <Content isModal={isModalAnswerOption}>
-          <img src={`data:image/jpeg;base64,${activitie.imageBase64}}`} alt={"Imagem da atividade"}></img>
+          <img src={`data:image/jpeg;base64,${activitie.imageBase64}`} alt={"imagem da atividade"}></img>
           <Title>{activitie?.question}</Title>
           {!isModalAnswerOption && <p>{activitie?.complementaryInformation}</p>}
         </Content>

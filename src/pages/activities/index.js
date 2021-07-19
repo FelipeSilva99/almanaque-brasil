@@ -60,11 +60,7 @@ const Activities = (props) => {
   }
 
   const renderActivitie = (currentActivitie) => {
-    console.log("Activitie:", currentActivitie)
     // Renderizar component de acordo com o tipo de ativivdade
-    {console.log('test', currentActivitie.type)}
-    {console.log('test', currentActivitie)}
-
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
         return <WhoseEyesAreThese isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
@@ -106,7 +102,7 @@ const Activities = (props) => {
     <Container>
       {
         activities && activities.length > 0
-          ? renderScreen(activities[currentActivitie])
+          ? renderScreen(activities[currentActivitie-1])
           : <h1>Carregando</h1>
       }
     </Container>

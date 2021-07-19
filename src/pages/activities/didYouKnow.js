@@ -255,7 +255,6 @@ const DidYouKnow = ({ isActivitie, handleNextQuestion }) => {
   }
 
   return (
-    console.log(isActivitie),
     isLoading ? <SplashScreen activitieLogo={logoBig}/> : (
       <Container>
         {(
@@ -266,8 +265,8 @@ const DidYouKnow = ({ isActivitie, handleNextQuestion }) => {
         }
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={isActivitie.tips}/>}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore />}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers[3]} />}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore  didYouKnowScreen/>}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers[3]} didYouKnowScreen/>}
       </Container>
     )
   );

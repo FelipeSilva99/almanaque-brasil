@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
+//Images
+import trunk from '../../images/icons/trunkk.png';
+
 // Styles
-const Content = styled.button`
+const Content = styled.div`
 	/* margin-bottom: 2rem; */
   margin: ${props => props.margin};
 	width: 100%;
@@ -12,11 +15,6 @@ const Content = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: .75rem;
-	font-weight: 900;
-  letter-spacing: .05rem;
-	color: ${props => props.color || "#373737"};
-  text-transform: uppercase;
 	background: ${props => props.background || '#fcd029'};
 	border-radius: 20px;
 	box-shadow: ${props => props.boxShadow || '0 7px 0 #ee892f'};
@@ -36,6 +34,19 @@ const Content = styled.button`
   } */
 `;
 
+const Image = styled.img`
+  width: 24px;
+  margin-right: 1rem;
+`
+
+const Btn = styled.button`
+  font-size: .75rem;
+	font-weight: 900;
+  letter-spacing: .05rem;
+	color: ${props => props.color || "#373737"};
+  text-transform: uppercase;
+`
+
 const Button = ({
   height,
   background,
@@ -44,19 +55,18 @@ const Button = ({
   disabled,
   handleClick,
   margin,
-  color
+  color,
+  didYouKnowScreen
 }) => {
   return (
     <Content
       height={height}
       background={background}
       boxShadow={boxShadow}
-      color={color}
       margin={margin}
-      disabled={disabled}
-      onClick={handleClick}
     >
-      {children}
+      {didYouKnowScreen && <Image src={trunk} />}
+      <Btn color={color} disabled={disabled} onClick={handleClick}>{children}</Btn>
     </Content>
   );
 }

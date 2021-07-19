@@ -2,6 +2,9 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+//Images
+import horseshoe from '../../images/icons/horseshoe.svg'
+
 //Components
 import Button from '../buttons/button';
 
@@ -70,7 +73,7 @@ const ButtonBox = styled.div`
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   padding-top: 4vh;
-  background-color: #FFFFFF;
+  background-color: ${props => props.backgroundColor || '#FFFFFF'};
   width: 100vw;
 
 
@@ -84,6 +87,13 @@ const Img = styled.img`
   max-width: 500px;
   max-height: 300px;
   /* width: 100%; */
+`;
+
+const HorseShoe = styled.img`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
 `;
 
 const ComplementaryInformationBox = styled.div`
@@ -157,7 +167,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
               <p>Você acertou e ganhou:</p>
             </CongratulationsText>
             <ScoreText><strong>10</strong> pts</ScoreText>
-            <ButtonBox>
+            <ButtonBox backgroundColor={'transparent'}>
               <Button
                 handleClick={() => handleContinue()}
                 color={"#fff"}
@@ -166,6 +176,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
                 boxShadow={"#245812 0px 7px 0px"}
               >Continuar</Button>
             </ButtonBox>
+            <HorseShoe src={horseshoe} />
           </MessageBox>
         );
 

@@ -116,20 +116,21 @@ const ComplementaryInformationBox = styled.div`
 		background: #ccc;
 	}
 
-  strong{ font-size: 2rem; }
+  strong{ font-size: 1.625rem; }
 
   div {
     margin-top: 4vh;
     width: 80vw;
     max-width: 348px;
     text-align: left;
-    p {
-
-    }
   }
 `;
 
-const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
+const ALink = styled(Link)`
+  width: 100%;
+`;
+
+const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen }) => {
   const modals = {
     toScore: "toScore",
     answerDescription: "answerDescription"
@@ -140,7 +141,8 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
     toScore
       ? setActualModal(modals.toScore)
       : setActualModal(modals.answerDescription)
-  }, [])
+  }, []);
+
   const handleContinue = () => {
     switch (actualModal) {
       case modals.toScore:
@@ -150,7 +152,6 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
         break;
     }
   }
-
 
   const renderModal = () => {
     switch (actualModal) {
@@ -177,16 +178,27 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore }) => {
     
       case modals.answerDescription:
         return(
-          <MessageBox height={"calc(100vh - 280px)"}>
+          <MessageBox height={'65vh'}>
             <ComplementaryInformationBox>
               <p>A reposta é:</p>
-              <strong>{answer.answer}</strong>
+              <strong>{answer.answer}oi</strong>
               <div>
                 <p>{answer.complementaryInformation}</p>
               </div>
             </ComplementaryInformationBox>
             <ButtonBox>
               {/* <StlyedLink to="/">  */}
+              {didYouKnowScreen && (
+                <ALink to="/trunk">
+                  <Button
+                    color={"#399119"}
+                    margin={"0 0 20px 0"}
+                    background={"#D4D4D4"}
+                    boxShadow={"#AFAFAF 0px 7px 0px"}
+                    didYouKnowScreen={didYouKnowScreen}
+                  >Veja mais no nosso Baú</Button>
+                </ALink>
+              )}
               <Button
                 handleClick={handlerNextActivitie}
                 color={"#fff"}

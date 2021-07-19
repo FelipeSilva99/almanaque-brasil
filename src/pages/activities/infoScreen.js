@@ -17,21 +17,23 @@ const Container = styled.div`
   padding: 2rem;
   background: #a4a4a4 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
-  `;
+`;
 
 const Content = styled.div`
-    width: 90vw;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background: #F3F3F3;
-    box-shadow: 0px 3px 6px #00000029;
-    border-radius: 24px;
-    max-width: 360px;
-  `;
+  width: 90vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 2rem 1rem 1.5rem 1rem;
+  background: #F3F3F3;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 24px;
+  max-width: 360px;
+
+  @media(max-width: 320px){min-height: 100%;}
+`;
 
 const ImgOrigin = styled.img`
   ${({ eureka }) => eureka && `
@@ -46,18 +48,21 @@ const BoxImg = styled.div`
   height: 168px;
   overflow: hidden;
   border-radius: 10px;
-  margin: 32px 0;
+  margin: 1.5625rem 0 2rem 0;
 `
 
 const Img = styled.img`
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 `
 
 const Title = styled.h1`
-  font-size: ${props => props.fontSize};
-  font-weight: ${props => props.fontWeight};
-  text-transform: ${props => props.textTransform};
-  color: #272727;
+  padding-bottom: 1rem;
+  font-size: .875rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #373737;
 
   @media(max-width: 360px){
     margin-bottom: 1rem;
@@ -65,8 +70,9 @@ const Title = styled.h1`
 `;
 
 const Subtitle = styled.p`
+  padding-bottom: 1rem;
   height: 11.25rem;
-  font-size: 1rem;
+  font-size: .875rem;
   color: #272727;
   line-height: 1.4;
   overflow-y: auto; 
@@ -88,14 +94,7 @@ const Subtitle = styled.p`
   }
 `;
 
-const ContainerButton = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: ${props => props.marginTop};
-`;
-
-const OriginOfTheExpression = ({isActivitie, isShowLogo, eureka, handleNextQuestion}) => {
+const OriginOfTheExpression = ({ isActivitie, isShowLogo, eureka, handleNextQuestion }) => {
 
   const image = isActivitie.imageBase64;
 
@@ -111,28 +110,26 @@ const OriginOfTheExpression = ({isActivitie, isShowLogo, eureka, handleNextQuest
             />
         }
         <BoxImg>
-          <Img src={`data:image/jpeg;base64,${image}`} alt={`image${isActivitie.answers[0].answer}`} />
+          <Img src={`data:image/jpeg;base64,${image}`} alt={`image${isActivitie.question}`} />
         </BoxImg>
-        <Title
-          fontWeight="900"
-          textTransform='uppercase'
-          fontSize="1.2rem"
-        >
+        <Title>
           {isActivitie.question}.
         </Title>
         <Subtitle>
           {isActivitie.answers[0].answer}
+          {isActivitie.answers[0].answer}
+
+          {isActivitie.answers[0].answer}
+
         </Subtitle>
-        <ContainerButton>
-          <Button
-            height='39px'
-            background='#ffd000'
-            boxShadow='0 7px 0 #f08800'
-            handleClick={handleNextQuestion}
-          >
-            Continuar
-          </Button>
-        </ContainerButton>
+        <Button
+          height='39px'
+          background='#ffd000'
+          boxShadow='0 7px 0 #f08800'
+          handleClick={handleNextQuestion}
+        >
+          Continuar
+        </Button>
       </Content>
     </Container>
   );

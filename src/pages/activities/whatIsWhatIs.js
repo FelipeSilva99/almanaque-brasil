@@ -161,7 +161,7 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     const letterOption = answer + alphabetLetters;
     const lettersArray = letterOption.split('');
 
-    let shuffleLetter = radom(lettersArray).split('');
+    let shuffleLetter = random(lettersArray).split('');
     shuffleLetter = shuffleLetter.map(a => (a));
 
     return shuffleLetter;
@@ -171,6 +171,7 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     setLetterOption(handleShuffleLetter());
     setAnswer(handleAnswerSize());
     setActivitive(isActivitie);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActivitie]);
 
   useEffect(() => {
@@ -180,10 +181,6 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
       clearTimeout(timer1);
     };
   }, []);
-
-  useEffect(() => {
-
-  }, [answer]);
 
   const handleIsModalAnswer = () => {
     setIsModalAnswer(true);
@@ -228,7 +225,7 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     return result.join('');
   };
 
-  const radom = (text) => {
+  const random = (text) => {
     let temp = [];
     let originalLength = text.length;
 

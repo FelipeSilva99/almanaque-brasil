@@ -246,7 +246,7 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
               <ScrollTip>
                 {activitie.tips.map(item =>  <TextTip>{item}</TextTip>)}
               </ScrollTip>
-              <img src={iconClose} onClick={handleModalTip} />
+              <img src={iconClose} alt={"fechar"} onClick={handleModalTip} />
             </ContentInfo>
           </ContentInfoTip>
           <ImgBento src={bento} />
@@ -267,7 +267,7 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
           handleModalTip={handleModalTip}
         />
         <Content isModal={isModalAnswerOption}>
-          <img src={`data:image/jpeg;base64,${activitie.imageBase64}`} />
+          <img src={`data:image/jpeg;base64,${activitie.imageBase64}`} alt={"imagem da atividade"}/>
           <Title>{activitie?.question}</Title>
         </Content>
         <Button

@@ -37,7 +37,7 @@ const Activities = (props) => {
     const allActivities = props.activities.data[trail].activities;
     
     setActivities(allActivities);
-  }, []);
+  }, [props.selectedTrails, props.activities.data]);
 
   const handlerNextActivitie = (index) => {
     if (hasNextActivitie) {

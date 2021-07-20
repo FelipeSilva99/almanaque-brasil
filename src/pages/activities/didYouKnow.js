@@ -10,7 +10,6 @@ import WrongAnswer from '../../components/activities/wrongAnswer';
 
 //Images
 import logoBig from '../../images/didYouKnow/logoBig.svg'
-import cactus from '../../images/cactus.svg';
 
 // Styles
 const Container = styled.div`
@@ -26,9 +25,36 @@ const Container = styled.div`
   }
 `;
 
-const Content = styled.div`
-  padding-top: ${props => props.isModal && '1rem'};
+const Scroll = styled.div`
   flex: 1;
+  width: 100vw;
+
+  ${({ isModal }) => !isModal && `
+   overflow-y: auto; 
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 20px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 13px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ccc;
+    }
+  `} 
+`;
+
+
+const Content = styled.div`
+  margin: auto;
+  padding-top: ${props => props.isModal && '1rem'};
+  padding: 0 1rem 1rem;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: ${props => !props.isModal && 'center'};
@@ -50,25 +76,18 @@ const Content = styled.div`
     box-shadow: 0px 5px 6px silver;
   }
 
-  p { margin-top: 2vh; width: 20rem; }
+  p { margin-top: 2vh; }
 `;
 const Title = styled.h1`
   margin-top: 2vh;
   width: 20rem;
   font-size: 1rem;
   font-weight: 800;
-  line-height: 2rem;
+  line-height: 1.3rem;
   color: #373737;
   text-align: center;
   
   @media (max-width: 320px) { width: 18rem; }
-`;
-
-const IconLeaves = styled.img`
-  position: absolute;
-  bottom: -3.8rem;
-  right: -5.5rem;
-  width: 17rem;
 `;
 
 const ContentAnswerOption = styled.button`
@@ -167,14 +186,13 @@ const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
         <Header
           logo={logoBig}
         />
-        <Content isModal={isModalAnswerOption}>
-          <img src={`data:image/jpeg;base64,${activitie.imageBase64}}`} alt={"Imagem da atividade"}></img>
-          <Title>{activitie?.question}</Title>
-          {!isModalAnswerOption && <p>{activitie?.complementaryInformation}</p>}
-        </Content>
-        <figure>
-          <IconLeaves src={cactus} />
-        </figure>
+        <Scroll>
+          <Content isModal={isModalAnswerOption}>
+            <img src={`data:image/jpeg;base64,${activitie.imageBase64}}`} alt={"Imagem da atividade"}></img>
+            <Title>{activitie?.question}</Title>
+            {!isModalAnswerOption && <p>{activitie?.complementaryInformation}</p>}
+          </Content>
+        </Scroll>
         <Button
           handleClick={handleIsModalAnswerOption}
         >
@@ -202,7 +220,7 @@ const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
   }
 
   return (
-    isLoading ? <SplashScreen activitieLogo={logoBig}/> : (
+    isLoading ? <SplashScreen activitieLogo={logoBig} /> : (
       <Container>
         {(
           !modalWrongAnswer
@@ -211,9 +229,9 @@ const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={isActivitie.tips}/>}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore  didYouKnowScreen/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={isActivitie.answers[3]} didYouKnowScreen/>}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={isActivitie.tips} />}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore didYouKnowScreen amountTrial={amountTrial} />}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={isActivitie.answers[3]} didYouKnowScreen />}
       </Container>
     )
   );

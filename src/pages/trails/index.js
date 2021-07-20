@@ -33,7 +33,6 @@ const Trails = (props) => {
     return trails.map((trail, key) => {
       return (
         <Card key={key} onClick={() => handleClick(trail.id)}>
-        {console.log(trail)}
           <h2>{`Trilha ${trail.id}`}</h2>
         </Card>
       )

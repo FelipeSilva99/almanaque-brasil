@@ -49,7 +49,6 @@ const LogoAB = styled.img`
   bottom: 20px;
 `;
 
-
 function SplashScreen({ activitieLogo }) {
   return (
     <Container>

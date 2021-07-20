@@ -43,6 +43,7 @@ const CongratulationsText = styled.div`
   margin: 10vh 0 18vh 0;
   text-align: center;
   h1{
+    font-weight: 800;
     font-size: 3rem;
     color: #399119;
   }
@@ -56,10 +57,14 @@ const CongratulationsText = styled.div`
 `;
 
 const ScoreText = styled.p`
+  position: relative;
+  bottom: 8vh;
   font-size: 2.5rem;
   font-weight: 900;
+  color: #373737;
   strong{
-    font-size: 4rem;
+    font-size: 10rem;
+    font-weight: 900;
     color: #399119;
   }
 `;

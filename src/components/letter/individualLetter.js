@@ -3,34 +3,26 @@ import styled from 'styled-components';
 
 // Styles
 const Content = styled.div`
-  margin-right: 0.5rem;
+  margin: 0 .6%;
   margin-bottom: 1rem;
-  width: 3.438rem;
-  height: 3.125rem;
+  width: 2rem;
+  height: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.563rem;
-  font-weight: 700;
-  color: #fff;
-  border-radius: 10px;
-  border: ${props => props.border};
-  background: ${props => props.background};
-  box-shadow: ${props => props.boxShadow};
+  font-size: 2rem;
+  font-weight: 900;
+  color: #36A39A;
+  border-bottom: 1px solid #707070;
 
-  @media (max-width: 375px) {
-    width: 3rem;
-    height: 2.5rem;
+  :first-child{
+    text-transform: capitalize;
   }
 `;
 
-const IndividualLetter = ({background, boxShadow, border, letter}) => {
+const IndividualLetter = ({letter}) => {
   return (
-    <Content
-      background={background}
-      boxShadow={boxShadow}
-      border={border}
-    >
+    <Content>
       {letter}
     </Content>
   );

@@ -1,42 +1,56 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
+
+//Images
+import iconBack from '../../images/icons/iconBack.svg';
 
 // Styles
 const Container = styled.div`
-  position: fixed;
-  /* margin-top: 2rem; */
-  width: inherit;
-  height: 10vh;
-  min-height: 50px;
+  width: 100vw;
+  /* height: 4rem; */
+  padding: 1rem 1rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  background-color: #fff;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
+
+  @media (min-width: 1024px) { height: 5rem; }
 `;
 
-const Back = styled.p`
-  font-size: 3.125rem;
-  font-weight: 700;
-  line-height: 0;
-  color: #272727;
+const Figure = styled(Link)`
+  width: 2.25rem;
 `;
 
-const Time = styled.p`
-  font-size: 1.875rem;
-  font-weight: 700;
-  line-height: 0;
-  color: #272727;
+const ButtonTip = styled.button`
+  padding: ${props => props.isSelectedTips && '.5rem'};
+  width: 2.25rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${props => props.isSelectedTips && '#fff'};
+  z-index: 2;
 `;
 
-const Header = ({ children }) => {
+const Image = styled.img`
+  width: 4.375rem;
+
+  @media (min-width: 1024px) { width: 6rem; }
+`;
+
+const Header = ({ logo, tips, isSelectedTips, handleModalTip }) => {
   return (
     <Container>
-      <Back>{'<'}</Back>
-      {children}
-      <Time>{'/||'}</Time>
+      <Figure to="/activities">
+        <img src={iconBack} />
+      </Figure>
+      <Image src={logo} />
+      {tips ? (
+        <ButtonTip isSelectedTips={isSelectedTips} onClick={handleModalTip}>
+          <img src={tips} />
+        </ButtonTip>
+      ) : <ButtonTip/>}
     </Container>
   );
 }

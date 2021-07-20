@@ -11,8 +11,7 @@ import { connect } from 'react-redux';
 import Trails from '../pages/trails';
 import Activities from '../pages/activities';
 import ActivitiesList from '../pages/activities/activitiesList';
-import OriginOfTheExpression from '../components/activities/originOfTheExpression';
-
+import TrunkScreen from '../pages/activities/trunkScreen';
 
 // import PrivateRoute from './PrivateRoute';
 import {
@@ -28,7 +27,7 @@ const mapDispatchToProps = dispatch => ({
 const Routes = (props) => {
 	useEffect(() => {
 		props.getTrailsThunk();
-	}, []);
+	}, [props]);
 
 	return (
 		<BrowserRouter>
@@ -37,8 +36,8 @@ const Routes = (props) => {
 				<Route exact path='/' component={Trails} />
 				<Route exact path='/trails' component={Trails} />
 				<Route exact path='/activities/:trailId' component={Activities} />
-				<Route exact path='/activitiesList' component={ActivitiesList} />
-				<Route exact path='/origin-of-the-expression' component={OriginOfTheExpression} />
+				<Route exact path='/activities' component={ActivitiesList} />
+				<Route exact path='/trunk' component={TrunkScreen} props={props} />
 				{/* <PrivateRoute path='/documents' component={DocumentsScreen} /> */}
 			</Switch>
 		</BrowserRouter>

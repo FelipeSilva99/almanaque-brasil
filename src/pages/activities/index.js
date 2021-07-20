@@ -6,8 +6,10 @@ import {
 } from "react-router-dom";
 
 //Components
-import TrailsWhatIs from '../../components/activities/whatIsWhatIs';
-import WhoseEyesAreThese from '../../components/activities/whoseEyesAreThese';
+import WhatIsWhatIs from './whatIsWhatIs';
+import WhoseEyesAreThese from './whoseEyesAreThese';
+import InfoScreen from './infoScreen';
+import DidYouKnow from './didYouKnow';
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -17,7 +19,7 @@ const mapStateToProps = state => ({
 // Styles
 const Container = styled.div`
   display: flex;
-  background-color: #fff;
+  justify-content: center;
   overflow: hidden;
   width: 100vw;
   height: 100vh;
@@ -34,10 +36,9 @@ const Activities = (props) => {
   useEffect(() => {
     const trail = props.selectedTrails;
     const allActivities = props.activities.data[trail].activities;
-    const filterActivities = allActivities.filter(item => item.type !== "origem-da-expressao");
-    
-    setActivities(filterActivities);
-  }, []);
+
+    setActivities(allActivities);
+  }, [props.activities.data, props.selectedTrails]);
 
   useEffect(() => {
     const convertIdToNumber = parseInt(trailId);
@@ -62,13 +63,22 @@ const Activities = (props) => {
     // Renderizar component de acordo com o tipo de ativivdade
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
-        return <WhoseEyesAreThese activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} />
+        return <WhoseEyesAreThese isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "o-que-e-o-que-e":
-        return <TrailsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+        return <WhatIsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "coisas-nossas":
         return <p>coisas-nossas</p>;
+      
+      case "origem-da-expressao":
+        return <InfoScreen isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} isShowLogo />
+
+      case "eureka":
+        return <InfoScreen isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} eureka />
+      
+      case "voce-sabia":
+        return <DidYouKnow isActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
       default:
         return <h1>{currentActivitie.question}</h1>;
@@ -81,25 +91,12 @@ const Activities = (props) => {
       <>
         {
           currentActivitie
-            ? (
-              <>
-                {renderActivitie(currentActivitie)}
-                {renderBtnNextQuestion()}
-              </>
-            )
+            ? renderActivitie(currentActivitie)
             : <h1>não tem mais atividades</h1>
         }
       </>
     )
   }
-
-  const renderBtnNextQuestion = () => (
-    <button
-      onClick={handlerNextActivitie}
-    >
-      próxima questão
-    </button>
-  )
 
   return (
     <Container>

@@ -21,10 +21,10 @@ const Container = styled.div`
 
 const Content = styled.button`
   margin: 1.5rem;
-  width: ${props => props.type === 'origem-da-expressao' ? '30px' : '56px'};
-  height: ${props => props.type === 'origem-da-expressao' ? '30px' : '56px'};
-  background-color: ${props => props.type === 'origem-da-expressao' ? '#cfa151' : '#f8cc80'};
-  border: ${props => props.type === 'origem-da-expressao' ? '2px solid #956517' : '2px solid #cfa151'};
+  width: ${props => props.type === 'origem-da-expressao' || props.type === 'eureka' ? '30px' : '56px'};
+  height: ${props => props.type === 'origem-da-expressao' || props.type === 'eureka' ? '30px' : '56px'};
+  background-color: ${props => props.type === 'origem-da-expressao' || props.type === 'eureka' ? '#cfa151' : '#f8cc80'};
+  border: ${props => props.type === 'origem-da-expressao' || props.type === 'eureka' ? '2px solid #956517' : '2px solid #cfa151'};
   border-radius: 50%;
   cursor: pointer;
 `;
@@ -37,21 +37,12 @@ const Activities = (props) => {
     const allActivities = props.activities.data[trail].activities;
     
     setActivities(allActivities);
-  }, []);
+  }, [props.selectedTrails, props.activities.data]);
 
-  const handlerNextActivitie = (item) => {
-    
+  const handlerNextActivitie = (index) => {
     if (hasNextActivitie) {
-      if(item.type === 'origem-da-expressao') {
-        props.history.push({
-          pathname: `/origin-of-the-expression`,
-        });
-
-        return null;
-      }
-
       props.history.push({
-        pathname: `/activities/${item.id+1}`,
+        pathname: `/activities/${index+1}`,
       });
     }
   }
@@ -64,7 +55,7 @@ const Activities = (props) => {
     <Container>
       {
         activities && activities.length > 0
-          ? activities.map(item => <Content type={item.type} onClick={() => handlerNextActivitie(item)}/>)
+          ? activities.map((item, index) => <Content type={item.type} onClick={() => handlerNextActivitie(index)}/>)
           : <h1>Carregando</h1>
       }
     </Container>

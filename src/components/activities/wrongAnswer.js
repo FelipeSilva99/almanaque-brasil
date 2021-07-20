@@ -8,6 +8,7 @@ import {
 // Assets
 import bento from '../../images/whatIsWhatIs/bento.png'
 import leaf from '../../images/whatIsWhatIs/pale_leaves.svg'
+import flags from '../../images/icons/flags.svg'
 // Components
 import Button from '../buttons/button';
 
@@ -44,10 +45,11 @@ const DialogBox = styled.div`
   border-radius: 25px;
   box-shadow: silver 0px 5px 15px 0px;
   text-align: center;
-  background-image: url("${leaf}");
+  background-image: url("${props => props.backgroundImg}");
   background-repeat: no-repeat;
-  background-position: 132px -328px;
-  background-size: 497px;
+  /* background-position: 132px -328px; */
+  background-position: ${props => props.backgroundPosition};
+  background-size:  ${props => props.backgroundSize};
   padding: 1rem 1rem 1rem 1rem;
   padding-top: 1rem;
   overflow-y: auto; 
@@ -167,10 +169,22 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
     }
   }
 
+  const setBackgroundImg = () => {
+    switch(chances) {
+      case 2: return {img: leaf, position: "132px -328px", size: "497px"}
+      case 1: return {img: flags, position: "", size: ""}
+      default: return {img: leaf, position: "132px -328px", size: "497px"}
+    }
+  }
+
   return (
     <Container>
       <RandomBox>
-        <DialogBox>
+        <DialogBox
+          backgroundImg={setBackgroundImg().img}
+          backgroundPosition={setBackgroundImg().position}
+          backgroundSize={setBackgroundImg().size}
+        >
           {renderText(isFirstMistake, tips)}
         </DialogBox>
         <Avatar src={bento} />

@@ -229,9 +229,9 @@ const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={isActivitie.tips} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore didYouKnowScreen amountTrial={amountTrial} />}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={isActivitie.answers[3]} didYouKnowScreen />}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={isActivitie.tips}/>}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore  didYouKnowScreen/>}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={isActivitie.answers[3]} didYouKnowScreen/>}
       </Container>
     )
   );

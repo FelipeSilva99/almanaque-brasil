@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+//Images
+import horseshoe from '../../images/icons/horseshoe.svg'
+
 //Components
 import Button from '../buttons/button';
 
@@ -45,6 +48,7 @@ const CongratulationsText = styled.div`
   margin: 10vh 0 18vh 0;
   text-align: center;
   h1{
+    font-weight: 800;
     font-size: 3rem;
     color: #399119;
   }
@@ -58,10 +62,14 @@ const CongratulationsText = styled.div`
 `;
 
 const ScoreText = styled.p`
+  position: relative;
+  bottom: 8vh;
   font-size: 2.5rem;
   font-weight: 900;
+  color: #373737;
   strong{
-    font-size: 4rem;
+    font-size: 10rem;
+    font-weight: 900;
     color: #399119;
   }
 `;
@@ -81,7 +89,7 @@ const ButtonBox = styled.div`
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   padding-top: 4vh;
-  background-color: ${props => props.noBCG || "#FFFFFF"};
+  background-color: ${props => props.backgroundColor || '#FFFFFF'};
   width: 100vw;
 
   @media(max-width: 425px) {
@@ -98,6 +106,13 @@ const Img = styled.img`
 
   @media(max-width: 425px) {width: 100%; max-height: 300px;}
   @media(min-width: 1024px) {height: 40vh;}
+`;
+
+const HorseShoe = styled.img`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
 `;
 
 const ComplementaryInformationBox = styled.div`
@@ -137,7 +152,12 @@ const Text = styled.p`
 
 const ALink = styled(Link)`
   width: 100%;
+<<<<<<< HEAD
   max-width: 425px;
+=======
+  display: flex;
+  justify-content: center;
+>>>>>>> 387eadef91ab6a576b42db88ba14a165aafa9865
 `;
 
 const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen, amountTrial }) => {
@@ -178,7 +198,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
             </CongratulationsText>
             <ScoreText><strong>{points}</strong> pts</ScoreText>
             <ImgPoints src={pointsImg} alt={pointsImg} img={imgName} />
-            <ButtonBox noBCG>
+            <ButtonBox backgroundColor={'transparent'}>
               <Button
                 handleClick={() => handleContinue()}
                 color={"#fff"}
@@ -187,6 +207,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
                 boxShadow={"#245812 0px 7px 0px"}
               >Continuar</Button>
             </ButtonBox>
+            <HorseShoe src={horseshoe} />
           </MessageBox>
         );
 

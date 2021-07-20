@@ -197,10 +197,6 @@ const OriginOfTheExpression = ({ isActivitie, isShowLogo, eureka, handleNextQues
             </Title>
             <Subtitle>
               {isActivitie.answers[0].answer}
-              {isActivitie.answers[0].answer}
-    
-              {isActivitie.answers[0].answer}
-    
             </Subtitle>
             <Button
               height='39px'

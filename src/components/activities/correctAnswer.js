@@ -137,6 +137,8 @@ const ComplementaryInformationBox = styled.div`
 
 const ALink = styled(Link)`
   width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen }) => {

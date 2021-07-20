@@ -74,12 +74,6 @@ const ScoreText = styled.p`
   }
 `;
 
-const ImgPoints = styled.img`
-  position: absolute;
-  right: ${props => (props.img === 'wave' && '-149px') || (props.img === 'cactus' && '-130px') || (props.img === 'hardShell' && '-40px')};
-  bottom: ${props => (props.img === 'wave' && '-220px') || (props.img === 'cactus' && '-65px') || (props.img === 'hardShell' && '-10px')};
-`;
-
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -110,8 +104,8 @@ const Img = styled.img`
 
 const HorseShoe = styled.img`
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: ${props => (props.img === 'wave' && '-149px') || (props.img === 'cactus' && '-130px') || (props.img === 'hardShell' && '-40px')};
+  bottom: ${props => (props.img === 'wave' && '-220px') || (props.img === 'cactus' && '-65px') || (props.img === 'hardShell' && '-10px')};
   z-index: -1;
 `;
 
@@ -152,12 +146,9 @@ const Text = styled.p`
 
 const ALink = styled(Link)`
   width: 100%;
-<<<<<<< HEAD
   max-width: 425px;
-=======
   display: flex;
   justify-content: center;
->>>>>>> 387eadef91ab6a576b42db88ba14a165aafa9865
 `;
 
 const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen, amountTrial }) => {
@@ -187,7 +178,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
     const pointsImg = (amountTrial === 3 && hardShell) || (amountTrial === 2 && wave) || (amountTrial === 1 && cactus);
     const points = (amountTrial === 3 && 10) || (amountTrial === 2 && 8) || (amountTrial === 1 && 5);
     const imgName = (amountTrial === 3 && 'hardShell') || (amountTrial === 2 && 'wave') || (amountTrial === 1 && 'cactus');
-
+console.log({amountTrial})
     switch (actualModal) {
       case modals.toScore:
         return (
@@ -197,7 +188,6 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
               <p>Você acertou e ganhou:</p>
             </CongratulationsText>
             <ScoreText><strong>{points}</strong> pts</ScoreText>
-            <ImgPoints src={pointsImg} alt={pointsImg} img={imgName} />
             <ButtonBox backgroundColor={'transparent'}>
               <Button
                 handleClick={() => handleContinue()}
@@ -207,7 +197,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
                 boxShadow={"#245812 0px 7px 0px"}
               >Continuar</Button>
             </ButtonBox>
-            <HorseShoe src={horseshoe} />
+            <HorseShoe src={pointsImg} alt={imgName} img={imgName}/>
           </MessageBox>
         );
 

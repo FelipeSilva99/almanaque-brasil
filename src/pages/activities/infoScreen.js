@@ -83,10 +83,6 @@ const Title = styled.h1`
   font-weight: 900;
   text-transform: uppercase;
   color: #373737;
-
-  @media(max-width: 360px){
-    margin-bottom: 1rem;
-  }
 `;
 
 const Subtitle = styled.p`
@@ -201,10 +197,6 @@ const OriginOfTheExpression = ({ isActivitie, isShowLogo, eureka, handleNextQues
             </Title>
             <Subtitle>
               {isActivitie.answers[0].answer}
-              {isActivitie.answers[0].answer}
-    
-              {isActivitie.answers[0].answer}
-    
             </Subtitle>
             <Button
               height='39px'

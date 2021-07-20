@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Assets
-import plant from '../../images/whatIsWhatIs/folhas.svg'
-import clearPlant from '../../images/whatIsWhatIs/pale_leaves.svg'
-import background from '../../images/whatIsWhatIs/splash_background.svg'
+import iconTop from '../../images/icons/moonAndStar.svg'
+import iconBottom from '../../images/icons/cactus.svg'
+import background from '../../images/icons/background.svg'
 import ABLogo from '../../images/whatIsWhatIs/AB_logo.svg';
 
 const Container = styled.div`
@@ -14,7 +14,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   background-image: url("${background}");
-  padding-top: 2rem;
+  background-color: #f3f3f3;
   width: 100vw;
   height: 100vh;
 
@@ -27,20 +27,20 @@ const ActivitieLogo = styled.img`
   @media (max-width: 370px) { width: 90%; }
 `;
 
-const PlantTop = styled.img`
+const IconTop = styled.img`
   position: absolute;
-  right: 31%;
-  bottom: 58%;
-  z-index: 2;
+  left: 1.8125rem;
+  top: 2.1875rem;
+  z-index: 2;    
 
   @media (min-width: 768px) { right: 59%; }
   @media (min-width: 553px) { right: 42%; }
 `;
 
-const PlantBottom = styled.img`
+const IconBottom = styled.img`
   position: absolute;
-  left: 66%;
-  top: 77%;
+  right: -80px;
+  top: 70%;
 `;
 
 const LogoAB = styled.img`
@@ -49,13 +49,12 @@ const LogoAB = styled.img`
   bottom: 20px;
 `;
 
-
 function SplashScreen({ activitieLogo }) {
   return (
     <Container>
-      <PlantTop src={plant} />
+      <IconTop src={iconTop} />
       <ActivitieLogo src={activitieLogo} />
-      <PlantBottom src={clearPlant} />
+      <IconBottom src={iconBottom} />
       <LogoAB src={ABLogo} />
     </Container>
   )

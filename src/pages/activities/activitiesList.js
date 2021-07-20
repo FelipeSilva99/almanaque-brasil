@@ -39,10 +39,10 @@ const Activities = (props) => {
     setActivities(allActivities);
   }, [props.selectedTrails, props.activities.data]);
 
-  const handlerNextActivitie = (item) => {
+  const handlerNextActivitie = (index) => {
     if (hasNextActivitie) {
       props.history.push({
-        pathname: `/activities/${item.id+1}`,
+        pathname: `/activities/${index+1}`,
       });
     }
   }
@@ -55,7 +55,7 @@ const Activities = (props) => {
     <Container>
       {
         activities && activities.length > 0
-          ? activities.map(item => <Content type={item.type} onClick={() => handlerNextActivitie(item)}/>)
+          ? activities.map((item, index) => <Content type={item.type} onClick={() => handlerNextActivitie(index)}/>)
           : <h1>Carregando</h1>
       }
     </Container>

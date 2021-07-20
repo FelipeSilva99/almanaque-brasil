@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -7,6 +7,11 @@ import horseshoe from '../../images/icons/horseshoe.svg'
 
 //Components
 import Button from '../buttons/button';
+
+//Images
+import cactus from '../../images/icons/punctuation/cactus.svg';
+import hardShell from '../../images/icons/punctuation/hardShell.svg';
+import wave from '../../images/icons/punctuation/wave.svg';
 
 //Styles
 const Container = styled.div`
@@ -28,7 +33,7 @@ const MessageBox = styled.div`
   bottom: 0;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  padding-top: 4vh;
+  padding-top: 1.5rem;
   background-color: #FFFFFF;
   width: 100vw;
   height: ${props => props.height || "90vh"};
@@ -69,6 +74,12 @@ const ScoreText = styled.p`
   }
 `;
 
+const ImgPoints = styled.img`
+  position: absolute;
+  right: ${props => (props.img === 'wave' && '-149px') || (props.img === 'cactus' && '-130px') || (props.img === 'hardShell' && '-40px')};
+  bottom: ${props => (props.img === 'wave' && '-220px') || (props.img === 'cactus' && '-65px') || (props.img === 'hardShell' && '-10px')};
+`;
+
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -81,7 +92,6 @@ const ButtonBox = styled.div`
   background-color: ${props => props.backgroundColor || '#FFFFFF'};
   width: 100vw;
 
-
   @media(max-width: 425px) {
     padding-left: 5vw;
     padding-right: 5vw;
@@ -89,9 +99,13 @@ const ButtonBox = styled.div`
 `;
 
 const Img = styled.img`
+  width: 100vw;
+  height: 100vh;
   max-width: 500px;
-  max-height: 300px;
-  /* width: 100%; */
+  object-fit: initial;
+
+  @media(max-width: 425px) {width: 100%; max-height: 300px;}
+  @media(min-width: 1024px) {height: 40vh;}
 `;
 
 const HorseShoe = styled.img`
@@ -126,27 +140,32 @@ const ComplementaryInformationBox = styled.div`
 	}
 
   strong{ font-size: 1.625rem; }
+  `;
 
-  div {
-    margin-top: 4vh;
-    width: 80vw;
-    max-width: 348px;
-    text-align: left;
-  }
+const Text = styled.p`
+  margin-top: 4vh;
+  width: 80vw;
+  max-width: 348px;
+  font-size: .875rem;
+  text-align: left;
 `;
 
 const ALink = styled(Link)`
   width: 100%;
+<<<<<<< HEAD
+  max-width: 425px;
+=======
   display: flex;
   justify-content: center;
+>>>>>>> 387eadef91ab6a576b42db88ba14a165aafa9865
 `;
 
-const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen }) => {
+const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen, amountTrial }) => {
   const modals = {
     toScore: "toScore",
     answerDescription: "answerDescription"
   }
-  const [actualModal, setActualModal] = useState(undefined)
+  const [actualModal, setActualModal] = useState(undefined);
 
   useEffect(() => {
     toScore
@@ -158,22 +177,27 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
     switch (actualModal) {
       case modals.toScore:
         return setActualModal(modals.answerDescription);
-    
+
       default:
         break;
     }
   }
 
   const renderModal = () => {
+    const pointsImg = (amountTrial === 3 && hardShell) || (amountTrial === 2 && wave) || (amountTrial === 1 && cactus);
+    const points = (amountTrial === 3 && 10) || (amountTrial === 2 && 8) || (amountTrial === 1 && 5);
+    const imgName = (amountTrial === 3 && 'hardShell') || (amountTrial === 2 && 'wave') || (amountTrial === 1 && 'cactus');
+
     switch (actualModal) {
       case modals.toScore:
-        return(
+        return (
           <MessageBox>
             <CongratulationsText>
               <h1>Parabéns</h1>
               <p>Você acertou e ganhou:</p>
             </CongratulationsText>
-            <ScoreText><strong>10</strong> pts</ScoreText>
+            <ScoreText><strong>{points}</strong> pts</ScoreText>
+            <ImgPoints src={pointsImg} alt={pointsImg} img={imgName} />
             <ButtonBox backgroundColor={'transparent'}>
               <Button
                 handleClick={() => handleContinue()}
@@ -187,16 +211,14 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
           </MessageBox>
         );
 
-    
+
       case modals.answerDescription:
-        return(
+        return (
           <MessageBox height={'65vh'}>
             <ComplementaryInformationBox>
-              <p>A reposta é:</p>
+              <p>A reposta é</p>
               <strong>{answer.answer}</strong>
-              <div>
-                <p>{answer.complementaryInformation}</p>
-              </div>
+              <Text>{answer.complementaryInformation}</Text>
             </ComplementaryInformationBox>
             <ButtonBox>
               {/* <StlyedLink to="/">  */}
@@ -228,7 +250,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
     }
   }
 
-  return(
+  return (
     <Container>
       {(answer?.imageBase64) && <Img src={`data:image/jpeg;base64,${answer.imageBase64}`}></Img>}
       {renderModal()}

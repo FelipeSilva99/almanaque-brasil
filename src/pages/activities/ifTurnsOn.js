@@ -69,7 +69,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     setActivitie(useActivitie);
   }, [useActivitie]);
 
-  console.log(useActivitie);
+  // console.log(useActivitie);
 
   const handleClick = (item) => {
     if(canAdd(item.matchingPair, item.type)) {
@@ -84,28 +84,26 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   }
 
   const canAdd = (matchingPair, type) => {
-    if(selectedItems.lenght === 0) return true
-
-    let canAdd;
-    selectedItems.map(item => {
-      const matchType = item.type === type;
-      const matchMatchingPair = item.matchingPair === matchingPair;
-
-      // se existir um type e um matchingPair no array, não será possível adicionar o mesmo
-      // item novamente.
-      if(matchType && matchMatchingPair) return canAdd = false
-      else return canAdd = true
-    })
-
-    if(canAdd) {
-      console.log("canAdd ? ", canAdd);
-      return false
+    if(selectedItems.length === 0) {
+      return true
     }
-    return true
+
+    let add = true
+    const check = selectedItems.map(item => {
+    // se existir um type e um matchingPair no array, não será possível adicionar o mesmo
+    // item novamente.
+      if(item.type == type & item.matchingPair == matchingPair) {
+        return add = false
+      }
+    })
+  
+    if(add) {
+      return true
+    } else return false
   }
 
   return (
-    console.log('Selected: ', selectedItems),
+    console.log("selectedItems:", selectedItems),
     <Container>
       <Header
         logo={logo}

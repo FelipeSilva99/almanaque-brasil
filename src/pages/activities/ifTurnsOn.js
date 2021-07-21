@@ -43,7 +43,7 @@ const ContentInfo = styled.div`
 
 const Text = styled.div`
   width: 7rem;
-  height: 100%;
+  min-height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,7 +54,15 @@ const Text = styled.div`
   box-shadow: 0 3px 6px #00000029;
 `
 
+const Box = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+`;
+
 function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
+  const [selectedItems, setSelectedItems] = useState([]);
   const [activitie, setActivitie] = useState(undefined);
 
   useEffect(() => {
@@ -63,18 +71,69 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
   console.log(useActivitie);
 
+  const handleClick = (item) => {
+    if(canAdd(item.matchingPair, item.type)) {
+      setSelectedItems([
+        ...selectedItems,
+        {
+          type: item.type,
+          matchingPair: item.matchingPair
+        }
+      ])
+    }
+  }
+
+  const canAdd = (matchingPair, type) => {
+    if(selectedItems.lenght === 0) return true
+
+    let canAdd;
+    selectedItems.map(item => {
+      const matchType = item.type === type;
+      const matchMatchingPair = item.matchingPair === matchingPair;
+
+      // se existir um type e um matchingPair no array, não será possível adicionar o mesmo
+      // item novamente.
+      if(matchType && matchMatchingPair) return canAdd = false
+      else return canAdd = true
+    })
+
+    if(canAdd) {
+      console.log("canAdd ? ", canAdd);
+      return false
+    }
+    return true
+  }
+
   return (
+    console.log('Selected: ', selectedItems),
     <Container>
       <Header
         logo={logo}
       />
       <Content>
-        {activitie?.pairs?.map(item => (
-          <ContentInfo>
-            <img src={`data:image/jpeg;base64,${item.imageBase64}`} />
-            <Text>{item.text}</Text>
-          </ContentInfo>
-        ))}
+        <Box>
+          <div>
+            {
+              activitie?.pairs.map(item => (
+                item.type === "image" && (
+                  <ContentInfo onClick={() => handleClick(item)}>
+                    <img src={`data:image/jpeg;base64,${item.imageBase64}`} />
+                  </ContentInfo>
+                )
+              ))
+            }
+          </div>
+          <div>
+            {
+              activitie?.pairs.map(item => (
+                item.type === "text" && (
+                  <ContentInfo onClick={() => handleClick(item)}>
+                    <Text>{item.text}</Text>
+                  </ContentInfo>
+              )))
+            }
+          </div>
+        </Box>
         <Button>conferir resposta</Button>
       </Content>
     </Container>

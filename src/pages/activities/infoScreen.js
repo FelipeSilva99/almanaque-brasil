@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 //Assets
-import LogoOrigin from '../../images/whatIsWhatIs/origin-logo.svg'
-import LogoEureka from '../../images/whatIsWhatIs/image-eureka.svg'
+import LogoOrigin from '../../images/logo/originOfExpression.svg'
+import LogoEureka from '../../images/logo/eureka.svg'
 import book from '../../images/book/book.png'
 
 //Components
@@ -125,14 +125,14 @@ const ScoreDiv = styled.div`
   }
 `;
 
-const OriginOfTheExpression = ({ isActivitie, isShowLogo, eureka, handleNextQuestion }) => {
+const OriginOfTheExpression = ({ useActivitie, isShowLogo, eureka, handleNextQuestion }) => {
   const screens = {
     info: "info",
     knowledge: "knowledge",
     score: "score"
   }
   const [currentScreen, setCurrentScreen] = useState(screens.info);
-  const image = isActivitie.imageBase64;
+  const image = useActivitie.imageBase64;
 
   const renderScreen = () => {
     switch (currentScreen) {
@@ -190,13 +190,13 @@ const OriginOfTheExpression = ({ isActivitie, isShowLogo, eureka, handleNextQues
                 />
             }
             <BoxImg>
-              <Img src={`data:image/jpeg;base64,${image}`} alt={`image${isActivitie.question}`} />
+              <Img src={`data:image/jpeg;base64,${image}`} alt={`image${useActivitie.question}`} />
             </BoxImg>
             <Title>
-              {isActivitie.question}.
+              {useActivitie.question}.
             </Title>
             <Subtitle>
-              {isActivitie.answers[0].answer}
+              {useActivitie.answers[0].answer}
             </Subtitle>
             <Button
               height='39px'

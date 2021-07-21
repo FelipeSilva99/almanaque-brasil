@@ -10,6 +10,7 @@ import WhatIsWhatIs from './whatIsWhatIs';
 import WhoseEyesAreThese from './whoseEyesAreThese';
 import InfoScreen from './infoScreen';
 import DidYouKnow from './didYouKnow';
+import IfTurnsOn from './ifTurnsOn';
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -63,22 +64,25 @@ const Activities = (props) => {
     // Renderizar component de acordo com o tipo de ativivdade
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
-        return <WhoseEyesAreThese isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+        return <WhoseEyesAreThese useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "o-que-e-o-que-e":
-        return <WhatIsWhatIs isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+        return <WhatIsWhatIs useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "coisas-nossas":
-        return <p>coisas-nossas</p>;
+        return <button onClick={handlerNextActivitie}>coisas-nossas</button>;
       
       case "origem-da-expressao":
-        return <InfoScreen isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} isShowLogo />
+        return <InfoScreen useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} isShowLogo />
 
       case "eureka":
-        return <InfoScreen isActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} eureka />
+        return <InfoScreen useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} eureka />
       
       case "voce-sabia":
-        return <DidYouKnow isActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
+        return <DidYouKnow useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
+
+      case "se-liga":
+        return <IfTurnsOn useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
       default:
         return <h1>{currentActivitie.question}</h1>;

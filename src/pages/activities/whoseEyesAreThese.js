@@ -9,8 +9,8 @@ import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 
 //Images
-import logo from '../../images/whoseEyesAreThese/logo.svg';
-import logoBig from '../../images/whoseEyesAreThese/logoBig.svg'
+import logo from '../../images/logo/whoseEyesAreThese.svg';
+import logoBig from '../../images/logo/whoseEyesAreTheseBig.svg'
 import selectedTips from '../../images/whoseEyesAreThese/selectedTips.svg';
 import tips from '../../images/whoseEyesAreThese/tips.svg';
 import dialogBox from '../../images/whoseEyesAreThese/dialogBox.svg';
@@ -185,12 +185,12 @@ const ImgBento = styled.img`
   left: -3rem;
 `;
 
-const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
+const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
-  const [activitie, setActivitie] = useState(undefined)
+  const [activitie, setActivitie] = useState(undefined);
   const [showAnswer, setShowAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [amountTrial, setAmountTrial] = useState(3);
@@ -205,8 +205,8 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
   }, []);
 
   useEffect(() => {
-    setActivitie(isActivitie);
-  }, [isActivitie]);
+    setActivitie(useActivitie);
+  }, [useActivitie]);
 
   const handleModalTip = () => {
     setIsModalTip(!isModalTip)
@@ -307,9 +307,9 @@ const WhoseEyesAreThese = ({ isActivitie, handleNextQuestion }) => {
         }
         {isModalAnswerOption && renderAnswerOption()}
         {isModalTip && renderTip()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={isActivitie.tips}/>}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={useActivitie.tips}/>}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers[3]} amountTrial={amountTrial}/>}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[3]} amountTrial={amountTrial}/>}
       </Container>
     )
   );

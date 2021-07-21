@@ -9,7 +9,7 @@ import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 
 //Images
-import logoBig from '../../images/didYouKnow/logoBig.svg'
+import logo from '../../images/logo/didYouKnow.svg';
 
 // Styles
 const Container = styled.div`
@@ -131,7 +131,7 @@ const ContainerAnswer = styled.div`
   @media (max-width: 320px) {min-height: 45vh;}
 `;
 
-const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
+const DidYouKnow = ({ useActivitie, handlerNextActivitie }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
@@ -150,8 +150,8 @@ const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
   }, []);
 
   useEffect(() => {
-    setActivitie(isActivitie);
-  }, [isActivitie]);
+    setActivitie(useActivitie);
+  }, [useActivitie]);
 
 
 
@@ -183,7 +183,7 @@ const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
     return (
       <>
         <Header
-          logo={logoBig}
+          logo={logo}
         />
         <Scroll>
           <Content isModal={isModalAnswerOption}>
@@ -219,7 +219,7 @@ const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
   }
 
   return (
-    isLoading ? <SplashScreen activitieLogo={logoBig} /> : (
+    isLoading ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
         {(
           !modalWrongAnswer
@@ -228,9 +228,9 @@ const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={isActivitie.tips}/>}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={useActivitie.tips}/>}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore  didYouKnowScreen amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={isActivitie.answers[3]} didYouKnowScreen amountTrial={amountTrial}/>}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={useActivitie.answers[3]} didYouKnowScreen amountTrial={amountTrial}/>}
       </Container>
     )
   );

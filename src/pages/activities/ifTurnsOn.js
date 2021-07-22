@@ -39,6 +39,7 @@ const ContentInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: ${props => props.backgroundColor};
 `
 
 const Text = styled.div`
@@ -62,17 +63,27 @@ const Box = styled.div`
 `;
 
 function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
+  const colors = {
+    green: "#00FFEA", orange: "#F29F32", blue: "#8EBEFF", yellow: "#FFD932"
+  }
   const [selectedItems, setSelectedItems] = useState([]);
-  const [activitie, setActivitie] = useState(undefined);
+  const [pairs, setPairs] = useState(undefined);
 
   useEffect(() => {
-    setActivitie(useActivitie);
+    const newArrayOfActivities = useActivitie?.pairs.map((pair) => {
+      return {
+      ...pair,
+      backgroundColor: "#fff"
+    }})
+
+    setPairs(newArrayOfActivities)
   }, [useActivitie]);
 
   // console.log(useActivitie);
 
   const handleClick = (item) => {
     if(canAdd(item.matchingPair, item.type)) {
+      setBackgroundColor(item)
       setSelectedItems([
         ...selectedItems,
         {
@@ -102,8 +113,40 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     } else return false
   }
 
+  const setBackgroundColor = (item) => {
+    
+    const itemInd = pairs.findIndex(x => {
+      // console.log("x", x)
+      return x.type === item.type & x.matchingPair === item.matchingPair;
+    })
+
+    const newArray = pairs
+    // console.log("Pairs", newArray[itemInd].backgroundColor)
+    newArray[itemInd].backgroundColor = setColor();
+
+    setPairs([...newArray])
+    // const wasSelected = selectedItems.findIndex(item => {
+    //   return item.matchingPair === matchingPair & item.type === type;
+    // })
+
+    // console.log("WasSelected: ", wasSelected)
+
+    // if(wasSelected !== -1) {
+
+    // }
+    // return "#fff"
+  }
+
+  const setColor = () => {
+    if(selectedItems.length <= 1) return colors.green
+    else if(selectedItems.length <= 3) return colors.orange
+    else if(selectedItems.length <= 5) return colors.blue
+    else if(selectedItems.length <= 7) return colors.yellow
+  }
+
   return (
     console.log("selectedItems:", selectedItems),
+    console.log("pairs", pairs),
     <Container>
       <Header
         logo={logo}
@@ -112,9 +155,11 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
         <Box>
           <div>
             {
-              activitie?.pairs.map(item => (
+              pairs?.map((item, i) => (
                 item.type === "image" && (
-                  <ContentInfo onClick={() => handleClick(item)}>
+                  <ContentInfo key={i}
+                    backgroundColor={item.backgroundColor}
+                    onClick={() => handleClick(item)}>
                     <img src={`data:image/jpeg;base64,${item.imageBase64}`} />
                   </ContentInfo>
                 )
@@ -123,9 +168,11 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
           </div>
           <div>
             {
-              activitie?.pairs.map(item => (
+              pairs?.map((item, i) => (
                 item.type === "text" && (
-                  <ContentInfo onClick={() => handleClick(item)}>
+                  <ContentInfo key={i}
+                    backgroundColor={item.backgroundColor}
+                    onClick={() => handleClick(item)}>
                     <Text>{item.text}</Text>
                   </ContentInfo>
               )))

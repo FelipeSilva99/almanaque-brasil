@@ -24,12 +24,20 @@ const Container = styled.div`
 `
 
 const Content = styled.div`
+  bottom: 0;
+  position: absolute;
   padding: 2rem;
   width: 100vw;
+  height: calc(100% - 83px);
   background: #fff;
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: space-between;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  /* transform: translate(0, 20%); */
+  @media(min-width: 768px) {height: 70vh}
 `
 
 const ContentInfo = styled.div`
@@ -57,19 +65,23 @@ const Text = styled.div`
 const Box = styled.div`
   display: flex;
   width: 100%;
+  max-width: 300px;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content:  space-between;
 `;
 
 function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const [selectedItems, setSelectedItems] = useState([]);
   const [activitie, setActivitie] = useState(undefined);
+  const [isModalTip, setIsModalTip] = useState(undefined);
 
   useEffect(() => {
     setActivitie(useActivitie);
   }, [useActivitie]);
 
-  // console.log(useActivitie);
+  const handleModalTip = () => {
+    setIsModalTip(!isModalTip)
+  }
 
   const handleClick = (item) => {
     if(canAdd(item.matchingPair, item.type)) {
@@ -107,6 +119,9 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     <Container>
       <Header
         logo={logo}
+        tips={isModalTip}
+        isSelectedTips={isModalTip}
+        handleModalTip={handleModalTip}
       />
       <Content>
         <Box>

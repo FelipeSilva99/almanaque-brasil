@@ -94,6 +94,35 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   }
 
   const handleClick = (item) => {
+    const itemIndex = isSelected(item)
+    if(itemIndex < 0) {
+      add(item)
+    } else {
+      remove(itemIndex, item)
+    }
+
+  }
+
+  const isSelected = (item) => {
+    console.log("isSelected")
+    // verificar se o botão está ou não selecionado
+    const validation = selectedItems.findIndex((x) => {
+      return x.type === item.type & x.matchingPair === item.matchingPair;
+    })
+
+    return validation
+  }
+
+  const remove = (index, item) => {
+    // remover o item selecionado do selectedItems
+    const newArray = selectedItems
+    newArray.splice(index, 1)
+    setSelectedItems(newArray)
+
+    setBackgroundColor(item, true)
+  }
+
+  const add = (item) => {
     if(canAdd(item.matchingPair, item.type)) {
       setBackgroundColor(item)
       setSelectedItems([
@@ -104,7 +133,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
         }
       ])
     }
-  }
+  } 
 
   const canAdd = (matchingPair, type) => {
     if(selectedItems.length === 0) {
@@ -125,7 +154,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     } else return false
   }
 
-  const setBackgroundColor = (item) => {
+  const setBackgroundColor = (item, whiteColor=false) => {
     
     const itemInd = pairs.findIndex(x => {
       // console.log("x", x)
@@ -134,19 +163,10 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
     const newArray = pairs
     // console.log("Pairs", newArray[itemInd].backgroundColor)
-    newArray[itemInd].backgroundColor = setColor();
+    if(!whiteColor) newArray[itemInd].backgroundColor = setColor();
+    else newArray[itemInd].backgroundColor = "#fff"
 
     setPairs([...newArray])
-    // const wasSelected = selectedItems.findIndex(item => {
-    //   return item.matchingPair === matchingPair & item.type === type;
-    // })
-
-    // console.log("WasSelected: ", wasSelected)
-
-    // if(wasSelected !== -1) {
-
-    // }
-    // return "#fff"
   }
 
   const setColor = () => {
@@ -157,6 +177,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   }
 
   return (
+    console.log("New Render================="),
     console.log("selectedItems:", selectedItems),
     console.log("pairs", pairs),
     <Container>

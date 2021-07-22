@@ -35,7 +35,7 @@ const ButtonTip = styled.button`
 `;
 
 const Image = styled.img`
-  width: 4.375rem;
+  width: 4.875rem;
 
   @media (min-width: 1024px) { width: 6rem; }
 `;
@@ -46,12 +46,12 @@ const Header = ({ logo, tips, isSelectedTips, handleModalTip }) => {
   return (
     <Container>
       <Figure to="/activities">
-        <img src={iconBack} />
+        <img src={iconBack} alt='Voltar' />
       </Figure>
-      <Image src={logo} />
+      <Image src={logo} alt='Logo' />
       {tips ? (
         <ButtonTip isSelectedTips={isSelectedTips} onClick={handleModalTip}>
-          <img src={imgTip} />
+          <img src={imgTip} alt='Dica'/>
         </ButtonTip>
       ) : <ButtonTip/>}
     </Container>

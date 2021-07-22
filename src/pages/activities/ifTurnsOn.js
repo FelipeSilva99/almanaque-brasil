@@ -12,7 +12,7 @@ import logo from '../../images/logo/ifTurnsOn.svg';
 const Container = styled.div`
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
   align-items: center;
   background-color: #f3f3f3;
@@ -36,7 +36,7 @@ const Content = styled.div`
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
 
-  @media(min-width: 768px) {margin-top: 20vh; padding-top: 5rem;}
+  @media(min-width: 768px) {height: 70vh; padding-top: 6rem;}
 `
 
 const ContentInfo = styled.div`

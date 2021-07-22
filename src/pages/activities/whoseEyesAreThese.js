@@ -7,6 +7,8 @@ import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
+import ContentImageText from '../../components/activities/activitieDescription';
+import OptionsButtons from '../../components/activities/optionsButtons';
 
 //Images
 import logo from '../../images/logo/whoseEyesAreThese.svg';
@@ -149,7 +151,7 @@ const ContentInfo = styled.div`
 `;
 
 
-const ScrollTip  = styled.div`
+const ScrollTip = styled.div`
   padding-top: 1rem;
   height: 15rem;
   overflow-y: auto;
@@ -244,7 +246,7 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
             <ImgDialogBox src={dialogBox} />
             <ContentInfo>
               <ScrollTip>
-                {activitie.tips.map(item =>  <TextTip>{item}</TextTip>)}
+                {activitie.tips.map(item => <TextTip>{item}</TextTip>)}
               </ScrollTip>
               <img src={iconClose} alt={"fechar"} onClick={handleModalTip} />
             </ContentInfo>
@@ -266,10 +268,11 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
           isSelectedTips={isModalTip}
           handleModalTip={handleModalTip}
         />
-        <Content isModal={isModalAnswerOption}>
-          <img src={`data:image/jpeg;base64,${activitie.imageBase64}`} alt={"imagem da atividade"}/>
-          <Title>{activitie?.question}</Title>
-        </Content>
+        <ContentImageText
+          image={`data:image/jpeg;base64,${activitie.imageBase64}`}
+          title={activitie?.question}
+          isModal={isModalAnswerOption}
+        />
         <Button
           handleClick={handleIsModalAnswerOption}
         >
@@ -281,23 +284,15 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
 
   const renderAnswerOption = () => {
     return (
-      <ContainerAnswer>
-        {activitie.answers.map((answer, key) => {
-          return (
-            <ContentAnswerOption
-              onClick={() => handleCheckAnswer(answer)}
-              key={key}
-            >
-              {answer.answer}
-            </ContentAnswerOption>
-          )
-        })}
-      </ContainerAnswer>
+      <OptionsButtons
+        options={activitie.answers}
+        handleCheckAnswer={handleCheckAnswer}
+      />
     )
   }
 
   return (
-    isLoading ? <SplashScreen activitieLogo={logoBig}/> : (
+    isLoading ? <SplashScreen activitieLogo={logoBig} /> : (
       <Container>
         {(
           !modalWrongAnswer
@@ -307,9 +302,9 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
         }
         {isModalAnswerOption && renderAnswerOption()}
         {isModalTip && renderTip()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={useActivitie.tips}/>}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[3]} amountTrial={amountTrial}/>}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={useActivitie.tips} />}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore amountTrial={amountTrial} />}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[3]} amountTrial={amountTrial} />}
       </Container>
     )
   );

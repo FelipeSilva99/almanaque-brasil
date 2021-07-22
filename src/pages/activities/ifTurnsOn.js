@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // Component
 import Header from '../../components/header';
 import Button from '../../components/buttons/button';
+import ModalTip from '../../components/modal/tip';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -24,8 +25,6 @@ const Container = styled.div`
 `
 
 const Content = styled.div`
-  bottom: 0;
-  position: absolute;
   padding: 2rem;
   width: 100vw;
   height: calc(100% - 83px);
@@ -36,8 +35,8 @@ const Content = styled.div`
   justify-content: space-between;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
-  /* transform: translate(0, 20%); */
-  @media(min-width: 768px) {height: 70vh}
+
+  @media(min-width: 768px) {margin-top: 20vh; padding-top: 5rem;}
 `
 
 const ContentInfo = styled.div`
@@ -115,11 +114,10 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   }
 
   return (
-    console.log("selectedItems:", selectedItems),
     <Container>
       <Header
         logo={logo}
-        tips={isModalTip}
+        tips
         isSelectedTips={isModalTip}
         handleModalTip={handleModalTip}
       />
@@ -149,6 +147,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
         </Box>
         <Button>conferir resposta</Button>
       </Content>
+      {isModalTip && <ModalTip text={activitie?.tips} handleModalTip={handleModalTip} />}
     </Container>
   )
 }

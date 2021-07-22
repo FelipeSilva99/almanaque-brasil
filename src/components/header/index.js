@@ -5,14 +5,12 @@ import { Link } from "react-router-dom";
 
 //Images
 import iconBack from '../../images/icons/iconBack.svg';
+import tip from '../../images/icons/tip.svg';
+import selectedTip from '../../images/icons/selectedTip.svg';
 
 // Styles
 const Container = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100vw;
-  /* height: 4rem; */
   padding: 1rem 1rem;
   display: flex;
   justify-content: space-between;
@@ -43,6 +41,8 @@ const Image = styled.img`
 `;
 
 const Header = ({ logo, tips, isSelectedTips, handleModalTip }) => {
+  const imgTip = isSelectedTips ? selectedTip : tip;
+
   return (
     <Container>
       <Figure to="/activities">
@@ -51,7 +51,7 @@ const Header = ({ logo, tips, isSelectedTips, handleModalTip }) => {
       <Image src={logo} />
       {tips ? (
         <ButtonTip isSelectedTips={isSelectedTips} onClick={handleModalTip}>
-          <img src={tips} />
+          <img src={imgTip} />
         </ButtonTip>
       ) : <ButtonTip/>}
     </Container>

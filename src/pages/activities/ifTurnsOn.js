@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // Component
 import Header from '../../components/header';
 import Button from '../../components/buttons/button';
+import ModalTip from '../../components/modal/tip';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -11,7 +12,7 @@ import logo from '../../images/logo/ifTurnsOn.svg';
 const Container = styled.div`
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
   align-items: center;
   background-color: #f3f3f3;
@@ -26,10 +27,16 @@ const Container = styled.div`
 const Content = styled.div`
   padding: 2rem;
   width: 100vw;
+  height: calc(100% - 83px);
   background: #fff;
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: space-between;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+
+  @media(min-width: 768px) {height: 70vh; padding-top: 6rem;}
 `
 
 const ContentInfo = styled.div`
@@ -57,19 +64,23 @@ const Text = styled.div`
 const Box = styled.div`
   display: flex;
   width: 100%;
+  max-width: 300px;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content:  space-between;
 `;
 
 function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const [selectedItems, setSelectedItems] = useState([]);
   const [activitie, setActivitie] = useState(undefined);
+  const [isModalTip, setIsModalTip] = useState(undefined);
 
   useEffect(() => {
     setActivitie(useActivitie);
   }, [useActivitie]);
 
-  // console.log(useActivitie);
+  const handleModalTip = () => {
+    setIsModalTip(!isModalTip)
+  }
 
   const handleClick = (item) => {
     if(canAdd(item.matchingPair, item.type)) {
@@ -103,10 +114,12 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   }
 
   return (
-    console.log("selectedItems:", selectedItems),
     <Container>
       <Header
         logo={logo}
+        tips
+        isSelectedTips={isModalTip}
+        handleModalTip={handleModalTip}
       />
       <Content>
         <Box>
@@ -134,6 +147,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
         </Box>
         <Button>conferir resposta</Button>
       </Content>
+      {isModalTip && <ModalTip text={activitie?.tips} handleModalTip={handleModalTip} />}
     </Container>
   )
 }

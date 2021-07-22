@@ -9,9 +9,8 @@ const Content = styled.div`
 	/* margin-bottom: 2rem; */
   margin: ${props => props.margin};
 	width: 100%;
-	/* max-height: 4rem; */
 	height: ${props => props.height || '2.375rem'};
-  max-width: 425px;
+  max-width: 300px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -40,6 +39,8 @@ const Image = styled.img`
 `
 
 const Btn = styled.button`
+  max-width: 300px;
+
   font-size: .75rem;
 	font-weight: 900;
   letter-spacing: .05rem;

@@ -7,15 +7,15 @@ import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
+import ModalTip from '../../components/modal/tip';
+import ContentImageText from '../../components/activities/activitieDescription';
+import OptionsButtons from '../../components/activities/optionsButtons';
 
 //Images
 import logo from '../../images/logo/whoseEyesAreThese.svg';
 import logoBig from '../../images/logo/whoseEyesAreTheseBig.svg'
-import selectedTips from '../../images/whoseEyesAreThese/selectedTips.svg';
-import tips from '../../images/whoseEyesAreThese/tips.svg';
-import dialogBox from '../../images/whoseEyesAreThese/dialogBox.svg';
-import bento from '../../images/whoseEyesAreThese/bento.png';
-import iconClose from '../../images/whoseEyesAreThese/iconClose.svg';
+import selectedTips from '../../images/icons/selectedTip.svg';
+import tips from '../../images/icons/tip.svg';
 
 // Styles
 const Container = styled.div`
@@ -109,82 +109,6 @@ const ContainerAnswer = styled.div`
   @media (max-width: 320px) {min-height: 45vh;}
 `;
 
-const ContainerTip = styled.div`
-  background: #70707073;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  z-index: 1;
-
-  @media (min-width: 1024px) { align-items: center; }
-`;
-
-const ContentTip = styled.div`
-  max-width: 340px;
-`;
-
-const ContentInfoTip = styled.div`
-  position: relative;
-  top: 1.5rem;
-  display: flex;
-  justify-content: center;
-`;
-
-const ImgDialogBox = styled.img`
-  width: 100%;
-`;
-
-const ContentInfo = styled.div`
-  position: absolute;
-  padding-top: 2rem;
-  max-width: 260px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-
-const ScrollTip  = styled.div`
-  padding-top: 1rem;
-  height: 15rem;
-  overflow-y: auto;
-
-  ::-webkit-scrollbar {
-		width: 4px;
-		height: 10px;
-	}
-	::-webkit-scrollbar-track {
-		background: transparent;
-		border-radius: 20px;
-	}
-	::-webkit-scrollbar-thumb {
-		background: #ccc;
-		border-radius: 13px;
-	}
-	::-webkit-scrollbar-thumb:hover {
-		background: #ccc;
-	}
-`;
-
-const TextTip = styled.p`
-  padding-bottom: .8rem;
-  color: #373737F2;
-  line-height: 1.2rem;
-
-  @media (max-width: 320px) { padding: ${props => props.padding && '1.5rem 0 .4rem 0 '}; }
-`;
-
-const ImgBento = styled.img`
-  position: relative;
-  top: -1rem;
-  left: -3rem;
-`;
-
 const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
@@ -236,25 +160,6 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
     setShowAnswer(true);
   }
 
-  const renderTip = () => {
-    return (
-      <ContainerTip>
-        <ContentTip>
-          <ContentInfoTip>
-            <ImgDialogBox src={dialogBox} />
-            <ContentInfo>
-              <ScrollTip>
-                {activitie.tips.map(item =>  <TextTip>{item}</TextTip>)}
-              </ScrollTip>
-              <img src={iconClose} alt={"fechar"} onClick={handleModalTip} />
-            </ContentInfo>
-          </ContentInfoTip>
-          <ImgBento src={bento} />
-        </ContentTip>
-      </ContainerTip>
-    );
-  }
-
   const renderScreen = () => {
     const hasSelectedTips = isModalTip ? selectedTips : tips;
 
@@ -266,10 +171,11 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
           isSelectedTips={isModalTip}
           handleModalTip={handleModalTip}
         />
-        <Content isModal={isModalAnswerOption}>
-          <img src={`data:image/jpeg;base64,${activitie.imageBase64}`} alt={"imagem da atividade"}/>
-          <Title>{activitie?.question}</Title>
-        </Content>
+        <ContentImageText
+          image={`data:image/jpeg;base64,${activitie.imageBase64}`}
+          title={activitie?.question}
+          isModal={isModalAnswerOption}
+        />
         <Button
           handleClick={handleIsModalAnswerOption}
         >
@@ -281,23 +187,15 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
 
   const renderAnswerOption = () => {
     return (
-      <ContainerAnswer>
-        {activitie.answers.map((answer, key) => {
-          return (
-            <ContentAnswerOption
-              onClick={() => handleCheckAnswer(answer)}
-              key={key}
-            >
-              {answer.answer}
-            </ContentAnswerOption>
-          )
-        })}
-      </ContainerAnswer>
+      <OptionsButtons
+        options={activitie.answers}
+        handleCheckAnswer={handleCheckAnswer}
+      />
     )
   }
 
   return (
-    isLoading ? <SplashScreen activitieLogo={logoBig}/> : (
+    isLoading ? <SplashScreen activitieLogo={logoBig} /> : (
       <Container>
         {(
           !modalWrongAnswer
@@ -306,7 +204,7 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {isModalTip && renderTip()}
+        {isModalTip && <ModalTip text={activitie.tips} handleModalTip={handleModalTip} />}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={useActivitie.tips}/>}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore amountTrial={amountTrial}/>}
         {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[3]} amountTrial={amountTrial}/>}

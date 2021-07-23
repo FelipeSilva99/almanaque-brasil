@@ -113,7 +113,6 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   }
 
   const isSelected = (item) => {
-    console.log("isSelected")
     // verificar se o botão está ou não selecionado
     const validation = selectedItems.findIndex((x) => {
       return x.type === item.type & x.matchingPair === item.matchingPair;
@@ -128,7 +127,6 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
     const removed = newArray[index]
     newArray.splice(index, 1)
     // newArray[index] = undefined
-    console.log('removed', removed)
     setSelectedItems(newArray)
     // setBackgroundColor(item, true)
     setBackgroundColor(item, "#fff")
@@ -143,7 +141,6 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
 
     if(removedItem !== undefined) {
       const newSelectedItems = selectedItems;
-      console.log('splice at index', removedItem.index)
       newSelectedItems.splice(removedItem.index, 0, {
         type: item.type,
         matchingPair: item.matchingPair,
@@ -169,7 +166,6 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   } 
 
   const handleSubmit = () => {
-    console.log('clicou aqui', selectedItems);
     // if (selectedAnswer === correctAnser) {
       // setModalCorrectAnswer(true)
     // } else {
@@ -210,12 +206,10 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   const setBackgroundColor = (item, color) => {
     
     const itemInd = pairs.findIndex(x => {
-      // console.log("x", x)
       return x.type === item.type & x.matchingPair === item.matchingPair;
     })
 
     const newArray = pairs
-    // console.log("Pairs", newArray[itemInd].backgroundColor)
     newArray[itemInd].backgroundColor = color
 
     setPairs([...newArray])

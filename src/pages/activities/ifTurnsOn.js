@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import Header from '../../components/header';
 import Button from '../../components/buttons/button';
 import ModalTip from '../../components/modal/tip';
+import WrongAnswer from '../../components/activities/wrongAnswer';
+import CorrectAnswer from '../../components/activities/correctAnswer';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -70,7 +72,7 @@ const Box = styled.div`
   justify-content:  space-between;
 `;
 
-function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
+function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   const colors = {
     green: "#00FFEA", orange: "#F29F32", blue: "#8EBEFF", yellow: "#FFD932"
   }
@@ -78,6 +80,10 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const [pairs, setPairs] = useState(undefined);
   const [activitie, setActivitie] = useState(undefined);
   const [isModalTip, setIsModalTip] = useState(undefined);
+  const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
+  const [modalCorrectAnswer, setModalCorrectAnswer] = useState(undefined);
+  const [amountTrial, setAmountTrial] = useState(3);
+  const [showAnswer, setShowAnswer] = useState(false);
 
   useEffect(() => {
     const newArrayOfActivities = useActivitie?.pairs.map((pair) => {
@@ -135,6 +141,26 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     }
   } 
 
+  const handleSubmit = () => {
+    console.log('clicou aqui', selectedItems);
+    // if (selectedAnswer === correctAnser) {
+      // setModalCorrectAnswer(true)
+    // } else {
+      setModalWrongAnswer(true);
+      setAmountTrial(amountTrial - 1);
+    // }
+  }
+
+  const handleWrongAnswer = () => {
+    setModalWrongAnswer(false);
+  }
+
+  const showModalAnswer = () => {
+    setModalWrongAnswer(false);
+    setModalCorrectAnswer(false);
+    setShowAnswer(true);
+  }
+
   const canAdd = (matchingPair, type) => {
     if(selectedItems.length === 0) {
       return true
@@ -177,9 +203,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   }
 
   return (
-    console.log("New Render================="),
-    console.log("selectedItems:", selectedItems),
-    console.log("pairs", pairs),
     <Container>
       <Header
         logo={logo}
@@ -215,9 +238,12 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
             }
           </div>
         </Box>
-        <Button>conferir resposta</Button>
+        <Button handleClick={handleSubmit}>conferir resposta</Button>
       </Content>
       {isModalTip && <ModalTip text={activitie?.tips} handleModalTip={handleModalTip} />}
+       {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+      {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[0]} toScore amountTrial={amountTrial} />}
+      {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers} amountTrial={amountTrial}/>}
     </Container>
   )
 }

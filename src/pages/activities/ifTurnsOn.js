@@ -125,7 +125,8 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   const remove = (index, item) => {
     // remover o item selecionado do selectedItems
     const newArray = selectedItems
-    const removed = newArray.splice(index, 1)
+    const removed = newArray[index]
+    newArray.splice(index, 1)
     // newArray[index] = undefined
     console.log('removed', removed)
     setSelectedItems(newArray)
@@ -133,21 +134,38 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
     setBackgroundColor(item, "#fff")
     
     setRemovedItem({
-      indice: index,
+      index: index,
       ...removed
     })
   }
 
   const add = (item) => {
-    const color = choiceColor()
-    setBackgroundColor(item, color)
-    setSelectedItems([
-      ...selectedItems,
-      {
+
+    if(removedItem !== undefined) {
+      const newSelectedItems = selectedItems;
+      console.log('splice at index', removedItem.index)
+      newSelectedItems.splice(removedItem.index, 0, {
         type: item.type,
-        matchingPair: item.matchingPair
-      }
-    ])
+        matchingPair: item.matchingPair,
+        backgroundColor: removedItem.backgroundColor
+      })
+
+      setSelectedItems(newSelectedItems)
+      setBackgroundColor(item, removedItem.backgroundColor)
+      setRemovedItem(undefined)
+
+    } else {
+      const color = choiceColor()
+      setBackgroundColor(item, color)
+      setSelectedItems([
+        ...selectedItems,
+        {
+          type: item.type,
+          matchingPair: item.matchingPair,
+          backgroundColor: color
+        }
+      ])
+    }
   } 
 
   const handleSubmit = () => {

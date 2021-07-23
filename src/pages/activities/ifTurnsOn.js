@@ -46,6 +46,7 @@ const ContentInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: ${props => props.backgroundColor};
 `
 
 const Text = styled.div`
@@ -70,12 +71,22 @@ const Box = styled.div`
 `;
 
 function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
+  const colors = {
+    green: "#00FFEA", orange: "#F29F32", blue: "#8EBEFF", yellow: "#FFD932"
+  }
   const [selectedItems, setSelectedItems] = useState([]);
+  const [pairs, setPairs] = useState(undefined);
   const [activitie, setActivitie] = useState(undefined);
   const [isModalTip, setIsModalTip] = useState(undefined);
 
   useEffect(() => {
-    setActivitie(useActivitie);
+    const newArrayOfActivities = useActivitie?.pairs.map((pair) => {
+      return {
+      ...pair,
+      backgroundColor: "#fff"
+    }})
+
+    setPairs(newArrayOfActivities)
   }, [useActivitie]);
 
   const handleModalTip = () => {
@@ -83,7 +94,37 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   }
 
   const handleClick = (item) => {
+    const itemIndex = isSelected(item)
+    if(itemIndex < 0) {
+      add(item)
+    } else {
+      remove(itemIndex, item)
+    }
+
+  }
+
+  const isSelected = (item) => {
+    console.log("isSelected")
+    // verificar se o botão está ou não selecionado
+    const validation = selectedItems.findIndex((x) => {
+      return x.type === item.type & x.matchingPair === item.matchingPair;
+    })
+
+    return validation
+  }
+
+  const remove = (index, item) => {
+    // remover o item selecionado do selectedItems
+    const newArray = selectedItems
+    newArray.splice(index, 1)
+    setSelectedItems(newArray)
+
+    setBackgroundColor(item, true)
+  }
+
+  const add = (item) => {
     if(canAdd(item.matchingPair, item.type)) {
+      setBackgroundColor(item)
       setSelectedItems([
         ...selectedItems,
         {
@@ -92,7 +133,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
         }
       ])
     }
-  }
+  } 
 
   const canAdd = (matchingPair, type) => {
     if(selectedItems.length === 0) {
@@ -113,7 +154,32 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     } else return false
   }
 
+  const setBackgroundColor = (item, whiteColor=false) => {
+    
+    const itemInd = pairs.findIndex(x => {
+      // console.log("x", x)
+      return x.type === item.type & x.matchingPair === item.matchingPair;
+    })
+
+    const newArray = pairs
+    // console.log("Pairs", newArray[itemInd].backgroundColor)
+    if(!whiteColor) newArray[itemInd].backgroundColor = setColor();
+    else newArray[itemInd].backgroundColor = "#fff"
+
+    setPairs([...newArray])
+  }
+
+  const setColor = () => {
+    if(selectedItems.length <= 1) return colors.green
+    else if(selectedItems.length <= 3) return colors.orange
+    else if(selectedItems.length <= 5) return colors.blue
+    else if(selectedItems.length <= 7) return colors.yellow
+  }
+
   return (
+    console.log("New Render================="),
+    console.log("selectedItems:", selectedItems),
+    console.log("pairs", pairs),
     <Container>
       <Header
         logo={logo}
@@ -125,9 +191,11 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
         <Box>
           <div>
             {
-              activitie?.pairs.map(item => (
+              pairs?.map((item, i) => (
                 item.type === "image" && (
-                  <ContentInfo onClick={() => handleClick(item)}>
+                  <ContentInfo key={i}
+                    backgroundColor={item.backgroundColor}
+                    onClick={() => handleClick(item)}>
                     <img src={`data:image/jpeg;base64,${item.imageBase64}`} />
                   </ContentInfo>
                 )
@@ -136,9 +204,11 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
           </div>
           <div>
             {
-              activitie?.pairs.map(item => (
+              pairs?.map((item, i) => (
                 item.type === "text" && (
-                  <ContentInfo onClick={() => handleClick(item)}>
+                  <ContentInfo key={i}
+                    backgroundColor={item.backgroundColor}
+                    onClick={() => handleClick(item)}>
                     <Text>{item.text}</Text>
                   </ContentInfo>
               )))

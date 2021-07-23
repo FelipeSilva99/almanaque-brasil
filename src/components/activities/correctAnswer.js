@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-//Images
-import horseshoe from '../../images/icons/horseshoe.svg'
-
 //Components
 import Button from '../buttons/button';
 

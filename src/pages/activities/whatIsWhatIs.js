@@ -11,7 +11,7 @@ import WrongAnswer from '../../components/activities/wrongAnswer';
 
 //Images
 import paleLeaves from '../../images/whatIsWhatIs/pale_leaves.svg';
-import iconBack from '../../images/whatIsWhatIs/iconBack.svg';
+import iconBack from '../../images/icons/iconBack.svg';
 import logo from '../../images/logo/whatIsWhatIs.svg';
 import iconDelete from '../../images/whatIsWhatIs/iconDelete.svg';
 

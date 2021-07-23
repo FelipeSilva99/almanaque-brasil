@@ -6,9 +6,11 @@ import {
 } from "react-router-dom";
 
 // Assets
-import bento from '../../images/whatIsWhatIs/bento.png'
+import bento from '../../images/icons/bento.png'
 import leaf from '../../images/whatIsWhatIs/pale_leaves.svg'
-import flags from '../../images/icons/flags.svg'
+import flags from '../../images/icons/flags.svg';
+import starrySky from '../../images/icons/starrySky.svg';
+
 // Components
 import Button from '../buttons/button';
 
@@ -24,10 +26,13 @@ const Container = styled.div`
 `
 
 const RandomBox = styled.div`
+  width: 100vw;
   display: flex;
+  align-items: center;
   flex-direction: column;
   position: absolute;
   bottom: 12vh;
+  background: #F3F3F3;
 `;
 
 const DialogBox = styled.div`
@@ -173,7 +178,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
     switch(chances) {
       case 2: return {img: leaf, position: "132px -328px", size: "497px"}
       case 1: return {img: flags, position: "", size: ""}
-      default: return {img: leaf, position: "132px -328px", size: "497px"}
+      default: return {img: starrySky, position: "184px  -90px", size: ""}
     }
   }
 

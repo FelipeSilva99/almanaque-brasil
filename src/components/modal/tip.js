@@ -49,6 +49,10 @@ const ContentInfo = styled.div`
 const ScrollTip  = styled.div`
   padding-top: 1rem;
   height: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   overflow-y: auto;
 
   ::-webkit-scrollbar {

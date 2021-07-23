@@ -84,6 +84,7 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(undefined);
   const [amountTrial, setAmountTrial] = useState(3);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [removedItem, setRemovedItem] = useState(undefined);
 
   useEffect(() => {
     const newArrayOfActivities = useActivitie?.pairs.map((pair) => {
@@ -102,9 +103,11 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   const handleClick = (item) => {
     const itemIndex = isSelected(item)
     if(itemIndex < 0) {
+      // if(canAdd(item.matchingPair, item.type)) {
       add(item)
+
     } else {
-      remove(itemIndex, item)
+      if(removedItem === undefined) remove(itemIndex, item)
     }
 
   }
@@ -122,23 +125,29 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   const remove = (index, item) => {
     // remover o item selecionado do selectedItems
     const newArray = selectedItems
-    newArray.splice(index, 1)
+    const removed = newArray.splice(index, 1)
+    // newArray[index] = undefined
+    console.log('removed', removed)
     setSelectedItems(newArray)
-
-    setBackgroundColor(item, true)
+    // setBackgroundColor(item, true)
+    setBackgroundColor(item, "#fff")
+    
+    setRemovedItem({
+      indice: index,
+      ...removed
+    })
   }
 
   const add = (item) => {
-    if(canAdd(item.matchingPair, item.type)) {
-      setBackgroundColor(item)
-      setSelectedItems([
-        ...selectedItems,
-        {
-          type: item.type,
-          matchingPair: item.matchingPair
-        }
-      ])
-    }
+    const color = choiceColor()
+    setBackgroundColor(item, color)
+    setSelectedItems([
+      ...selectedItems,
+      {
+        type: item.type,
+        matchingPair: item.matchingPair
+      }
+    ])
   } 
 
   const handleSubmit = () => {
@@ -180,7 +189,7 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
     } else return false
   }
 
-  const setBackgroundColor = (item, whiteColor=false) => {
+  const setBackgroundColor = (item, color) => {
     
     const itemInd = pairs.findIndex(x => {
       // console.log("x", x)
@@ -189,13 +198,12 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
 
     const newArray = pairs
     // console.log("Pairs", newArray[itemInd].backgroundColor)
-    if(!whiteColor) newArray[itemInd].backgroundColor = setColor();
-    else newArray[itemInd].backgroundColor = "#fff"
+    newArray[itemInd].backgroundColor = color
 
     setPairs([...newArray])
   }
 
-  const setColor = () => {
+  const choiceColor = () => {
     if(selectedItems.length <= 1) return colors.green
     else if(selectedItems.length <= 3) return colors.orange
     else if(selectedItems.length <= 5) return colors.blue

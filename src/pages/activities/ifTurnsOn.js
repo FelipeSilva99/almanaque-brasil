@@ -84,14 +84,16 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(undefined);
   const [amountTrial, setAmountTrial] = useState(3);
   const [showAnswer, setShowAnswer] = useState(false);
-  const [removedItem, setRemovedItem] = useState(undefined);
+  const [inMemoryItem, setRemovedItem] = useState(undefined);
 
   useEffect(() => {
-    const newArrayOfActivities = useActivitie?.pairs.map((pair) => {
+    const newArrayOfActivities = useActivitie?.pairs.map((pair, i) => {
       return {
-      ...pair,
-      backgroundColor: "#fff"
-    }})
+        id: i,
+        ...pair,
+        backgroundColor: "#fff"
+      }
+    })
 
     setPairs(newArrayOfActivities)
   }, [useActivitie]);
@@ -103,67 +105,64 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   const handleClick = (item) => {
     const itemIndex = isSelected(item)
     if(itemIndex < 0) {
-      // if(canAdd(item.matchingPair, item.type)) {
-      add(item)
+      if(inMemoryItem !== undefined) add(item, inMemoryItem)
+      else add(item)
 
     } else {
-      if(removedItem === undefined) remove(itemIndex, item)
+      if(inMemoryItem === undefined) remove(itemIndex, item)
     }
-
   }
 
   const isSelected = (item) => {
-    // verificar se o botão está ou não selecionado
+    console.log("isSelected:", item.id)
     const validation = selectedItems.findIndex((x) => {
-      return x.type === item.type & x.matchingPair === item.matchingPair;
+      return x.id === item.id;
     })
 
     return validation
   }
 
   const remove = (index, item) => {
-    // remover o item selecionado do selectedItems
-    const newArray = selectedItems
-    const removed = newArray[index]
-    newArray.splice(index, 1)
-    // newArray[index] = undefined
-    setSelectedItems(newArray)
-    // setBackgroundColor(item, true)
+    const newSelectedItems = selectedItems
+    const removed = newSelectedItems[index]
+    newSelectedItems.splice(index, 1)
+    setSelectedItems(newSelectedItems)
     setBackgroundColor(item, "#fff")
-    
     setRemovedItem({
       index: index,
       ...removed
     })
   }
 
-  const add = (item) => {
-
-    if(removedItem !== undefined) {
+  const add = (item, inMemoryItem) => {
+    if(inMemoryItem) {
       const newSelectedItems = selectedItems;
-      newSelectedItems.splice(removedItem.index, 0, {
+      newSelectedItems.splice(inMemoryItem.index, 0, {
+        id: item.id,
         type: item.type,
         matchingPair: item.matchingPair,
-        backgroundColor: removedItem.backgroundColor
+        backgroundColor: inMemoryItem.backgroundColor
       })
 
       setSelectedItems(newSelectedItems)
-      setBackgroundColor(item, removedItem.backgroundColor)
+      setBackgroundColor(item, inMemoryItem.backgroundColor)
       setRemovedItem(undefined)
-
-    } else {
-      const color = choiceColor()
-      setBackgroundColor(item, color)
-      setSelectedItems([
-        ...selectedItems,
-        {
-          type: item.type,
-          matchingPair: item.matchingPair,
-          backgroundColor: color
-        }
-      ])
+      return null
     }
-  } 
+    const color = choiceColor()
+    setBackgroundColor(item, color)
+    setSelectedItems([
+      ...selectedItems,
+      {
+        id: item.id,
+        type: item.type,
+        matchingPair: item.matchingPair,
+        backgroundColor: color
+      }
+    ])
+    return null
+  }
+
 
   const handleSubmit = () => {
     // if (selectedAnswer === correctAnser) {
@@ -184,29 +183,9 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
     setShowAnswer(true);
   }
 
-  const canAdd = (matchingPair, type) => {
-    if(selectedItems.length === 0) {
-      return true
-    }
-
-    let add = true
-    const check = selectedItems.map(item => {
-    // se existir um type e um matchingPair no array, não será possível adicionar o mesmo
-    // item novamente.
-      if(item.type == type & item.matchingPair == matchingPair) {
-        return add = false
-      }
-    })
-  
-    if(add) {
-      return true
-    } else return false
-  }
-
   const setBackgroundColor = (item, color) => {
-    
     const itemInd = pairs.findIndex(x => {
-      return x.type === item.type & x.matchingPair === item.matchingPair;
+      return x.id === item.id;
     })
 
     const newArray = pairs
@@ -236,7 +215,7 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
             {
               pairs?.map((item, i) => (
                 item.type === "image" && (
-                  <ContentInfo key={i}
+                  <ContentInfo key={item.id}
                     backgroundColor={item.backgroundColor}
                     onClick={() => handleClick(item)}>
                     <img src={`data:image/jpeg;base64,${item.imageBase64}`} />
@@ -249,7 +228,7 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
             {
               pairs?.map((item, i) => (
                 item.type === "text" && (
-                  <ContentInfo key={i}
+                  <ContentInfo key={item.id}
                     backgroundColor={item.backgroundColor}
                     onClick={() => handleClick(item)}>
                     <Text>{item.text}</Text>

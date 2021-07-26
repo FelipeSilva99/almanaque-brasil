@@ -4,9 +4,9 @@ import styled from 'styled-components';
 // Component
 import Header from '../../components/header';
 import Button from '../../components/buttons/button';
+import ContainerButton from '../../components/buttons/containerButton';
 import ModalTip from '../../components/modal/tip';
 import WrongAnswer from '../../components/activities/wrongAnswer';
-import CorrectAnswer from '../../components/activities/correctAnswer';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -19,18 +19,15 @@ const Container = styled.div`
   align-items: center;
   background-color: #f3f3f3;
   width: 100vw;
-  height: 100vh;
-
-  @media (min-width: 1024px) {
-    justify-content: center;
-  }
+  height: 100vh;  
 `
 
 const Content = styled.div`
   padding: 2rem;
+  padding-bottom: 0;
   width: 100vw;
   height: calc(100% - 83px);
-  background: #fff;
+  background: ${props => !props.isCorrectAnswer && '#fff'};
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -42,13 +39,13 @@ const Content = styled.div`
 `
 
 const ContentInfo = styled.div`
-  padding-bottom: 1rem;
+  margin-bottom: 1rem;
   width: 100%;
   max-width: 300px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${props => props.backgroundColor};
+  background-color: ${props => props.isCorrectAnswer && 'none' || props.backgroundColor};
 `
 
 const Text = styled.div`
@@ -61,7 +58,7 @@ const Text = styled.div`
   color: #373737;
   font-weight: 900;
   border-radius: 8px;
-  box-shadow: 0 3px 6px #00000029;
+  box-shadow: ${props => props.isCorrectAnswer ? 'none' : '0 3px 6px #00000029'};
 `
 
 const Box = styled.div`
@@ -69,10 +66,11 @@ const Box = styled.div`
   width: 100%;
   max-width: 300px;
   flex-direction: row;
-  justify-content:  space-between;
+  justify-content:  ${props => props.isCorrectAnswer ? 'space-evenly' : 'space-between'};
+  
 `;
 
-function IfTurnsOn({ useActivitie, handleNextQuestion }) {
+function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const colors = {
     green: "#00FFEA", orange: "#F29F32", blue: "#8EBEFF", yellow: "#FFD932"
   }
@@ -87,11 +85,11 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   const [activitie, setActivitie] = useState(undefined);
   const [isModalTip, setIsModalTip] = useState(undefined);
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
-  const [modalCorrectAnswer, setModalCorrectAnswer] = useState(undefined);
   const [amountTrial, setAmountTrial] = useState(3);
   const [showAnswer, setShowAnswer] = useState(false);
   const [inMemoryItem, setInMemoryItem] = useState(undefined);
   const [hasItemInMemory, setHasItemInMemory] = useState(false);
+  const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
 
   useEffect(() => {
     inMemoryItem === undefined  
@@ -108,7 +106,7 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
       }
     })
 
-    setPairs(newArrayOfActivities)
+    setPairs(newArrayOfActivities);
   }, [useActivitie]);
 
   const handleModalTip = () => {
@@ -200,10 +198,10 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
     // if (selectedAnswer === correctAnser) {
       // setModalCorrectAnswer(true)
     // } else {
-      setModalWrongAnswer(true);
-      setAmountTrial(amountTrial - 1);
-    // }
+    setModalWrongAnswer(true);
+    setAmountTrial(amountTrial - 1);
   }
+
 
   const handleWrongAnswer = () => {
     setModalWrongAnswer(false);
@@ -211,8 +209,7 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
 
   const showModalAnswer = () => {
     setModalWrongAnswer(false);
-    setModalCorrectAnswer(false);
-    setShowAnswer(true);
+    setIsCorrectAnswer(true);
   }
 
   const setBackgroundColor = (item, color) => {
@@ -233,6 +230,40 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
     return selected;
   }
 
+  const renderScreen = () => {
+    return (
+      <Box isCorrectAnswer={isCorrectAnswer}>
+        <div>
+          {
+            pairs?.map((item, i) => (
+              item.type === "image" && (
+                <ContentInfo key={i}
+                  backgroundColor={item.backgroundColor}
+                  isCorrectAnswer={isCorrectAnswer}
+                  onClick={() => handleClick(item)}>
+                  <img src={`data:image/jpeg;base64,${item.imageBase64}`} />
+                </ContentInfo>
+              )
+            ))
+          }
+        </div>
+        <div>
+          {
+            pairs?.map((item, i) => (
+              item.type === "text" && (
+                <ContentInfo key={i}
+                  backgroundColor={item.backgroundColor}
+                  isCorrectAnswer={isCorrectAnswer}
+                  onClick={() => handleClick(item)}>
+                  <Text isCorrectAnswer={isCorrectAnswer}>{item.text}</Text>
+                </ContentInfo>
+              )))
+          }
+        </div>
+      </Box>
+    )
+  }
+
   return (
     <Container>
       <Header
@@ -241,40 +272,22 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
         isSelectedTips={isModalTip}
         handleModalTip={handleModalTip}
       />
-      <Content>
-        <Box>
-          <div>
-            {
-              pairs?.map((item, i) => (
-                item.type === "image" && (
-                  <ContentInfo key={item.id}
-                    backgroundColor={item.backgroundColor}
-                    onClick={() => handleClick(item)}>
-                    <img src={`data:image/jpeg;base64,${item.imageBase64}`} />
-                  </ContentInfo>
-                )
-              ))
-            }
-          </div>
-          <div>
-            {
-              pairs?.map((item, i) => (
-                item.type === "text" && (
-                  <ContentInfo key={item.id}
-                    backgroundColor={item.backgroundColor}
-                    onClick={() => handleClick(item)}>
-                    <Text>{item.text}</Text>
-                  </ContentInfo>
-              )))
-            }
-          </div>
-        </Box>
-        <Button handleClick={handleSubmit}>conferir resposta</Button>
+      <Content isCorrectAnswer={isCorrectAnswer}>
+        {renderScreen()}
+        <ContainerButton
+          height='auto'
+          color={isCorrectAnswer && '#fff'}
+          background={isCorrectAnswer && '#399119'}
+          boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
+          noBorder={!isCorrectAnswer}
+          isCorrectAnswer={isCorrectAnswer}
+          handleClick={handleSubmit}
+        >
+          {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}
+        </ContainerButton>
       </Content>
       {isModalTip && <ModalTip text={activitie?.tips} handleModalTip={handleModalTip} />}
-       {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-      {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[0]} toScore amountTrial={amountTrial} />}
-      {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers} amountTrial={amountTrial}/>}
+      {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
     </Container>
   )
 }

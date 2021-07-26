@@ -15,10 +15,11 @@ import starrySky from '../../images/icons/starrySky.svg';
 import Button from '../buttons/button';
 
 const Container = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   background-color: #F3F3F3; 
-  padding-top: 2rem;
-  position: relative;
   width: 100vw;
   height: 100vh;
   justify-content: center;
@@ -33,6 +34,9 @@ const RandomBox = styled.div`
   position: absolute;
   bottom: 12vh;
   background: #F3F3F3;
+
+  @media(min-width: 1024px) {bottom: 10vh}
+
 `;
 
 const DialogBox = styled.div`

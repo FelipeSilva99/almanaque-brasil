@@ -45,7 +45,9 @@ const ContentInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 8px;
   background-color: ${props => props.isCorrectAnswer && 'none' || props.backgroundColor};
+  img { opacity: ${props => props.opacity}; }
 `
 
 const Text = styled.div`
@@ -230,6 +232,11 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     return selected;
   }
 
+  const setOpacity = (color) => {
+    if(color !== "#fff") return ".3"
+    return "1.0"
+  }
+
   const renderScreen = () => {
     return (
       <Box isCorrectAnswer={isCorrectAnswer}>
@@ -240,7 +247,8 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
                 <ContentInfo key={i}
                   backgroundColor={item.backgroundColor}
                   isCorrectAnswer={isCorrectAnswer}
-                  onClick={() => handleClick(item)}>
+                  onClick={() => handleClick(item)}
+                  opacity={setOpacity(item.backgroundColor)}>
                   <img src={`data:image/jpeg;base64,${item.imageBase64}`} />
                 </ContentInfo>
               )

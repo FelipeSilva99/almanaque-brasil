@@ -40,7 +40,6 @@ const Image = styled.img`
 
 const Btn = styled.button`
   max-width: 300px;
-
   font-size: .75rem;
 	font-weight: 900;
   letter-spacing: .05rem;

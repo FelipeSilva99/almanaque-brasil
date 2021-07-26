@@ -90,7 +90,7 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(undefined);
   const [amountTrial, setAmountTrial] = useState(3);
   const [showAnswer, setShowAnswer] = useState(false);
-  const [inMemoryItem, setRemovedItem] = useState(undefined);
+  const [inMemoryItem, setInMemoryItem] = useState(undefined);
 
   useEffect(() => {
     const newArrayOfActivities = useActivitie?.pairs.map((pair, i) => {
@@ -134,7 +134,7 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
     newSelectedItems.splice(index, 1)
     setSelectedItems(newSelectedItems)
     setBackgroundColor(item, "#fff")
-    setRemovedItem({
+    setInMemoryItem({
       index: index,
       ...removed
     })
@@ -152,7 +152,7 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
 
       setSelectedItems(newSelectedItems)
       setBackgroundColor(item, inMemoryItem.backgroundColor)
-      setRemovedItem(undefined)
+      setInMemoryItem(undefined)
       return null
     }
     const color = choiceColor()

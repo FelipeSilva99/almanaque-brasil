@@ -11,6 +11,7 @@ import WhoseEyesAreThese from './whoseEyesAreThese';
 import InfoScreen from './infoScreen';
 import DidYouKnow from './didYouKnow';
 import IfTurnsOn from './ifTurnsOn';
+import OurStuff from './ourStuff';
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -70,7 +71,7 @@ const Activities = (props) => {
         return <WhatIsWhatIs useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "coisas-nossas":
-        return <button onClick={handlerNextActivitie}>coisas-nossas</button>;
+        return <OurStuff useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />;
       
       case "origem-da-expressao":
         return <InfoScreen useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} isShowLogo />

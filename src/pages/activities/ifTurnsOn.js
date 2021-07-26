@@ -70,20 +70,16 @@ const Box = styled.div`
   
 `;
 
-function IfTurnsOn({ useActivitie, handleNextQuestion }) {
+function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const colors = {
     green: "#00FFEA", orange: "#F29F32", blue: "#8EBEFF", yellow: "#FFD932"
   }
   const [selectedItems, setSelectedItems] = useState([]);
-  // const [pairs, setPairs] = useState(undefined);
-  const [pairs, setPairs] = useState([]);
-
+  const [pairs, setPairs] = useState(undefined);
   const [activitie, setActivitie] = useState(undefined);
   const [isModalTip, setIsModalTip] = useState(undefined);
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
-  const [modalCorrectAnswer, setModalCorrectAnswer] = useState(undefined);
   const [amountTrial, setAmountTrial] = useState(3);
-  const [showAnswer, setShowAnswer] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
 
   useEffect(() => {
@@ -145,7 +141,7 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   const handleCorrectAnswer = () => {
     let pairsList = [];
     let newPairsList = [];
-    
+
     pairs.forEach(element => {
       const pair = element.matchingPair;
 
@@ -166,128 +162,128 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   }
 
   const handleSubmit = () => {
-   
-  // if (selectedAnswer === correctAnser) {
-    // setPairs(handleCorrectAnswer());
-    setIsCorrectAnswer(true);
-  // } else {
-  // setModalWrongAnswer(true);
-  // setAmountTrial(amountTrial - 1);
-  // }
-}
-
-
-const handleWrongAnswer = () => {
-  setModalWrongAnswer(false);
-}
-
-const showModalAnswer = () => {
-  setModalWrongAnswer(false);
-  setModalCorrectAnswer(false);
-  setShowAnswer(true);
-}
-
-const canAdd = (matchingPair, type) => {
-  if (selectedItems.length === 0) {
-    return true
+    if (!isCorrectAnswer) { //Alterar para a validação
+      setPairs(handleCorrectAnswer());
+      setIsCorrectAnswer(true);
+    } else if (isCorrectAnswer) {
+      handlerNextActivitie();
+    } else {
+      setModalWrongAnswer(true);
+      setAmountTrial(amountTrial - 1);
+    }
   }
 
-  let add = true
-  const check = selectedItems.map(item => {
-    // se existir um type e um matchingPair no array, não será possível adicionar o mesmo
-    // item novamente.
-    if (item.type == type & item.matchingPair == matchingPair) {
-      return add = false
+
+  const handleWrongAnswer = () => {
+    setModalWrongAnswer(false);
+  }
+
+  const showModalAnswer = () => {
+    setModalWrongAnswer(false);
+    setIsCorrectAnswer(true);
+  }
+
+  const canAdd = (matchingPair, type) => {
+    if (selectedItems.length === 0) {
+      return true
     }
-  })
 
-  if (add) {
-    return true
-  } else return false
-}
+    let add = true
+    const check = selectedItems.map(item => {
+      // se existir um type e um matchingPair no array, não será possível adicionar o mesmo
+      // item novamente.
+      if (item.type == type & item.matchingPair == matchingPair) {
+        return add = false
+      }
+    })
 
-const setBackgroundColor = (item, whiteColor = false) => {
+    if (add) {
+      return true
+    } else return false
+  }
 
-  const itemInd = pairs.findIndex(x => {
-    // console.log("x", x)
-    return x.type === item.type & x.matchingPair === item.matchingPair;
-  })
+  const setBackgroundColor = (item, whiteColor = false) => {
 
-  const newArray = pairs
-  // console.log("Pairs", newArray[itemInd].backgroundColor)
-  if (!whiteColor) newArray[itemInd].backgroundColor = setColor();
-  else newArray[itemInd].backgroundColor = "#fff"
+    const itemInd = pairs.findIndex(x => {
+      // console.log("x", x)
+      return x.type === item.type & x.matchingPair === item.matchingPair;
+    })
 
-  setPairs([...newArray])
-}
+    const newArray = pairs
+    // console.log("Pairs", newArray[itemInd].backgroundColor)
+    if (!whiteColor) newArray[itemInd].backgroundColor = setColor();
+    else newArray[itemInd].backgroundColor = "#fff"
 
-const setColor = () => {
-  if (selectedItems.length <= 1) return colors.green
-  else if (selectedItems.length <= 3) return colors.orange
-  else if (selectedItems.length <= 5) return colors.blue
-  else if (selectedItems.length <= 7) return colors.yellow
-}
+    setPairs([...newArray])
+  }
 
-const renderScreen = () => {
+  const setColor = () => {
+    if (selectedItems.length <= 1) return colors.green
+    else if (selectedItems.length <= 3) return colors.orange
+    else if (selectedItems.length <= 5) return colors.blue
+    else if (selectedItems.length <= 7) return colors.yellow
+  }
+
+  const renderScreen = () => {
+    return (
+      <Box isCorrectAnswer={isCorrectAnswer}>
+        <div>
+          {
+            pairs?.map((item, i) => (
+              item.type === "image" && (
+                <ContentInfo key={i}
+                  backgroundColor={item.backgroundColor}
+                  isCorrectAnswer={isCorrectAnswer}
+                  onClick={() => handleClick(item)}>
+                  <img src={`data:image/jpeg;base64,${item.imageBase64}`} />
+                </ContentInfo>
+              )
+            ))
+          }
+        </div>
+        <div>
+          {
+            pairs?.map((item, i) => (
+              item.type === "text" && (
+                <ContentInfo key={i}
+                  backgroundColor={item.backgroundColor}
+                  isCorrectAnswer={isCorrectAnswer}
+                  onClick={() => handleClick(item)}>
+                  <Text isCorrectAnswer={isCorrectAnswer}>{item.text}</Text>
+                </ContentInfo>
+              )))
+          }
+        </div>
+      </Box>
+    )
+  }
+
   return (
-    <Box isCorrectAnswer={isCorrectAnswer}>
-      <div>
-        {
-          pairs?.map((item, i) => (
-            item.type === "image" && (
-              <ContentInfo key={i}
-                backgroundColor={item.backgroundColor}
-                isCorrectAnswer={isCorrectAnswer}
-                onClick={() => handleClick(item)}>
-                <img src={`data:image/jpeg;base64,${item.imageBase64}`} />
-              </ContentInfo>
-            )
-          ))
-        }
-      </div>
-      <div>
-        {
-          pairs?.map((item, i) => (
-            item.type === "text" && (
-              <ContentInfo key={i}
-                backgroundColor={item.backgroundColor}
-                isCorrectAnswer={isCorrectAnswer}
-                onClick={() => handleClick(item)}>
-                <Text isCorrectAnswer={isCorrectAnswer}>{item.text}</Text>
-              </ContentInfo>
-            )))
-        }
-      </div>
-    </Box>
+    <Container>
+      <Header
+        logo={logo}
+        tips
+        isSelectedTips={isModalTip}
+        handleModalTip={handleModalTip}
+      />
+      <Content isCorrectAnswer={isCorrectAnswer}>
+        {renderScreen()}
+        <ContainerButton
+          height='auto'
+          color={isCorrectAnswer && '#fff'}
+          background={isCorrectAnswer && '#399119'}
+          boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
+          noBorder={!isCorrectAnswer}
+          isCorrectAnswer={isCorrectAnswer}
+          handleClick={handleSubmit}
+        >
+          {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}
+        </ContainerButton>
+      </Content>
+      {isModalTip && <ModalTip text={activitie?.tips} handleModalTip={handleModalTip} />}
+      {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+    </Container>
   )
-}
-
-return (
-  <Container>
-    <Header
-      logo={logo}
-      tips
-      isSelectedTips={isModalTip}
-      handleModalTip={handleModalTip}
-    />
-    <Content isCorrectAnswer={isCorrectAnswer}>
-      {renderScreen()}
-      <ContainerButton
-        height='auto'
-        color={isCorrectAnswer && '#fff'}
-        background={isCorrectAnswer && '#399119'}
-        boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
-        noBorder={!isCorrectAnswer}
-        isCorrectAnswer={isCorrectAnswer}
-        handleClick={handleSubmit}
-      >
-        {isCorrectAnswer ? 'continuar trilha': 'conferir resposta'}
-      </ContainerButton>
-    </Content>
-    {isModalTip && <ModalTip text={activitie?.tips} handleModalTip={handleModalTip} />}
-    {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-  </Container>
-)
 }
 
 export default IfTurnsOn;

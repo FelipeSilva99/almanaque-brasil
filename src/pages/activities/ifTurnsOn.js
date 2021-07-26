@@ -78,6 +78,12 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   }
   const [selectedItems, setSelectedItems] = useState([]);
   const [pairs, setPairs] = useState(undefined);
+  const [availableColors, setAvailableColors] = useState([
+    colors.green, colors.green,
+    colors.orange, colors.orange,
+    colors.blue, colors.blue,
+    colors.yellow, colors.yellow
+  ])
   const [activitie, setActivitie] = useState(undefined);
   const [isModalTip, setIsModalTip] = useState(undefined);
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
@@ -195,10 +201,16 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   }
 
   const choiceColor = () => {
-    if(selectedItems.length <= 1) return colors.green
-    else if(selectedItems.length <= 3) return colors.orange
-    else if(selectedItems.length <= 5) return colors.blue
-    else if(selectedItems.length <= 7) return colors.yellow
+    // if(selectedItems.length <= 1) return colors.green
+    // else if(selectedItems.length <= 3) return colors.orange
+    // else if(selectedItems.length <= 5) return colors.blue
+    // else if(selectedItems.length <= 7) return colors.yellow
+    const newAvailableColors = availableColors;
+    const selected = newAvailableColors.shift();
+    setAvailableColors([...newAvailableColors]);
+    console.log('New AC', newAvailableColors);
+    return selected;
+
   }
 
   return (

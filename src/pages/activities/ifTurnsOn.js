@@ -76,15 +76,31 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   }
   const [selectedItems, setSelectedItems] = useState([]);
   const [pairs, setPairs] = useState(undefined);
+  const [availableColors, setAvailableColors] = useState([
+    colors.green, colors.green,
+    colors.orange, colors.orange,
+    colors.blue, colors.blue,
+    colors.yellow, colors.yellow
+  ])
   const [activitie, setActivitie] = useState(undefined);
   const [isModalTip, setIsModalTip] = useState(undefined);
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [amountTrial, setAmountTrial] = useState(3);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [inMemoryItem, setInMemoryItem] = useState(undefined);
+  const [hasItemInMemory, setHasItemInMemory] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
 
   useEffect(() => {
-    const newArrayOfActivities = useActivitie?.pairs.map((pair) => {
+    inMemoryItem === undefined  
+      ? setHasItemInMemory(false)
+      : setHasItemInMemory(true)
+  }, [inMemoryItem])
+
+  useEffect(() => {
+    const newArrayOfActivities = useActivitie?.pairs.map((pair, i) => {
       return {
+        id: i,
         ...pair,
         backgroundColor: "#fff"
       }
@@ -99,78 +115,91 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
   const handleClick = (item) => {
     const itemIndex = isSelected(item)
-    if (itemIndex < 0) {
-      add(item)
-    } else {
-      remove(itemIndex, item)
-    }
+    if(itemIndex < 0) {
+      if(inMemoryItem !== undefined) add(item, inMemoryItem)
+      else add(item)
 
+    } else {
+      if(inMemoryItem === undefined) remove(itemIndex, item)
+      else if(inMemoryItem !== undefined & checkBackgroundColor(item, inMemoryItem)) {
+        remove(itemIndex, item)
+      }
+    }
+  }
+
+  const checkBackgroundColor = (item, inMemoryItem) => {
+    return item.backgroundColor === inMemoryItem.backgroundColor ? true : false
   }
 
   const isSelected = (item) => {
-    // verificar se o botão está ou não selecionado
     const validation = selectedItems.findIndex((x) => {
-      return x.type === item.type & x.matchingPair === item.matchingPair;
+      return x.id === item.id;
     })
 
     return validation
   }
 
   const remove = (index, item) => {
-    // remover o item selecionado do selectedItems
-    const newArray = selectedItems
-    newArray.splice(index, 1)
-    setSelectedItems(newArray)
+    const newSelectedItems = selectedItems
+    const removed = newSelectedItems[index]
+    newSelectedItems.splice(index, 1)
 
-    setBackgroundColor(item, true)
-  }
 
-  const add = (item) => {
-    if (canAdd(item.matchingPair, item.type)) {
-      setBackgroundColor(item)
-      setSelectedItems([
-        ...selectedItems,
-        {
-          type: item.type,
-          matchingPair: item.matchingPair
-        }
-      ])
+    if(hasItemInMemory) {
+      const newAvailableColors = availableColors;
+      newAvailableColors.unshift(item.backgroundColor);
+      newAvailableColors.unshift(item.backgroundColor);
+      setSelectedItems(newSelectedItems)
+      setBackgroundColor(item, "#fff")
+      setInMemoryItem(undefined)
+      setAvailableColors([...newAvailableColors]);
+
+    } else {
+      setSelectedItems(newSelectedItems)
+      setBackgroundColor(item, "#fff")
+      setInMemoryItem({
+        index: index,
+        ...removed
+      })
     }
   }
 
-  const handleCorrectAnswer = () => {
-    let pairsList = [];
-    let newPairsList = [];
+  const add = (item, inMemoryItem) => {
+    if(inMemoryItem) {
+      const newSelectedItems = selectedItems;
+      newSelectedItems.splice(inMemoryItem.index, 0, {
+        id: item.id,
+        type: item.type,
+        matchingPair: item.matchingPair,
+        backgroundColor: inMemoryItem.backgroundColor
+      })
 
-    pairs.forEach(element => {
-      const pair = element.matchingPair;
-
-      const includesItem = pairsList.includes(pair);
-
-      if (!includesItem) {
-        pairsList.push(pair);
+      setSelectedItems(newSelectedItems)
+      setBackgroundColor(item, inMemoryItem.backgroundColor)
+      setInMemoryItem(undefined)
+      return null
+    }
+    const color = choiceColor()
+    setBackgroundColor(item, color)
+    setSelectedItems([
+      ...selectedItems,
+      {
+        id: item.id,
+        type: item.type,
+        matchingPair: item.matchingPair,
+        backgroundColor: color
       }
-
-      newPairsList = pairsList.map(item =>
-        pairs.filter(i => {
-          return i.matchingPair === item;
-        })
-      );
-    });
-
-    return newPairsList.flat(Infinity);
+    ])
+    return null
   }
+
 
   const handleSubmit = () => {
-    if (!isCorrectAnswer) { //Alterar para a validação
-      setPairs(handleCorrectAnswer());
-      setIsCorrectAnswer(true);
-    } else if (isCorrectAnswer) {
-      handlerNextActivitie();
-    } else {
-      setModalWrongAnswer(true);
-      setAmountTrial(amountTrial - 1);
-    }
+    // if (selectedAnswer === correctAnser) {
+      // setModalCorrectAnswer(true)
+    // } else {
+    setModalWrongAnswer(true);
+    setAmountTrial(amountTrial - 1);
   }
 
 
@@ -183,45 +212,22 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     setIsCorrectAnswer(true);
   }
 
-  const canAdd = (matchingPair, type) => {
-    if (selectedItems.length === 0) {
-      return true
-    }
-
-    let add = true
-    const check = selectedItems.map(item => {
-      // se existir um type e um matchingPair no array, não será possível adicionar o mesmo
-      // item novamente.
-      if (item.type == type & item.matchingPair == matchingPair) {
-        return add = false
-      }
-    })
-
-    if (add) {
-      return true
-    } else return false
-  }
-
-  const setBackgroundColor = (item, whiteColor = false) => {
-
+  const setBackgroundColor = (item, color) => {
     const itemInd = pairs.findIndex(x => {
-      // console.log("x", x)
-      return x.type === item.type & x.matchingPair === item.matchingPair;
+      return x.id === item.id;
     })
 
     const newArray = pairs
-    // console.log("Pairs", newArray[itemInd].backgroundColor)
-    if (!whiteColor) newArray[itemInd].backgroundColor = setColor();
-    else newArray[itemInd].backgroundColor = "#fff"
+    newArray[itemInd].backgroundColor = color
 
     setPairs([...newArray])
   }
 
-  const setColor = () => {
-    if (selectedItems.length <= 1) return colors.green
-    else if (selectedItems.length <= 3) return colors.orange
-    else if (selectedItems.length <= 5) return colors.blue
-    else if (selectedItems.length <= 7) return colors.yellow
+  const choiceColor = () => {
+    const newAvailableColors = availableColors;
+    const selected = newAvailableColors.shift();
+    setAvailableColors([...newAvailableColors]);
+    return selected;
   }
 
   const renderScreen = () => {

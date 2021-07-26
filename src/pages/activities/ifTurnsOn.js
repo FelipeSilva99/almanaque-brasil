@@ -283,7 +283,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
       <Content isCorrectAnswer={isCorrectAnswer}>
         {renderScreen()}
         <ContainerButton
-          height='auto'
           color={isCorrectAnswer && '#fff'}
           background={isCorrectAnswer && '#399119'}
           boxShadow={isCorrectAnswer && '0 7px 0 #245812'}

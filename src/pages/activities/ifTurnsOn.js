@@ -91,6 +91,13 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   const [amountTrial, setAmountTrial] = useState(3);
   const [showAnswer, setShowAnswer] = useState(false);
   const [inMemoryItem, setInMemoryItem] = useState(undefined);
+  const [hasItemInMemory, setHasItemInMemory] = useState(false);
+
+  useEffect(() => {
+    inMemoryItem === undefined  
+      ? setHasItemInMemory(false)
+      : setHasItemInMemory(true)
+  }, [inMemoryItem])
 
   useEffect(() => {
     const newArrayOfActivities = useActivitie?.pairs.map((pair, i) => {
@@ -116,11 +123,17 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
 
     } else {
       if(inMemoryItem === undefined) remove(itemIndex, item)
+      else if(inMemoryItem !== undefined & checkBackgroundColor(item, inMemoryItem)) {
+        remove(itemIndex, item)
+      }
     }
   }
 
+  const checkBackgroundColor = (item, inMemoryItem) => {
+    return item.backgroundColor === inMemoryItem.backgroundColor ? true : false
+  }
+
   const isSelected = (item) => {
-    console.log("isSelected:", item.id)
     const validation = selectedItems.findIndex((x) => {
       return x.id === item.id;
     })
@@ -132,12 +145,25 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
     const newSelectedItems = selectedItems
     const removed = newSelectedItems[index]
     newSelectedItems.splice(index, 1)
-    setSelectedItems(newSelectedItems)
-    setBackgroundColor(item, "#fff")
-    setInMemoryItem({
-      index: index,
-      ...removed
-    })
+
+
+    if(hasItemInMemory) {
+      const newAvailableColors = availableColors;
+      newAvailableColors.unshift(item.backgroundColor);
+      newAvailableColors.unshift(item.backgroundColor);
+      setSelectedItems(newSelectedItems)
+      setBackgroundColor(item, "#fff")
+      setInMemoryItem(undefined)
+      setAvailableColors([...newAvailableColors]);
+
+    } else {
+      setSelectedItems(newSelectedItems)
+      setBackgroundColor(item, "#fff")
+      setInMemoryItem({
+        index: index,
+        ...removed
+      })
+    }
   }
 
   const add = (item, inMemoryItem) => {
@@ -201,16 +227,10 @@ function IfTurnsOn({ useActivitie, handleNextQuestion }) {
   }
 
   const choiceColor = () => {
-    // if(selectedItems.length <= 1) return colors.green
-    // else if(selectedItems.length <= 3) return colors.orange
-    // else if(selectedItems.length <= 5) return colors.blue
-    // else if(selectedItems.length <= 7) return colors.yellow
     const newAvailableColors = availableColors;
     const selected = newAvailableColors.shift();
     setAvailableColors([...newAvailableColors]);
-    console.log('New AC', newAvailableColors);
     return selected;
-
   }
 
   return (

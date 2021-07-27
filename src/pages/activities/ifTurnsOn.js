@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 // Component
 import Header from '../../components/header';
-import Button from '../../components/buttons/button';
 import ContainerButton from '../../components/buttons/containerButton';
 import ModalTip from '../../components/modal/tip';
 import WrongAnswer from '../../components/activities/wrongAnswer';
@@ -85,14 +84,13 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     colors.orange, colors.orange,
     colors.blue, colors.blue,
     colors.yellow, colors.yellow
-  ])
+  ]);
   const [activitie, setActivitie] = useState(undefined);
   const [isModalTip, setIsModalTip] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(undefined)
   const [amountTrial, setAmountTrial] = useState(3);
-  const [showAnswer, setShowAnswer] = useState(false);
   const [inMemoryItem, setInMemoryItem] = useState(undefined);
   const [hasItemInMemory, setHasItemInMemory] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);

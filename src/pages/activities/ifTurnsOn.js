@@ -6,7 +6,7 @@ import Header from '../../components/header';
 import ContainerButton from '../../components/buttons/containerButton';
 import ModalTip from '../../components/modal/tip';
 import WrongAnswer from '../../components/activities/wrongAnswer';
-import CorrectAnswer from '../../components/activities/correctAnswer';
+// import CorrectAnswer from '../../components/activities/correctAnswer';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -46,8 +46,9 @@ const ContentInfo = styled.div`
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
-  background-color: ${props => props.isCorrectAnswer && 'none' || props.backgroundColor};
-  img { opacity: ${props => props.opacity}; }
+  background-color: ${props => (props.isCorrectAnswer && 'none') || props.backgroundColor};
+
+  img { opacity: ${props => (props.isCorrectAnswer && '1') || props.opacity }}
 `
 
 const Text = styled.div`
@@ -78,6 +79,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   }
   const [selectedItems, setSelectedItems] = useState([]);
   const [pairs, setPairs] = useState(undefined);
+
   const [availableColors, setAvailableColors] = useState([
     colors.green, colors.green,
     colors.orange, colors.orange,
@@ -87,14 +89,13 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const [activitie, setActivitie] = useState(undefined);
   const [isModalTip, setIsModalTip] = useState(undefined);
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
-  const [modalCorrectAnswer, setModalCorrectAnswer] = useState(undefined)
   const [amountTrial, setAmountTrial] = useState(3);
   const [inMemoryItem, setInMemoryItem] = useState(undefined);
   const [hasItemInMemory, setHasItemInMemory] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
 
   useEffect(() => {
-    inMemoryItem === undefined  
+    inMemoryItem === undefined
       ? setHasItemInMemory(false)
       : setHasItemInMemory(true)
   }, [inMemoryItem])
@@ -117,17 +118,47 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
   const handleClick = (item) => {
     const itemIndex = isSelected(item)
-    if(itemIndex < 0) {
-      if(inMemoryItem !== undefined) add(item, inMemoryItem)
+    if (itemIndex < 0) {
+      if (inMemoryItem !== undefined) add(item, inMemoryItem)
       else add(item)
 
     } else {
-      if(inMemoryItem === undefined) remove(itemIndex, item)
-      else if(inMemoryItem !== undefined & checkBackgroundColor(item, inMemoryItem)) {
+      if (inMemoryItem === undefined) remove(itemIndex, item)
+      else if (inMemoryItem !== undefined & checkBackgroundColor(item, inMemoryItem)) {
         remove(itemIndex, item)
       }
     }
   }
+
+  const handleCorrectAnswer = () => {
+    let pairsList = [];
+    let newPairsList = [];
+
+    pairs.forEach(element => {
+      const pair = element.matchingPair;
+
+      const includesItem = pairsList.includes(pair);
+      const showModalAnswer = () => {
+        setModalWrongAnswer(false);
+        // setShowAnswer(true);
+        if (!includesItem) {
+          pairsList.push(pair);
+        }
+
+        newPairsList = pairsList.map(item => {
+          pairs.filter(i => {
+            return i.matchingPair === item;
+
+          })
+        })
+
+      }
+
+    })
+
+    return newPairsList.flat(Infinity);
+  }
+
 
   const checkBackgroundColor = (item, inMemoryItem) => {
     return item.backgroundColor === inMemoryItem.backgroundColor ? true : false
@@ -147,7 +178,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     newSelectedItems.splice(index, 1)
 
 
-    if(hasItemInMemory) {
+    if (hasItemInMemory) {
       const newAvailableColors = availableColors;
       newAvailableColors.unshift(item.backgroundColor);
       newAvailableColors.unshift(item.backgroundColor);
@@ -167,7 +198,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   }
 
   const add = (item, inMemoryItem) => {
-    if(inMemoryItem) {
+    if (inMemoryItem) {
       const newSelectedItems = selectedItems;
       newSelectedItems.splice(inMemoryItem.index, 0, {
         id: item.id,
@@ -197,10 +228,10 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
 
   const handleSubmit = () => {
-    if(selectedItems.length < pairs.length) return
-
-    if(isCorrect()) {
-      setModalCorrectAnswer(true)
+    if (selectedItems.length < pairs.length) return
+    if (isCorrect()) {
+      setIsCorrectAnswer(true);
+      handleCorrectAnswer();
     } else {
       setModalWrongAnswer(true);
       setAmountTrial(amountTrial - 1);
@@ -236,16 +267,16 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   }
 
   const setOpacity = (color) => {
-    if(color !== "#fff") return ".3"
+    if (color !== "#fff") return ".3"
     return "1.0"
   }
 
   function isCorrect() {
     let isCorrect = true;
     selectedItems.map((item, i, array) => {
-      if(i%2 === 0) return null
-      const par = [array[i], array[i-1]]
-      if(par[0].matchingPair !== par[1].matchingPair) return isCorrect = false;
+      if (i % 2 === 0) return null
+      const par = [array[i], array[i - 1]]
+      if (par[0].matchingPair !== par[1].matchingPair) return isCorrect = false;
       return null
     });
 
@@ -264,7 +295,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
                   isCorrectAnswer={isCorrectAnswer}
                   onClick={() => handleClick(item)}
                   opacity={setOpacity(item.backgroundColor)}>
-                  <img src={`data:image/jpeg;base64,${item.imageBase64}`} />
+                  <img src={`data:image/jpeg;base64,${item.imageBase64}`} isCorrectAnswer={isCorrectAnswer}/>
                 </ContentInfo>
               )
             ))
@@ -310,7 +341,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
       </Content>
       {isModalTip && <ModalTip text={activitie?.tips} handleModalTip={handleModalTip} />}
       {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-      {modalCorrectAnswer && <CorrectAnswer answer="mico" toScore amountTrial={3}></CorrectAnswer>}
+      {/* {modalCorrectAnswer && <CorrectAnswer answer="mico" toScore amountTrial={3}></CorrectAnswer>} */}
     </Container>
   )
 }

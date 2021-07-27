@@ -24,7 +24,7 @@ const Container = styled.div`
 
 const Content = styled.div`
   width: 90vw;
-  min-height: 80vh;
+  height: 40rem;
   max-height: 40rem;
   display: flex;
   flex-direction: column;
@@ -36,9 +36,7 @@ const Content = styled.div`
   border-radius: 24px;
   max-width: 360px;
 
-
-
-  @media(max-width: 320px){min-height: 100%;}
+  @media(max-width: 425px){min-height: 80vh;}
 `;
 
 const KnowledgeTexts = styled.div`

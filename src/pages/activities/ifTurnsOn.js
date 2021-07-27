@@ -7,6 +7,7 @@ import Button from '../../components/buttons/button';
 import ContainerButton from '../../components/buttons/containerButton';
 import ModalTip from '../../components/modal/tip';
 import WrongAnswer from '../../components/activities/wrongAnswer';
+import CorrectAnswer from '../../components/activities/correctAnswer';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -87,6 +88,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const [activitie, setActivitie] = useState(undefined);
   const [isModalTip, setIsModalTip] = useState(undefined);
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
+  const [modalCorrectAnswer, setModalCorrectAnswer] = useState(undefined)
   const [amountTrial, setAmountTrial] = useState(3);
   const [showAnswer, setShowAnswer] = useState(false);
   const [inMemoryItem, setInMemoryItem] = useState(undefined);
@@ -197,11 +199,14 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
 
   const handleSubmit = () => {
-    // if (selectedAnswer === correctAnser) {
-      // setModalCorrectAnswer(true)
-    // } else {
-    setModalWrongAnswer(true);
-    setAmountTrial(amountTrial - 1);
+    if(selectedItems.length < pairs.length) return
+
+    if(isCorrect()) {
+      setModalCorrectAnswer(true)
+    } else {
+      setModalWrongAnswer(true);
+      setAmountTrial(amountTrial - 1);
+    }
   }
 
 
@@ -235,6 +240,18 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const setOpacity = (color) => {
     if(color !== "#fff") return ".3"
     return "1.0"
+  }
+
+  function isCorrect() {
+    let isCorrect = true;
+    selectedItems.map((item, i, array) => {
+      if(i%2 === 0) return null
+      const par = [array[i], array[i-1]]
+      if(par[0].matchingPair !== par[1].matchingPair) return isCorrect = false;
+      return null
+    });
+
+    return isCorrect;
   }
 
   const renderScreen = () => {
@@ -296,6 +313,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
       </Content>
       {isModalTip && <ModalTip text={activitie?.tips} handleModalTip={handleModalTip} />}
       {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+      {modalCorrectAnswer && <CorrectAnswer answer="mico" toScore amountTrial={3}></CorrectAnswer>}
     </Container>
   )
 }

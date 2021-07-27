@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { shuffle } from '../../utils'
 
 // Component
 import Header from '../../components/header';
@@ -110,8 +111,9 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
       }
     })
 
-    setPairs(newArrayOfActivities);
+    setPairs(shuffle(newArrayOfActivities));
   }, [useActivitie]);
+
 
   useEffect(() => {
     const timer = setTimeout(() => {

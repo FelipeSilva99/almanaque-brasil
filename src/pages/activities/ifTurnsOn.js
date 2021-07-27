@@ -8,6 +8,7 @@ import ContainerButton from '../../components/buttons/containerButton';
 import ModalTip from '../../components/modal/tip';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 import CorrectAnswer from '../../components/activities/correctAnswer';
+import SplashScreen from './splashScreen';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -87,6 +88,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   ])
   const [activitie, setActivitie] = useState(undefined);
   const [isModalTip, setIsModalTip] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(undefined)
   const [amountTrial, setAmountTrial] = useState(3);
@@ -111,6 +113,13 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     })
 
     setPairs(newArrayOfActivities);
+  }, [useActivitie]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if(!!useActivitie) setIsLoading(false)
+    }, 2000);
+    return () => clearTimeout(timer);
   }, [useActivitie]);
 
   const handleModalTip = () => {
@@ -290,30 +299,33 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   }
 
   return (
-    <Container>
-      <Header
-        logo={logo}
-        tips
-        isSelectedTips={isModalTip}
-        handleModalTip={handleModalTip}
-      />
-      <Content isCorrectAnswer={isCorrectAnswer}>
-        {renderScreen()}
-        <ContainerButton
-          color={isCorrectAnswer && '#fff'}
-          background={isCorrectAnswer && '#399119'}
-          boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
-          noBorder={!isCorrectAnswer}
-          isCorrectAnswer={isCorrectAnswer}
-          handleClick={handleSubmit}
-        >
-          {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}
-        </ContainerButton>
-      </Content>
-      {isModalTip && <ModalTip text={activitie?.tips} handleModalTip={handleModalTip} />}
-      {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-      {modalCorrectAnswer && <CorrectAnswer answer="mico" toScore amountTrial={3}></CorrectAnswer>}
-    </Container>
+    console.log(useActivitie),
+    isLoading ? <SplashScreen activitieLogo={logo} /> : (
+      <Container>
+        <Header
+          logo={logo}
+          tips
+          isSelectedTips={isModalTip}
+          handleModalTip={handleModalTip}
+        />
+        <Content isCorrectAnswer={isCorrectAnswer}>
+          {renderScreen()}
+          <ContainerButton
+            color={isCorrectAnswer && '#fff'}
+            background={isCorrectAnswer && '#399119'}
+            boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
+            noBorder={!isCorrectAnswer}
+            isCorrectAnswer={isCorrectAnswer}
+            handleClick={handleSubmit}
+          >
+            {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}
+          </ContainerButton>
+        </Content>
+        {isModalTip && <ModalTip text={activitie?.tips} handleModalTip={handleModalTip} />}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {modalCorrectAnswer && <CorrectAnswer answer="mico" toScore amountTrial={3}></CorrectAnswer>}
+      </Container>
+    )
   )
 }
 

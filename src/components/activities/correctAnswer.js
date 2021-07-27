@@ -241,6 +241,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
     <Container>
       {(answer?.imageBase64) && <Img src={`data:image/jpeg;base64,${answer.imageBase64}`}></Img>}
       {renderModal()}
+      {console.log(answer)}
       {/* {renderModalOfPoints()} */}
     </Container>
   );

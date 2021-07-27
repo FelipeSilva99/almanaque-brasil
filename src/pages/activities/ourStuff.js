@@ -7,15 +7,11 @@ import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
-import ModalTip from '../../components/modal/tip';
 import ContentImageText from '../../components/activities/activitieDescription';
 import OptionsButtons from '../../components/activities/optionsButtons';
 
 //Images
-import logo from '../../images/logo/whoseEyesAreThese.svg';
-import logoBig from '../../images/logo/whoseEyesAreTheseBig.svg'
-import selectedTips from '../../images/icons/selectedTip.svg';
-import tips from '../../images/icons/tip.svg';
+import logo from '../../images/logo/ourStuff.svg';
 
 // Styles
 const Container = styled.div`
@@ -109,7 +105,7 @@ const ContainerAnswer = styled.div`
   @media (max-width: 320px) {min-height: 45vh;}
 `;
 
-const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
+const  OurStuff = ({ useActivitie, handleNextQuestion }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
@@ -118,7 +114,6 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [amountTrial, setAmountTrial] = useState(3);
-  const [isModalTip, setIsModalTip] = useState(undefined);
 
   useEffect(() => {
     let timer1 = setTimeout(() => setIsLoading(false), 2000);
@@ -129,12 +124,9 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
   }, []);
 
   useEffect(() => {
+      console.log(useActivitie)
     setActivitie(useActivitie);
   }, [useActivitie]);
-
-  const handleModalTip = () => {
-    setIsModalTip(!isModalTip)
-  }
 
   const handleIsModalAnswerOption = () => {
     setIsModalAnswerOption(true);
@@ -161,15 +153,11 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
   }
 
   const renderScreen = () => {
-    const hasSelectedTips = isModalTip ? selectedTips : tips;
 
     return (
       <>
         <Header
           logo={logo}
-          tips={isModalAnswerOption && hasSelectedTips}
-          isSelectedTips={isModalTip}
-          handleModalTip={handleModalTip}
         />
         <ContentImageText
           image={`data:image/jpeg;base64,${activitie.imageBase64}`}
@@ -194,8 +182,12 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
     )
   }
 
+  const isAnswerCorrect = () => {
+    return  activitie.answers.filter(item => item.isCorrect);
+  }
+
   return (
-    isLoading ? <SplashScreen activitieLogo={logoBig} /> : (
+    isLoading ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
         {(
           !modalWrongAnswer
@@ -204,13 +196,12 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {isModalTip && <ModalTip text={activitie.tips} handleModalTip={handleModalTip} />}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={useActivitie.tips}/>}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[3]} amountTrial={amountTrial}/>}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isAnswerCorrect()[0]} amountTrial={amountTrial}/>}
       </Container>
     )
   );
 }
 
-export default WhoseEyesAreThese;
+export default  OurStuff;

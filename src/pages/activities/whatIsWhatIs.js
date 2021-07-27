@@ -90,7 +90,7 @@ const BoxAnswer = styled.div`
   padding: 0 2.6875rem;
   max-width: 425px;
   height: 100%;
-  min-height: 52vh;
+  min-height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -333,7 +333,6 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion }) => {
               </ContentAnswer>
             </BoxAnswer>
             <Button
-              height='auto'
               handleClick={handleClick}
             >
               Confirmar Resposta

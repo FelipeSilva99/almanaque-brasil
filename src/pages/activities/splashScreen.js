@@ -41,6 +41,8 @@ const IconBottom = styled.img`
   position: absolute;
   right: -80px;
   top: 70%;
+
+  @media(min-width: 1024px) {bottom: -15px; top: auto;}
 `;
 
 const LogoAB = styled.img`

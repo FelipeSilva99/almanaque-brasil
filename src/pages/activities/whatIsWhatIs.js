@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 //Components
 import Header from '../../components/header';
-import IndividualLetter from '../../components/letter/individualLetter';
 import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from '../../pages/activities/splashScreen';
@@ -11,8 +10,8 @@ import WrongAnswer from '../../components/activities/wrongAnswer';
 
 //Images
 import paleLeaves from '../../images/whatIsWhatIs/pale_leaves.svg';
-import iconBack from '../../images/whatIsWhatIs/iconBack.svg';
-import logo from '../../images/whatIsWhatIs/what_is_logo.svg';
+import iconBack from '../../images/icons/iconBack.svg';
+import logo from '../../images/logo/whatIsWhatIs.svg';
 import iconDelete from '../../images/whatIsWhatIs/iconDelete.svg';
 
 // Styles
@@ -90,7 +89,7 @@ const BoxAnswer = styled.div`
   padding: 0 2.6875rem;
   max-width: 425px;
   height: 100%;
-  min-height: 52vh;
+  min-height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -132,7 +131,25 @@ const IconDelete = styled.img`
   @media (max-width: 320px) { margin: 2% 1% 3% 1%; }
 `;
 
-const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
+const TextIndividualLetter = styled.p`
+  margin: 0 .6%;
+  margin-bottom: 1rem;
+  width: 2rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #36A39A;
+  border-bottom: 1px solid #707070;
+
+  :first-child{
+    text-transform: capitalize;
+  }
+`;
+
+const WhatIsWhatIs = ({ useActivitie, handleNextQuestion }) => {
   const [answer, setAnswer] = useState([]);
   const [letterOption, setLetterOption] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState([]);
@@ -146,7 +163,7 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
 
   const handleAnswerSize = () => {
     let answerSplit = [];
-    isActivitie?.answers[0]?.answer.split('').forEach((a, i) => {
+    useActivitie?.answers[0]?.answer.split('').forEach((a, i) => {
       answerSplit.push('');
     });
 
@@ -154,7 +171,7 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   }
 
   const handleShuffleLetter = () => {
-    const answer = isActivitie?.answers[0]?.answer;
+    const answer = useActivitie?.answers[0]?.answer;
     const answerLength = answer.length;
     const qtdAmount = (answerLength <= 7 && 9 - answerLength) || (answerLength <= 8 && 14 - answerLength);
     const alphabetLetters = choosingAlphabetLetters(qtdAmount);
@@ -170,9 +187,9 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   useEffect(() => {
     setLetterOption(handleShuffleLetter());
     setAnswer(handleAnswerSize());
-    setActivitive(isActivitie);
+    setActivitive(useActivitie);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActivitie]);
+  }, [useActivitie]);
 
   useEffect(() => {
     let timer1 = setTimeout(() => setIsLoading(false), 2000);
@@ -197,7 +214,7 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
 
   const handleClick = (event) => {
     event.stopPropagation();
-    const correctAnser = isActivitie?.answers[0].answer;
+    const correctAnser = useActivitie?.answers[0].answer;
     const selectedAnswer = answer.map(item => (item)).join("");
 
     if (selectedAnswer === correctAnser) {
@@ -279,12 +296,11 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
     setShowAnswer(true);
   }
 
-
   const renderSquareAnswer = (letter) => {
     return (
-      <IndividualLetter
-        letter={letter}
-      />
+      <TextIndividualLetter>
+        {letter}
+      </TextIndividualLetter>
     )
   }
 
@@ -333,7 +349,6 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
               </ContentAnswer>
             </BoxAnswer>
             <Button
-              height='auto'
               handleClick={handleClick}
             >
               Confirmar Resposta
@@ -345,7 +360,7 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
   }
 
   return (
-    isLoading ? <SplashScreen activitieLogo={logo}/> : (
+    isLoading ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
         {(
           !modalWrongAnswer
@@ -354,8 +369,8 @@ const WhatIsWhatIs = ({ isActivitie, handleNextQuestion }) => {
           && renderScreen()
         }
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers[0]} toScore amountTrial={amountTrial} />}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isActivitie.answers} amountTrial={amountTrial}/>}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[0]} toScore amountTrial={amountTrial} />}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers} amountTrial={amountTrial} />}
       </Container>
     )
   );

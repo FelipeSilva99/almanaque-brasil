@@ -13,7 +13,6 @@ const Container = styled.div`
   background-color: #fff;
   overflow: hidden;
   width: 100vw;
-  height: 100vh;
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
@@ -55,7 +54,7 @@ const Activities = (props) => {
     <Container>
       {
         activities && activities.length > 0
-          ? activities.map((item, index) => <Content type={item.type} onClick={() => handlerNextActivitie(index)}/>)
+          ? activities.map((item, index) => <Content type={item.type} onClick={() => handlerNextActivitie(index)} history={props}/>)
           : <h1>Carregando</h1>
       }
     </Container>

@@ -6,17 +6,20 @@ import {
 } from "react-router-dom";
 
 // Assets
-import bento from '../../images/whatIsWhatIs/bento.png'
+import bento from '../../images/icons/bento.png'
 import leaf from '../../images/whatIsWhatIs/pale_leaves.svg'
-import flags from '../../images/icons/flags.svg'
+import flags from '../../images/icons/flags.svg';
+import starrySky from '../../images/icons/starrySky.svg';
+
 // Components
 import Button from '../buttons/button';
 
 const Container = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   background-color: #F3F3F3; 
-  padding-top: 2rem;
-  position: relative;
   width: 100vw;
   height: 100vh;
   justify-content: center;
@@ -24,10 +27,16 @@ const Container = styled.div`
 `
 
 const RandomBox = styled.div`
+  width: 100vw;
   display: flex;
+  align-items: center;
   flex-direction: column;
   position: absolute;
   bottom: 12vh;
+  background: #F3F3F3;
+
+  @media(min-width: 1024px) {bottom: 10vh}
+
 `;
 
 const DialogBox = styled.div`
@@ -35,10 +44,11 @@ const DialogBox = styled.div`
   position: relative;
   top: 20px;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
   width: 326px;
+  height: 6rem;
   min-height: 219px;
   max-height: 285px;
   background-color: #FFFFFF;
@@ -53,6 +63,7 @@ const DialogBox = styled.div`
   padding: 1rem 1rem 1rem 1rem;
   padding-top: 1rem;
   overflow-y: auto; 
+    height: 5rem;
 
   ::-webkit-scrollbar {
 		width: 4px;
@@ -63,21 +74,32 @@ const DialogBox = styled.div`
 		border-radius: 20px;
 	}
 	::-webkit-scrollbar-thumb {
-		background: #ccc;
+    background: transparent;
 		border-radius: 13px;
 	}
 	::-webkit-scrollbar-thumb:hover {
-		background: #ccc;
+    background: transparent;
 	}
   
   h1 {
+    font-size: 1.625rem;
+    font-weight: 900;
+    line-height: 2.3rem;
     color: #FB6C76;
   }
-  p { margin: 1rem 0 1rem 0; color: #161616; }
+  p {
+    font-size: 1rem;
+    margin: 1rem 0 1rem 0;
+    color: #161616;
+  }
   
   @media(max-width: 375px) {
     width: 95vw;
   }
+`;
+
+const MsgError = styled.div`
+  margin: auto;
 `;
 
 const Avatar = styled.img`
@@ -123,19 +145,19 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
       switch (!!tips?.length) {
         case true:
           return (
-            <>
+            <MsgError>
               <h1>Ixi, você errou!</h1>
               <p>Você tem mais {chances} chances de marcar<br />pontos. Se liga na dica:</p>
               <strong>{tips[0]}</strong>
-            </>
+            </MsgError>
           );
 
         default:
           return (
-            <>
+            <MsgError>
               <h1>Ixi, você errou!</h1>
               <p>Você tem mais {chances} chances de marcar<br />pontos. O que acha de tentar<br />novamente?</p>
-            </>
+            </MsgError>
           );
       }
     } else {
@@ -143,37 +165,37 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
         switch (!!tips?.length) {
           case true:
             return (
-              <>
+              <MsgError>
                 <h1>Ixi, você errou de novo!</h1>
                 <p>Você tem mais 1 chance de marcar<br />pontos. Se liga em outra dica:</p>
                 <strong>{tips[1]}</strong>
-              </>
+              </MsgError>
             );
 
           default:
             return (
-              <>
+              <MsgError>
                 <h1>Ixi, você errou de novo!</h1>
                 <p>Você tem mais 1 chance de marcar<br />pontos. O que acha de tentar<br />novamente?</p>
-              </>
+              </MsgError>
             );
         }
       } else {
         return (
-          <>
+          <MsgError>
             <h1>Esta foi a sua<br />última chance!</h1>
             <p>Gostaria de saber a resposta?</p>
-          </>
+          </MsgError>
         );
       }
     }
   }
 
   const setBackgroundImg = () => {
-    switch(chances) {
-      case 2: return {img: leaf, position: "132px -328px", size: "497px"}
-      case 1: return {img: flags, position: "", size: ""}
-      default: return {img: leaf, position: "132px -328px", size: "497px"}
+    switch (chances) {
+      case 2: return { img: leaf, position: "132px -328px", size: "497px" }
+      case 1: return { img: flags, position: "", size: "" }
+      default: return { img: starrySky, position: "184px  -90px", size: "" }
     }
   }
 

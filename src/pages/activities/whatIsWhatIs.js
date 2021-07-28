@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 //Components
 import Header from '../../components/header';
-import IndividualLetter from '../../components/letter/individualLetter';
 import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from '../../pages/activities/splashScreen';
@@ -130,6 +129,24 @@ const IconDelete = styled.img`
  
   @media (max-width: 360px) { margin: 2%; }
   @media (max-width: 320px) { margin: 2% 1% 3% 1%; }
+`;
+
+const TextIndividualLetter = styled.p`
+  margin: 0 .6%;
+  margin-bottom: 1rem;
+  width: 2rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #36A39A;
+  border-bottom: 1px solid #707070;
+
+  :first-child{
+    text-transform: capitalize;
+  }
 `;
 
 const WhatIsWhatIs = ({ useActivitie, handleNextQuestion }) => {
@@ -279,12 +296,11 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion }) => {
     setShowAnswer(true);
   }
 
-
   const renderSquareAnswer = (letter) => {
     return (
-      <IndividualLetter
-        letter={letter}
-      />
+      <TextIndividualLetter>
+        {letter}
+      </TextIndividualLetter>
     )
   }
 
@@ -344,7 +360,7 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion }) => {
   }
 
   return (
-    isLoading ? <SplashScreen activitieLogo={logo}/> : (
+    isLoading ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
         {(
           !modalWrongAnswer
@@ -354,7 +370,7 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion }) => {
         }
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[0]} toScore amountTrial={amountTrial} />}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers} amountTrial={amountTrial}/>}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers} amountTrial={amountTrial} />}
       </Container>
     )
   );

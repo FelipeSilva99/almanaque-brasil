@@ -143,7 +143,7 @@ const OriginOfTheExpression = ({ useActivitie, isShowLogo, eureka, handleNextQue
             </KnowledgeTexts>
             <KnowledgeTexts>
               <img src={book}></img>
-              <p><strong>Livro</strong></p>
+              <p><strong>Conhecimento</strong></p>
             </KnowledgeTexts>
             <Button
               height='39px'

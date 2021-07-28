@@ -12,6 +12,7 @@ import InfoScreen from './infoScreen';
 import DidYouKnow from './didYouKnow';
 import IfTurnsOn from './ifTurnsOn';
 import OurStuff from './ourStuff';
+import EnigmaticWord from './enigmaticWord'
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -84,6 +85,9 @@ const Activities = (props) => {
 
       case "se-liga":
         return <IfTurnsOn useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
+
+      case "palavra-enigmatica":
+        return <EnigmaticWord useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
       default:
         return <h1>{currentActivitie.question}</h1>;

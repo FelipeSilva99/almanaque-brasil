@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-//Images
-import horseshoe from '../../images/icons/horseshoe.svg'
-
 //Components
 import Button from '../buttons/button';
 
@@ -178,7 +175,7 @@ const CorrectAnswer = ({ answer, handlerNextActivitie, toScore, didYouKnowScreen
     const pointsImg = (amountTrial === 3 && hardShell) || (amountTrial === 2 && wave) || (amountTrial === 1 && cactus);
     const points = (amountTrial === 3 && 10) || (amountTrial === 2 && 8) || (amountTrial === 1 && 5);
     const imgName = (amountTrial === 3 && 'hardShell') || (amountTrial === 2 && 'wave') || (amountTrial === 1 && 'cactus');
-console.log({amountTrial})
+
     switch (actualModal) {
       case modals.toScore:
         return (
@@ -244,6 +241,7 @@ console.log({amountTrial})
     <Container>
       {(answer?.imageBase64) && <Img src={`data:image/jpeg;base64,${answer.imageBase64}`}></Img>}
       {renderModal()}
+      {console.log(answer)}
       {/* {renderModalOfPoints()} */}
     </Container>
   );

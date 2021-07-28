@@ -6,28 +6,40 @@ import Button from './button';
 
 // Styles
 const Content = styled.div`
-  padding: 0 .8rem 1.5rem;
+  /* padding: 0 .8rem 1.5rem; */
   width: 100vw;
   height: ${props => props.height || '6.2rem'};
 	background: #fff;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
+  flex-direction: column;
+  border-top-left-radius: ${props => !props.noBorder && '25px'};
+  border-top-right-radius: ${props => !props.noBorder && '25px'};
   z-index: 1;
+`;
+
+const TextError = styled.div`
+  padding-bottom: .5rem; 
+  font-size: .9375rem;
+  color: #373737;
 `;
 
 const ContainerButton = ({
   height,
+  color,
   background,
   boxShadow,
+  noBorder,
   children,
   handleClick,
+  isCorrectAnswer,
 }) => {
   return (
-    <Content height={height}>
+    <Content height={height} noBorder={noBorder}>
+      {isCorrectAnswer && <TextError>A resposta certa é</TextError>}
       <Button
+        color={color}
         background={background}
         boxShadow={boxShadow}
         handleClick={handleClick}

@@ -7,9 +7,11 @@ import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
+import ContentImageText from '../../components/activities/activitieDescription';
+import OptionsButtons from '../../components/activities/optionsButtons';
 
 //Images
-import logoBig from '../../images/didYouKnow/logoBig.svg'
+import logo from '../../images/logo/didYouKnow.svg';
 
 // Styles
 const Container = styled.div`
@@ -25,113 +27,7 @@ const Container = styled.div`
   }
 `;
 
-const Scroll = styled.div`
-  flex: 1;
-  width: 100vw;
-
-  ${({ isModal }) => !isModal && `
-   overflow-y: auto; 
-    ::-webkit-scrollbar {
-      width: 4px;
-      height: 10px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-      border-radius: 20px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #ccc;
-      border-radius: 13px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #ccc;
-    }
-  `} 
-`;
-
-
-const Content = styled.div`
-  margin: auto;
-  padding-top: ${props => props.isModal && '1rem'};
-  padding: 0 1rem 1rem;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: ${props => !props.isModal && 'center'};
-  align-items: ${props => !props.isModal && 'center'};
-  z-index: 1;
- 
-  span {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #36A39A;
-    line-height: 0;
-    :last-child {
-      padding-top: ${props => props.isModal ? '2.5rem' : '1rem'}
-    }
-  }
-  img {
-    max-width: 300px;
-    border-radius: 10px;
-    box-shadow: 0px 5px 6px silver;
-  }
-
-  p { margin-top: 2vh; }
-`;
-const Title = styled.h1`
-  margin-top: 2vh;
-  width: 20rem;
-  font-size: 1rem;
-  font-weight: 800;
-  line-height: 1.3rem;
-  color: #373737;
-  text-align: center;
-  
-  @media (max-width: 320px) { width: 18rem; }
-`;
-
-const ContentAnswerOption = styled.button`
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80vw;
-  max-width: 425px;
-  height: 2.313rem;
-  font-size: .75rem;
-  font-weight: 900;
-  color: #373737;
-  letter-spacing: .05rem;
-  text-transform: uppercase;
-  background: #FFD000;
-  border-radius: 17px;
-  box-shadow: 0 5px 0  #F08800;
-
-  :last-child{
-    margin-bottom: 0;
-  }
-`;
-
-const ContainerAnswer = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100vw;
-  min-height: 40vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #fff;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
-  overflow: hidden;
-  z-index: 1;
-
-  @media (min-width: 1024px) {height: 60%;}
-  @media (max-width: 320px) {min-height: 45vh;}
-`;
-
-const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
+const DidYouKnow = ({ useActivitie, handlerNextActivitie }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
@@ -150,8 +46,8 @@ const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
   }, []);
 
   useEffect(() => {
-    setActivitie(isActivitie);
-  }, [isActivitie]);
+    setActivitie(useActivitie);
+  }, [useActivitie]);
 
 
 
@@ -183,15 +79,14 @@ const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
     return (
       <>
         <Header
-          logo={logoBig}
+          logo={logo}
         />
-        <Scroll>
-          <Content isModal={isModalAnswerOption}>
-            <img src={`data:image/jpeg;base64,${activitie.imageBase64}}`} alt={"Imagem da atividade"}></img>
-            <Title>{activitie?.question}</Title>
-            {!isModalAnswerOption && <p>{activitie?.complementaryInformation}</p>}
-          </Content>
-        </Scroll>
+        <ContentImageText
+          image={`data:image/jpeg;base64,${activitie.imageBase64}`}
+          title={activitie?.question}
+          info={activitie?.complementaryInformation}
+          isModal={isModalAnswerOption}
+        />
         <Button
           handleClick={handleIsModalAnswerOption}
         >
@@ -203,23 +98,15 @@ const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
 
   const renderAnswerOption = () => {
     return (
-      <ContainerAnswer>
-        {activitie.answers.map((answer, key) => {
-          return (
-            <ContentAnswerOption
-              onClick={() => handleCheckAnswer(answer)}
-              key={key}
-            >
-              {answer.answer}
-            </ContentAnswerOption>
-          )
-        })}
-      </ContainerAnswer>
+      <OptionsButtons
+        options={activitie.answers}
+        handleCheckAnswer={handleCheckAnswer}
+      />
     )
   }
 
   return (
-    isLoading ? <SplashScreen activitieLogo={logoBig} /> : (
+    isLoading ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
         {(
           !modalWrongAnswer
@@ -228,9 +115,9 @@ const DidYouKnow = ({ isActivitie, handlerNextActivitie }) => {
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={isActivitie.tips}/>}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={useActivitie.tips}/>}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore  didYouKnowScreen amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={isActivitie.answers[3]} didYouKnowScreen amountTrial={amountTrial}/>}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={useActivitie.answers[3]} didYouKnowScreen amountTrial={amountTrial}/>}
       </Container>
     )
   );

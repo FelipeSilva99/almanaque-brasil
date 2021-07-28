@@ -8,6 +8,7 @@ import ContainerButton from '../../components/buttons/containerButton';
 import ModalTip from '../../components/modal/tip';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 import SplashScreen from './splashScreen';
+import ScoreScreen from '../../components/activities/scoreScreen';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -80,7 +81,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   }
   const [selectedItems, setSelectedItems] = useState([]);
   const [pairs, setPairs] = useState(undefined);
-
   const [availableColors, setAvailableColors] = useState([
     colors.green, colors.green,
     colors.orange, colors.orange,
@@ -95,6 +95,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const [inMemoryItem, setInMemoryItem] = useState(undefined);
   const [hasItemInMemory, setHasItemInMemory] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
+  const [isModalCorrectAnswer, setIsModalCorrectAnswer] = useState(undefined);
 
   useEffect(() => {
     inMemoryItem === undefined
@@ -109,8 +110,8 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
         ...pair,
         backgroundColor: "#fff"
       }
-    })
-
+    });
+    setActivitie(useActivitie);
     setPairs(shuffle(newArrayOfActivities));
   }, [useActivitie]);
 
@@ -158,7 +159,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
         newPairsList = pairsList.map(item => {
           pairs.filter(i => {
             return i.matchingPair === item;
-
           })
         })
 
@@ -166,10 +166,18 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
     })
 
+    console.log(newPairsList);
+    console.log('pairsList', pairsList);
+
+    console.log('oi querida');
     return newPairsList.flat(Infinity);
   }
 
-
+  const handleContinue = () => {
+    handleModalCorrectAnswer();
+    setIsCorrectAnswer(true);
+  }
+  
   const checkBackgroundColor = (item, inMemoryItem) => {
     return item.backgroundColor === inMemoryItem.backgroundColor ? true : false
   }
@@ -236,12 +244,17 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     return null
   }
 
+  const handleModalCorrectAnswer = () => {
+    setIsModalCorrectAnswer(!isModalCorrectAnswer);
+  }
 
   const handleSubmit = () => {
     if (selectedItems.length < pairs.length) return
-    if (isCorrect()) {
-      setIsCorrectAnswer(true);
+    if(isCorrectAnswer) {
+      handlerNextActivitie();
+    } else if (isCorrect()) {
       handleCorrectAnswer();
+      handleModalCorrectAnswer();
     } else {
       setModalWrongAnswer(true);
       setAmountTrial(amountTrial - 1);
@@ -250,7 +263,11 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
 
   const handleWrongAnswer = () => {
+    const removeBackground = [];
+    pairs.map(item => removeBackground.push({...item, backgroundColor: '#fff'}))
+
     setModalWrongAnswer(false);
+    setPairs(removeBackground);
   }
 
   const showModalAnswer = () => {
@@ -289,6 +306,8 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
       if (par[0].matchingPair !== par[1].matchingPair) return isCorrect = false;
       return null
     });
+
+    console.log('isCorrect', isCorrect);
 
     return isCorrect;
   }
@@ -338,7 +357,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
           handleModalTip={handleModalTip}
         />
         <Content isCorrectAnswer={isCorrectAnswer}>
-          {renderScreen()}
+          {renderScreen(pairs)}
           <ContainerButton
             color={isCorrectAnswer && '#fff'}
             background={isCorrectAnswer && '#399119'}
@@ -352,6 +371,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
         </Content>
         {isModalTip && <ModalTip text={activitie?.tips} handleModalTip={handleModalTip} />}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {isModalCorrectAnswer && <ScoreScreen amountTrial={amountTrial} handleClick={handleContinue}/>}
       </Container>
     )
   )

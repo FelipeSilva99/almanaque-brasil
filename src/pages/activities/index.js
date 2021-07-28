@@ -53,7 +53,8 @@ const Activities = (props) => {
     
     if (hasNextActivitie) {
       props.history.push({
-        pathname: `/activities/${currentActivitie + 1}`,
+        pathname: `/activities`,
+        // pathname: `/activities/${currentActivitie + 1}`,
       });
     }
   }

@@ -54,7 +54,7 @@ const Activities = (props) => {
     <Container>
       {
         activities && activities.length > 0
-          ? activities.map((item, index) => <Content type={item.type} onClick={() => handlerNextActivitie(index)}/>)
+          ? activities.map((item, index) => <Content type={item.type} onClick={() => handlerNextActivitie(index)} history={props}/>)
           : <h1>Carregando</h1>
       }
     </Container>

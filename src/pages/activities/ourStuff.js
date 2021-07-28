@@ -46,7 +46,6 @@ const  OurStuff = ({ useActivitie, handleNextQuestion }) => {
   }, []);
 
   useEffect(() => {
-      console.log(useActivitie)
     setActivitie(useActivitie);
   }, [useActivitie]);
 

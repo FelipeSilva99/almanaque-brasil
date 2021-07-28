@@ -159,7 +159,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
         newPairsList = pairsList.map(item => {
           pairs.filter(i => {
             return i.matchingPair === item;
-
           })
         })
 
@@ -167,15 +166,18 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
     })
 
+    console.log(newPairsList);
+    console.log('pairsList', pairsList);
+
+    console.log('oi querida');
     return newPairsList.flat(Infinity);
   }
 
   const handleContinue = () => {
-    setIsCorrectAnswer(true);
-    handleCorrectAnswer();
     handleModalCorrectAnswer();
+    setIsCorrectAnswer(true);
   }
-
+  
   const checkBackgroundColor = (item, inMemoryItem) => {
     return item.backgroundColor === inMemoryItem.backgroundColor ? true : false
   }
@@ -251,6 +253,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     if(isCorrectAnswer) {
       handlerNextActivitie();
     } else if (isCorrect()) {
+      handleCorrectAnswer();
       handleModalCorrectAnswer();
     } else {
       setModalWrongAnswer(true);
@@ -303,6 +306,8 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
       if (par[0].matchingPair !== par[1].matchingPair) return isCorrect = false;
       return null
     });
+
+    console.log('isCorrect', isCorrect);
 
     return isCorrect;
   }

@@ -111,6 +111,7 @@ const EnigmaBox = styled.div`
   input::placeholder{
     font-size: .8rem;
     font-weight: normal;
+    /* margin-bottom: 1rem; */
   }
 
 `;
@@ -158,6 +159,7 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
   const [pairs, setPairs] = useState(undefined);
   const [isModalTip, setIsModalTip] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true)
+  const [enigmas, setEnigmas] = useState(undefined)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [amountTrial, setAmountTrial] = useState(3);
   const [inMemoryItem, setInMemoryItem] = useState(undefined);
@@ -170,7 +172,37 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
     return () => clearTimeout(timer)
   }, [])
 
+  useEffect(() => {
+    setEnigmas(Object.values(activitie.enigmas).map(item => {
+      return {
+        ...item,
+        userInput: ""
+      }
+    }))
+    
+  }, [activitie])
+
+  const handleValue = (e, i) => {
+    console.log(e.target.value)
+    const newEnigmas = enigmas
+    enigmas[i].userInput = e.target.value;
+    setEnigmas([...newEnigmas])
+  }
+
+  const checkAnswer = () => {
+    let userAnswer = "";
+    enigmas.map(item => {
+      userAnswer = `${userAnswer}${item.userInput}`
+    })
+    userAnswer = userAnswer.toLowerCase()
+    console.log("U answer:", userAnswer)
+    console.log("C answer:", activitie.answer.answer)
+    if(userAnswer === activitie.answer.answer) alert("Você acertou")
+    else alert("Você errou")
+  }
+
   return (
+    console.log(activitie),
     isLoading ? <SplashScreen activitieLogo={logo} /> : (
     // false ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
@@ -178,9 +210,9 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
         <Content>
           <Puzzle>
             {/* {JSON.stringify(activitie?.enigmas)} */}
-            {activitie && Object.values(activitie.enigmas).map((enigma) => {
+            {enigmas && enigmas.map((enigma, i) => {
               return (
-                <Enigma>
+                <Enigma key={i}>
                   <EnigmaBox firstBox>
                     <EnigmaImage src={`data:image/jpeg;base64,${enigma.imageBase64}`} />
                     <Less>-</Less>
@@ -188,6 +220,8 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
                   </EnigmaBox>
                   <EnigmaBox secondBox>
                     <input
+                      value={enigma.userInput}
+                      onChange={(e) => handleValue(e, i)}
                       autoComplete="off"
                       maxLength="4"
                       placeholder="Digite aqui"
@@ -200,7 +234,7 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
           </Puzzle>
         </Content>
         <Button
-        // handleClick={handleIsModalAnswerOption}
+          handleClick={checkAnswer}
         >responder
         </Button>
       </Container>

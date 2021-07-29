@@ -102,10 +102,17 @@ const EnigmaBox = styled.div`
     border-radius: 10px;
     width: 100%;
     height: 35px;
-    font-size: 1rem;
+    font-size: 1.5rem;
+    font-weight: 900;
     text-align: center;
     color: #373737;
   }
+
+  input::placeholder{
+    font-size: 1rem;
+    font-weight: normal;
+  }
+
 `;
 
 const EnigmaImage = styled.div`
@@ -164,8 +171,8 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
   }, [])
 
   return (
-    // isLoading ? <SplashScreen activitieLogo={logo} /> : (
-    false ? <SplashScreen activitieLogo={logo} /> : (
+    isLoading ? <SplashScreen activitieLogo={logo} /> : (
+    // false ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
         <Header logo={logo} />
         <Content>
@@ -180,7 +187,12 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
                     <Word>{enigma.subtrair}</Word>
                   </EnigmaBox>
                   <EnigmaBox secondBox>
-                    <input placeholder="Digite aqui" type="text"></input>
+                    <input
+                      autoComplete="off"
+                      maxLength="4"
+                      placeholder="Digite aqui"
+                      type="text"
+                    ></input>
                   </EnigmaBox>
                 </Enigma>
               );

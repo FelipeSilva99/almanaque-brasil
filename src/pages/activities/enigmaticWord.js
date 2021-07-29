@@ -109,7 +109,7 @@ const EnigmaBox = styled.div`
   }
 
   input::placeholder{
-    font-size: 1rem;
+    font-size: .8rem;
     font-weight: normal;
   }
 

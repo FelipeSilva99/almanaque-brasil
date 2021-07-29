@@ -88,7 +88,7 @@ const Activities = (props) => {
         return <IfTurnsOn useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
       case "palavra-enigmatica":
-        return <EnigmaticWord useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
+        return <EnigmaticWord activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
       default:
         return <h1>{currentActivitie.question}</h1>;

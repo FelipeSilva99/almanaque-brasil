@@ -166,10 +166,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
     })
 
-    console.log(newPairsList);
-    console.log('pairsList', pairsList);
-
-    console.log('oi querida');
     return newPairsList.flat(Infinity);
   }
 
@@ -306,8 +302,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
       if (par[0].matchingPair !== par[1].matchingPair) return isCorrect = false;
       return null
     });
-
-    console.log('isCorrect', isCorrect);
 
     return isCorrect;
   }

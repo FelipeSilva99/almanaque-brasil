@@ -6,6 +6,7 @@ import { shuffle } from '../../utils'
 import Header from '../../components/header';
 import ContainerButton from '../../components/buttons/containerButton';
 import WrongAnswer from '../../components/activities/wrongAnswer';
+import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from './splashScreen';
 import Button from '../../components/buttons/containerButton';
 
@@ -39,32 +40,6 @@ const Content = styled.div`
   box-sizing: border-box;
 `
 
-const ContentInfo = styled.div`
-  margin-bottom: 1rem;
-  width: 100%;
-  max-width: 300px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 8px;
-  background-color: ${props => (props.isCorrectAnswer && 'none') || props.backgroundColor};
-
-  img { opacity: ${props => (props.isCorrectAnswer && '1') || props.opacity }}
-`
-
-const Text = styled.div`
-  width: 7rem;
-  min-height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: .875rem;
-  color: #373737;
-  font-weight: 900;
-  border-radius: 8px;
-  box-shadow: ${props => props.isCorrectAnswer ? 'none' : '0 3px 6px #00000029'};
-`
-
 const Puzzle = styled.div`
   position: relative;
   bottom: 7vh;
@@ -73,14 +48,6 @@ const Puzzle = styled.div`
   width: calc(100vw - 4rem);
   max-width: 435px;
   min-width: 320px;
-`;
-
-const Box = styled.div`
-  display: flex;
-  width: 100%;
-  max-width: 300px;
-  flex-direction: row;
-  justify-content:  ${props => props.isCorrectAnswer ? 'space-evenly' : 'space-between'};
 `;
 
 const Enigma = styled.div`
@@ -92,7 +59,7 @@ const EnigmaBox = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: ${props => props.firstBox && '245px'};
-  padding: ${props => props.secondBox && '.5rem'};
+  padding: ${props => props.secondBox && '.6875rem'};
   margin-top: ${props => props.secondBox && '10px'};
   border-radius: 10px;
   background-color: #FFD000;
@@ -102,7 +69,8 @@ const EnigmaBox = styled.div`
     border-radius: 10px;
     width: 100%;
     height: 35px;
-    font-size: 1.5rem;
+    padding: 1rem 0;
+    font-size: 1.25rem;
     font-weight: 900;
     text-align: center;
     color: #373737;
@@ -134,8 +102,8 @@ const Less = styled.div`
   border-radius: 15px;
   color: #fff;
   width: 2.8rem;
-  height: 2rem;
-  font-size: 2rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
   font-weight: 900;
   background-color: #FF9292;
 `;
@@ -155,22 +123,17 @@ const Word = styled.div`
 `;
 
 function EnigmaticWord({ activitie, handlerNextActivitie }) {
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [pairs, setPairs] = useState(undefined);
-  const [isModalTip, setIsModalTip] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true)
   const [enigmas, setEnigmas] = useState(undefined)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [amountTrial, setAmountTrial] = useState(3);
-  const [inMemoryItem, setInMemoryItem] = useState(undefined);
-  const [hasItemInMemory, setHasItemInMemory] = useState(false);
-  const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
-
+  const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
+  const [showAnswer, setShowAnswer] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000)
     return () => clearTimeout(timer)
-  }, [])
+  }, []);
 
   useEffect(() => {
     setEnigmas(Object.values(activitie.enigmas).map(item => {
@@ -180,14 +143,27 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
       }
     }))
     
-  }, [activitie])
+  }, [activitie]);
 
   const handleValue = (e, i) => {
-    console.log(e.target.value)
     const newEnigmas = enigmas
     enigmas[i].userInput = e.target.value;
     setEnigmas([...newEnigmas])
-  }
+  };
+
+  const handleModalWrongAnswer = () => {
+    setModalWrongAnswer(!modalWrongAnswer);
+  };
+
+  const handleWrongAnswer = () => {
+    handleModalWrongAnswer();
+    setAmountTrial(amountTrial -1)
+  };
+
+  const showModalAnswer = () => {
+    handleModalWrongAnswer();
+    setShowAnswer(true);
+  };
 
   const checkAnswer = () => {
     let userAnswer = "";
@@ -195,16 +171,12 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
       userAnswer = `${userAnswer}${item.userInput}`
     })
     userAnswer = userAnswer.toLowerCase()
-    console.log("U answer:", userAnswer)
-    console.log("C answer:", activitie.answer.answer)
-    if(userAnswer === activitie.answer.answer) alert("Você acertou")
-    else alert("Você errou")
-  }
+    if(userAnswer === activitie.answer.answer) setModalCorrectAnswer(true);
+    else handleWrongAnswer()
+  };
 
   return (
-    console.log(activitie),
     isLoading ? <SplashScreen activitieLogo={logo} /> : (
-    // false ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
         <Header logo={logo} />
         <Content>
@@ -237,6 +209,9 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
           handleClick={checkAnswer}
         >responder
         </Button>
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleModalWrongAnswer} handleShowAnswer={showModalAnswer}/>}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={activitie.answer} toScore amountTrial={amountTrial}/>}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={activitie.answer} amountTrial={amountTrial}/>}
       </Container>
     )
   )

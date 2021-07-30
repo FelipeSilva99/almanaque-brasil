@@ -9,7 +9,7 @@ import tip from '../../images/icons/tip.svg';
 import selectedTip from '../../images/icons/selectedTip.svg';
 
 // Styles
-const Container = styled.div`
+const Container = styled.header`
   width: 100vw;
   padding: 1rem 1rem;
   display: flex;
@@ -37,7 +37,6 @@ const ButtonTip = styled.button`
 const Image = styled.img`
   width: 4.875rem;
 
-  @media (min-width: 1024px) { width: 6rem; }
 `;
 
 const Header = ({ logo, tips, isSelectedTips, handleModalTip }) => {

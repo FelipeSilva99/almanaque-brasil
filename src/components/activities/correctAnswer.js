@@ -8,7 +8,7 @@ import Button from '../buttons/button';
 
 //Styles
 const Container = styled.div`
-  position: relative;
+  position: absolute;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -61,7 +61,7 @@ const Img = styled.img`
   max-width: 500px;
   object-fit: initial;
 
-  @media(max-width: 425px) {width: 100%; max-height: 300px;}
+  @media(max-width: 425px) {width: 100%; max-height: 310px;}
   @media(min-width: 1024px) {height: 40vh;}
 `;
 

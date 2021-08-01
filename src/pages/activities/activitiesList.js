@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 //Components
 import ActivitieIcon from '../../components/trail/activitieIcon'
+import Way from '../../components/trail/way'
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -21,7 +22,7 @@ const Container = styled.div`
 const Trail = styled.div`
   display: flex;
   max-width: 375px;
-  background-color: #fff;
+  background-color: transparent;
   overflow: hidden;
   width: 100vw;
   align-items: center;
@@ -36,50 +37,8 @@ const ActivitiesRow = styled.div`
 `;
 
 
-const LineToRight = styled.div`
-  position: relative;
-  left: 33px;
-  right: 33px;
-  transform: rotate(230deg);
-  width: 150px;
-  height: 150px;
-  border: solid 5px #000;
-  border-color: #000 #000 transparent transparent;
-  border-radius: 50%;
-  bottom: 58px;
-  z-index: 2;
-  /* background-color: gainsboro; */
-`;
 
-const LineStraight = styled.div`
-  position: relative;
-  left: 33px;
-  right: 33px;
-  transform: rotate(230deg);
-  width: 150px;
-  height: 150px;
-  border: solid 5px #000;
-  border-color: #000 #000 transparent transparent;
-  border-radius: 50%;
-  bottom: 58px;
-  z-index: 2;
-  /* background-color: gainsboro; */
-`;
 
-const LineToleft = styled.div`
-  position: relative;
-  left: 33px;
-  right: 33px;
-  transform: rotate(230deg);
-  width: 150px;
-  height: 150px;
-  border: solid 5px #000;
-  border-color: #000 #000 transparent transparent;
-  border-radius: 50%;
-  bottom: 58px;
-  z-index: 2;
-  /* background-color: gainsboro; */
-`;
 
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
@@ -159,6 +118,7 @@ const Activities = (props) => {
   return (
     <Container>
       <Trail>
+      {activities && <Way linesQuantity={activities.length}/>}
         {
           activities && activities.length > 0
             ? renderActivities()

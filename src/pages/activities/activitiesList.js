@@ -21,13 +21,14 @@ const Container = styled.div`
 
 const Trail = styled.div`
   display: flex;
-  max-width: 375px;
+  width: 375px;
   background-color: transparent;
   overflow: hidden;
   width: 100vw;
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+  background-color: #EDEDED ;
 `;
 
 const ActivitiesRow = styled.div`

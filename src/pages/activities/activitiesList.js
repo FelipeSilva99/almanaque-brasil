@@ -33,7 +33,7 @@ const Trail = styled.div`
 
 const ActivitiesRow = styled.div`
   display: flex;
-  /* flex-direction: row-reverse; */
+  flex-direction: row-reverse;
   justify-content: center;
 `;
 

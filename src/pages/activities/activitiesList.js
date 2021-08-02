@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { act } from 'react-dom/cjs/react-dom-test-utils.production.min';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -39,11 +40,32 @@ const ActivitiesRow = styled.div`
 
 
 
-
+const setActivitiesOrder = (quantity) => {
+  let nextItemIsSingular = true;
+  let linesArray = []
+  // console.log('quantity:',quantity)
+  for(let i = 0; i < quantity; i++) {
+    if(nextItemIsSingular) {
+      console.log("A")
+      nextItemIsSingular = false
+      linesArray.push("oneItem")
+    } else {
+      if((i+1) % 3 === 0) {
+        console.log("B")
+        nextItemIsSingular = true
+        linesArray.push("ignore")
+      }
+      else {
+        console.log("C")
+        linesArray.push("twoItems")
+      }
+    }
+  }
+  return linesArray;
+}
 
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
-
 
   useEffect(() => {
     const trail = props.selectedTrails;
@@ -70,6 +92,7 @@ const Activities = (props) => {
   }
 
   const renderActivities = () => {
+    // logic for deciding whether to return one or two items in a row
     let nextItemIsSingular = true;
     return activities.map((item, index, array) => {
       if(nextItemIsSingular) {
@@ -87,6 +110,7 @@ const Activities = (props) => {
       } else {
         if((index+1) % 3 === 0) {
           nextItemIsSingular = true
+          // skip this rendering
           return
         }
         else {
@@ -99,7 +123,6 @@ const Activities = (props) => {
                 onClick={() => handlerNextActivitie(index)}
                 history={props}
                 >{index}</ActivitieIcon>
-                {/* <h1>Mais um</h1> */}
 
               <ActivitieIcon
                 item={array[index+1]}

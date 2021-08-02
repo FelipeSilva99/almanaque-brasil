@@ -32,7 +32,7 @@ const ActivitieIcon = (props) => {
       <ActivitiesCircle type={props.item.type} onClick={props.onClick} history={props.history}>
         <Text>{props.children+1}</Text>
       </ActivitiesCircle>
-      <p>{props.item.type}</p>
+      <p>{props.item.name}</p>
     </Box>
   )
 }

@@ -145,6 +145,7 @@ const Activities = (props) => {
         {
           activities && activities.length > 0
             ? renderActivities()
+            // ?null
             : <h1>Carregando</h1>
         }
       </Trail>

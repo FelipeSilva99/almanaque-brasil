@@ -18,6 +18,7 @@ const ActivitiesCircle = styled.button`
 `;
 const Box = styled.div`
   text-align: center;
+  height: 117px;
   margin-bottom: 3rem;
   z-index: 3;
 `;

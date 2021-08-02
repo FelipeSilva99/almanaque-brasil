@@ -60,32 +60,33 @@ const defineLines = (quantity) => {
   let nextItemIsSingular = true;
   let linesArray = []
   // console.log('quantity:',quantity)
-  for(let i = 1; i < quantity.linesQuantity; i++) {
+  for(let i = 0; i < quantity; i++) {
     if(nextItemIsSingular) {
       console.log("A")
       nextItemIsSingular = false
-      return linesArray.push("right")
+      linesArray.push("right")
     } else {
       if((i+1) % 3 === 0) {
         console.log("B")
         nextItemIsSingular = true
-        return linesArray.push("left")
+        linesArray.push("left")
       }
       else {
         console.log("C")
-        return linesArray.push("straight")
+        linesArray.push("straight")
       }
     }
   }
   console.log('lA:',linesArray)
   return linesArray;
 }
-const Way = (props) => {
+const Way = ({ linesQuantity }) => {
   const [lines, setLines] = useState(undefined)
-  const staticLines = ['right', 'straight', 'left', 'right', 'straight', 'left', 'right', 'straight']
-  // useEffect(() => {
-  //   setLines([...defineLines(props.linesQuantity)])
-  // }, [])
+
+  useEffect(() => {
+    const lines = defineLines(linesQuantity)
+    setLines([...lines])
+  }, [])
   const setComponent = (type) => {
     switch (type) {
       case 'right':
@@ -103,17 +104,11 @@ const Way = (props) => {
   }
 
   return(
-    console.log("Lines: ", lines),
-    console.log("linesQ:", props.linesQuantity),
+    console.log(lines),
     <Container>
-      {/* <Div></Div>
-      <Div></Div>
-      <Div></Div> */}
-      {
-        staticLines.map(type => {
-          return setComponent(type)
-        })
-      }
+      {lines && lines.map(type => {
+        return setComponent(type)
+      })}
     </Container>
   )
 }

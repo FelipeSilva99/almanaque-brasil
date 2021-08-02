@@ -43,8 +43,7 @@ const ActivitiesRow = styled.div`
 
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
-  // const [ignoreItems, setIgnoreItems] = useState(null)
-  const [ignoreItem, setIgnoreItem] = useState(false)
+
 
   useEffect(() => {
     const trail = props.selectedTrails;
@@ -66,6 +65,9 @@ const Activities = (props) => {
     return true
   }
 
+  const makeListOfActivities = () => {
+    
+  }
 
   const renderActivities = () => {
     let nextItemIsSingular = true;
@@ -73,20 +75,17 @@ const Activities = (props) => {
       if(nextItemIsSingular) {
         nextItemIsSingular = false
         return(
-          <>
-            <ActivitiesRow key={index}>
-              <ActivitieIcon
-              item={item}
-              itemValue={index}
-              onClick={() => handlerNextActivitie(index)}
-              history={props}
-              >{index}</ActivitieIcon>
-            </ActivitiesRow>
-          </>
+          <ActivitiesRow key={index}>
+            <ActivitieIcon
+            item={item}
+            itemValue={index}
+            onClick={() => handlerNextActivitie(index)}
+            history={props}
+            >{index}</ActivitieIcon>
+          </ActivitiesRow>
         )
       } else {
         if((index+1) % 3 === 0) {
-          console.log(index+1, 'é multiplo de 3')
           nextItemIsSingular = true
           return
         }
@@ -119,7 +118,7 @@ const Activities = (props) => {
   return (
     <Container>
       <Trail>
-      {activities && <Way linesQuantity={activities.length}/>}
+      {activities && <Way linesQuantity={activities.length-1}/>}
         {
           activities && activities.length > 0
             ? renderActivities()

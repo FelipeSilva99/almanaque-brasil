@@ -18,6 +18,7 @@ const ActivitiesCircle = styled.button`
 `;
 const Box = styled.div`
   text-align: center;
+  height: 117px;
   margin-bottom: 3rem;
   z-index: 3;
 `;
@@ -28,16 +29,12 @@ const Text = styled.p`
 const ActivitieIcon = (props) => {
 
   return(
-    console.log(props.item),
-    <>
-      <Box>
+    <Box>
       <ActivitiesCircle type={props.item.type} onClick={props.onClick} history={props.history}>
         <Text>{props.children+1}</Text>
       </ActivitiesCircle>
-        <p>{props.item.type}</p>
-      </Box>
-
-    </>
+      <p>{props.item.name}</p>
+    </Box>
   )
 }
 

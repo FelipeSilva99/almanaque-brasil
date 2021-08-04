@@ -12,6 +12,7 @@ import Trails from '../pages/trails';
 import Activities from '../pages/activities';
 import ActivitiesList from '../pages/activities/activitiesList';
 import TrunkScreen from '../pages/activities/trunkScreen';
+import Dashboard from '../pages/dashboard';
 
 // import PrivateRoute from './PrivateRoute';
 import {
@@ -33,7 +34,7 @@ const Routes = (props) => {
 		<BrowserRouter>
 			<Switch>
 				{/* <Route exact path='/' component={Login} /> */}
-				<Route exact path='/' component={Trails} />
+				<Route exact path='/' component={Dashboard} />
 				<Route exact path='/trails' component={Trails} />
 				<Route exact path='/activities/:trailId' component={Activities} />
 				<Route exact path='/activities' component={ActivitiesList} />

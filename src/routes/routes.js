@@ -36,10 +36,10 @@ const Routes = (props) => {
 	return (
 		<BrowserRouter>
 			<Switch>
-				<Route exact path='/' component={Home} />
+				{/* <Route exact path='/' component={Home} /> */}
 				<Route exact path='/createAccount' component={CreateAccount} />
 				<Route exact path='/login' component={Login} />
-				<Route exact path='/dashboard' component={Dashboard} />
+				<Route exact path='/' component={Dashboard} />
 				<Route exact path='/trails' component={Trails} />
 				<Route exact path='/activities/:trailId' component={Activities} />
 				<Route exact path='/activities' component={ActivitiesList} />

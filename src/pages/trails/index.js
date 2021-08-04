@@ -42,16 +42,6 @@ export const Row = styled.div`
   flex-direction: row;
 `;
 
-export const Header = styled.div`
-  display: flex;
-  align-items: center;
-  padding-left: 35px;
-  height: 10vh;
-  >h1{
-    color: #F99D07;
-  }
-`;
-
 const Trails = (props) => {
 
   const handleClick = (trail) => {
@@ -69,29 +59,14 @@ const Trails = (props) => {
     })
   }
 
-  const renderOptions = () => {
-    return (
-      <Row>
-        <Card>
-          <h2>Biblioteoca</h2>
-        </Card>
-        <Card>
-          <h2>Conteúdo por tema</h2>
-        </Card>
-      </Row>
-    )
-  }
-
   const trails = props?.trails;
 
   return (
     <Box>
-      <Header><h1>Olá Fulano!</h1></Header>
       {
         trails && (
           <>
             {renderTrails(trails)}
-            {renderOptions()}
           </>
         ) 
       }

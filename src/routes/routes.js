@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 
 
 // Onboarding
-// import Login from '../screens/onboarding/Login/LoginScreen';
+import Home from '../pages/onboarding/login/home';
+import Login from '../pages/onboarding/login/login';
+import CreateAccount from '../pages/onboarding/createAccount/createEmail';
+
 
 // import Login from '../pages/login';
 import Trails from '../pages/trails';
@@ -33,8 +36,10 @@ const Routes = (props) => {
 	return (
 		<BrowserRouter>
 			<Switch>
-				{/* <Route exact path='/' component={Login} /> */}
-				<Route exact path='/' component={Dashboard} />
+				<Route exact path='/' component={Home} />
+				<Route exact path='/createAccount' component={CreateAccount} />
+				<Route exact path='/login' component={Login} />
+				<Route exact path='/dashboard' component={Dashboard} />
 				<Route exact path='/trails' component={Trails} />
 				<Route exact path='/activities/:trailId' component={Activities} />
 				<Route exact path='/activities' component={ActivitiesList} />

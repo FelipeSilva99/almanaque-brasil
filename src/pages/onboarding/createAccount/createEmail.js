@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+//Components
+import ProgressBar from '../../../components/progressBar'
+
+//Styles
 const Container = styled.div`
   padding: 1.875rem 1rem 1rem;
   min-height: 100vh;
@@ -10,7 +14,8 @@ const Container = styled.div`
 const Login = (props) => {
   return (
     <Container>
-        <h2>Criar email</h2>
+      <ProgressBar currentStep={1} steps={4}/>
+      <h2>Criar email</h2>
     </Container>
   );
 }

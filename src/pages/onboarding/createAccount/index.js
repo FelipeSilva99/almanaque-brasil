@@ -110,8 +110,6 @@ const CreateAccount = (props) => {
       <Content>
         {renderByStep()}
       </Content>
-
-      {/* Depois pode apagar esse botão. Coloquei só pra simular a troca de telas */}
       <Button handleClick={handleNext}>Próximo</Button>
     </Container>
   );

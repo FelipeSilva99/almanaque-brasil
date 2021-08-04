@@ -123,7 +123,7 @@ const ScoreDiv = styled.div`
   }
 `;
 
-const OriginOfTheExpression = ({ useActivitie, isShowLogo, eureka, handleNextQuestion }) => {
+const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion }) => {
   const screens = {
     info: "info",
     knowledge: "knowledge",
@@ -216,4 +216,4 @@ const OriginOfTheExpression = ({ useActivitie, isShowLogo, eureka, handleNextQue
   );
 }
 
-export default OriginOfTheExpression;
+export default InfoScreen;

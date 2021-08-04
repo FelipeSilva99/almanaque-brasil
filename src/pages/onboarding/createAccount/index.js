@@ -25,12 +25,6 @@ const Content = styled.div`
   flex-direction: column;
 `;
 
-const NextButton = styled.button`
-  padding: 1rem;
-  border-radius: 20px;
-  background-color: gainsboro;
-`;
-
 const CreateAccount = (props) => {
   const steps = [
     { name: 'email', value: 1 }, { name: 'password', value: 2 },

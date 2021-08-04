@@ -8,7 +8,7 @@ import Input from './input';
 
 // Styles
 const Container = styled.form`
-  flex: 2;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;

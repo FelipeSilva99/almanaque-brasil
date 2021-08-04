@@ -6,10 +6,10 @@ import trunk from '../../images/icons/trunkk.png';
 
 // Styles
 const Content = styled.div`
-  margin: ${props => props.margin};
+  margin: ${props => props.margin || 'auto'};
 	width: 100%;
 	height: ${props => props.height || '2.375rem'};
-  max-width: 330px;
+  max-width: 425px;
 	display: flex;
 	justify-content: center;
 	align-items: center;

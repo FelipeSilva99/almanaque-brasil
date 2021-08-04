@@ -10,13 +10,6 @@ const Container = styled.div`
   z-index: 1;
 `;
 
-const Div = styled.div`
-  margin: 3rem;
-  width: 300px;
-  height: 300px;
-  /* background: gainsboro; */
-`;
-
 const LineToRight = styled.div`
   position: relative;
   left: 144px;
@@ -86,7 +79,9 @@ const Way = ({ linesQuantity }) => {
   useEffect(() => {
     const lines = defineLines(linesQuantity)
     setLines([...lines])
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
   const setComponent = (type) => {
     switch (type) {
       case 'right':

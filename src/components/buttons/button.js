@@ -6,11 +6,10 @@ import trunk from '../../images/icons/trunkk.png';
 
 // Styles
 const Content = styled.div`
-	/* margin-bottom: 2rem; */
-  margin: ${props => props.margin};
+  margin: ${props => props.margin || 'auto'};
 	width: 100%;
 	height: ${props => props.height || '2.375rem'};
-  max-width: 300px;
+  max-width: 425px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -23,14 +22,6 @@ const Content = styled.div`
     opacity: ${props => props.opacityDisabled || '.4'};
     cursor: initial;
   }
-/*   
-  @media (min-width: 1024px) {
-    height: 5rem;
-  }
-
-  @media (max-width: 375px) {
-    min-height: 3rem;
-  } */
 `;
 
 const Image = styled.img`

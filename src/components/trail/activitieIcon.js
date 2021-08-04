@@ -27,7 +27,6 @@ const Text = styled.p`
 `;
 
 const ActivitieIcon = (props) => {
-
   return(
     <Box>
       <ActivitiesCircle type={props.item.type} onClick={props.onClick} history={props.history}>

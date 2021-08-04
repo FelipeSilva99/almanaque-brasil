@@ -36,8 +36,8 @@ const Routes = (props) => {
 	return (
 		<BrowserRouter>
 			<Switch>
-				{/* <Route exact path='/' component={Home} /> */}
-				<Route exact path='/' component={CreateAccount} />
+				<Route exact path='/' component={Home} />
+				<Route exact path='/createAccount' component={CreateAccount} />
 				<Route exact path='/login' component={Login} />
 				<Route exact path='/dashboard' component={Dashboard} />
 				<Route exact path='/trails' component={Trails} />

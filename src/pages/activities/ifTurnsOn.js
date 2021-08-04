@@ -50,7 +50,7 @@ const ContentInfo = styled.div`
   border-radius: 8px;
   background-color: ${props => (props.isCorrectAnswer && 'none') || props.backgroundColor};
 
-  img { opacity: ${props => (props.isCorrectAnswer && '1') || props.opacity }}
+  img { opacity: ${props => (props.isCorrectAnswer && '1') || props.opacity}}
 `
 
 const Text = styled.div`
@@ -118,7 +118,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if(!!useActivitie) setIsLoading(false)
+      if (!!useActivitie) setIsLoading(false)
     }, 2000);
     return () => clearTimeout(timer);
   }, [useActivitie]);
@@ -149,21 +149,18 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
       const pair = element.matchingPair;
 
       const includesItem = pairsList.includes(pair);
-      const showModalAnswer = () => {
-        setModalWrongAnswer(false);
-        // setShowAnswer(true);
-        if (!includesItem) {
-          pairsList.push(pair);
-        }
-
-        newPairsList = pairsList.map(item => {
-          pairs.filter(i => {
-            return i.matchingPair === item;
-          })
-        })
-
+      setModalWrongAnswer(false);
+      // setShowAnswer(true);
+      if (!includesItem) {
+        pairsList.push(pair);
       }
 
+      // eslint-disable-next-line array-callback-return
+      newPairsList = pairsList.map(item => {
+        pairs.filter(i => {
+          return i.matchingPair === item;
+        })
+      })
     })
 
     return newPairsList.flat(Infinity);
@@ -173,7 +170,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     handleModalCorrectAnswer();
     setIsCorrectAnswer(true);
   }
-  
+
   const checkBackgroundColor = (item, inMemoryItem) => {
     return item.backgroundColor === inMemoryItem.backgroundColor ? true : false
   }
@@ -246,7 +243,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
   const handleSubmit = () => {
     if (selectedItems.length < pairs.length) return
-    if(isCorrectAnswer) {
+    if (isCorrectAnswer) {
       handlerNextActivitie();
     } else if (isCorrect()) {
       handleCorrectAnswer();
@@ -260,7 +257,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
   const handleWrongAnswer = () => {
     const removeBackground = [];
-    pairs.map(item => removeBackground.push({...item, backgroundColor: '#fff'}))
+    pairs.map(item => removeBackground.push({ ...item, backgroundColor: '#fff' }))
 
     setModalWrongAnswer(false);
     setPairs(removeBackground);
@@ -318,7 +315,8 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
                   isCorrectAnswer={isCorrectAnswer}
                   onClick={() => handleClick(item)}
                   opacity={setOpacity(item.backgroundColor)}>
-                  <img src={`data:image/jpeg;base64,${item.imageBase64}`} isCorrectAnswer={isCorrectAnswer}/>
+                  <img src={`data:image/jpeg;base64,${item.imageBase64}`} isCorrectAnswer={isCorrectAnswer} alt={`img-${item.matchingPair}`}/>
+                  {console.log('olaaa', item.matchingPair)}
                 </ContentInfo>
               )
             ))
@@ -365,7 +363,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
         </Content>
         {isModalTip && <ModalTip text={activitie?.tips} handleModalTip={handleModalTip} />}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {isModalCorrectAnswer && <ScoreScreen amountTrial={amountTrial} handleClick={handleContinue}/>}
+        {isModalCorrectAnswer && <ScoreScreen amountTrial={amountTrial} handleClick={handleContinue} />}
       </Container>
     )
   )

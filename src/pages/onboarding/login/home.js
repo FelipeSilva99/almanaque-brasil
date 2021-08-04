@@ -6,13 +6,15 @@ const Container = styled.div`
   min-height: 100vh;
   background: #F3F3F3;
   display: flex;
-  justify-content: center;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
 `;
 
 const Card = styled.button`
   min-height: 150px;
-  width: 10%;
+  width: 10rem;
   margin: 10px;
   border-radius: 16px;
   padding: 16px;

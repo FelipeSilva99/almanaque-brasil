@@ -24,7 +24,6 @@ const Text = styled.h1`
   left: 50%;
   right: 50%;
   transform: translate(-100%);
-
 `;
 
 const Header = ({ text }) => {

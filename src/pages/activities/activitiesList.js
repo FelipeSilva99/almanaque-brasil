@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { act } from 'react-dom/cjs/react-dom-test-utils.production.min';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -21,6 +20,7 @@ const Container = styled.div`
 `;
 
 const Trail = styled.div`
+  height: 100vh;
   display: flex;
   width: 375px;
   background-color: transparent;
@@ -40,29 +40,29 @@ const ActivitiesRow = styled.div`
 
 
 
-const setActivitiesOrder = (quantity) => {
-  let nextItemIsSingular = true;
-  let linesArray = []
-  // console.log('quantity:',quantity)
-  for(let i = 0; i < quantity; i++) {
-    if(nextItemIsSingular) {
-      console.log("A")
-      nextItemIsSingular = false
-      linesArray.push("oneItem")
-    } else {
-      if((i+1) % 3 === 0) {
-        console.log("B")
-        nextItemIsSingular = true
-        linesArray.push("ignore")
-      }
-      else {
-        console.log("C")
-        linesArray.push("twoItems")
-      }
-    }
-  }
-  return linesArray;
-}
+// const setActivitiesOrder = (quantity) => {
+//   let nextItemIsSingular = true;
+//   let linesArray = []
+//   // console.log('quantity:',quantity)
+//   for(let i = 0; i < quantity; i++) {
+//     if(nextItemIsSingular) {
+//       console.log("A")
+//       nextItemIsSingular = false
+//       linesArray.push("oneItem")
+//     } else {
+//       if((i+1) % 3 === 0) {
+//         console.log("B")
+//         nextItemIsSingular = true
+//         linesArray.push("ignore")
+//       }
+//       else {
+//         console.log("C")
+//         linesArray.push("twoItems")
+//       }
+//     }
+//   }
+//   return linesArray;
+// }
 
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
@@ -87,9 +87,9 @@ const Activities = (props) => {
     return true
   }
 
-  const makeListOfActivities = () => {
+  // const makeListOfActivities = () => {
     
-  }
+  // }
 
   const renderActivities = () => {
     // logic for deciding whether to return one or two items in a row
@@ -111,7 +111,7 @@ const Activities = (props) => {
         if((index+1) % 3 === 0) {
           nextItemIsSingular = true
           // skip this rendering
-          return
+          return null
         }
         else {
           return (

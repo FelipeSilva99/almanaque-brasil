@@ -30,3 +30,9 @@ button {
 	cursor: pointer;
   font-family: 'Nunito', sans-serif;
 }
+
+input{
+  border: none;
+  outline: 0
+  /* outline: none; */
+}

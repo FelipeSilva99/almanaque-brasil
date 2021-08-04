@@ -142,7 +142,7 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion }) =>
               <p>Por ter adquirido um novo<br/>conhecimento, você ganhou:</p>
             </KnowledgeTexts>
             <KnowledgeTexts>
-              <img src={book}></img>
+              <img src={book} alt='Livro' />
               <p><strong>Conhecimento</strong></p>
             </KnowledgeTexts>
             <Button

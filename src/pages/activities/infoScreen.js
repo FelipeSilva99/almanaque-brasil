@@ -123,7 +123,7 @@ const ScoreDiv = styled.div`
   }
 `;
 
-const OriginOfTheExpression = ({ useActivitie, isShowLogo, eureka, handleNextQuestion }) => {
+const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion }) => {
   const screens = {
     info: "info",
     knowledge: "knowledge",
@@ -194,7 +194,7 @@ const OriginOfTheExpression = ({ useActivitie, isShowLogo, eureka, handleNextQue
               {useActivitie.question}.
             </Title>
             <Subtitle>
-              {useActivitie.answers[0].answer}
+              {useActivitie.answers.map(i => i.answer)}
             </Subtitle>
             <Button
               height='39px'
@@ -216,4 +216,4 @@ const OriginOfTheExpression = ({ useActivitie, isShowLogo, eureka, handleNextQue
   );
 }
 
-export default OriginOfTheExpression;
+export default InfoScreen;

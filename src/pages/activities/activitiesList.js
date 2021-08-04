@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { act } from 'react-dom/cjs/react-dom-test-utils.production.min';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -39,12 +40,32 @@ const ActivitiesRow = styled.div`
 
 
 
-
+const setActivitiesOrder = (quantity) => {
+  let nextItemIsSingular = true;
+  let linesArray = []
+  // console.log('quantity:',quantity)
+  for(let i = 0; i < quantity; i++) {
+    if(nextItemIsSingular) {
+      console.log("A")
+      nextItemIsSingular = false
+      linesArray.push("oneItem")
+    } else {
+      if((i+1) % 3 === 0) {
+        console.log("B")
+        nextItemIsSingular = true
+        linesArray.push("ignore")
+      }
+      else {
+        console.log("C")
+        linesArray.push("twoItems")
+      }
+    }
+  }
+  return linesArray;
+}
 
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
-  // const [ignoreItems, setIgnoreItems] = useState(null)
-  const [ignoreItem, setIgnoreItem] = useState(false)
 
   useEffect(() => {
     const trail = props.selectedTrails;
@@ -66,28 +87,30 @@ const Activities = (props) => {
     return true
   }
 
+  const makeListOfActivities = () => {
+    
+  }
 
   const renderActivities = () => {
+    // logic for deciding whether to return one or two items in a row
     let nextItemIsSingular = true;
     return activities.map((item, index, array) => {
       if(nextItemIsSingular) {
         nextItemIsSingular = false
         return(
-          <>
-            <ActivitiesRow key={index}>
-              <ActivitieIcon
-              item={item}
-              itemValue={index}
-              onClick={() => handlerNextActivitie(index)}
-              history={props}
-              >{index}</ActivitieIcon>
-            </ActivitiesRow>
-          </>
+          <ActivitiesRow key={index}>
+            <ActivitieIcon
+            item={item}
+            itemValue={index}
+            onClick={() => handlerNextActivitie(index)}
+            history={props}
+            >{index}</ActivitieIcon>
+          </ActivitiesRow>
         )
       } else {
         if((index+1) % 3 === 0) {
-          console.log(index+1, 'é multiplo de 3')
           nextItemIsSingular = true
+          // skip this rendering
           return
         }
         else {
@@ -100,7 +123,6 @@ const Activities = (props) => {
                 onClick={() => handlerNextActivitie(index)}
                 history={props}
                 >{index}</ActivitieIcon>
-                {/* <h1>Mais um</h1> */}
 
               <ActivitieIcon
                 item={array[index+1]}
@@ -119,10 +141,11 @@ const Activities = (props) => {
   return (
     <Container>
       <Trail>
-      {activities && <Way linesQuantity={activities.length}/>}
+      {activities && <Way linesQuantity={activities.length-1}/>}
         {
           activities && activities.length > 0
             ? renderActivities()
+            // ?null
             : <h1>Carregando</h1>
         }
       </Trail>

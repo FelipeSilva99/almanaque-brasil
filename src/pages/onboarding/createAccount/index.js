@@ -79,7 +79,14 @@ const CreateAccount = (props) => {
 
   const RenderQuestionKinship = () => {
     return (
-      <h2>Você tem algum parentesco...?</h2>
+      <Form
+        label='Você possui parentesco com alguém da GERDAU?'
+        name='kinship'
+        value={register.kinship}
+        placeholder='Digite seu name aqui'
+        handleChange={handleChange}
+        selector
+      />
     );
   }
 
@@ -89,6 +96,10 @@ const CreateAccount = (props) => {
       ...register,
       [ev.target.name]: ev.target.value,
     });
+  }
+
+  const handleSelect = (value) => {
+    console.log("value", value)
   }
 
   const renderByStep = () => {

@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+// Images
+import arrow from '../../images/icons/onboarding/arrow.svg';
+
 // Styles
 const Content = styled.div`
   margin: 1rem 0;
@@ -34,6 +37,15 @@ const Option = styled.option`
   }
 `;
 
+const Arrow = styled.figure`
+  position: relative;
+  float: right;
+  margin: 1rem 2rem .8rem 0;
+  >img{
+    transform: ${props => props.isOpen ? 'rotate(90deg)' : 'rotate(-90deg)'};
+  }
+`;
+
 
 const Select = ({ name, value, handleChange }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -60,7 +72,9 @@ const Select = ({ name, value, handleChange }) => {
       setIsOpen(!isOpen)}
     } 
     name={name}>
-
+      <Arrow isOpen={isOpen}>
+        <img src={arrow}></img>
+      </Arrow>
       {(value === true && !isOpen) && <Text active>Sim</Text>}
       {(value === false && !isOpen) && <Text active>Não</Text>}
       {(value === undefined || isOpen) &&  <Text>Escolha uma opção:</Text>}

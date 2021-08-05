@@ -40,8 +40,9 @@ const Option = styled.option`
 const Arrow = styled.figure`
   position: relative;
   float: right;
-  margin: 1rem 2rem .8rem 0;
+  margin: 1rem 1rem .8rem 0;
   >img{
+    width: 70%;
     transform: ${props => props.isOpen ? 'rotate(90deg)' : 'rotate(-90deg)'};
   }
 `;

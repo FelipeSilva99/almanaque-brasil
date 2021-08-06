@@ -5,6 +5,7 @@ import styled from 'styled-components';
 //Component
 import Input from './input';
 import Button from '../buttons/button';
+import Select from './select';
 
 // Styles
 const Container = styled.form`
@@ -17,7 +18,8 @@ const Container = styled.form`
 `;
 
 const Label = styled.label`
-  padding: .5rem 0;
+  text-align: center;
+  padding: 2rem 0 0;
   font-size: 1.5rem;
   font-weight: 900;
   color: #373737;
@@ -44,6 +46,8 @@ const Form = ({
   placeholder,
   type,
   isError,
+  selector,
+  lastScreen,
   handleChange,
   isViewPassword,
   handleViewPassword,
@@ -53,17 +57,21 @@ const Form = ({
     <Container onSubmit={handleSubmit}>
       <Label>{label}</Label>
       <Subtitle>{subtitle}</Subtitle>
-      <Input
-        name={name}
-        value={value}
-        placeholder={placeholder}
-        type={type}
-        handleChange={handleChange}
-        isViewPassword={isViewPassword}
-        handleViewPassword={handleViewPassword}
-      />
+      {selector ? (
+        <Select value={value} name={name} handleChange={handleChange} />
+      ) : (
+        <Input
+          name={name}
+          value={value}
+          placeholder={placeholder}
+          type={type}
+          handleChange={handleChange}
+          isViewPassword={isViewPassword}
+          handleViewPassword={handleViewPassword}
+        />
+      )}
+      <Button>{lastScreen ? 'Finalizar' : 'Próximo'}</Button>
       <Error>{isError}</Error>
-      <Button>Próximo</Button>
     </Container>
   );
 }

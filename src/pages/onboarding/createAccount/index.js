@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 //Components
-import ProgressBar from '../../../components/progressBar'
-
-//Styles
-//Component
+import ProgressBar from '../../../components/progressBar';
+import CheckBox from '../../../components/form/checkBox';
 import Header from '../../../components/header/headerOnb';
 import Form from '../../../components/form';
+import Button from '../../../components/buttons/button';
 
+//Styles
 const Container = styled.div`
   padding: 1rem;
   min-height: 100vh;
@@ -22,6 +22,27 @@ const Content = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
+  padding-top: 5vh;
+  min-height: 50vh;
+  
+  @media (max-height: 600px) {
+    height: calc(95vh - 2rem );
+  }
+`;
+
+const AttentionText = styled.p`
+  margin-top: 1rem;
+  font-size: .9rem;
+  color: #FF3333;
+`;
+
+const ButtonAndAlertBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: 3rem;
+  text-align: center;
 `;
 
 const CreateAccount = (props) => {
@@ -29,11 +50,17 @@ const CreateAccount = (props) => {
     { name: 'email', value: 1 }, { name: 'password', value: 2 },
     { name: 'username', value: 3 }, { name: 'questionKinship', value: 4 }
   ];
+  const [termsAccepted, setTermsAccpted] = useState(false)
+  const [attention, setAttention] = useState(undefined)
+  const [lastScreen, setLastScreen] = useState(false)
   const [currentStep, setCurrentStep] = useState(steps[0]);
   const [register, setRegister] = useState({ email: '', password: '', username: ''});
   const [isError, setIsError] = useState({ email: '', password: '', username: ''});
-
   const [isViewPassword, setIsViewPassword] = useState({});
+
+  useEffect(() => {
+    if(termsAccepted) setAttention(undefined)
+  }, [termsAccepted])
 
   const handleGoBack = () => {
     setCurrentStep(steps[currentStep.value -1])
@@ -68,6 +95,10 @@ const CreateAccount = (props) => {
     const isNameValid = !!register?.username && register?.username.length >= 3;
     const isNextScreen = (currentStep.name === 'email' && isEmailValid) || (currentStep.name === 'password' && isPasswordValid) || (currentStep.name === 'username'  && isNameValid);
 
+    if (lastScreen)  {
+      if(!termsAccepted) setAttention(true)
+      else handleFinish()
+    }
     if(isNextScreen) {
       if (currentStep.value < steps.length) {
         if(isEmailValid && isPasswordValid && isNameValid) {
@@ -132,9 +163,28 @@ const CreateAccount = (props) => {
   }
 
   const RenderQuestionKinship = () => {
+    setLastScreen(true)
     return (
-      <h2>Você tem algum parentesco...?</h2>
+      <>
+        <Form
+          label='Você possui parentesco com alguém da GERDAU?'
+          name='kinship'
+          value={register?.kinship}
+          placeholder='Digite seu name aqui'
+          handleChange={handleChange}
+          selector
+          lastScreen='Finalizar'
+        />
+        <CheckBox
+          isSelected={termsAccepted}
+          onClick={handleAceptTerms}
+          attetion={attention}/>
+      </>
     );
+  }
+
+  const handleAceptTerms = () => {
+    setTermsAccpted(!termsAccepted)
   }
 
   const renderByStep = () => {
@@ -147,14 +197,28 @@ const CreateAccount = (props) => {
     }
   }
 
+  const handleFinish = () => {
+    alert('Última tela')
+  }
+
   return (
     <Container>
       <Header text='Cadastro' handleGoBack={handleGoBack}/>
-      <ProgressBar currentStep={currentStep.value} steps={steps.length} />
       <Content>
-        {renderByStep()}
+        <div>
+          <ProgressBar currentStep={currentStep.value} steps={steps.length} />
+          {renderByStep()}
+        </div>
+        <ButtonAndAlertBox>
+          {/* <Button handleClick={handleNext}>
+            {lastScreen ? "Finalizar" : "Próximo"}
+          </Button> */}
+          {attention && (
+            <AttentionText>Você deve marcar que concorda com os termos para seguir</AttentionText>
+          )}
+        </ButtonAndAlertBox>
+        
       </Content>
-      {/* <Button handleClick={handleSubmit}>Próximo</Button> */}
     </Container>
   );
 }

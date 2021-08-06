@@ -17,7 +17,8 @@ const Container = styled.form`
 `;
 
 const Label = styled.label`
-  padding: .5rem 0;
+  text-align: center;
+  padding: 2rem 0 0;
   font-size: 1.5rem;
   font-weight: 900;
   color: #373737;

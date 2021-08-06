@@ -2,13 +2,30 @@
 import React from 'react';
 import styled from 'styled-components';
 
+//Images
+import eye from '../../images/icons/onboarding/eye.svg';
+import eyeBlocked from '../../images/icons/onboarding/eyeBlocked.svg';
+
 // Styles
-const Content = styled.input`
+const Content = styled.div`
   margin: 1rem 0;
-  padding-left: 1rem;
+  padding: 0 1rem;
   width: 100%;
   height: 2.75rem;
   border-radius: 8px;
+  background: #fff;
+  font-weight: 900;
+  display: flex;
+  justify-content: space-between;
+  
+  ::placeholder{
+    color: #B9B9B9;
+    font-weight: normal;
+  }
+`;
+
+const Input = styled.input`
+  width: 100%;
   font-size: 1rem;
   color: #373737;
   background: #fff;
@@ -20,18 +37,39 @@ const Content = styled.input`
   }
 `;
 
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+`;
 
-const Input = ({ name, value, placeholder, type, handleChange }) => {
+
+const ContentInput = ({
+  name,
+  value,
+  placeholder,
+  type,
+  handleChange, 
+  isViewPassword,
+  handleViewPassword
+}) => {
   return (
-    <Content
-      name={name}
-      value={value}
-      placeholder={placeholder || 'Digite aqui...'}
-      type={type || 'text'}
-      autofocus='true'
-      onChange={handleChange}
-    />
+    <Content>
+      <Input
+        required
+        name={name}
+        value={value}
+        type={type}
+        placeholder={placeholder || 'Digite aqui...'}
+        autoFocus={true}
+        onChange={handleChange}
+      />
+      {name === 'password' && (
+        <Button onClick={handleViewPassword}>
+          <img src={isViewPassword ? eye : eyeBlocked} alt='visualizar senha' />
+        </Button> 
+      )}
+    </Content>
   );
 }
 
-export default Input;
+export default ContentInput;

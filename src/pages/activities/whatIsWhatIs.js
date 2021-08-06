@@ -368,7 +368,6 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion }) => {
           && !showAnswer)
           && renderScreen()
         }
-        {console.log('useActivitie', useActivitie)}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[0]} toScore amountTrial={amountTrial} />}
         {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[0]} amountTrial={amountTrial} />}

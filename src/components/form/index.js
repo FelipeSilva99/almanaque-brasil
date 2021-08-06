@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 //Component
 import Input from './input';
+import Button from '../buttons/button';
 import Select from './select';
 
 // Styles
@@ -30,7 +31,12 @@ const Subtitle = styled.p`
   text-align: center;
 `;
 
-
+const Error = styled.p`
+  padding-left: 1rem;
+  font-size: .75rem;
+  color: #FF3333;
+  align-self: self-end;
+`;
 
 const Form = ({
   label,
@@ -39,24 +45,33 @@ const Form = ({
   value,
   placeholder,
   type,
+  isError,
+  selector,
+  lastScreen,
   handleChange,
-  selector
+  isViewPassword,
+  handleViewPassword,
+  handleSubmit
 }) => {
   return (
-    <Container>
+    <Container onSubmit={handleSubmit}>
       <Label>{label}</Label>
       <Subtitle>{subtitle}</Subtitle>
       {selector ? (
-          <Select value={value} name={name} handleChange={handleChange}/>
-        ) : (
-          <Input
-            name={name}
-            value={value}
-            placeholder={placeholder}
-            type={type}
-            handleChange={handleChange}
-          />
-        )}
+        <Select value={value} name={name} handleChange={handleChange} />
+      ) : (
+        <Input
+          name={name}
+          value={value}
+          placeholder={placeholder}
+          type={type}
+          handleChange={handleChange}
+          isViewPassword={isViewPassword}
+          handleViewPassword={handleViewPassword}
+        />
+      )}
+      <Button>{lastScreen ? 'Finalizar' : 'Próximo'}</Button>
+      <Error>{isError}</Error>
     </Container>
   );
 }

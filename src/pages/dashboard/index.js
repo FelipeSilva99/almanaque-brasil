@@ -56,7 +56,6 @@ const Card = styled.button`
 
 const Row = styled.div`
   padding-top: 1rem;
-
   display: flex;
   justify-content: space-between;
   flex-direction: row;

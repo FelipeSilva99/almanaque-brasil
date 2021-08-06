@@ -14,13 +14,16 @@ const mapStateToProps = state => ({
 // Styles
 
 const Container = styled.div`
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  width: 100vw;
+  height: 100vh;
+  background-color: #EDEDED ;
+
 `;
 
 const Trail = styled.div`
-  height: 100vh;
   display: flex;
   width: 375px;
   background-color: transparent;
@@ -37,8 +40,6 @@ const ActivitiesRow = styled.div`
   flex-direction: row-reverse;
   justify-content: center;
 `;
-
-
 
 // const setActivitiesOrder = (quantity) => {
 //   let nextItemIsSingular = true;

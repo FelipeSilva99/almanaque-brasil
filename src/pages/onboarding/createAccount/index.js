@@ -98,10 +98,6 @@ const CreateAccount = (props) => {
     });
   }
 
-  const handleSelect = (value) => {
-    console.log("value", value)
-  }
-
   const renderByStep = () => {
     switch (currentStep.name) {
       case steps[0].name: return <RenderCreateEmail />

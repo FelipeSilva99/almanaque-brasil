@@ -26,16 +26,16 @@ const Text = styled.h1`
   transform: translate(-100%);
 `;
 
-const Header = ({ text }) => {
-  const history = useHistory()
+const Header = ({ text, handleGoBack }) => {
+  // const history = useHistory()
   
-  const goBack = () => {
-    history.goBack()
-  }
+  // const goBack = () => {
+  //   history.goBack()
+  // }
   
   return (
     <Container>
-      <Figure onClick={goBack}>
+      <Figure onClick={handleGoBack}>
         <img src={iconBack} alt='Voltar' />
       </Figure>
       <Text>{text}</Text>

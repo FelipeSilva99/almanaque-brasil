@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 //Component
 import Input from './input';
-
+import Button from '../buttons/button';
 
 // Styles
 const Container = styled.form`
@@ -29,6 +29,13 @@ const Subtitle = styled.p`
   text-align: center;
 `;
 
+const Error = styled.p`
+  padding-left: 1rem;
+  font-size: .75rem;
+  color: #FF3333;
+  align-self: self-end;
+`;
+
 const Form = ({
   label,
   subtitle,
@@ -36,10 +43,14 @@ const Form = ({
   value,
   placeholder,
   type,
-  handleChange
+  isError,
+  handleChange,
+  isViewPassword,
+  handleViewPassword,
+  handleSubmit
 }) => {
   return (
-    <Container>
+    <Container onSubmit={handleSubmit}>
       <Label>{label}</Label>
       <Subtitle>{subtitle}</Subtitle>
       <Input
@@ -48,7 +59,11 @@ const Form = ({
         placeholder={placeholder}
         type={type}
         handleChange={handleChange}
+        isViewPassword={isViewPassword}
+        handleViewPassword={handleViewPassword}
       />
+      <Error>{isError}</Error>
+      <Button>Próximo</Button>
     </Container>
   );
 }

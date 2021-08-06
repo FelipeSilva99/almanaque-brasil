@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 //Images
-import trunk from '../../images/icons/trunkk.png';
+import trunk from '../../images/icons/trunk.png';
 
 // Styles
-const Content = styled.div`
+const Content = styled.button`
   margin: ${props => props.margin || 'auto'};
 	width: 100%;
 	height: ${props => props.height || '2.375rem'};
@@ -29,7 +29,7 @@ const Image = styled.img`
   margin-right: 1rem;
 `
 
-const Btn = styled.button`
+const Btn = styled.p`
   max-width: 300px;
   font-size: .75rem;
 	font-weight: 900;

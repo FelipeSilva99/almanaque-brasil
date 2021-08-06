@@ -21,6 +21,11 @@ const LineToRight = styled.div`
   border-radius: 50%;
   top: 51px;
   z-index: 1;
+
+  @media (max-width: 320px) {
+    transform: rotate(10deg);
+    width: 10rem;
+  }
 `;
 
 const LineStraight = styled.div`
@@ -40,13 +45,17 @@ const LineToleft = styled.div`
   right: 33px;
   transform: rotate(-104deg);
   width: 157px;
-    height: 147px;
+  height: 147px;
   border: dashed 5px ${props => props.color};
   border-color: ${props => props.color} ${props => props.color} transparent ${props => props.color};
   border-radius: 50% 50% 50% 0;
   top: 41px;
   z-index: 3;
   /* background-color: gainsboro; */
+
+  @media (max-width: 320px) {
+    left: -9px;
+  }
 `;
 
 const defineLines = (quantity) => {
@@ -99,7 +108,6 @@ const Way = ({ linesQuantity }) => {
   }
 
   return(
-    console.log(lines),
     <Container>
       {lines && lines.map(type => {
         return setComponent(type)

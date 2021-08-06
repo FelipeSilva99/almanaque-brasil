@@ -316,7 +316,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
                   onClick={() => handleClick(item)}
                   opacity={setOpacity(item.backgroundColor)}>
                   <img src={`data:image/jpeg;base64,${item.imageBase64}`} isCorrectAnswer={isCorrectAnswer} alt={`img-${item.matchingPair}`}/>
-                  {console.log('olaaa', item.matchingPair)}
                 </ContentInfo>
               )
             ))

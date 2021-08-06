@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Auth } from 'aws-amplify';
 
 //Components
 import ProgressBar from '../../../components/progressBar';
@@ -54,16 +55,36 @@ const CreateAccount = (props) => {
   const [attention, setAttention] = useState(undefined)
   const [lastScreen, setLastScreen] = useState(false)
   const [currentStep, setCurrentStep] = useState(steps[0]);
-  const [register, setRegister] = useState({ email: '', password: '', username: ''});
-  const [isError, setIsError] = useState({ email: '', password: '', username: ''});
+  const [register, setRegister] = useState({ email: '', password: '', username: '' });
+  const [isError, setIsError] = useState({ email: '', password: '', username: '' });
   const [isViewPassword, setIsViewPassword] = useState({});
+  const [isRegister, setIsRegister] = useState(undefined);
 
   useEffect(() => {
-    if(termsAccepted) setAttention(undefined)
-  }, [termsAccepted])
+    if (termsAccepted) setAttention(undefined)
+  }, [termsAccepted]);
+
+  const signUp = async (username, password, email) => {
+
+    try {
+      const { user } = await Auth.signUp({
+        password,
+        username,
+        attributes: {
+          name: username,
+          email,
+        },
+        custom: { isGerdauRelated: 'true' },
+      });
+      setIsRegister(true);
+    } catch (error) {
+      console.log('error signing up:', error);
+    }
+  }
+
 
   const handleGoBack = () => {
-    setCurrentStep(steps[currentStep.value -1])
+    setCurrentStep(steps[currentStep.value - 1])
     // if (currentStep.value <= steps.length) setCurrentStep(steps[currentStep.value -1])
     // setCurrentStep(steps[currentStep.value - 1 ]);
   }
@@ -93,20 +114,19 @@ const CreateAccount = (props) => {
     const isEmailValid = !!register?.email;
     const isPasswordValid = !!register?.password && register?.password.length >= 6;
     const isNameValid = !!register?.username && register?.username.length >= 3;
-    const isNextScreen = (currentStep.name === 'email' && isEmailValid) || (currentStep.name === 'password' && isPasswordValid) || (currentStep.name === 'username'  && isNameValid);
+    const isNextScreen = (currentStep.name === 'email' && isEmailValid) || (currentStep.name === 'password' && isPasswordValid) || (currentStep.name === 'username' && isNameValid);
 
-    if (lastScreen)  {
-      if(!termsAccepted) setAttention(true)
+    if (lastScreen) {
+      if (!termsAccepted) setAttention(true)
       else handleFinish()
     }
-    if(isNextScreen) {
+    if (isNextScreen) {
       if (currentStep.value < steps.length) {
-        if(isEmailValid && isPasswordValid && isNameValid) {
-          console.log('fazer post na aqui');
+        if (isEmailValid && isPasswordValid && isNameValid) {
+          signUp(register.username, register.password, register.email)
         }
         return setCurrentStep(steps[currentStep.value]);
       }
-      
     } else {
       setIsError({
         [currentStep.name]: true,
@@ -178,7 +198,7 @@ const CreateAccount = (props) => {
         <CheckBox
           isSelected={termsAccepted}
           onClick={handleAceptTerms}
-          attetion={attention}/>
+          attetion={attention} />
       </>
     );
   }
@@ -203,7 +223,7 @@ const CreateAccount = (props) => {
 
   return (
     <Container>
-      <Header text='Cadastro' handleGoBack={handleGoBack}/>
+      <Header text='Cadastro' handleGoBack={handleGoBack} />
       <Content>
         <div>
           <ProgressBar currentStep={currentStep.value} steps={steps.length} />
@@ -217,7 +237,7 @@ const CreateAccount = (props) => {
             <AttentionText>Você deve marcar que concorda com os termos para seguir</AttentionText>
           )}
         </ButtonAndAlertBox>
-        
+        {isRegister && <p>Registrado com sucesso!!!</p>}
       </Content>
     </Container>
   );

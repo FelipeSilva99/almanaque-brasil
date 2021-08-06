@@ -58,14 +58,14 @@ const ContentInput = ({
         required
         name={name}
         value={value}
-        type={type === 'password' && !isViewPassword ? 'password' : type}
+        type={type}
         placeholder={placeholder || 'Digite aqui...'}
         autoFocus={true}
         onChange={handleChange}
       />
-      {type === 'password' && (
+      {name === 'password' && (
         <Button onClick={handleViewPassword}>
-          <img src={isViewPassword ? eyeBlocked : eye} alt='visualizar senha' />
+          <img src={isViewPassword ? eye : eyeBlocked} alt='visualizar senha' />
         </Button> 
       )}
     </Content>

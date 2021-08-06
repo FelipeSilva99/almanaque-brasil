@@ -135,7 +135,7 @@ const CreateAccount = (props) => {
         label='Crie sua senha'
         subtitle='Crie uma senha fácil de lembrar para poder acessar sua conta'
         name='password'
-        type='password'
+        type={isViewPassword ? 'password' : 'text'}
         value={register?.password}
         placeholder='Digite a senha aqui'
         isError={isError?.password && 'Sua senha deve conter 6 caracteres'}

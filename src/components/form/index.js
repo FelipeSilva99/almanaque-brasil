@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 //Component
 import Input from './input';
-
+import Select from './select';
 
 // Styles
 const Container = styled.form`
@@ -29,6 +29,8 @@ const Subtitle = styled.p`
   text-align: center;
 `;
 
+
+
 const Form = ({
   label,
   subtitle,
@@ -36,19 +38,24 @@ const Form = ({
   value,
   placeholder,
   type,
-  handleChange
+  handleChange,
+  selector
 }) => {
   return (
     <Container>
       <Label>{label}</Label>
       <Subtitle>{subtitle}</Subtitle>
-      <Input
-        name={name}
-        value={value}
-        placeholder={placeholder}
-        type={type}
-        handleChange={handleChange}
-      />
+      {selector ? (
+          <Select value={value} name={name} handleChange={handleChange}/>
+        ) : (
+          <Input
+            name={name}
+            value={value}
+            placeholder={placeholder}
+            type={type}
+            handleChange={handleChange}
+          />
+        )}
     </Container>
   );
 }

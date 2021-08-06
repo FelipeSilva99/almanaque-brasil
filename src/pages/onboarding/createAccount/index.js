@@ -17,12 +17,15 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  /* height: 90vh; */
   flex: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
+  padding-top: 5vh;
+  @media (max-height: 600px) {
+    height: calc(95vh - 2rem );
+  }
 `;
 
 const CreateAccount = (props) => {
@@ -76,7 +79,14 @@ const CreateAccount = (props) => {
 
   const RenderQuestionKinship = () => {
     return (
-      <h2>Você tem algum parentesco...?</h2>
+      <Form
+        label='Você possui parentesco com alguém da GERDAU?'
+        name='kinship'
+        value={register.kinship}
+        placeholder='Digite seu name aqui'
+        handleChange={handleChange}
+        selector
+      />
     );
   }
 
@@ -103,14 +113,15 @@ const CreateAccount = (props) => {
   }
 
   return (
-    console.log(currentStep),
     <Container>
       <Header text='Cadastro' />
-      <ProgressBar currentStep={currentStep.value} steps={steps.length} />
       <Content>
-        {renderByStep()}
+        <div>
+          <ProgressBar currentStep={currentStep.value} steps={steps.length} />
+          {renderByStep()}
+        </div>
+        <Button handleClick={handleNext}>Próximo</Button>
       </Content>
-      <Button handleClick={handleNext}>Próximo</Button>
     </Container>
   );
 }

@@ -57,7 +57,7 @@ const Button = ({
       margin={margin}
     >
       {didYouKnowScreen && <Image src={trunk} />}
-      <Btn color={color} disabled={disabled} onClick={handleClick}>{children}</Btn>
+      <Btn color={color} disabled={disabled} onClick={(ev) => handleClick(ev)}>{children}</Btn>
     </Content>
   );
 }

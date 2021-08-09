@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import styled from 'styled-components';
-import { useHistory } from "react-router-dom";
 
 //Images
 import iconBack from '../../images/icons/onboarding/arrow.svg';
@@ -27,12 +26,7 @@ const Text = styled.h1`
 `;
 
 const Header = ({ text, handleGoBack }) => {
-  // const history = useHistory()
-  
-  // const goBack = () => {
-  //   history.goBack()
-  // }
-  
+ 
   return (
     <Container>
       <Figure onClick={handleGoBack}>

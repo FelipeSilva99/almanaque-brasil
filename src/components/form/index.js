@@ -32,7 +32,7 @@ const Subtitle = styled.p`
 `;
 
 const Error = styled.p`
-  padding-left: 1rem;
+  padding: 1rem ;
   font-size: .75rem;
   color: #FF3333;
   align-self: self-end;
@@ -58,7 +58,7 @@ const Form = ({
       <Label>{label}</Label>
       <Subtitle>{subtitle}</Subtitle>
       {selector ? (
-        <Select value={value} name={name} handleChange={handleChange} />
+        <Select value={value} name={name} handleChange={(value) => handleChange(value)} />
       ) : (
         <Input
           name={name}
@@ -70,7 +70,7 @@ const Form = ({
           handleViewPassword={handleViewPassword}
         />
       )}
-      <Button>{lastScreen ? 'Finalizar' : 'Próximo'}</Button>
+      <Button  handleClick={(ev) => {ev.stopPropagation()}}>{lastScreen ? 'Finalizar' : 'Próximo'}</Button>
       <Error>{isError}</Error>
     </Container>
   );

@@ -11,6 +11,7 @@ const Content = styled.div`
   margin: 1rem 0;
   padding: 0 1rem;
   width: 100%;
+  max-width: 425px;
   height: 2.75rem;
   border-radius: 8px;
   background: #fff;

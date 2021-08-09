@@ -32,8 +32,8 @@ const Option = styled.option`
   background: #fff;
   font-weight: 900;
 
-  >hover{
-    background-color: red;
+  :hover{
+    background-color: #F3F3F3;
   }
 `;
 
@@ -50,8 +50,8 @@ const Arrow = styled.figure`
 
 const Select = ({ name, value, handleChange }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const handleSelect = (value) => {
-    
+  const handleSelect = (ev, value) => {
+    ev.stopPropagation();
     handleChange({
       target: {
         name: name,
@@ -61,26 +61,30 @@ const Select = ({ name, value, handleChange }) => {
   }
   const options = () => {
     return <>
-      <Option onClick={() => handleSelect(true)}>Sim</Option>
-      <Option onClick={() => handleSelect(false)}>Não</Option>
+      {/* <Option onClick={(ev) => handleSelect(ev, true)}>Sim</Option>
+      <Option onClick={(ev) => handleSelect(ev, false)}>Não</Option> */}
+      <Option onClick={(ev) => handleSelect(ev, 'sim')}>Sim</Option>
+      <Option onClick={(ev) => handleSelect(ev, 'não')}>Não</Option>
     </>
   }
 
   return (
-    <Content 
-    onClick={(ev) => {
-      ev.stopPropagation()
-      setIsOpen(!isOpen)}
-    } 
-    name={name}>
+    <Content
+      name={name}
+      onClick={(ev) => {
+        ev.stopPropagation()
+        setIsOpen(!isOpen)
+      }}
+    >
       <Arrow isOpen={isOpen}>
         <img src={arrow}></img>
       </Arrow>
-      {(value === true && !isOpen) && <Text active>Sim</Text>}
-      {(value === false && !isOpen) && <Text active>Não</Text>}
-      {(value === undefined || isOpen) &&  <Text>Escolha uma opção:</Text>}
+      {/* {(value === true && !isOpen) && <Text active>Sim</Text>}
+      {(value === false && !isOpen) && <Text active>Não</Text>} */}
+      {(value === 'sim' && !isOpen) && <Text active>Sim</Text>}
+      {(value === 'não' && !isOpen) && <Text active>Não</Text>}
+      {(value === undefined || isOpen) && <Text>Escolha uma opção:</Text>}
       {isOpen && options()}
-
     </Content>
   );
 }

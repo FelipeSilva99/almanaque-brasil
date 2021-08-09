@@ -83,7 +83,6 @@ const Activities = (props) => {
     }
   }
 
-
   const hasNextActivitie = () => {
     return true
   }

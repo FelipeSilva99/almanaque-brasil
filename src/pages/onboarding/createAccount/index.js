@@ -7,7 +7,6 @@ import ProgressBar from '../../../components/progressBar';
 import CheckBox from '../../../components/form/checkBox';
 import Header from '../../../components/header/headerOnb';
 import Form from '../../../components/form';
-import Button from '../../../components/buttons/button';
 
 //Styles
 const Container = styled.div`
@@ -42,8 +41,13 @@ const ButtonAndAlertBox = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: 3rem;
+  /* padding-top: 3rem; */
   text-align: center;
+`;
+
+const ContentSelect  = styled.div`
+  margin: auto;
+  max-width: 425px;
 `;
 
 const CreateAccount = (props) => {
@@ -55,17 +59,22 @@ const CreateAccount = (props) => {
   const [attention, setAttention] = useState(undefined)
   const [lastScreen, setLastScreen] = useState(false)
   const [currentStep, setCurrentStep] = useState(steps[0]);
-  const [register, setRegister] = useState({ email: '', password: '', username: '' });
-  const [isError, setIsError] = useState({ email: '', password: '', username: '' });
+  const [register, setRegister] = useState({ email: '', password: '', username: '', });
+  const [isError, setIsError] = useState({ email: '', password: '', username: '', kinship: false  });
   const [isViewPassword, setIsViewPassword] = useState({});
   const [isRegister, setIsRegister] = useState(undefined);
+  
+  const goToAccountCreatedScreen = () => {
+    props.history.push({
+      pathname: `/accountCreated`,
+    });
+  }
 
   useEffect(() => {
     if (termsAccepted) setAttention(undefined)
   }, [termsAccepted]);
 
   const signUp = async (username, password, email) => {
-
     try {
       const { user } = await Auth.signUp({
         password,
@@ -76,7 +85,8 @@ const CreateAccount = (props) => {
         },
         custom: { isGerdauRelated: 'true' },
       });
-      setIsRegister(true);
+      // setIsRegister(true);
+      goToAccountCreatedScreen();
     } catch (error) {
       console.log('error signing up:', error);
     }
@@ -102,6 +112,19 @@ const CreateAccount = (props) => {
     });
   }
 
+  const handleChangeSelect = (ev) => {
+    const target = ev?.target;
+    
+    setRegister({
+      ...register,
+      kinship: target.value,
+    });
+
+    setIsError({
+      [target.name]: false,
+    });
+  }
+
   const handleViewPassword = (ev) => {
     ev.preventDefault();
 
@@ -110,20 +133,20 @@ const CreateAccount = (props) => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-
     const isEmailValid = !!register?.email;
     const isPasswordValid = !!register?.password && register?.password.length >= 6;
     const isNameValid = !!register?.username && register?.username.length >= 3;
+    const isKinshipValid = !!register?.kinship;
     const isNextScreen = (currentStep.name === 'email' && isEmailValid) || (currentStep.name === 'password' && isPasswordValid) || (currentStep.name === 'username' && isNameValid);
-
     if (lastScreen) {
-      if (!termsAccepted) setAttention(true)
-      else handleFinish()
+      if (!termsAccepted) setAttention(true);
+      // else handleFinish()
+      if (!isKinshipValid) setIsError({...register, kinship: true});
     }
     if (isNextScreen) {
       if (currentStep.value < steps.length) {
-        if (isEmailValid && isPasswordValid && isNameValid) {
-          signUp(register.username, register.password, register.email)
+        if (isEmailValid && isPasswordValid && isNameValid ) {
+          signUp(register.username, register.password, register.email);
         }
         return setCurrentStep(steps[currentStep.value]);
       }
@@ -183,7 +206,7 @@ const CreateAccount = (props) => {
   }
 
   const RenderQuestionKinship = () => {
-    setLastScreen(true)
+    setLastScreen(true);
     return (
       <>
         <Form
@@ -191,9 +214,11 @@ const CreateAccount = (props) => {
           name='kinship'
           value={register?.kinship}
           placeholder='Digite seu name aqui'
-          handleChange={handleChange}
+          handleChange={handleChangeSelect}
           selector
           lastScreen='Finalizar'
+          isError={isError?.kinship && 'Por favor, Selecione uma opção'}
+          handleSubmit={handleSubmit}
         />
         <CheckBox
           isSelected={termsAccepted}
@@ -223,6 +248,7 @@ const CreateAccount = (props) => {
 
   return (
     <Container>
+    {console.log('isEror', isError.kinship)}
       <Header text='Cadastro' handleGoBack={handleGoBack} />
       <Content>
         <div>

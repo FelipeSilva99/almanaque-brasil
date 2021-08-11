@@ -7,7 +7,7 @@ import arrow from '../../images/icons/onboarding/arrow.svg';
 
 // Styles
 const Content = styled.div`
-  margin: 1rem 0;
+  margin-top: 1rem;
   padding-left: 1rem;
   width: 100%;
   border-radius: 8px;

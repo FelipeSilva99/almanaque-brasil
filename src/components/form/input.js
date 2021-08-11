@@ -8,10 +8,8 @@ import eyeBlocked from '../../images/icons/onboarding/eyeBlocked.svg';
 
 // Styles
 const Content = styled.div`
-  margin: 1rem 0;
-  padding: 0 1rem;
+  margin: 1rem 0 .25rem 0;
   width: 100%;
-  max-width: 425px;
   height: 2.75rem;
   border-radius: 8px;
   background: #fff;
@@ -26,11 +24,13 @@ const Content = styled.div`
 `;
 
 const Input = styled.input`
+  padding: 0 1rem;
   width: 100%;
   font-size: 1rem;
   color: #373737;
   background: #fff;
   font-weight: 900;
+  border-radius: 8px;
   
   ::placeholder{
     color: #B9B9B9;
@@ -39,10 +39,10 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
+  padding-right: 1rem;
   display: flex;
   align-items: center;
 `;
-
 
 const ContentInput = ({
   name,

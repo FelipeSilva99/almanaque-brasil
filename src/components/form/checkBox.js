@@ -1,16 +1,18 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
 
 // Styles
 const Content = styled.div`
+  padding-bottom: 2rem;
   display: flex;
   align-items: center;
   flex-direction: row;
   cursor: pointer;
+  align-self: end;
 `;
-const Check = styled.div`
+
+const Check = styled.button`
   width: 1rem;
   height: 1rem;
   border: 1px solid ${props => props.attention ? '#FF3333' : '#D1D1D1'};
@@ -25,24 +27,25 @@ const CheckIcon = styled.div`
   height: 100%;
   border-radius: 4px;
 `;
+
 const Text = styled.p`
-  margin-left: .5rem;
-  font-size: 1rem;
+  padding-left: .5rem;
+  font-size: .85rem;
   font-weight: normal;
   color: #373737;
+  
   >strong{
     font-weight: bold;
   }
 `;
 
 const CheckBox = ({ attention, isSelected, onClick }) => {
-
   return (
-    <Content onClick={onClick}>
-      <Check attention={attention}>
+    <Content>
+      <Check attention={attention} onClick={onClick}>
         {isSelected && <CheckIcon />}
       </Check>
-      <Text>Concordo com os <strong>termos de serviço</strong> do app ...</Text>
+      <Text>Concordo com os <strong>termos de serviço</strong> do app...</Text>
     </Content>  
   );
 }

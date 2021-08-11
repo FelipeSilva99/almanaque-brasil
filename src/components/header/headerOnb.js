@@ -26,7 +26,6 @@ const Text = styled.h1`
 `;
 
 const Header = ({ text, onClick }) => {
- 
   return (
     <Container>
       <Figure onClick={onClick}>

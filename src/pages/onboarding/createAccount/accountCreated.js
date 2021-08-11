@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
+import { Auth } from 'aws-amplify';
 
 //Components
 import Header from '../../../components/header/headerOnb';
@@ -39,11 +40,32 @@ const Text = styled.p`
   text-align: center;
 `;
 
+const Error = styled.p`
+  font-size: .85rem;
+  color: #FF3333;
+`;
+
 const AccountCreated = () => {
   const history = useHistory();
+  const [username, setUsername] = useState('');
+  const [isError, setIsError] = useState(false);
+
+
+  useEffect(() => {
+    setUsername(history.location.state.username);
+  }, []);
 
   const goHome = () => {
     history.push("/");
+  }
+
+  async function resendConfirmationCode() {
+    try {
+      await Auth.resendSignUp(username);
+    } catch (err) {
+      setIsError(true);
+      console.log('error resending code: ', err);
+    }
   }
 
   return (
@@ -52,7 +74,8 @@ const AccountCreated = () => {
       <Content>
         <Title>Verifique seu e-mail</Title>
         <Text>Enviamos uma mensagem de confirmação para o seu e-mail cadastrado.</Text>
-        <Button margin='1rem' handleClick={goHome}>reenviar</Button>
+        <Button margin='1rem' handleClick={resendConfirmationCode}>reenviar</Button>
+        {isError && <Error>Erro ao reenviar</Error>}
       </Content>
     </Container>
   );

@@ -5,11 +5,13 @@ import styled from 'styled-components';
 //Component
 import Input from './input';
 import Button from '../buttons/button';
-import Select from './select';
+import Select from './contentSelect';
 
 // Styles
 const Container = styled.form`
+  margin: auto;
   width: 100%;
+  max-width: 425px;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -32,7 +34,8 @@ const Subtitle = styled.p`
 `;
 
 const Error = styled.p`
-  padding: 1rem ;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
   font-size: .75rem;
   color: #FF3333;
   align-self: self-end;
@@ -51,27 +54,40 @@ const Form = ({
   handleChange,
   isViewPassword,
   handleViewPassword,
-  handleSubmit
+  handleSubmit,
+  isTermsAccepted,
+  handleAceptTerms,
+  attention,
 }) => {
   return (
     <Container onSubmit={handleSubmit}>
       <Label>{label}</Label>
       <Subtitle>{subtitle}</Subtitle>
       {selector ? (
-        <Select value={value} name={name} handleChange={(value) => handleChange(value)} />
-      ) : (
-        <Input
-          name={name}
+        <Select
           value={value}
-          placeholder={placeholder}
-          type={type}
+          name={name}
           handleChange={handleChange}
-          isViewPassword={isViewPassword}
-          handleViewPassword={handleViewPassword}
+          isTermsAccepted={isTermsAccepted}
+          handleAceptTerms={handleAceptTerms}
+          attention={attention}
+          isError={isError}
         />
+      ) : (
+        <>
+          <Input
+            name={name}
+            value={value}
+            placeholder={placeholder}
+            type={type}
+            handleChange={handleChange}
+            isViewPassword={isViewPassword}
+            handleViewPassword={handleViewPassword}
+          />
+          <Error>{isError}</Error>
+        </>
       )}
-      <Button  handleClick={(ev) => {ev.stopPropagation()}}>{lastScreen ? 'Finalizar' : 'Próximo'}</Button>
-      <Error>{isError}</Error>
+      <Button>{lastScreen ? 'Finalizar' : 'Próximo'}</Button>
     </Container>
   );
 }

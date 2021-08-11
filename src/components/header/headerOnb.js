@@ -22,14 +22,14 @@ const Text = styled.h1`
   position: relative;
   left: 50%;
   right: 50%;
-  transform: translate(-100%);
+  transform: translate(-77%);
 `;
 
-const Header = ({ text, handleGoBack }) => {
+const Header = ({ text, onClick }) => {
  
   return (
     <Container>
-      <Figure onClick={handleGoBack}>
+      <Figure onClick={onClick}>
         <img src={iconBack} alt='Voltar' />
       </Figure>
       <Text>{text}</Text>

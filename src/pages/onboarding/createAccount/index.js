@@ -254,7 +254,7 @@ const CreateAccount = (props) => {
 
   return (
     <Container>
-      <Header text='Cadastro' handleGoBack={handleGoBack} />
+      <Header text='Cadastro' onClick={handleGoBack} />
       <Content>
         <div>
           <ProgressBar currentStep={currentStep.value} steps={steps.length} />

@@ -48,7 +48,7 @@ const AccountCreated = () => {
 
   return (
     <Container>
-      <Header text='Verificar e-mail' />
+      <Header onClick={goHome} text='Verificar e-mail' />
       <Content>
         <Title>Verifique seu e-mail</Title>
         <Text>Enviamos uma mensagem de confirmação para o seu e-mail cadastrado.</Text>

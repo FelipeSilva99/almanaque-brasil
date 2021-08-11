@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Auth } from 'aws-amplify';
 
@@ -46,8 +46,10 @@ const ButtonAndAlertBox = styled.div`
 
 const CreateAccount = (props) => {
   const steps = [
-    { name: 'email', value: 1 }, { name: 'password', value: 2 },
-    { name: 'username', value: 3 }, { name: 'kinship', value: 4 }
+    { name: 'email', value: 1 },
+    { name: 'password', value: 2 },
+    { name: 'username', value: 3 },
+    { name: 'kinship', value: 4 }
   ];
   const [isTermsAccepted, setTermsAccpted] = useState(false);
   const [attention, setAttention] = useState(undefined);
@@ -82,9 +84,11 @@ const CreateAccount = (props) => {
   }
 
   const handleGoBack = () => {
-    setCurrentStep(steps[currentStep.value - 1])
-    // if (currentStep.value <= steps.length) setCurrentStep(steps[currentStep.value -1])
-    // setCurrentStep(steps[currentStep.value - 1 ]);
+    if (currentStep.value > 1) {
+      setCurrentStep(steps[currentStep.value-2])
+    } else {
+      props.history.goBack()
+    }
   }
 
   const handleIsError = (name) => {
@@ -102,9 +106,6 @@ const CreateAccount = (props) => {
     });
 
     handleIsError(currentStep.name);
-    // setIsError({
-    //   [currentStep.name]: false,
-    // });
   }
 
   const handleChangeSelect = (ev) => {
@@ -116,11 +117,6 @@ const CreateAccount = (props) => {
     });
 
     handleIsError(currentStep.name);
-
-
-    // setIsError({
-    //   [target.name]: false,
-    // });
   }
 
   const handleViewPassword = (ev) => {
@@ -164,11 +160,6 @@ const CreateAccount = (props) => {
         [pageName]: true,
       });
     }
-
-
-    // if (isNextScreen) {
-      // return setCurrentStep(steps[currentStep.value]);
-    // 
   }
 
   const RenderCreateEmail = () => {

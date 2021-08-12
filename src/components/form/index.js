@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React, {useState} from 'react';
 import styled from 'styled-components';
 
@@ -20,6 +19,7 @@ const Container = styled.form`
 `;
 
 const Label = styled.label`
+  max-width: 230px;
   text-align: center;
   padding: 2rem 0 0;
   font-size: 1.5rem;
@@ -51,6 +51,7 @@ const Form = ({
   subtitle,
   name,
   value,
+  children,
   placeholder,
   type,
   isError,
@@ -62,7 +63,6 @@ const Form = ({
   handleSubmit,
   isTermsAccepted,
   handleAceptTerms,
-
   // Quando é um email de form
   login,
   attention,
@@ -130,7 +130,7 @@ const Form = ({
             <Error>{isError}</Error>
           </>
         )}
-        <Button>{lastScreen ? 'Finalizar' : 'Próximo'}</Button>
+        <Button>{children ? children : 'Próximo'}</Button>
       </Container>
   );
 }

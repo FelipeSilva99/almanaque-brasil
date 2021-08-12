@@ -12,8 +12,9 @@ import Routes from './routes/routes';
 
 Amplify.configure({
 	Auth: {
-		userPoolId: 'us-east-1_OZOSEhDSK',
+		userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
 		userPoolWebClientId: process.env.REACT_APP_COGNITO_WEB_CLIENT_ID,
+		clientId: process.env.REACT_APP_COGNITO_WEB_CLIENT_ID,
 		region: process.env.REACT_APP_COGNITO_REGION,
 	}
 });

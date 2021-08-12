@@ -22,7 +22,6 @@ const Content = styled.div`
   align-items: center;
   flex-direction: column;
   padding-top: 5vh;
-  /* min-height: 50vh; */
   
   @media (max-height: 600px) {
     height: calc(95vh - 2rem );
@@ -40,7 +39,6 @@ const ButtonAndAlertBox = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  /* padding-top: 3rem; */
   text-align: center;
 `;
 
@@ -55,18 +53,18 @@ const CreateAccount = (props) => {
   const [attention, setAttention] = useState(undefined);
   const [lastScreen, setLastScreen] = useState(false);
   const [currentStep, setCurrentStep] = useState(steps[0]);
-  const [register, setRegister] = useState({ email: '', password: '', username: '',  });
+  const [register, setRegister] = useState({ email: '', password: '', username: '', });
   const [isError, setIsError] = useState({ email: '', password: '', username: '', kinship: false });
   const [isViewPassword, setIsViewPassword] = useState({});
 
   const goToAccountCreatedScreen = () => {
     props.history.push({
       pathname: `/accountCreated`,
+      state: { username: register.username }
     });
   }
 
   const signUp = async (username, password, email, kinship) => {
-    console.log(username, password, email, kinship);
     try {
       const { user } = await Auth.signUp({
         password,
@@ -79,13 +77,19 @@ const CreateAccount = (props) => {
       });
       goToAccountCreatedScreen();
     } catch (error) {
+      if (error.code === "UsernameExistsException") {
+        setCurrentStep({ name: 'username', value: 3 });
+        setIsError({ username: true, msg: 'Esse nome já existe' });
+      }
+      setAttention(false);
       console.log('error signing up:', error);
     }
   }
 
   const handleGoBack = () => {
     if (currentStep.value > 1) {
-      setCurrentStep(steps[currentStep.value-2])
+      setCurrentStep(steps[currentStep.value - 2]);
+      setLastScreen(false);
     } else {
       props.history.goBack()
     }
@@ -96,13 +100,16 @@ const CreateAccount = (props) => {
       [name]: false,
     });
   }
-  
+
   const handleChange = (ev) => {
     ev.preventDefault();
+    const value = ev.target.value;
+    const name = ev.target.name;
+    const formattedValue = name === 'username' ? value.replace(/ /g, "") : value;
 
     setRegister({
       ...register,
-      [ev.target.name]: ev.target.value,
+      [name]: formattedValue,
     });
 
     handleIsError(currentStep.name);
@@ -126,6 +133,8 @@ const CreateAccount = (props) => {
   }
 
   const handleAceptTerms = () => {
+    !isTermsAccepted  && setAttention(false);
+    handleIsError('kinship');
     setTermsAccpted(!isTermsAccepted);
   }
 
@@ -148,17 +157,26 @@ const CreateAccount = (props) => {
 
     const isPageValid = isPageEmailValid || isPagePasswordValid || isPageNameValid || isPageKinshipValid;
 
-    if(isPageValid) {
+    if (isPageValid) {
       if (currentStep.value < steps.length) {
         return setCurrentStep(steps[currentStep.value]);
       } else {
         signUp(username, password, email, kinship);
       }
     } else {
-      lastScreen && isTermsAccepted === false ? setAttention(true) : setAttention(false);
-      setIsError({
-        [pageName]: true,
-      });
+      const isNameError = pageName === 'username' && 'O nome deve pelo menos 3 caracteres';
+      const isEmailError = pageName === 'email' && 'Esse e-mail já existe';
+      const isError = isNameError || isEmailError;
+
+      if(lastScreen) {
+        isTermsAccepted === false ? setAttention(true) : setAttention(false)
+        isKinshipValid ? setIsError({[pageName]: false}) : setIsError({[pageName]: true})
+      } else {
+        setIsError({
+          [pageName]: true,
+          msg: isError,
+        });
+      }
     }
   }
 
@@ -203,7 +221,7 @@ const CreateAccount = (props) => {
         name='username'
         value={register?.username}
         placeholder='Digite seu name aqui'
-        isError={isError.username && 'O nome deve pelo menos 3 caracteres'}
+        isError={isError.username && isError.msg}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
@@ -212,6 +230,7 @@ const CreateAccount = (props) => {
 
   const RenderQuestionKinship = () => {
     setLastScreen(true);
+    console.log('error', isError);
     return (
       <Form
         label='Você possui parentesco com alguém da GERDAU?'
@@ -220,7 +239,7 @@ const CreateAccount = (props) => {
         placeholder='Digite seu name aqui'
         handleChange={handleChangeSelect}
         selector
-        lastScreen='Finalizar'
+        children='Finalizar'
         isError={isError?.kinship && 'Por favor, Selecione uma opção'}
         handleSubmit={handleSubmit}
         isTermsAccepted={isTermsAccepted}
@@ -239,10 +258,6 @@ const CreateAccount = (props) => {
     }
   }
 
-  const handleFinish = () => {
-    alert('Última tela')
-  }
-
   return (
     <Container>
       <Header text='Cadastro' onClick={handleGoBack} />
@@ -252,9 +267,6 @@ const CreateAccount = (props) => {
           {renderByStep()}
         </div>
         <ButtonAndAlertBox>
-          {/* <Button handleClick={handleNext}>
-            {lastScreen ? "Finalizar" : "Próximo"}
-          </Button> */}
           {attention && (
             <AttentionText>Você deve marcar que concorda com os termos para seguir</AttentionText>
           )}

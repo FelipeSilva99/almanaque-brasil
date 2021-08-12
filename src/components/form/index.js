@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 //Component
@@ -15,7 +15,7 @@ const Container = styled.form`
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: ${props => props.login ? 'flex-start' : 'center'};
   flex-direction: column;
 `;
 
@@ -41,6 +41,11 @@ const Error = styled.p`
   align-self: self-end;
 `;
 
+const ButtonSpacer = styled.div`
+  margin-top: 2rem;
+  width: 100%;
+`;
+
 const Form = ({
   label,
   subtitle,
@@ -57,38 +62,76 @@ const Form = ({
   handleSubmit,
   isTermsAccepted,
   handleAceptTerms,
+
+  // Quando é um email de form
+  login,
   attention,
+  emailValue,
+  passValue,
+  handleLogin
 }) => {
-  return (
-    <Container onSubmit={handleSubmit}>
-      <Label>{label}</Label>
-      <Subtitle>{subtitle}</Subtitle>
-      {selector ? (
-        <Select
-          value={value}
-          name={name}
+  const [showPassword, setShowPassword] = useState(false)
+
+  return login
+    ?(
+      <Container onSubmit={handleLogin} login>
+        <Label>Email</Label>
+        <Input
+          name={"email"}
+          value={emailValue}
+          placeholder={"Digite seu email aqui"}
+          type={'email'}
           handleChange={handleChange}
-          isTermsAccepted={isTermsAccepted}
-          handleAceptTerms={handleAceptTerms}
-          attention={attention}
-          isError={isError}
         />
-      ) : (
-        <>
-          <Input
-            name={name}
+
+        <Label>Senha</Label>
+        <Input
+          name={"password"}
+          value={passValue}
+          placeholder={"Digite sua senha aqui"}
+          type={showPassword ? 'text' : 'password'}
+          handleChange={handleChange}
+          handleViewPassword={(e) => {
+            e.preventDefault()
+            setShowPassword(!showPassword)
+          }}
+        />
+        <Error>{isError}</Error>
+        <ButtonSpacer>
+          <Button>Entrar</Button>
+        </ButtonSpacer>
+      </Container>
+    )
+    : (
+      <Container onSubmit={handleSubmit}>
+        <Label>{label}</Label>
+        <Subtitle>{subtitle}</Subtitle>
+        {selector ? (
+          <Select
             value={value}
-            placeholder={placeholder}
-            type={type}
+            name={name}
             handleChange={handleChange}
-            isViewPassword={isViewPassword}
-            handleViewPassword={handleViewPassword}
+            isTermsAccepted={isTermsAccepted}
+            handleAceptTerms={handleAceptTerms}
+            attention={attention}
+            isError={isError}
           />
-          <Error>{isError}</Error>
-        </>
-      )}
-      <Button>{lastScreen ? 'Finalizar' : 'Próximo'}</Button>
-    </Container>
+        ) : (
+          <>
+            <Input
+              name={name}
+              value={value}
+              placeholder={placeholder}
+              type={type}
+              handleChange={handleChange}
+              isViewPassword={isViewPassword}
+              handleViewPassword={handleViewPassword}
+            />
+            <Error>{isError}</Error>
+          </>
+        )}
+        <Button>{lastScreen ? 'Finalizar' : 'Próximo'}</Button>
+      </Container>
   );
 }
 

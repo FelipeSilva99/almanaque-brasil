@@ -21,11 +21,13 @@ import {
 	getTrailsThunk,
 } from '../dataflow/thunks/trails-thunk';
 
-const mapDispatchToProps = dispatch => ({
-	getTrailsThunk: () => {
-		dispatch(getTrailsThunk());
-	},
-});
+const mapDispatchToProps = dispatch => {{
+	return {
+		getTrailsThunk: () => {
+			dispatch(getTrailsThunk());
+		},
+	}
+}};
 
 const Routes = (props) => {
 	useEffect(() => {

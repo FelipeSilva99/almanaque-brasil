@@ -50,7 +50,6 @@ const AccountCreated = () => {
   const [username, setUsername] = useState('');
   const [isError, setIsError] = useState(false);
 
-
   useEffect(() => {
     setUsername(history.location.state.username);
   }, []);

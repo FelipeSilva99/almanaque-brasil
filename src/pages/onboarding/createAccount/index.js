@@ -64,16 +64,18 @@ const CreateAccount = (props) => {
     });
   }
 
-  const signUp = async (username, password, email, kinship) => {
+  const signUp = async (name, password, email, kinship, isTermsAccepted) => {
     try {
       const { user } = await Auth.signUp({
         password,
-        username,
+        username: email,
         attributes: {
-          name: username,
-          email,
+          name,
         },
-        custom: { isGerdauRelated: kinship },
+        custom: {
+          isGerdauRelated: kinship,
+          agreeTermsOfUse: isTermsAccepted,
+        },
       });
       goToAccountCreatedScreen();
     } catch (error) {
@@ -161,7 +163,7 @@ const CreateAccount = (props) => {
       if (currentStep.value < steps.length) {
         return setCurrentStep(steps[currentStep.value]);
       } else {
-        signUp(username, password, email, kinship);
+        signUp(username, password, email, kinship, isTermsAccepted);
       }
     } else {
       const isNameError = pageName === 'username' && 'O nome deve pelo menos 3 caracteres';

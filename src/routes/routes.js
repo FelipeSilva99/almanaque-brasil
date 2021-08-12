@@ -8,6 +8,7 @@ import Home from '../pages/onboarding/login/home';
 import Login from '../pages/onboarding/login/login';
 import CreateAccount from '../pages/onboarding/createAccount';
 import AccountCreated from '../pages/onboarding/createAccount/accountCreated';
+import ResetPassword from '../pages/onboarding/resetPassword';
 
 // import Login from '../pages/login';
 import Trails from '../pages/trails';
@@ -39,6 +40,7 @@ const Routes = (props) => {
 				<Route exact path='/createAccount' component={CreateAccount} />
 				<Route exact path='/accountCreated' component={AccountCreated} />
 				<Route exact path='/login' component={Login} />
+				<Route exact path='/resetPassword' component={ResetPassword} />
 				<Route exact path='/dashboard' component={Dashboard} />
 				<Route exact path='/trails' component={Trails} />
 				<Route exact path='/activities/:trailId' component={Activities} />

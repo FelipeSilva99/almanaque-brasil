@@ -18,18 +18,23 @@ const Container = styled.div`
   background: #F3F3F3;
 `;
 
-const TextDiv = styled.div`
-  width: 100%;
+const ResetButton = styled.button`
+  /* width: 100%; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
   text-align: center;
-  margin-top: 1rem;
+	padding: 1rem;
   color: #373737;
   font-weight: bold;
   cursor: pointer;
 `;
 
 const ButtonSpacer = styled.div`
-  margin-top: 2rem;
+  margin-top: 1rem;
   width: 100%;
+	display: flex;
+	justify-content: center;
 `;
 
 const mapDispatchToProps = dispatch => {
@@ -71,6 +76,9 @@ const Login = (props) => {
 		}
   }
 
+	const resetPassword = () => {
+		props.history.push('/resetPassword')
+	}
 
   return (
     <Container>
@@ -84,6 +92,9 @@ const Login = (props) => {
         isError={error}
         pass
       />
+			<ButtonSpacer>
+				<ResetButton onClick={resetPassword}>Esqueceu a senha?</ResetButton>
+			</ButtonSpacer>
     </Container>
   );
 }

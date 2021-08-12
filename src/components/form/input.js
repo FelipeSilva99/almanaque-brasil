@@ -66,7 +66,7 @@ const ContentInput = ({
       />
       {name === 'password' && (
         <Button onClick={handleViewPassword}>
-          <img src={isViewPassword ? eye : eyeBlocked} alt='visualizar senha' />
+          <img src={isViewPassword ? eyeBlocked : eye} alt='visualizar senha' />
         </Button> 
       )}
     </Content>

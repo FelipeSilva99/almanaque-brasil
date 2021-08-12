@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Auth } from 'aws-amplify';
 import { useHistory } from 'react-router';
+import { connect } from 'react-redux';
 
 //Components
 import Form from '../../../components/form'
 import Header from '../../../components/header/headerOnb';
 import Button from '../../../components/buttons/button';
 
+import { signIn } from '../../../dataflow/modules/signIn-modules'
 
 //Styles
 const Container = styled.div`
@@ -16,19 +18,30 @@ const Container = styled.div`
   background: #F3F3F3;
 `;
 
-const TextDiv = styled.div`
-  width: 100%;
+const ResetButton = styled.button`
+  /* width: 100%; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
   text-align: center;
-  margin-top: 1rem;
+	padding: 1rem;
   color: #373737;
   font-weight: bold;
   cursor: pointer;
 `;
 
 const ButtonSpacer = styled.div`
-  margin-top: 2rem;
+  margin-top: 1rem;
   width: 100%;
+	display: flex;
+	justify-content: center;
 `;
+
+const mapDispatchToProps = dispatch => {
+	return {
+		signIn: (info) => dispatch(signIn(info))
+	}
+};
 
 const Login = (props) => {
   const [register, setRegister] = useState(
@@ -49,20 +62,23 @@ const Login = (props) => {
 
   const handleLogin = (e) => {
     e.preventDefault()
-    signIn() 
+    handleSignIn() 
   }
 
-  async function signIn() {
+  async function handleSignIn() {
 
-    try {
-        const user = await Auth.signIn(register.email, register.password);
-        console.log(user)
-        props.history.push('/dashboard')
-    } catch (error) {
-      if(error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.")
-    }
+		try {
+			const user = await Auth.signIn(register.email, register.password)
+			props.signIn(user)
+			props.history.push('/dashboard')
+		} catch (error) {
+			if(error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.")
+		}
   }
 
+	const resetPassword = () => {
+		props.history.push('/resetPassword')
+	}
 
   return (
     <Container>
@@ -76,8 +92,14 @@ const Login = (props) => {
         isError={error}
         pass
       />
+			<ButtonSpacer>
+				<ResetButton onClick={resetPassword}>Esqueceu a senha?</ResetButton>
+			</ButtonSpacer>
     </Container>
   );
 }
 
-export default Login;
+export default connect(
+	null,
+	mapDispatchToProps
+)(Login);

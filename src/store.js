@@ -11,9 +11,11 @@ import storage from 'redux-persist/lib/storage'
 
 // Reducers
 import TrailsReducer from './dataflow/modules/trails-module';
+import LoginReducer from './dataflow/modules/signIn-modules';
 
 const reducers = combineReducers({
   trails: TrailsReducer,
+  login: LoginReducer
 });
 
 const persistConfig = {

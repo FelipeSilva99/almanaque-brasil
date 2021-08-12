@@ -239,7 +239,7 @@ const CreateAccount = (props) => {
         placeholder='Digite seu name aqui'
         handleChange={handleChangeSelect}
         selector
-        lastScreen='Finalizar'
+        children='Finalizar'
         isError={isError?.kinship && 'Por favor, Selecione uma opção'}
         handleSubmit={handleSubmit}
         isTermsAccepted={isTermsAccepted}

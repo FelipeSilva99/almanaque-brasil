@@ -61,25 +61,14 @@ const Login = (props) => {
   }
 
   async function handleSignIn() {
-		// Auth.signIn(register.email, register.password)
-		// 	.then(user => {
-		// 		props.signIn(user)
-		// 	})
-		// 	.then(user => {
-		// 		props.history.push('/dashboard')
-		// 	})
-		// 	.catch(err => {
-		// 		if(error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.")
-		// 	})
 
-			try {
-				const user = await Auth.signIn(register.email, register.password)
-				props.signIn(user)
-				console.log(user)
-				props.history.push('/dashboard')
-			} catch (error) {
-				if(error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.")
-			}
+		try {
+			const user = await Auth.signIn(register.email, register.password)
+			props.signIn(user)
+			props.history.push('/dashboard')
+		} catch (error) {
+			if(error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.")
+		}
   }
 
 

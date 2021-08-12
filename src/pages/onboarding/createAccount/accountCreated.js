@@ -51,7 +51,7 @@ const AccountCreated = () => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    setUsername(history.location.state.username);
+    setUsername(history?.location?.state?.username);
   }, []);
 
   const goHome = () => {
@@ -61,8 +61,9 @@ const AccountCreated = () => {
   async function resendConfirmationCode() {
     try {
       await Auth.resendSignUp(username);
+      console.log('success resending code:');
     } catch (err) {
-      setIsError(true);
+      setIsError({isError: true, msg: err.message});
       console.log('error resending code: ', err);
     }
   }
@@ -74,7 +75,7 @@ const AccountCreated = () => {
         <Title>Verifique seu e-mail</Title>
         <Text>Enviamos uma mensagem de confirmação para o seu e-mail cadastrado.</Text>
         <Button margin='1rem' handleClick={resendConfirmationCode}>reenviar</Button>
-        {isError && <Error>Erro ao reenviar</Error>}
+        {isError && <Error>{isError.msg ? isError.msg : 'Erro ao reenviar'}</Error>}
       </Content>
     </Container>
   );

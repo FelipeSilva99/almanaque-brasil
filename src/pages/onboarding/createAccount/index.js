@@ -62,11 +62,11 @@ const CreateAccount = (props) => {
   const goToAccountCreatedScreen = () => {
     props.history.push({
       pathname: `/accountCreated`,
-      state: { username: register.username }
     });
   }
 
   const signUp = async (username, password, email, kinship) => {
+    console.log(username, password, email, kinship);
     try {
       const { user } = await Auth.signUp({
         password,

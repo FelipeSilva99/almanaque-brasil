@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 //Redux
-import {
-  selectedTrails,
-} from '../../dataflow/modules/trails-module';
+import { selectedTrails } from '../../dataflow/modules/trails-module';
+import { getTrailsThunk } from '../../dataflow/thunks/trails-thunk';
 
 const mapStateToProps = state => ({
-  trails: state.trails.data
+  trails: state.trails.data,
 });
 
 const mapDispatchToProps = dispatch => ({
   selectedTrails: (info) => {
     dispatch(selectedTrails(info));
+  },
+
+  getTrailsThunk: () => {
+    dispatch(getTrailsThunk());
   },
 });
 
@@ -43,6 +46,11 @@ export const Row = styled.div`
 `;
 
 const Trails = (props) => {
+
+	useEffect(() => {
+		console.log("GET TOKEN")
+		props.getTrailsThunk();
+	}, []);
 
   const handleClick = (trail) => {
     props.history.push({pathname: '/activities'});

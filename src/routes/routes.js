@@ -24,16 +24,13 @@ import {
 
 const mapDispatchToProps = dispatch => {{
 	return {
-		getTrailsThunk: () => {
-			dispatch(getTrailsThunk());
+		getTrailsThunk: (accessToken) => {
+			dispatch(getTrailsThunk(accessToken));
 		},
 	}
 }};
 
 const Routes = (props) => {
-	useEffect(() => {
-		props.getTrailsThunk();
-	}, [props]);
 
 	return (
 		<BrowserRouter>

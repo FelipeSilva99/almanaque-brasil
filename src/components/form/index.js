@@ -19,9 +19,9 @@ const Container = styled.form`
 `;
 
 const Label = styled.label`
-  max-width: 230px;
+  max-width: 235px;
   text-align: center;
-  padding: 2rem 0 0;
+  padding: 2rem 0 .5rem;
   font-size: 1.5rem;
   font-weight: 900;
   color: #373737;

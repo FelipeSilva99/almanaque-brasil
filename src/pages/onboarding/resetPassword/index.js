@@ -13,68 +13,45 @@ const Container = styled.div`
   background: #F3F3F3;
 `;
 
-const Content = styled.div`
-  margin: auto;
-  max-width: 425px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  padding-top: 5vh;
-  
-  @media (max-height: 600px) {
-    height: calc(95vh - 2rem );
-  }
-`;
-
-const AttentionText = styled.p`
-  margin-top: 1rem;
-  font-size: .9rem;
-  color: #FF3333;
-`;
-
-const ButtonAndAlertBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  text-align: center;
-`;
-
 const ResetPassword = (props) => {
   const steps = [
     { name: 'email', value: 1 },
-    { name: 'newPassword', value: 2 },
+    { name: 'password', value: 2 },
   ];
   const [currentStep, setCurrentStep] = useState(steps[0]);
-  const [register, setRegister] = useState({ email: '', password: '', username: '', });
-  const [isError, setIsError] = useState({ email: '', password: '', username: '', kinship: false });
+  const [register, setRegister] = useState({ email: '', password: '' });
+  const [isError, setIsError] = useState({ email: '', password: '' });
   const [isViewPassword, setIsViewPassword] = useState({});
 
-  const goToAccountCreatedScreen = () => {
-    props.history.push({
-      pathname: `/accountCreated`,
-      state: { username: register.username }
-    });
+  const handleCheckEmail = async (email) => {
+    console.log('verificar email');
+
+    try {
+      // const { user } = await Auth.signUp({
+      //   email,
+      //   attributes: {
+      //     email,
+      //   },
+      // });
+      return setCurrentStep(steps[currentStep.value]);
+    } catch (error) {
+      console.log('error', error)
+    }
   }
 
-  const signUp = async (username, password, email, kinship) => {
+  const handleNewPassword = async (password) => {
+    console.log('handleNewPassword');
+
     try {
-      const { user } = await Auth.signUp({
-        password,
-        username,
-        attributes: {
-          name: username,
-          email,
-        },
-        custom: { isGerdauRelated: kinship },
-      });
-      goToAccountCreatedScreen();
+      // const { user } = await Auth.signUp({
+      //   email,
+      //   attributes: {
+      //     email,
+      //   },
+      // });
+      // return setCurrentStep(steps[currentStep.value]);
     } catch (error) {
-      if (error.code === "UsernameExistsException") {
-        setCurrentStep({ name: 'username', value: 3 });
-        setIsError({ username: true, msg: 'Esse nome já existe' });
-      }
+      console.log('error', error)
     }
   }
 
@@ -92,11 +69,10 @@ const ResetPassword = (props) => {
     ev.preventDefault();
     const value = ev.target.value;
     const name = ev.target.name;
-    const formattedValue = name === 'username' ? value.replace(/ /g, "") : value;
 
     setRegister({
       ...register,
-      [name]: formattedValue,
+      [name]: value,
     });
 
     handleIsError(currentStep.name);
@@ -121,34 +97,37 @@ const ResetPassword = (props) => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    console.log('olá');
-    // const { email, password, username, kinship } = register;
-    // const pageName = currentStep.name;
+    const { email, password } = register;
+    const pageName = currentStep.name;
 
-    // const isEmailValid = !!email;
-    // const isPageEmailValid = pageName === 'email' && isEmailValid;
+    const isEmailValid = !!email;
+    const isPageEmailValid = pageName === 'email' && isEmailValid;
 
-    // const isPasswordValid = !!password && password.length >= 6;
-    // const isPagePasswordValid = pageName === 'password' && isPasswordValid;
+    const isPasswordValid = !!password && password.length >= 6;
+    const isPagePasswordValid = pageName === 'password' && isPasswordValid;
 
-    // const isPageValid = isPageEmailValid || isPagePasswordValid;
+    const isPageValid = isPageEmailValid || isPagePasswordValid;
+    console.log('olá', !!password);
+    console.log('isPageEmailValid', isPageEmailValid);
 
-    // if (isPageValid) {
-    //   if (currentStep.value < steps.length) {
-    //     return setCurrentStep(steps[currentStep.value]);
-    //   } else {
-    //     signUp(username, password, email, kinship);
-    //   }
-    // } else {
-    //   const isNameError = pageName === 'username' && 'O nome deve pelo menos 3 caracteres';
-    //   const isEmailError = pageName === 'email' && 'Esse e-mail já existe';
-    //   const isError = isNameError || isEmailError;
+    console.log('register', register);
 
-    //     setIsError({
-    //       [pageName]: true,
-    //       msg: isError,
-    //     });
-    // }
+
+    if (isPageValid) {
+      // if (currentStep.value < steps.length) {
+      //   return setCurrentStep(steps[currentStep.value]);
+      // }
+      if (pageName === 'email') {
+        handleCheckEmail();
+      } else {
+        handleNewPassword();
+      }
+    } else {
+      setIsError({
+        [pageName]: true,
+        msg: isError,
+      });
+    }
   }
 
   const RenderValidateEmail = () => {
@@ -156,8 +135,9 @@ const ResetPassword = (props) => {
       <Form
         label='Vamos te ajudar a redefinir sua senha'
         subtitle='Digite um e-mail abaixo para redefinir sua senha.'
-        name='kinship'
-        value={register?.kinship}
+        name='email'
+        value={register?.email}
+        type='email'
         placeholder='Digite o e-mail de redefinição aqui'
         handleChange={handleChangeSelect}
         isError={isError?.kinship && 'Por favor, Selecione uma opção'}

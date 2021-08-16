@@ -19,6 +19,7 @@ Amplify.configure({
 	}
 });
 
+
 ReactDOM.render((
 	<Provider store={store}>
 		<PersistGate loading={null} persistor={persistor}>

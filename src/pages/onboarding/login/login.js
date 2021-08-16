@@ -69,7 +69,9 @@ const Login = (props) => {
 
 		try {
 			const user = await Auth.signIn(register.email, register.password)
+      const token = user.signInUserSession.accessToken.jwtToken
 			props.signIn(user)
+      localStorage.setItem('token', token)
 			props.history.push('/dashboard')
 		} catch (error) {
 			if(error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.")

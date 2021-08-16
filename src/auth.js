@@ -1,11 +1,13 @@
-export const isAuthenticated = () => {
-	// const token = localStorage.getItem('token');
+import { Auth } from 'aws-amplify'
 
-	// if (token) {
-	// 	return true;
-	// }
-	// return false;
-	return true;
+export const isAuthenticated = () => {
+	const accessToken = localStorage.getItem('accessToken')
+
+
+	if (accessToken) {
+		return true;
+	}
+	return false;
 };
 
 export default isAuthenticated;

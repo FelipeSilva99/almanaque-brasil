@@ -25,7 +25,7 @@ const Content = styled.button`
 `;
 
 const Image = styled.img`
-  width: 24px;
+  width: ${props => props.isIcon === 'thunk' && '24px'};
   margin-right: 1rem;
 `
 
@@ -47,17 +47,21 @@ const Button = ({
   handleClick,
   margin,
   color,
-  didYouKnowScreen
+  isIcon,
+  icon,
 }) => {
+  console.log(icon);
   return (
     <Content
       height={height}
       background={background}
       boxShadow={boxShadow}
       margin={margin}
+      disabled={disabled}
+      onClick={handleClick}
     >
-      {didYouKnowScreen && <Image src={trunk} />}
-      <Btn color={color} disabled={disabled} onClick={handleClick}>{children}</Btn>
+      {isIcon && <Image isIcon={isIcon} src={icon ? icon : trunk} />}
+      <Btn color={color}>{children}</Btn>
     </Content>
   );
 }

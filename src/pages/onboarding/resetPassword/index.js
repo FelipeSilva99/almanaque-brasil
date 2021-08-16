@@ -14,11 +14,20 @@ const Container = styled.div`
 `;
 
 const Info = styled.p`
-  margin: auto;
+  margin: 3rem auto;
   padding: 0.5rem;
   width: fit-content;
   background: #ccc;
   border-radius: 8rem;
+  animation: .3s fadeIn ease-in-out;
+	opacity: 0;
+
+  ${({ isSuccessNewPassword }) => isSuccessNewPassword && `
+    margin: 1rem auto;
+    -webkit-transition: .1s ease-in-out;
+    transition: .4s ease-in-out;
+    opacity: 1
+  `}
 `;
 
 const ResetPassword = (props) => {
@@ -31,7 +40,7 @@ const ResetPassword = (props) => {
   const [register, setRegister] = useState({ email: '', password: '' });
   const [isError, setIsError] = useState({ email: '', password: '' });
   const [isViewPassword, setIsViewPassword] = useState({});
-  const [isSuccessNewPassword, setIsSuccessNewPassword] = useState(undefined);
+  const [isSuccessNewPassword, setIsSuccessNewPassword] = useState(false);
 
   const handleCheckEmail = async (email) => {
     Auth.forgotPassword(email)
@@ -40,24 +49,31 @@ const ResetPassword = (props) => {
   }
 
   const handleNewPassword = async (email, code, password) => {
-    // setIsSuccessNewPassword();
     Auth.forgotPasswordSubmit(email, code, password)
-      .then(data => props.history.push({ pathname: `/` }))
+      .then(data => {
+        setIsSuccessNewPassword(true);
+        setTimeout(() => {
+          props.history.push({ pathname: `/` });
+        }, 900);
+      })
       .catch(err => {
-        if(err.code === "CodeMismatchException") {
-          setCurrentStep({name: 'code', value: 2});
+        if (err.code === "CodeMismatchException") {
+          setCurrentStep({ name: 'code', value: 2 });
           setIsError({
             code: true,
             msg: 'Código de verificação inválido, tente novamente.'
           });
         }
-        console.log('err po', err);
+        console.log('err', err);
       });
   }
-  
 
   const handleGoBack = () => {
-    props.history.goBack()
+    if (currentStep.value > 1) {
+      setCurrentStep(steps[currentStep.value - 2]);
+    } else {
+      props.history.goBack();
+    }
   }
 
   const handleIsError = (name) => {
@@ -115,14 +131,13 @@ const ResetPassword = (props) => {
     if (isPageValid) {
       if (pageName === 'email') {
         handleCheckEmail(email);
-        return setCurrentStep(steps[currentStep.value]);
-      }
-      if (pageName === 'code') {
-        return setCurrentStep(steps[currentStep.value]);
       }
       if (pageName === 'password') {
         handleNewPassword(email, code, password);
+        return null;
       }
+
+      return setCurrentStep(steps[currentStep.value]);
     } else {
       setIsError({
         [pageName]: true,
@@ -194,7 +209,7 @@ const ResetPassword = (props) => {
     <Container>
       <Header text='Redefinir senha' onClick={handleGoBack} />
       {renderByStep()}
-      {isSuccessNewPassword && <Info>Senha redefinida com sucesso!</Info>}
+      <Info isSuccessNewPassword={isSuccessNewPassword}>{isSuccessNewPassword && 'Senha redefinida com sucesso!'}</Info>
     </Container>
   );
 }

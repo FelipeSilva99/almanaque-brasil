@@ -24,14 +24,14 @@ const ResetButton = styled.button`
 	justify-content: center;
 	align-items: center;
   text-align: center;
+  font-size: .75rem;
 	padding: 1rem;
   color: #373737;
-  font-weight: bold;
+  font-weight: 900;
   cursor: pointer;
 `;
 
 const ButtonSpacer = styled.div`
-  margin-top: 1rem;
   width: 100%;
 	display: flex;
 	justify-content: center;
@@ -77,12 +77,16 @@ const Login = (props) => {
   }
 
 	const resetPassword = () => {
-		props.history.push('/resetPassword')
+		props.history.push('/resetPassword');
+	}
+
+  const goBack = () => {
+		props.history.push('/');
 	}
 
   return (
     <Container>
-      <Header text="Login" />
+      <Header text="Login" onClick={goBack}/>
       <Form
         login
         handleLogin={handleLogin}

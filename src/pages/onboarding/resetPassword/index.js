@@ -13,50 +13,67 @@ const Container = styled.div`
   background: #F3F3F3;
 `;
 
+const Info = styled.p`
+  margin: 3rem auto;
+  padding: 0.5rem;
+  width: fit-content;
+  background: #ccc;
+  border-radius: 8rem;
+  animation: .3s fadeIn ease-in-out;
+	opacity: 0;
+
+  ${({ isSuccessNewPassword }) => isSuccessNewPassword && `
+    margin: 1rem auto;
+    -webkit-transition: .1s ease-in-out;
+    transition: .4s ease-in-out;
+    opacity: 1
+  `}
+`;
+
 const ResetPassword = (props) => {
   const steps = [
     { name: 'email', value: 1 },
-    { name: 'password', value: 2 },
+    { name: 'code', value: 2 },
+    { name: 'password', value: 3 },
   ];
   const [currentStep, setCurrentStep] = useState(steps[0]);
   const [register, setRegister] = useState({ email: '', password: '' });
   const [isError, setIsError] = useState({ email: '', password: '' });
   const [isViewPassword, setIsViewPassword] = useState({});
+  const [isSuccessNewPassword, setIsSuccessNewPassword] = useState(false);
 
   const handleCheckEmail = async (email) => {
-    console.log('verificar email');
-
-    try {
-      // const { user } = await Auth.signUp({
-      //   email,
-      //   attributes: {
-      //     email,
-      //   },
-      // });
-      return setCurrentStep(steps[currentStep.value]);
-    } catch (error) {
-      console.log('error', error)
-    }
+    Auth.forgotPassword(email)
+      .then(data => console.log('data', data))
+      .catch(err => console.log('error', err));
   }
 
-  const handleNewPassword = async (password) => {
-    console.log('handleNewPassword');
-
-    try {
-      // const { user } = await Auth.signUp({
-      //   email,
-      //   attributes: {
-      //     email,
-      //   },
-      // });
-      // return setCurrentStep(steps[currentStep.value]);
-    } catch (error) {
-      console.log('error', error)
-    }
+  const handleNewPassword = async (email, code, password) => {
+    Auth.forgotPasswordSubmit(email, code, password)
+      .then(data => {
+        setIsSuccessNewPassword(true);
+        setTimeout(() => {
+          props.history.push({ pathname: `/` });
+        }, 900);
+      })
+      .catch(err => {
+        if (err.code === "CodeMismatchException") {
+          setCurrentStep({ name: 'code', value: 2 });
+          setIsError({
+            code: true,
+            msg: 'Código de verificação inválido, tente novamente.'
+          });
+        }
+        console.log('err', err);
+      });
   }
 
   const handleGoBack = () => {
-    props.history.goBack()
+    if (currentStep.value > 1) {
+      setCurrentStep(steps[currentStep.value - 2]);
+    } else {
+      props.history.goBack();
+    }
   }
 
   const handleIsError = (name) => {
@@ -97,31 +114,30 @@ const ResetPassword = (props) => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    const { email, password } = register;
+    const { email, code, password } = register;
     const pageName = currentStep.name;
 
     const isEmailValid = !!email;
     const isPageEmailValid = pageName === 'email' && isEmailValid;
 
+    const isCodeValid = !!code;
+    const isPageCodeValid = pageName === 'code' && isCodeValid;
+
     const isPasswordValid = !!password && password.length >= 6;
     const isPagePasswordValid = pageName === 'password' && isPasswordValid;
 
-    const isPageValid = isPageEmailValid || isPagePasswordValid;
-    console.log('olá', !!password);
-    console.log('isPageEmailValid', isPageEmailValid);
-
-    console.log('register', register);
-
+    const isPageValid = isPageEmailValid || isPageCodeValid || isPagePasswordValid;
 
     if (isPageValid) {
-      // if (currentStep.value < steps.length) {
-      //   return setCurrentStep(steps[currentStep.value]);
-      // }
       if (pageName === 'email') {
-        handleCheckEmail();
-      } else {
-        handleNewPassword();
+        handleCheckEmail(email);
       }
+      if (pageName === 'password') {
+        handleNewPassword(email, code, password);
+        return null;
+      }
+
+      return setCurrentStep(steps[currentStep.value]);
     } else {
       setIsError({
         [pageName]: true,
@@ -140,8 +156,23 @@ const ResetPassword = (props) => {
         type='email'
         placeholder='Digite o e-mail de redefinição aqui'
         handleChange={handleChangeSelect}
-        isError={isError?.kinship && 'Por favor, Selecione uma opção'}
         children='enviar email de redefinição'
+        handleSubmit={handleSubmit}
+      />
+    );
+  }
+
+  const RenderValidateCode = () => {
+    return (
+      <Form
+        label='Verifique seu e-mail'
+        subtitle='Enviamos um código de confirmação para o seu e-mail digitado.'
+        name='code'
+        value={register?.code}
+        type='number'
+        placeholder='Digite o código de redefinição aqui'
+        isError={isError?.code && isError?.msg}
+        handleChange={handleChangeSelect}
         handleSubmit={handleSubmit}
       />
     );
@@ -168,7 +199,8 @@ const ResetPassword = (props) => {
   const renderByStep = () => {
     switch (currentStep.name) {
       case steps[0].name: return <RenderValidateEmail />
-      case steps[1].name: return <RenderNewPassword />
+      case steps[1].name: return <RenderValidateCode />
+      case steps[2].name: return <RenderNewPassword />
       default: return <RenderValidateEmail />
     }
   }
@@ -177,6 +209,7 @@ const ResetPassword = (props) => {
     <Container>
       <Header text='Redefinir senha' onClick={handleGoBack} />
       {renderByStep()}
+      <Info isSuccessNewPassword={isSuccessNewPassword}>{isSuccessNewPassword && 'Senha redefinida com sucesso!'}</Info>
     </Container>
   );
 }

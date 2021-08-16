@@ -8,7 +8,6 @@ import eyeBlocked from '../../images/icons/onboarding/eyeBlocked.svg';
 
 // Styles
 const Content = styled.div`
-  margin: 1rem 0 .25rem 0;
   width: 100%;
   height: 2.75rem;
   border-radius: 8px;

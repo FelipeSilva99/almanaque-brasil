@@ -1,12 +1,15 @@
 // Libs
 import axios from 'axios';
+import { Auth } from 'aws-amplify'
 
 import {
   getTrails,
 } from '../modules/trails-module';
 
-export const getTrailsThunk = () => async (dispatch, getState) => {
-  const accessToken = getState().login.user.signInUserSession.accessToken.jwtToken
+export const getTrailsThunk = () => async (dispatch) => {
+
+  const auth = await Auth.currentAuthenticatedUser()
+  const accessToken = auth.signInUserSession.accessToken.jwtToken
 
   try {
     const response = await axios({

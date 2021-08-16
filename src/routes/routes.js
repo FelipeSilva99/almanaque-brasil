@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PrivateRoute from './PrivateRoute'
 
 // Onboarding
 import Home from '../pages/onboarding/login/home';
@@ -40,12 +41,11 @@ const Routes = (props) => {
 				<Route exact path='/accountCreated' component={AccountCreated} />
 				<Route exact path='/login' component={Login} />
 				<Route exact path='/resetPassword' component={ResetPassword} />
-				<Route exact path='/dashboard' component={Dashboard} />
-				<Route exact path='/trails' component={Trails} />
-				<Route exact path='/activities/:trailId' component={Activities} />
-				<Route exact path='/activities' component={ActivitiesList} />
-				<Route exact path='/trunk' component={TrunkScreen} props={props} />
-				{/* <PrivateRoute path='/documents' component={DocumentsScreen} /> */}
+				<PrivateRoute exact path='/dashboard' component={Dashboard} />
+				<PrivateRoute exact path='/trails' component={Trails} />
+				<PrivateRoute exact path='/activities/:trailId' component={Activities} />
+				<PrivateRoute exact path='/activities' component={ActivitiesList} />
+				<PrivateRoute exact path='/trunk' component={TrunkScreen} props={props} />
 			</Switch>
 		</BrowserRouter>
 	)

@@ -1,6 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
+//Components
+import Button from '../../../components/buttons/button';
+
+//Images
+import iconFacebook from '../../../images/icons/onboarding/iconFacebook.svg';
+import iconGoogle from '../../../images/icons/onboarding/iconGoogle.svg';
+
 const Container = styled.div`
   padding: 1.875rem 1rem 1rem;
   min-height: 100vh;
@@ -9,21 +16,24 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-
 `;
 
-const Card = styled.button`
-  min-height: 150px;
-  width: 10rem;
-  margin: 10px;
-  border-radius: 16px;
-  padding: 16px;
-  /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
-  background-color: #fff;
+const Title = styled.h1`
+  flex: 4;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #373737;
+  display: flex;
+  align-items: center;
+`;
 
-  &:hover{
-    box-shadow: 0 6px 10px rgba(0,0,0,0.25), 0 1px 10px rgba(0,0,0,0.22);
-  }
+const Content = styled.div`
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
 `;
 
 const Home = (props) => {
@@ -33,15 +43,41 @@ const Home = (props) => {
 
   return (
     <Container>
-      <Card onClick={() => handleClick('dashboard')}>
-        <h2>Ir para o menu</h2>
-      </Card>
-      <Card onClick={() => handleClick('createAccount')}>
-        <h2>Criar conta</h2>
-      </Card>
-      <Card onClick={() => handleClick('login')}>
-        <h2>Fazer login</h2>
-      </Card>
+      <Title>Almanaque Brasil</Title>
+      <Content>
+        <Button
+          handleClick={() => handleClick('createAccount')}
+        >
+          inscreva-se
+        </Button>
+        <Button
+          backgroundDisabled='#ccc'
+          background='#FFFFFF'
+          boxShadow='#EFE2E2 0px 7px 0px'
+          disabled={true}
+          isIcon
+          icon={iconGoogle}
+        >
+          continuar com o google
+        </Button>
+        <Button
+          backgroundDisabled='#ccc'
+          color='#fff' background='#3C5A9A'
+          boxShadow='#153372 0px 7px 0px'
+          disabled={true}
+          isIcon
+          icon={iconFacebook}
+        >
+          continuar com facebook
+        </Button>
+        <Button
+          background='#F3F3F3'
+          boxShadow='#F3F3F3'
+          handleClick={() => handleClick('login')}
+        >
+          entrar
+        </Button>
+      </Content>
     </Container>
   );
 }

@@ -21,13 +21,14 @@ const Container = styled.form`
 const Label = styled.label`
   max-width: 235px;
   text-align: center;
-  padding: 2rem 0 .5rem;
+  padding: ${props => props.login ? '1rem 0 .5rem' : '2rem 0 .5rem'};
   font-size: 1.5rem;
   font-weight: 900;
   color: #373737;
 `;
 
 const Subtitle = styled.p`
+  padding-bottom: 1rem;
   font-size: 1rem;
   color: #373737;
   text-align: center;
@@ -42,7 +43,7 @@ const Error = styled.p`
 `;
 
 const ButtonSpacer = styled.div`
-  margin-top: 2rem;
+  margin-top: 1rem;
   width: 100%;
 `;
 
@@ -75,7 +76,7 @@ const Form = ({
   return login
     ?(
       <Container onSubmit={handleLogin} login>
-        <Label>Email</Label>
+        <Label login={login}>Email</Label>
         <Input
           name={"email"}
           value={emailValue}
@@ -84,7 +85,7 @@ const Form = ({
           handleChange={handleChange}
         />
 
-        <Label>Senha</Label>
+        <Label login={login}>Senha</Label>
         <Input
           name={"password"}
           value={passValue}

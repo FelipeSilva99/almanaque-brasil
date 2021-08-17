@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Auth } from 'aws-amplify';
-import { useHistory } from 'react-router';
 import { connect } from 'react-redux';
 
 //Components
 import Form from '../../../components/form'
 import Header from '../../../components/header/headerOnb';
-import Button from '../../../components/buttons/button';
 
-import { signIn } from '../../../dataflow/modules/signIn-modules'
+//Redux
+import { signIn } from '../../../dataflow/modules/signIn-modules';
 
 //Styles
 const Container = styled.div`
@@ -66,12 +65,11 @@ const Login = (props) => {
   }
 
   async function handleSignIn() {
-
 		try {
 			const user = await Auth.signIn(register.email, register.password)
       const token = user.signInUserSession.accessToken.jwtToken
 			props.signIn(user)
-      localStorage.setItem('token', token)
+      localStorage.setItem('accessToken', token)
 			props.history.push('/dashboard')
 		} catch (error) {
 			if(error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.")

@@ -1,16 +1,27 @@
-import { act } from "react-dom/cjs/react-dom-test-utils.production.min";
-
+// Action Type
 const SIGNIN = "SIGNIN";
+const SIGNOUT = 'SIGNOUT';
 
+// Store
+const initialState = {
+  user: {},
+};
 
 // Reducer
-export default function foo(state={user: {}}, action) {
+export default function foo(state = initialState, action) {
   console.log("action", action)
   switch (action.type) {
     case SIGNIN: {
       return {
         ...state,
         user: action.info
+      }
+    }
+
+    case SIGNOUT: {
+      return {
+        ...state,
+        user: {}
       }
     }
 
@@ -26,3 +37,7 @@ export const signIn = (info) => {
     info,
   }
 };
+
+export const signOut = () => ({
+  type: SIGNOUT,
+});

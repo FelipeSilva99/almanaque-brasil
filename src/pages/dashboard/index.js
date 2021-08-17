@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Auth } from 'aws-amplify'
+import { Auth } from 'aws-amplify';
 
 //Redux
+import { signOut } from '../../dataflow/modules/signIn-modules';
 import {
   selectedTrails,
 } from '../../dataflow/modules/trails-module';
@@ -16,8 +17,11 @@ const mapDispatchToProps = dispatch => ({
   selectedTrails: (info) => {
     dispatch(selectedTrails(info));
   },
-});
 
+  signOut: () => {
+    dispatch(signOut());
+  },
+});
 
 const Container = styled.div`
   padding: 1.875rem 1rem 1rem;
@@ -63,7 +67,26 @@ const Row = styled.div`
   flex-wrap: wrap;
 `;
 
+const Button = styled.button`
+  font-size: 1rem;
+  font-weight: 900;
+  color: #373737;
+  position: absolute;
+  bottom: 1rem;
+`;
+
 const Dashboard = (props) => {
+
+  async function handleSignOut() {
+    try {
+      await Auth.signOut();
+      localStorage.clear();
+      props.signOut();
+      props.history.push({ pathname: '/' })
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
+  }
 
   const handleClick = () => {
     props.history.push({ pathname: '/trails' });
@@ -100,9 +123,7 @@ const Dashboard = (props) => {
           {renderOptions()}
         </Content>
       )}
-      <button onClick={() => {
-        Auth.signOut()
-      }}>sair</button>
+      <Button onClick={handleSignOut}>Sair</Button>
     </Container>
   );
 }

@@ -67,6 +67,14 @@ const Row = styled.div`
   flex-wrap: wrap;
 `;
 
+const Button = styled.button`
+  font-size: 1rem;
+  font-weight: 900;
+  color: #373737;
+  position: absolute;
+  bottom: 1rem;
+`;
+
 const Dashboard = (props) => {
 
   async function handleSignOut() {
@@ -115,7 +123,7 @@ const Dashboard = (props) => {
           {renderOptions()}
         </Content>
       )}
-      <button onClick={handleSignOut}>sair</button>
+      <Button onClick={handleSignOut}>Sair</Button>
     </Container>
   );
 }

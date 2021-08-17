@@ -1,8 +1,5 @@
-import { Auth } from 'aws-amplify'
-
 export const isAuthenticated = () => {
 	const accessToken = localStorage.getItem('accessToken')
-
 
 	if (accessToken) {
 		return true;

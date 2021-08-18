@@ -116,8 +116,8 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie }) => {
         }
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={useActivitie.tips}/>}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore  didYouKnowScreen amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={useActivitie.answers[3]} didYouKnowScreen amountTrial={amountTrial}/>}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore isTrunk amountTrial={amountTrial}/>}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={useActivitie.answers[3]} isTrunk amountTrial={amountTrial}/>}
       </Container>
     )
   );

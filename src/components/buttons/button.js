@@ -2,15 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 //Images
-import trunk from '../../images/icons/trunkk.png';
+import trunk from '../../images/icons/trunk.png';
 
 // Styles
-const Content = styled.div`
-	/* margin-bottom: 2rem; */
-  margin: ${props => props.margin};
+const Content = styled.button`
+  margin: ${props => props.margin || 'auto'};
 	width: 100%;
 	height: ${props => props.height || '2.375rem'};
-  max-width: 300px;
+  max-width: 425px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -23,22 +22,14 @@ const Content = styled.div`
     opacity: ${props => props.opacityDisabled || '.4'};
     cursor: initial;
   }
-/*   
-  @media (min-width: 1024px) {
-    height: 5rem;
-  }
-
-  @media (max-width: 375px) {
-    min-height: 3rem;
-  } */
 `;
 
 const Image = styled.img`
-  width: 24px;
+  width: ${props => props.isIcon === 'thunk' && '24px'};
   margin-right: 1rem;
 `
 
-const Btn = styled.button`
+const Btn = styled.p`
   max-width: 300px;
   font-size: .75rem;
 	font-weight: 900;
@@ -56,17 +47,21 @@ const Button = ({
   handleClick,
   margin,
   color,
-  didYouKnowScreen
+  isIcon,
+  icon,
 }) => {
+  console.log(icon);
   return (
     <Content
       height={height}
       background={background}
       boxShadow={boxShadow}
       margin={margin}
+      disabled={disabled}
+      onClick={handleClick}
     >
-      {didYouKnowScreen && <Image src={trunk} />}
-      <Btn color={color} disabled={disabled} onClick={handleClick}>{children}</Btn>
+      {isIcon && <Image isIcon={isIcon} src={icon ? icon : trunk} />}
+      <Btn color={color}>{children}</Btn>
     </Content>
   );
 }

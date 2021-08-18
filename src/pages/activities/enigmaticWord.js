@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { shuffle } from '../../utils'
 
 // Component
 import Header from '../../components/header';
-import ContainerButton from '../../components/buttons/containerButton';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from './splashScreen';
@@ -167,6 +165,7 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
 
   const checkAnswer = () => {
     let userAnswer = "";
+    // eslint-disable-next-line array-callback-return
     enigmas.map(item => {
       userAnswer = `${userAnswer}${item.userInput}`
     })

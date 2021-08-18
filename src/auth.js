@@ -1,11 +1,10 @@
 export const isAuthenticated = () => {
-	// const token = localStorage.getItem('token');
+	const accessToken = localStorage.getItem('accessToken')
 
-	// if (token) {
-	// 	return true;
-	// }
-	// return false;
-	return true;
+	if (accessToken) {
+		return true;
+	}
+	return false;
 };
 
 export default isAuthenticated;

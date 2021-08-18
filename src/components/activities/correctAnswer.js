@@ -107,7 +107,7 @@ const ALink = styled(Link)`
   justify-content: center;
 `;
 
-const CorrectAnswer = ({ answer, toScore, didYouKnowScreen, amountTrial }) => {
+const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial }) => {
   const modals = {
     toScore: "toScore",
     answerDescription: "answerDescription"
@@ -149,14 +149,14 @@ const CorrectAnswer = ({ answer, toScore, didYouKnowScreen, amountTrial }) => {
             </ComplementaryInformationBox>
             <ButtonBox>
               {/* <StlyedLink to="/">  */}
-              {didYouKnowScreen && (
+              {isTrunk && (
                 <ALink to="/trunk">
                   <Button
                     color={"#399119"}
                     margin={"0 0 20px 0"}
                     background={"#D4D4D4"}
                     boxShadow={"#AFAFAF 0px 7px 0px"}
-                    didYouKnowScreen={didYouKnowScreen}
+                    isIcon='thunk'
                   >Veja mais no nosso Baú</Button>
                 </ALink>
               )}

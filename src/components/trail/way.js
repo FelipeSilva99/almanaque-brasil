@@ -64,22 +64,22 @@ const defineLines = (quantity) => {
   // console.log('quantity:',quantity)
   for(let i = 0; i < quantity; i++) {
     if(nextItemIsSingular) {
-      console.log("A")
+      // console.log("A")
       nextItemIsSingular = false
       linesArray.push("right")
     } else {
       if((i+1) % 3 === 0) {
-        console.log("B")
+        // console.log("B")
         nextItemIsSingular = true
         linesArray.push("left")
       }
       else {
-        console.log("C")
+        // console.log("C")
         linesArray.push("straight")
       }
     }
   }
-  console.log('lA:',linesArray)
+  // console.log('lA:',linesArray)
   return linesArray;
 }
 const Way = ({ linesQuantity }) => {

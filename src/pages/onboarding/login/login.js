@@ -66,13 +66,15 @@ const Login = (props) => {
 
   async function handleSignIn() {
 		try {
-			const user = await Auth.signIn(register.email, register.password)
-      const token = user.signInUserSession.accessToken.jwtToken
-			props.signIn(user)
+			const user = await Auth.signIn(register.email, register.password);
+      const token = user.signInUserSession.accessToken.jwtToken;
+			props.signIn(user.attributes)
       localStorage.setItem('accessToken', token)
 			props.history.push('/dashboard')
 		} catch (error) {
-			if(error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.")
+      console.log('error', error);
+			if(error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.");
+			if(error.code === "UserNotConfirmedException") setError("E-mail de usuário não confirmado.");
 		}
   }
 

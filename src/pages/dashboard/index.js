@@ -72,6 +72,7 @@ const Row = styled.div`
 `;
 
 const Button = styled.button`
+  padding-left: 1rem;
   font-size: 1rem;
   font-weight: 900;
   color: #373737;

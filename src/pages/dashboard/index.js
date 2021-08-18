@@ -10,7 +10,8 @@ import {
 } from '../../dataflow/modules/trails-module';
 
 const mapStateToProps = state => ({
-  trails: state.trails.data
+  trails: state.trails.data,
+  user: state.login.user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -24,21 +25,24 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const Container = styled.div`
-  padding: 1.875rem 1rem 1rem;
+  padding-bottom: 1rem;
   min-height: 100vh;
   background: #F3F3F3;
 `;
 
 const Content = styled.div`
-  padding-top: 0.5rem;
+  padding: 2.125rem 1rem 0;
 `;
 
 const Header = styled.div`
-  /* padding-left: 35px; */
-  height: 10vh;
+  padding: 2.375rem 1rem;
+  background: #FFD000;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
 `;
 
 const Text = styled.h1`
+  padding-bottom: ${props => props.paddingBottom && '.5rem'};
   font-size: ${props => props.name ? '1.5rem' : '1.25rem'};
   font-weight: 900;
   color: #373737;
@@ -102,10 +106,10 @@ const Dashboard = (props) => {
     return (
       <Row>
         <Card>
-          <h2>Baú</h2>
+          <Text>Baú</Text>
         </Card>
         <Card>
-          <h2>Ranking</h2>
+          <Text>Ranking</Text>
         </Card>
       </Row>
     )
@@ -115,14 +119,18 @@ const Dashboard = (props) => {
 
   return (
     <Container>
-      <Header><Text name>Olá Fulano!</Text></Header>
-      <Text>Qual atividade fazer hoje?</Text>
-      {trails && (
-        <Content>
-          {renderTrails()}
-          {renderOptions()}
-        </Content>
-      )}
+      <Header>
+        <Text name>Oi, {props.user.name}</Text>
+      </Header>
+      <Content>
+        <Text paddingBottom>Qual atividade fazer hoje?</Text>
+        {trails && (
+          <>
+            {renderTrails()}
+            {renderOptions()}
+          </>
+        )}
+      </Content>
       <Button onClick={handleSignOut}>Sair</Button>
     </Container>
   );

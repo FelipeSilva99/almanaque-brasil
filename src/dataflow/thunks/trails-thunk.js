@@ -9,7 +9,7 @@ import {
 export const getTrailsThunk = () => async (dispatch) => {
 
   const auth = await Auth.currentAuthenticatedUser()
-  const accessToken = auth.signInUserSession.accessToken.jwtToken
+  const idToken = auth.signInUserSession.idToken.jwtToken;
 
   try {
     const response = await axios({
@@ -17,7 +17,7 @@ export const getTrailsThunk = () => async (dispatch) => {
 			url: `https://a19dfcwa29.execute-api.us-east-1.amazonaws.com/dev/trails`,
 			headers: {
         'Content-Type': 'application/json',
-				'Authorization': `${accessToken}`,
+				'Authorization': `${idToken}`,
 			},
 		})
     dispatch(getTrails(response.data.Items));

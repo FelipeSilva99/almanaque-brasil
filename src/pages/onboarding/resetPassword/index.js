@@ -54,7 +54,7 @@ const ResetPassword = (props) => {
         setIsSuccessNewPassword(true);
         setTimeout(() => {
           props.history.push({ pathname: `/` });
-        }, 900);
+        }, 2000);
       })
       .catch(err => {
         if (err.code === "CodeMismatchException") {

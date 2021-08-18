@@ -55,12 +55,12 @@ const CreateAccount = (props) => {
   const [currentStep, setCurrentStep] = useState(steps[0]);
   const [register, setRegister] = useState({ email: '', password: '', username: '', });
   const [isError, setIsError] = useState({ email: '', password: '', username: '', kinship: false });
-  const [isViewPassword, setIsViewPassword] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
 
   const goToAccountCreatedScreen = () => {
     props.history.push({
       pathname: `/accountCreated`,
-      state: { username: register.username }
+      state: { email: register.email }
     });
   }
 
@@ -79,10 +79,15 @@ const CreateAccount = (props) => {
       });
       goToAccountCreatedScreen();
     } catch (error) {
-      if (error.code === "UsernameExistsException") {
-        setCurrentStep({ name: 'username', value: 3 });
-        setIsError({ username: true, msg: 'Esse nome já existe' });
+      if (error.message === "An account with the given email already exists.") {
+        setCurrentStep({ name: 'email', value: 1 });
+        setIsError({ email: true, msg: 'Já existe uma conta com o e-mail fornecido.' });
       }
+
+      // if (error.code === "UsernameExistsException") {
+      //   setCurrentStep({ name: 'username', value: 3 });
+      //   setIsError({ username: true, msg: 'Esse nome já existe' });
+      // }
       setAttention(false);
       console.log('error signing up:', error);
     }
@@ -131,7 +136,7 @@ const CreateAccount = (props) => {
   const handleViewPassword = (ev) => {
     ev.preventDefault();
 
-    setIsViewPassword(!isViewPassword);
+    setShowPassword(!showPassword);
   }
 
   const handleAceptTerms = () => {
@@ -193,6 +198,7 @@ const CreateAccount = (props) => {
         placeholder='Digite seu e-mail aqui'
         handleChange={handleChange}
         handleSubmit={handleSubmit}
+        isError={isError?.email && isError?.msg}
       />
     );
   }
@@ -203,12 +209,12 @@ const CreateAccount = (props) => {
         label='Crie sua senha'
         subtitle='Crie uma senha fácil de lembrar para poder acessar sua conta'
         name='password'
-        type={isViewPassword ? 'password' : 'text'}
+        type={showPassword ? 'text' : 'password'}
         value={register?.password}
         placeholder='Digite a senha aqui'
         isError={isError?.password && 'Sua senha deve conter 6 caracteres'}
         handleChange={handleChange}
-        isViewPassword={isViewPassword}
+        showPassword={showPassword}
         handleViewPassword={handleViewPassword}
         handleSubmit={handleSubmit}
       />
@@ -232,7 +238,6 @@ const CreateAccount = (props) => {
 
   const RenderQuestionKinship = () => {
     setLastScreen(true);
-    console.log('error', isError);
     return (
       <Form
         label='Você possui parentesco com alguém da GERDAU?'

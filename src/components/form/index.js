@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 //Component
@@ -19,7 +19,7 @@ const Container = styled.form`
 `;
 
 const Label = styled.label`
-  max-width: 235px;
+  max-width: 300px;
   text-align: center;
   padding: ${props => props.login ? '1rem 0 .5rem' : '2rem 0 .5rem'};
   font-size: 1.5rem;
@@ -59,7 +59,7 @@ const Form = ({
   selector,
   lastScreen,
   handleChange,
-  isViewPassword,
+  showPassword,
   handleViewPassword,
   handleSubmit,
   isTermsAccepted,
@@ -71,14 +71,13 @@ const Form = ({
   passValue,
   handleLogin
 }) => {
-  const [showPassword, setShowPassword] = useState(false)
 
   return login
     ?(
       <Container onSubmit={handleLogin} login>
         <Label login={login}>Email</Label>
         <Input
-          name={"email"}
+          name="email"
           value={emailValue}
           placeholder={"Digite seu email aqui"}
           type={'email'}
@@ -87,15 +86,13 @@ const Form = ({
 
         <Label login={login}>Senha</Label>
         <Input
-          name={"password"}
+          name="password"
           value={passValue}
           placeholder={"Digite sua senha aqui"}
           type={showPassword ? 'text' : 'password'}
+          showPassword={showPassword}
           handleChange={handleChange}
-          handleViewPassword={(e) => {
-            e.preventDefault()
-            setShowPassword(!showPassword)
-          }}
+          handleViewPassword={handleViewPassword}
         />
         <Error>{isError}</Error>
         <ButtonSpacer>
@@ -125,7 +122,7 @@ const Form = ({
               placeholder={placeholder}
               type={type}
               handleChange={handleChange}
-              isViewPassword={isViewPassword}
+              showPassword={showPassword}
               handleViewPassword={handleViewPassword}
             />
             <Error>{isError}</Error>

@@ -12,7 +12,7 @@ import { signIn } from '../../../dataflow/modules/signIn-modules';
 
 //Styles
 const Container = styled.div`
-  padding: 1.875rem 1rem 1rem;
+  padding: 1.25rem 1rem 1rem;
   min-height: 100vh;
   background: #F3F3F3;
 `;
@@ -49,8 +49,14 @@ const Login = (props) => {
       password: ''
     }
   )
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
 
-  const [error, setError] = useState('')
+  const handleViewPassword = (ev) => {
+    ev.preventDefault();
+
+    setShowPassword(!showPassword);
+  }
 
   const handleChange = (e) => {
     setRegister({
@@ -74,7 +80,12 @@ const Login = (props) => {
 		} catch (error) {
       console.log('error', error);
 			if(error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.");
-			if(error.code === "UserNotConfirmedException") setError("E-mail de usuário não confirmado.");
+			if(error.code === "UserNotConfirmedException") {
+        props.history.push({
+          pathname: `/accountCreated`,
+          state: { email: register.email }
+        });
+      };
 		}
   }
 
@@ -95,6 +106,8 @@ const Login = (props) => {
         handleChange={handleChange}
         emailValue={register.email}
         passValue={register.password}
+        showPassword={showPassword}
+        handleViewPassword={handleViewPassword}
         isError={error}
         pass
       />

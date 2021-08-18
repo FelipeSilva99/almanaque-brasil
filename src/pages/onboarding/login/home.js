@@ -25,6 +25,8 @@ const Title = styled.h1`
   color: #373737;
   display: flex;
   align-items: center;
+
+  @media (max-width: 320px) { font-size: 1.25rem; }
 `;
 
 const Content = styled.div`
@@ -43,7 +45,7 @@ const Home = (props) => {
 
   return (
     <Container>
-      <Title>Almanaque Brasil</Title>
+      <Title>Almanaque Miguel Burnier</Title>
       <Content>
         <Button
           handleClick={() => handleClick('createAccount')}

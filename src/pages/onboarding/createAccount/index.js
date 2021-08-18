@@ -68,8 +68,9 @@ const CreateAccount = (props) => {
     try {
       const { user } = await Auth.signUp({
         password,
-        username: email,
+        username: `${name}123`,
         attributes: {
+          email,
           name,
         },
         custom: {

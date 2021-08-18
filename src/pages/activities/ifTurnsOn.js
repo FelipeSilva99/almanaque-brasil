@@ -48,8 +48,8 @@ const ContentInfo = styled.div`
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
+  user-select: none;
   background-color: ${props => (props.isCorrectAnswer && 'none') || props.backgroundColor};
-
   img { opacity: ${props => (props.isCorrectAnswer && '1') || props.opacity}}
 `
 

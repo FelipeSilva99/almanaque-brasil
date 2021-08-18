@@ -14,7 +14,7 @@ export const getTrailsThunk = () => async (dispatch) => {
   try {
     const response = await axios({
 			method: 'get',
-			url: `https://a19dfcwa29.execute-api.us-east-1.amazonaws.com/dev/trails`,
+			url: `${process.env.REACT_APP_TRAILS_ENDPOINT}`,
 			headers: {
         'Content-Type': 'application/json',
 				'Authorization': `${idToken}`,

@@ -79,14 +79,15 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const colors = {
     green: "#00FFEA", orange: "#F29F32", blue: "#8EBEFF", yellow: "#FFD932"
   }
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [pairs, setPairs] = useState(undefined);
-  const [availableColors, setAvailableColors] = useState([
+  const availableColorsInit = [
     colors.green, colors.green,
     colors.orange, colors.orange,
     colors.blue, colors.blue,
     colors.yellow, colors.yellow
-  ]);
+  ]
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [pairs, setPairs] = useState(undefined);
+  const [availableColors, setAvailableColors] = useState(availableColorsInit);
   const [activitie, setActivitie] = useState(undefined);
   const [isModalTip, setIsModalTip] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true)
@@ -256,11 +257,15 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
 
 
   const handleWrongAnswer = () => {
-    const removeBackground = [];
-    pairs.map(item => removeBackground.push({ ...item, backgroundColor: '#fff' }))
+    // const cleanPairs = [];
+    // pairs.map(item => cleanPairs.push({ ...item, backgroundColor: '#fff' }))
 
+    // setSelectedItems([])
+    // setPairs(cleanPairs)
+    // setAvailableColors(availableColorsInit)
+    // setInMemoryItem(undefined)
+    // setHasItemInMemory(false)
     setModalWrongAnswer(false);
-    setPairs(removeBackground);
   }
 
   const showModalAnswer = () => {

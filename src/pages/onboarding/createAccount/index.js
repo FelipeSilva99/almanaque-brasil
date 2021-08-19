@@ -47,13 +47,14 @@ const CreateAccount = (props) => {
     { name: 'email', value: 1 },
     { name: 'password', value: 2 },
     { name: 'username', value: 3 },
-    { name: 'kinship', value: 4 }
+    { name: 'nickname', value: 4 },
+    { name: 'kinship', value: 5 }
   ];
   const [isTermsAccepted, setTermsAccpted] = useState(false);
   const [attention, setAttention] = useState(undefined);
   const [lastScreen, setLastScreen] = useState(false);
   const [currentStep, setCurrentStep] = useState(steps[0]);
-  const [register, setRegister] = useState({ email: '', password: '', username: '', });
+  const [register, setRegister] = useState({ email: '', password: '', username: '', nickname: '', });
   const [isError, setIsError] = useState({ email: '', password: '', username: '', kinship: false });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -64,12 +65,13 @@ const CreateAccount = (props) => {
     });
   }
 
-  const signUp = async (name, password, email, kinship, isTermsAccepted) => {
+  const signUp = async (name, nickname, password, email, kinship, isTermsAccepted) => {
     try {
       const { user } = await Auth.signUp({
         password,
-        username: email,
+        username: nickname,
         attributes: {
+          email,
           name,
         },
         custom: {
@@ -147,7 +149,7 @@ const CreateAccount = (props) => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    const { email, password, username, kinship } = register;
+    const { email, password, username, nickname, kinship } = register;
     const pageName = currentStep.name;
 
     const isEmailValid = !!email;
@@ -162,16 +164,21 @@ const CreateAccount = (props) => {
     const isKinshipValid = !!kinship;
     const isPageKinshipValid = isKinshipValid && isTermsAccepted;
 
-    const isPageValid = isPageEmailValid || isPagePasswordValid || isPageNameValid || isPageKinshipValid;
+    const isPageNickNameValid = true
+
+    const isPageValid = isPageEmailValid || isPagePasswordValid || isPageNameValid || isPageKinshipValid || isPageNickNameValid;
 
     if (isPageValid) {
       if (currentStep.value < steps.length) {
         return setCurrentStep(steps[currentStep.value]);
       } else {
-        signUp(username, password, email, kinship, isTermsAccepted);
+        console.log(
+          `username: ${username}, nickname: ${nickname}, password: ${password}, email: ${email}, kinship: ${kinship}, terms: ${isTermsAccepted}`
+        )
+        signUp(username, nickname, password, email, kinship, isTermsAccepted);
       }
     } else {
-      const isNameError = pageName === 'username' && 'O nome deve pelo menos 3 caracteres';
+      const isNameError = pageName === 'username' && 'O nome deve ter pelo menos 3 caracteres';
       const isEmailError = pageName === 'email' && 'Esse e-mail já existe';
       const isError = isNameError || isEmailError;
 
@@ -228,8 +235,23 @@ const CreateAccount = (props) => {
         subtitle='Gostariamos de saber o seu nome.'
         name='username'
         value={register?.username}
-        placeholder='Digite seu name aqui'
+        placeholder='Digite seu nome aqui'
         isError={isError.username && isError.msg}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
+    );
+  }
+
+  const RenderNickName = () => {
+    return (
+      <Form
+        label='Qual é o seu apelido?'
+        subtitle='Digite um apelido'
+        name='nickname'
+        value={register?.nickname}
+        placeholder='Digite seu apelido aqui'
+        isError={isError.nickname && isError.msg}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
@@ -260,7 +282,8 @@ const CreateAccount = (props) => {
       case steps[0].name: return <RenderCreateEmail />
       case steps[1].name: return <RenderCreatePassword />
       case steps[2].name: return <RenderUserName />
-      case steps[3].name: return <RenderQuestionKinship />
+      case steps[3].name: return <RenderNickName />
+      case steps[4].name: return <RenderQuestionKinship />
       default: return <renderCreateEmail />
     }
   }

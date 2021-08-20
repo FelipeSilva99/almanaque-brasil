@@ -19,7 +19,7 @@ const Content = styled.div`
   z-index: 1;
 `;
 
-const TextMsg = styled.div`
+const Text = styled.p`
   padding-top: .5rem; 
   font-size: .9375rem;
   color: #373737;
@@ -39,8 +39,8 @@ const ContainerButton = ({
   return (
     <Content height={height} noBorder={noBorder}>
     {console.log('isError', isError)}
-      {isCorrectAnswer && <TextMsg>A resposta certa é</TextMsg>}
-      {isError && <TextMsg>Você precisa selecionar todos os items</TextMsg>}
+      {isCorrectAnswer && <Text>A resposta certa é</Text>}
+      {isError && <Text>{isError}</Text>}
       <Button
         color={color}
         background={background}

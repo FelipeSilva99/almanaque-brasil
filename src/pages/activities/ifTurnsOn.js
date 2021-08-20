@@ -21,7 +21,6 @@ const Container = styled.div`
   align-items: center;
   background-color: #f3f3f3;
   width: 100vw;
-  height: 100vh;  
 `
 
 const Content = styled.div`
@@ -97,12 +96,13 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const [hasItemInMemory, setHasItemInMemory] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
   const [isModalCorrectAnswer, setIsModalCorrectAnswer] = useState(undefined);
+  const [isError, setIsError] = useState(undefined);
 
-  useEffect(() => {
-    inMemoryItem === undefined
-      ? setHasItemInMemory(false)
-      : setHasItemInMemory(true)
-  }, [inMemoryItem])
+  // useEffect(() => {
+  //   inMemoryItem === undefined
+  //     ? setHasItemInMemory(false)
+  //     : setHasItemInMemory(true)
+  // }, [inMemoryItem])
 
   useEffect(() => {
     const newArrayOfActivities = useActivitie?.pairs.map((pair, i) => {
@@ -140,6 +140,8 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
         remove(itemIndex, item)
       }
     }
+
+    setIsError(false);
   }
 
   const handleCorrectAnswer = () => {
@@ -150,21 +152,20 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
       const pair = element.matchingPair;
 
       const includesItem = pairsList.includes(pair);
-      setModalWrongAnswer(false);
-      // setShowAnswer(true);
+
       if (!includesItem) {
         pairsList.push(pair);
       }
+    });
 
-      // eslint-disable-next-line array-callback-return
-      newPairsList = pairsList.map(item => {
-        pairs.filter(i => {
-          return i.matchingPair === item;
-        })
+    newPairsList = pairsList.map(el =>
+      pairs.filter(element => {
+        return element.matchingPair === el;
       })
-    })
+    );
 
-    return newPairsList.flat(Infinity);
+    setPairs(newPairsList.flat(Infinity))
+    return
   }
 
   const handleContinue = () => {
@@ -187,8 +188,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const remove = (index, item) => {
     const newSelectedItems = selectedItems
     const removed = newSelectedItems[index]
-    newSelectedItems.splice(index, 1)
-
+    newSelectedItems.splice(index, 1);
 
     if (hasItemInMemory) {
       const newAvailableColors = availableColors;
@@ -242,8 +242,25 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     setIsModalCorrectAnswer(!isModalCorrectAnswer);
   }
 
+  const isCorrect = () => {
+    let isCorrect = true;
+    selectedItems.map((item, i, array) => {
+      if (i % 2 === 0) return null
+      const par = [array[i], array[i - 1]]
+      if (par[0].matchingPair !== par[1].matchingPair) return isCorrect = false;
+      return null
+    });
+
+    return isCorrect;
+  }
+
   const handleSubmit = () => {
-    if (selectedItems.length < pairs.length) return
+    const isError  = pairs.filter(item => item.backgroundColor === "#fff").length > 0;
+
+    if (selectedItems.length < pairs.length || isError) {
+      setIsError(true);
+      return;
+    }
     if (isCorrectAnswer) {
       handlerNextActivitie();
     } else if (isCorrect()) {
@@ -271,6 +288,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const showModalAnswer = () => {
     setModalWrongAnswer(false);
     setIsCorrectAnswer(true);
+    handleCorrectAnswer()
   }
 
   const setBackgroundColor = (item, color) => {
@@ -296,18 +314,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
     return "1.0"
   }
 
-  function isCorrect() {
-    let isCorrect = true;
-    selectedItems.map((item, i, array) => {
-      if (i % 2 === 0) return null
-      const par = [array[i], array[i - 1]]
-      if (par[0].matchingPair !== par[1].matchingPair) return isCorrect = false;
-      return null
-    });
-
-    return isCorrect;
-  }
-
   const renderScreen = () => {
     return (
       <Box isCorrectAnswer={isCorrectAnswer}>
@@ -320,7 +326,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
                   isCorrectAnswer={isCorrectAnswer}
                   onClick={() => handleClick(item)}
                   opacity={setOpacity(item.backgroundColor)}>
-                  <img src={`data:image/jpeg;base64,${item.imageBase64}`} isCorrectAnswer={isCorrectAnswer} alt={`img-${item.matchingPair}`}/>
+                  <img src={`data:image/jpeg;base64,${item.imageBase64}`} isCorrectAnswer={isCorrectAnswer} alt={`img-${item.matchingPair}`} />
                 </ContentInfo>
               )
             ))
@@ -360,6 +366,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
             boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
             noBorder={!isCorrectAnswer}
             isCorrectAnswer={isCorrectAnswer}
+            isError={isError}
             handleClick={handleSubmit}
           >
             {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}

@@ -1,5 +1,5 @@
 // Libs
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PrivateRoute from './PrivateRoute'
@@ -23,13 +23,13 @@ import {
 	getTrailsThunk,
 } from '../dataflow/thunks/trails-thunk';
 
-const mapDispatchToProps = dispatch => {{
+const mapDispatchToProps = dispatch => {
 	return {
 		getTrailsThunk: (accessToken) => {
 			dispatch(getTrailsThunk(accessToken));
 		},
 	}
-}};
+};
 
 const Routes = (props) => {
 

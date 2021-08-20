@@ -11,7 +11,8 @@ import selectedTip from '../../images/icons/selectedTip.svg';
 // Styles
 const Container = styled.header`
   width: 100vw;
-  padding: 1rem 1rem;
+  /* height: 100px; */
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

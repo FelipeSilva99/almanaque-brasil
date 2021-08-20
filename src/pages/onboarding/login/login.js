@@ -83,7 +83,12 @@ const Login = (props) => {
 			if(error.code === "UserNotConfirmedException") {
         props.history.push({
           pathname: `/accountCreated`,
-          state: { email: register.email }
+          state: { email: 'register.email' }
+        });
+      };
+      if(error.code === "UserNotFoundException") {
+        props.history.push({
+          pathname: `/createAccount`,
         });
       };
 		}

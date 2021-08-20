@@ -55,7 +55,7 @@ const CreateAccount = (props) => {
   const [lastScreen, setLastScreen] = useState(false);
   const [currentStep, setCurrentStep] = useState(steps[0]);
   const [register, setRegister] = useState({ email: '', password: '', username: '', nickname: '', });
-  const [isError, setIsError] = useState({ email: '', password: '', username: '', kinship: false });
+  const [isError, setIsError] = useState({ email: '', password: '', username: '', kinship: undefined });
   const [showPassword, setShowPassword] = useState(false);
 
   const goToAccountCreatedScreen = () => {
@@ -67,6 +67,7 @@ const CreateAccount = (props) => {
 
   const signUp = async (name, nickname, password, email, kinship, isTermsAccepted) => {
     try {
+      // eslint-disable-next-line no-unused-vars
       const { user } = await Auth.signUp({
         password,
         username: nickname,
@@ -86,10 +87,10 @@ const CreateAccount = (props) => {
         setIsError({ email: true, msg: 'Já existe uma conta com o e-mail fornecido.' });
       }
 
-      // if (error.code === "UsernameExistsException") {
-      //   setCurrentStep({ name: 'username', value: 3 });
-      //   setIsError({ username: true, msg: 'Esse nome já existe' });
-      // }
+      if (error.code === "UsernameExistsException") {
+        setCurrentStep({ name: 'nickname', value: 4 });
+        setIsError({ nickname: true, msg: 'Esse apelido já existe' });
+      }
       setAttention(false);
       console.log('error signing up:', error);
     }
@@ -164,23 +165,20 @@ const CreateAccount = (props) => {
     const isKinshipValid = !!kinship;
     const isPageKinshipValid = isKinshipValid && isTermsAccepted;
 
-    const isPageNickNameValid = true
+    const isPageNickNameValid = pageName === 'nickname' && nickname.length >= 3;
 
-    const isPageValid = isPageEmailValid || isPagePasswordValid || isPageNameValid || isPageKinshipValid || isPageNickNameValid;
-
+    const isPageValid = isPageEmailValid || isPagePasswordValid || isPageNameValid || isPageNickNameValid ||  isPageKinshipValid;
     if (isPageValid) {
       if (currentStep.value < steps.length) {
         return setCurrentStep(steps[currentStep.value]);
       } else {
-        console.log(
-          `username: ${username}, nickname: ${nickname}, password: ${password}, email: ${email}, kinship: ${kinship}, terms: ${isTermsAccepted}`
-        )
         signUp(username, nickname, password, email, kinship, isTermsAccepted);
       }
     } else {
-      const isNameError = pageName === 'username' && 'O nome deve ter pelo menos 3 caracteres';
+      const isNameError = (pageName === 'username' || pageName === 'nickname') && 'O nome deve ter pelo menos 3 caracteres';
       const isEmailError = pageName === 'email' && 'Esse e-mail já existe';
       const isError = isNameError || isEmailError;
+      console.log('false');
 
       if(lastScreen) {
         isTermsAccepted === false ? setAttention(true) : setAttention(false)

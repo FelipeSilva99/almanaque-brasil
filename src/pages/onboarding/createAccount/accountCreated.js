@@ -52,7 +52,7 @@ const AccountCreated = () => {
 
   useEffect(() => {
     setEmail(history?.location?.state?.email);
-  }, []);
+  }, [history?.location?.state?.email]);
 
   const goHome = () => {
     history.push("/login");

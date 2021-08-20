@@ -12,23 +12,23 @@ import Button from '../../components/buttons/containerButton';
 import logo from '../../images/logo/enigmaticWord.svg';
 
 const Container = styled.div`
-  position: relative;
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
-  background: #f3f3f3;
+  justify-content: space-between;
+  /* background: #f3f3f3; */
   @media (min-width: 1024px) {
     justify-content: center;
   }
 `;
 
 const Content = styled.div`
-  padding: 2rem;
-  padding-bottom: 0;
+  /* padding: 2rem;
+  padding-bottom: 0; */
   width: 100vw;
-  height: calc(100% - 83px);
+  /* height: calc(100% - 83px); */
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -36,11 +36,13 @@ const Content = styled.div`
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
   box-sizing: border-box;
+  background: #f3f3f3;
+
 `
 
 const Puzzle = styled.div`
-  position: relative;
-  bottom: 7vh;
+  /* position: relative;
+  bottom: 7vh; */
   display: flex;
   justify-content: space-around;
   width: calc(100vw - 4rem);
@@ -79,7 +81,6 @@ const EnigmaBox = styled.div`
     font-weight: normal;
     /* margin-bottom: 1rem; */
   }
-
 `;
 
 const EnigmaImage = styled.div`
@@ -90,6 +91,7 @@ const EnigmaImage = styled.div`
   background-repeat: no-repeat;
   width: 100%;
   height: 14vh;
+  min-height: 90px;
 `;
 
 const Less = styled.div`

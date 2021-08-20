@@ -9,6 +9,7 @@ const Content = styled.button`
   margin: ${props => props.margin || 'auto'};
 	width: 100%;
 	height: ${props => props.height || '2.375rem'};
+  /* padding: 1rem; */
   max-width: 425px;
 	display: flex;
 	justify-content: center;

@@ -98,11 +98,11 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const [isModalCorrectAnswer, setIsModalCorrectAnswer] = useState(undefined);
   const [isError, setIsError] = useState(undefined);
 
-  // useEffect(() => {
-  //   inMemoryItem === undefined
-  //     ? setHasItemInMemory(false)
-  //     : setHasItemInMemory(true)
-  // }, [inMemoryItem])
+  useEffect(() => {
+    inMemoryItem === undefined
+      ? setHasItemInMemory(false)
+      : setHasItemInMemory(true)
+  }, [inMemoryItem])
 
   useEffect(() => {
     const newArrayOfActivities = useActivitie?.pairs.map((pair, i) => {
@@ -366,7 +366,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
             boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
             noBorder={!isCorrectAnswer}
             isCorrectAnswer={isCorrectAnswer}
-            isError={isError}
+            isError={isError && 'Você precisa selecionar todos os items'}
             handleClick={handleSubmit}
           >
             {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}

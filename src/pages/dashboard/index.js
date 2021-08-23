@@ -124,7 +124,7 @@ const Dashboard = (props) => {
         <Text name>Oi, {props.user.name}</Text>
       </Header>
       <Content>
-        <Text paddingBottom>Qual atividade fazer hoje?</Text>
+        <Text paddingBottom>Qual atividade vamos fazer hoje?</Text>
         {trails && (
           <>
             {renderTrails()}

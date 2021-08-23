@@ -13,7 +13,7 @@ import logo from '../../images/logo/enigmaticWord.svg';
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -25,8 +25,8 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  /* padding: 2rem;
-  padding-bottom: 0; */
+  /* padding: 2rem;*/
+  margin-bottom: 1rem; 
   width: 100vw;
   /* height: calc(100% - 83px); */
   display: flex;
@@ -129,6 +129,7 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
   const [amountTrial, setAmountTrial] = useState(3);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [showAnswer, setShowAnswer] = useState(false);
+  const [isError, setIsError] = useState(undefined);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000)
@@ -148,7 +149,8 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
   const handleValue = (e, i) => {
     const newEnigmas = enigmas
     enigmas[i].userInput = e.target.value;
-    setEnigmas([...newEnigmas])
+    setEnigmas([...newEnigmas]);
+    setIsError(false);
   };
 
   const handleModalWrongAnswer = () => {
@@ -167,13 +169,19 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
 
   const checkAnswer = () => {
     let userAnswer = "";
-    // eslint-disable-next-line array-callback-return
-    enigmas.map(item => {
-      userAnswer = `${userAnswer}${item.userInput}`
-    })
-    userAnswer = userAnswer.toLowerCase()
-    if(userAnswer === activitie.answer.answer) setModalCorrectAnswer(true);
-    else handleWrongAnswer()
+    const isError = enigmas.map(item => item.userInput).filter(i => !i).length > 0;
+
+    if(isError) {
+      setIsError(true);
+    } else {
+      // eslint-disable-next-line array-callback-return
+      enigmas.map(item => {
+        userAnswer = `${userAnswer}${item.userInput}`
+      })
+      userAnswer = userAnswer.toLowerCase();
+      if(userAnswer === activitie.answer.answer) setModalCorrectAnswer(true);
+      else handleWrongAnswer()
+    }
   };
 
   return (
@@ -207,6 +215,7 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
           </Puzzle>
         </Content>
         <Button
+          isError={isError && 'Você precisa digitar em todos os campos'}
           handleClick={checkAnswer}
         >responder
         </Button>

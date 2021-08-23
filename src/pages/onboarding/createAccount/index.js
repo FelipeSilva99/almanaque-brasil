@@ -61,7 +61,7 @@ const CreateAccount = (props) => {
   const goToAccountCreatedScreen = () => {
     props.history.push({
       pathname: `/accountCreated`,
-      state: { email: register.email }
+      state: { nickname: register.nickname }
     });
   }
 

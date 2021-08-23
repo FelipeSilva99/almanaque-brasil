@@ -47,20 +47,21 @@ const Error = styled.p`
 
 const AccountCreated = () => {
   const history = useHistory();
-  const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    setEmail(history?.location?.state?.email);
-  }, [history?.location?.state?.email]);
+    setNickname(history?.location?.state?.nickname);
+  }, [history?.location?.state?.nickname]);
 
   const goHome = () => {
     history.push("/login");
   }
 
   async function resendConfirmationCode() {
+    console.log('nickname', nickname);
     try {
-      await Auth.resendSignUp(email);
+      await Auth.resendSignUp(nickname);
     } catch (err) {
       setIsError({isError: true, msg: err.message});
       console.log('error resending code: ', err);

@@ -25,10 +25,11 @@ const Container = styled.div`
   justify-content: center;
   overflow: hidden;
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+  background-color: #F3F3F3;
 `;
 
 const Activities = (props) => {

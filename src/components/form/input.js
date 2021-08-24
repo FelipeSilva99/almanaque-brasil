@@ -49,7 +49,7 @@ const ContentInput = ({
   placeholder,
   type,
   handleChange, 
-  isViewPassword,
+  showPassword,
   handleViewPassword
 }) => {
   return (
@@ -65,7 +65,7 @@ const ContentInput = ({
       />
       {name === 'password' && (
         <Button onClick={handleViewPassword}>
-          <img src={isViewPassword ? eyeBlocked : eye} alt='visualizar senha' />
+          <img src={showPassword ? eye : eyeBlocked} alt='visualizar senha' />
         </Button> 
       )}
     </Content>

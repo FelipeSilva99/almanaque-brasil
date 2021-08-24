@@ -231,12 +231,12 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
         )
 
         }
-        <ALink to="/" >
+        <ALink to="/activities" >
           <Button
             margin={"0 0 20px 0"}
             background={"rgb(252, 208, 41)"}
             boxShadow={"rgb(238 137 47) 0px 7px 0px"}
-          >Voltar a trilha</Button>
+          >Voltar a Atividades</Button>
         </ALink>
       </ButtonsBox>
     </Container>

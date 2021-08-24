@@ -6,7 +6,7 @@ import Button from './button';
 
 // Styles
 const Content = styled.div`
-  /* padding: 0 .8rem 1.5rem; */
+  padding: 0 1rem;
   width: 100vw;
   height: ${props => props.height || '6.2rem'};
 	background: #fff;
@@ -19,8 +19,8 @@ const Content = styled.div`
   z-index: 1;
 `;
 
-const TextError = styled.div`
-  padding-bottom: .5rem; 
+const Text = styled.p`
+  padding-top: .5rem; 
   font-size: .9375rem;
   color: #373737;
 `;
@@ -32,12 +32,15 @@ const ContainerButton = ({
   boxShadow,
   noBorder,
   children,
-  handleClick,
   isCorrectAnswer,
+  isError,
+  handleClick,
 }) => {
   return (
     <Content height={height} noBorder={noBorder}>
-      {isCorrectAnswer && <TextError>A resposta certa é</TextError>}
+    {console.log('isError', isError)}
+      {isCorrectAnswer && <Text>A resposta certa é</Text>}
+      {isError && <Text>{isError}</Text>}
       <Button
         color={color}
         background={background}

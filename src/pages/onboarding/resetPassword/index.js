@@ -39,7 +39,7 @@ const ResetPassword = (props) => {
   const [currentStep, setCurrentStep] = useState(steps[0]);
   const [register, setRegister] = useState({ email: '', password: '' });
   const [isError, setIsError] = useState({ email: '', password: '' });
-  const [isViewPassword, setIsViewPassword] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
   const [isSuccessNewPassword, setIsSuccessNewPassword] = useState(false);
 
   const handleCheckEmail = async (email) => {
@@ -54,7 +54,7 @@ const ResetPassword = (props) => {
         setIsSuccessNewPassword(true);
         setTimeout(() => {
           props.history.push({ pathname: `/` });
-        }, 900);
+        }, 2000);
       })
       .catch(err => {
         if (err.code === "CodeMismatchException") {
@@ -109,7 +109,7 @@ const ResetPassword = (props) => {
   const handleViewPassword = (ev) => {
     ev.preventDefault();
 
-    setIsViewPassword(!isViewPassword);
+    setShowPassword(!showPassword);
   }
 
   const handleSubmit = (ev) => {
@@ -184,12 +184,12 @@ const ResetPassword = (props) => {
         label='Nova senha'
         subtitle='Digite abaixo sua nova senha'
         name='password'
-        type={isViewPassword ? 'password' : 'text'}
+        type={showPassword ? 'text' : 'password'}
         value={register?.password}
         placeholder='Digite sua nova senha aqui'
         isError={isError?.password && 'Sua senha deve conter 6 caracteres'}
         handleChange={handleChange}
-        isViewPassword={isViewPassword}
+        showPassword={showPassword}
         handleViewPassword={handleViewPassword}
         handleSubmit={handleSubmit}
       />

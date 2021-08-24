@@ -89,7 +89,7 @@ const BoxAnswer = styled.div`
   padding: 0 2.6875rem;
   max-width: 425px;
   height: 100%;
-  min-height: 50vh;
+  min-height: 40vh;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -20,14 +20,14 @@ const Container = styled.div`
 const TrunkScreen = () => {
   const history = useHistory()
   
-  const goBack = () => {
-    history.goBack()
+  const goActivities = () => {
+    history.push("/activities");
   }
 
   return (
     <Container>
       <h1>Em construção</h1>
-      <Button handleClick={goBack}>Voltar</Button>
+      <Button handleClick={goActivities}>Continuar</Button>
     </Container>
   );
 }

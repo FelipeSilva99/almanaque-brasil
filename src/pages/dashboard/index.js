@@ -72,6 +72,7 @@ const Row = styled.div`
 `;
 
 const Button = styled.button`
+  padding-left: 1rem;
   font-size: 1rem;
   font-weight: 900;
   color: #373737;
@@ -123,7 +124,7 @@ const Dashboard = (props) => {
         <Text name>Oi, {props.user.name}</Text>
       </Header>
       <Content>
-        <Text paddingBottom>Qual atividade fazer hoje?</Text>
+        <Text paddingBottom>Qual atividade vamos fazer hoje?</Text>
         {trails && (
           <>
             {renderTrails()}

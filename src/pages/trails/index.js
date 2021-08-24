@@ -50,6 +50,7 @@ const Trails = (props) => {
 	useEffect(() => {
 		console.log("GET TOKEN")
 		props.getTrailsThunk();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
   const handleClick = (trail) => {

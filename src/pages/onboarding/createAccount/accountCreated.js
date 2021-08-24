@@ -47,21 +47,21 @@ const Error = styled.p`
 
 const AccountCreated = () => {
   const history = useHistory();
-  const [username, setUsername] = useState('');
+  const [nickname, setNickname] = useState('');
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    setUsername(history?.location?.state?.username);
-  }, []);
+    setNickname(history?.location?.state?.nickname);
+  }, [history?.location?.state?.nickname]);
 
   const goHome = () => {
-    history.push("/");
+    history.push("/login");
   }
 
   async function resendConfirmationCode() {
+    console.log('nickname', nickname);
     try {
-      await Auth.resendSignUp(username);
-      console.log('success resending code:');
+      await Auth.resendSignUp(nickname);
     } catch (err) {
       setIsError({isError: true, msg: err.message});
       console.log('error resending code: ', err);
@@ -70,10 +70,11 @@ const AccountCreated = () => {
 
   return (
     <Container>
-      <Header onClick={goHome} text='Verificar e-mail' />
+      <Header noBack text='Verificar e-mail' />
       <Content>
         <Title>Verifique seu e-mail</Title>
         <Text>Enviamos uma mensagem de confirmação para o seu e-mail cadastrado.</Text>
+        <Button margin='1rem' handleClick={goHome}>continuar</Button>
         <Button margin='1rem' handleClick={resendConfirmationCode}>reenviar</Button>
         {isError && <Error>{isError.msg ? isError.msg : 'Erro ao reenviar'}</Error>}
       </Content>

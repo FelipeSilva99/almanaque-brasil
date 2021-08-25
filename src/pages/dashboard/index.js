@@ -50,9 +50,10 @@ const Text = styled.h1`
 `;
 
 const Card = styled.button`
+  margin-bottom: 2rem;
   min-height: 150px;
-  width: ${props => props.width ? '100%' : '48%'};
-  /* margin: 10px; */
+  width: 100%;
+  max-width: 330px;
   border-radius: 16px;
   padding: 16px;
   /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
@@ -61,14 +62,10 @@ const Card = styled.button`
   &:hover{
     box-shadow: 0 6px 10px rgba(0,0,0,0.25), 0 1px 10px rgba(0,0,0,0.22);
   }
-`;
 
-const Row = styled.div`
-  padding-top: 1rem;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  flex-wrap: wrap;
+  @media (min-width: 1024px) {
+    margin-right: ${props => props.marginRight && '2rem'};
+  }
 `;
 
 const Button = styled.button`
@@ -97,25 +94,6 @@ const Dashboard = (props) => {
     props.history.push({ pathname: '/trails' });
   }
 
-  const renderTrails = () => (
-    <Card width onClick={handleClick}>
-      <Text>Trilha</Text>
-    </Card>
-  )
-
-  const renderOptions = () => {
-    return (
-      <Row>
-        <Card>
-          <Text>Baú</Text>
-        </Card>
-        <Card>
-          <Text>Ranking</Text>
-        </Card>
-      </Row>
-    )
-  }
-
   const trails = props?.trails;
 
   return (
@@ -123,12 +101,16 @@ const Dashboard = (props) => {
       <Header>
         <Text name>Oi, {props.user.name}</Text>
       </Header>
-      <Content>
+       <Content>
         <Text paddingBottom>Qual atividade vamos fazer hoje?</Text>
         {trails && (
           <>
-            {renderTrails()}
-            {renderOptions()}
+            <Card marginRight onClick={handleClick}>
+              <Text>Trilha</Text>
+            </Card>
+            <Card>
+              <Text>Baú</Text>
+            </Card>
           </>
         )}
       </Content>

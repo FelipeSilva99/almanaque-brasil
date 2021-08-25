@@ -47,30 +47,29 @@ const CreateAccount = (props) => {
     { name: 'email', value: 1 },
     { name: 'password', value: 2 },
     { name: 'username', value: 3 },
-    { name: 'nickname', value: 4 },
-    { name: 'kinship', value: 5 }
+    { name: 'kinship', value: 4 }
   ];
   const [isTermsAccepted, setTermsAccpted] = useState(false);
   const [attention, setAttention] = useState(undefined);
   const [lastScreen, setLastScreen] = useState(false);
   const [currentStep, setCurrentStep] = useState(steps[0]);
-  const [register, setRegister] = useState({ email: '', password: '', username: '', nickname: '', });
+  const [register, setRegister] = useState({ email: '', password: '', username: '' });
   const [isError, setIsError] = useState({ email: '', password: '', username: '', kinship: undefined });
   const [showPassword, setShowPassword] = useState(false);
 
   const goToAccountCreatedScreen = () => {
     props.history.push({
       pathname: `/accountCreated`,
-      state: { nickname: register.nickname }
+      state: { email: register.email }
     });
   }
 
-  const signUp = async (name, nickname, password, email, kinship, isTermsAccepted) => {
+  const signUp = async (name, password, email, kinship, isTermsAccepted) => {
     try {
       // eslint-disable-next-line no-unused-vars
       const { user } = await Auth.signUp({
         password,
-        username: nickname,
+        username: email,
         attributes: {
           email,
           name,
@@ -88,7 +87,7 @@ const CreateAccount = (props) => {
       }
 
       if (error.code === "UsernameExistsException") {
-        setCurrentStep({ name: 'nickname', value: 4 });
+        setCurrentStep({ name: 'email', value: 1 });
         setIsError({ nickname: true, msg: 'Esse apelido já existe' });
       }
       setAttention(false);
@@ -150,7 +149,7 @@ const CreateAccount = (props) => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    const { email, password, username, nickname, kinship } = register;
+    const { email, password, username, kinship } = register;
     const pageName = currentStep.name;
 
     const isEmailValid = !!email;
@@ -165,14 +164,12 @@ const CreateAccount = (props) => {
     const isKinshipValid = !!kinship;
     const isPageKinshipValid = isKinshipValid && isTermsAccepted;
 
-    const isPageNickNameValid = pageName === 'nickname' && nickname.length >= 3;
-
-    const isPageValid = isPageEmailValid || isPagePasswordValid || isPageNameValid || isPageNickNameValid ||  isPageKinshipValid;
+    const isPageValid = isPageEmailValid || isPagePasswordValid || isPageNameValid ||  isPageKinshipValid;
     if (isPageValid) {
       if (currentStep.value < steps.length) {
         return setCurrentStep(steps[currentStep.value]);
       } else {
-        signUp(username, nickname, password, email, kinship, isTermsAccepted);
+        signUp(username, password, email, kinship, isTermsAccepted);
       }
     } else {
       const isNameError = (pageName === 'username' || pageName === 'nickname') && 'O nome deve ter pelo menos 3 caracteres';
@@ -241,21 +238,6 @@ const CreateAccount = (props) => {
     );
   }
 
-  const RenderNickName = () => {
-    return (
-      <Form
-        label='Qual é o seu apelido?'
-        subtitle='Digite um apelido'
-        name='nickname'
-        value={register?.nickname}
-        placeholder='Digite seu apelido aqui'
-        isError={isError.nickname && isError.msg}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-      />
-    );
-  }
-
   const RenderQuestionKinship = () => {
     setLastScreen(true);
     return (
@@ -280,8 +262,7 @@ const CreateAccount = (props) => {
       case steps[0].name: return <RenderCreateEmail />
       case steps[1].name: return <RenderCreatePassword />
       case steps[2].name: return <RenderUserName />
-      case steps[3].name: return <RenderNickName />
-      case steps[4].name: return <RenderQuestionKinship />
+      case steps[3].name: return <RenderQuestionKinship />
       default: return <renderCreateEmail />
     }
   }

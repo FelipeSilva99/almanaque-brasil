@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Auth } from 'aws-amplify';
 
@@ -57,6 +57,13 @@ const CreateAccount = (props) => {
   const [isError, setIsError] = useState({ email: '', password: '', username: '', kinship: undefined });
   const [showPassword, setShowPassword] = useState(false);
 
+
+  useEffect(() => {
+    const email = props.history?.location?.state?.email
+    setRegister({email: email});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const goToAccountCreatedScreen = () => {
     props.history.push({
       pathname: `/accountCreated`,
@@ -66,8 +73,7 @@ const CreateAccount = (props) => {
 
   const signUp = async (name, password, email, kinship, isTermsAccepted) => {
     try {
-      // eslint-disable-next-line no-unused-vars
-      const { user } = await Auth.signUp({
+      await Auth.signUp({
         password,
         username: email,
         attributes: {
@@ -81,14 +87,9 @@ const CreateAccount = (props) => {
       });
       goToAccountCreatedScreen();
     } catch (error) {
-      if (error.message === "An account with the given email already exists.") {
-        setCurrentStep({ name: 'email', value: 1 });
-        setIsError({ email: true, msg: 'Já existe uma conta com o e-mail fornecido.' });
-      }
-
       if (error.code === "UsernameExistsException") {
         setCurrentStep({ name: 'email', value: 1 });
-        setIsError({ nickname: true, msg: 'Esse apelido já existe' });
+        setIsError({ email: true, msg: 'Já existe uma conta com o e-mail fornecido.' });
       }
       setAttention(false);
       console.log('error signing up:', error);
@@ -175,7 +176,6 @@ const CreateAccount = (props) => {
       const isNameError = (pageName === 'username' || pageName === 'nickname') && 'O nome deve ter pelo menos 3 caracteres';
       const isEmailError = pageName === 'email' && 'Esse e-mail já existe';
       const isError = isNameError || isEmailError;
-      console.log('false');
 
       if(lastScreen) {
         isTermsAccepted === false ? setAttention(true) : setAttention(false)

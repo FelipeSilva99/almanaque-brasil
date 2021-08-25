@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 //Components
+import Header from '../../components/header/headerOnb';
 import ActivitieIcon from '../../components/trail/activitieIcon'
 import Way from '../../components/trail/way'
 
@@ -12,13 +13,10 @@ const mapStateToProps = state => ({
 })
 
 // Styles
-
 const Container = styled.div`
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+  padding: 1.25rem ;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: #EDEDED ;
 
 `;
@@ -28,7 +26,7 @@ const Trail = styled.div`
   width: 375px;
   background-color: transparent;
   overflow: hidden;
-  width: 100vw;
+  width: 100%;
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
@@ -140,6 +138,8 @@ const Activities = (props) => {
   
   return (
     <Container>
+      <Header text='Atividades'/>
+
       <Trail>
       {activities && <Way linesQuantity={activities.length-1}/>}
         {

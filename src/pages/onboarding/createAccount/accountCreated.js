@@ -52,7 +52,6 @@ const AccountCreated = () => {
 
   useEffect(() => {
     setEmail(history?.location?.state?.email);
-    console.log('email----', email);
   }, [history?.location?.state?.email]);
 
   const goHome = () => {
@@ -64,10 +63,12 @@ const AccountCreated = () => {
       await Auth.resendSignUp(email);
     } catch (err) {
       if(err.message === "Username/client id combination not found") {
-        setIsError({isError: true, msg: 'Combinação de nome de usuário do cliente não encontrada'});
+        setIsError({isError: true, msg: 'Combinação de nome de usuário do cliente não encontrada.'});
+      } else if (err.message === "User is already confirmed.") {
+        setIsError({isError: true, msg: 'O usuário já está confirmado'});
+      } else {
+        setIsError({isError: true, msg: err.message});
       }
-      setIsError({isError: true, msg: err.message});
-      console.log('error resending code: ', err);
     }
   }
 

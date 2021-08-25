@@ -2,6 +2,19 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
+//Images
+// import grupo1149 from '../../images/icons/trails/grupo1149';
+// import grupo1150 from '../../images/icons/trails/grupo1150';
+// import grupo1151 from '../../images/icons/trails/grupo1151';
+// import grupo1152 from '../../images/icons/trails/grupo1152';
+// import grupo1153 from '../../images/icons/trails/grupo1153';
+// import grupo1154 from '../../images/icons/trails/grupo1154';
+// import grupo1155 from '../../images/icons/trails/grupo1155';
+// import grupo1156 from '../../images/icons/trails/grupo1156';
+// import grupo1157 from '../../images/icons/trails/grupo1157';
+// import grupo1158 from '../../images/icons/trails/grupo1158';
+// import grupo1159 from '../../images/icons/trails/grupo1159';
+
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';
 import { getTrailsThunk } from '../../dataflow/thunks/trails-thunk';

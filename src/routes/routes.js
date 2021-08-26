@@ -15,7 +15,7 @@ import ResetPassword from '../pages/onboarding/resetPassword';
 import Trails from '../pages/trails';
 import Activities from '../pages/activities';
 import ActivitiesList from '../pages/activities/activitiesList';
-import TrunkScreen from '../pages/activities/trunkScreen';
+import Trunk from '../pages/trunk';
 import Dashboard from '../pages/dashboard';
 
 // import PrivateRoute from './PrivateRoute';
@@ -45,7 +45,7 @@ const Routes = (props) => {
 				<PrivateRoute exact path='/trails' component={Trails} />
 				<PrivateRoute exact path='/activities/:trailId' component={Activities} />
 				<PrivateRoute exact path='/activities' component={ActivitiesList} />
-				<PrivateRoute exact path='/trunk' component={TrunkScreen} props={props} />
+				<PrivateRoute exact path='/trunk' component={Trunk} props={props} />
 			</Switch>
 		</BrowserRouter>
 	)

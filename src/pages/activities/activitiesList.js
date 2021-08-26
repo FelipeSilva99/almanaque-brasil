@@ -7,6 +7,14 @@ import Header from '../../components/header/headerOnb';
 import ActivitieIcon from '../../components/trail/activitieIcon'
 import Way from '../../components/trail/way';
 
+//Assets
+import aquamarineStone from '../../images/stones/aquamarine2.svg'
+import aquamarine from '../../images/stones/aquamarine.svg'
+import church from '../../images/trails/church.svg'
+import houses from '../../images/trails/houses.svg'
+import trainStation from '../../images/trails/trainstation.svg'
+
+
 const mapStateToProps = state => ({
   activities: state.trails,
   selectedTrails: state.trails.selectedTrails,
@@ -18,6 +26,17 @@ const Container = styled.div`
   width: 100vw;
   height: 100%;
   background-color: #EDEDED ;
+`;
+
+const Stone = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: ${props => props.margin || '4rem 0 6rem 0'};
+  div{
+    width: 2rem;
+    height: 2rem;
+    background: red;
+    }
 `;
 
 const Trail = styled.div`
@@ -38,32 +57,13 @@ const ActivitiesRow = styled.div`
   justify-content: center;
 `;
 
-// const setActivitiesOrder = (quantity) => {
-//   let nextItemIsSingular = true;
-//   let linesArray = []
-//   // console.log('quantity:',quantity)
-//   for(let i = 0; i < quantity; i++) {
-//     if(nextItemIsSingular) {
-//       console.log("A")
-//       nextItemIsSingular = false
-//       linesArray.push("oneItem")
-//     } else {
-//       if((i+1) % 3 === 0) {
-//         console.log("B")
-//         nextItemIsSingular = true
-//         linesArray.push("ignore")
-//       }
-//       else {
-//         console.log("C")
-//         linesArray.push("twoItems")
-//       }
-//     }
-//   }
-//   return linesArray;
-// }
-
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
+  const backgroundDecorations = {
+    top: church,
+    center: houses,
+    bottom: trainStation
+  }
 
   useEffect(() => {
     const trail = props.selectedTrails;
@@ -83,10 +83,6 @@ const Activities = (props) => {
   const hasNextActivitie = () => {
     return true
   }
-
-  // const makeListOfActivities = () => {
-    
-  // }
 
   const renderActivities = () => {
     // logic for deciding whether to return one or two items in a row
@@ -134,20 +130,53 @@ const Activities = (props) => {
       }
     })
   } 
+
+  const renderLogoStone = () => {
+    switch (props.activities.data[props.selectedTrails].name) {
+      case 'Água-Marinha':
+        return (
+          <Stone>
+            <img src={aquamarine} />
+          </Stone>
+        );
+
+    
+      default:
+        return
+    }
+  }
+
+  const renderStone = () => {
+    switch (props.activities.data[props.selectedTrails].name) {
+      case 'Água-Marinha':
+        return (
+          <Stone margin='4rem 0 2rem 0'>
+            <img src={aquamarineStone} />
+          </Stone>
+        );
+
+    
+      default:
+        return
+    }
+  }
   
   return (
     <Container>
-      <Header text='Atividades'/>
+      <Header text={props.activities.data[props.selectedTrails].name}/>
+
+      {renderLogoStone()}
 
       <Trail>
-      {activities && <Way linesQuantity={activities.length-1}/>}
+      {activities && <Way backgroundDecorations={backgroundDecorations} linesQuantity={activities.length-1}/>}
         {
           activities && activities.length > 0
             ? renderActivities()
-            // ?null
             : <h1>Carregando</h1>
         }
       </Trail>
+
+      {renderStone()}
     </Container>
   );
 }

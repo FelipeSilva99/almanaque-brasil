@@ -5,7 +5,7 @@ import styled from 'styled-components';
 //Components
 import Header from '../../components/header/headerOnb';
 import ActivitieIcon from '../../components/trail/activitieIcon'
-import Way from '../../components/trail/way'
+import Way from '../../components/trail/way';
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -18,7 +18,6 @@ const Container = styled.div`
   width: 100vw;
   height: 100%;
   background-color: #EDEDED ;
-
 `;
 
 const Trail = styled.div`

@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
 
+//Component
+import Header from '../../components/header/headerYellow';
+
 //Redux
 import { signOut } from '../../dataflow/modules/signIn-modules';
 import {
@@ -34,12 +37,12 @@ const Content = styled.div`
   padding: 2.125rem 1rem 0;
 `;
 
-const Header = styled.div`
-  padding: 2.375rem 1rem;
-  background: #FFD000;
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
-`;
+// const Header = styled.div`
+//   padding: 2.375rem 1rem;
+//   background: #FFD000;
+//   border-bottom-left-radius: 24px;
+//   border-bottom-right-radius: 24px;
+// `;
 
 const Text = styled.h1`
   padding-bottom: ${props => props.paddingBottom && '.5rem'};
@@ -90,25 +93,23 @@ const Dashboard = (props) => {
     }
   }
 
-  const handleClick = () => {
-    props.history.push({ pathname: '/trails' });
+  const handleClick = (route) => {
+    props.history.push({ pathname: `/${route}` });
   }
 
   const trails = props?.trails;
 
   return (
     <Container>
-      <Header>
-        <Text name>Oi, {props.user.name}</Text>
-      </Header>
+      <Header text={`Oi, ${props.user.name}`}/>
        <Content>
         <Text paddingBottom>Qual atividade vamos fazer hoje?</Text>
         {trails && (
           <>
-            <Card marginRight onClick={handleClick}>
+            <Card marginRight onClick={() => handleClick('trails')}>
               <Text>Trilha</Text>
             </Card>
-            <Card>
+            <Card onClick={() => handleClick('trunk')}>
               <Text>Baú</Text>
             </Card>
           </>

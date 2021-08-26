@@ -119,7 +119,7 @@ const Way = ({ backgroundDecorations, linesQuantity }) => {
     <Container>
       <Decoration src={backgroundDecorations.top}></Decoration>
       <Decoration top={'488px'} left={'110px'} src={backgroundDecorations.center}></Decoration>
-      <Decoration bottom={'-50px'} right={0} src={backgroundDecorations.bottom}></Decoration>
+      <Decoration bottom={'0'} right={0} src={backgroundDecorations.bottom}></Decoration>
       {lines && lines.map((type, i) => {
         return setComponent(type, i)
       })}

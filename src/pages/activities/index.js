@@ -12,7 +12,7 @@ import InfoScreen from './infoScreen';
 import DidYouKnow from './didYouKnow';
 import IfTurnsOn from './ifTurnsOn';
 import OurStuff from './ourStuff';
-import EnigmaticWord from './enigmaticWord'
+import EnigmaticWord from './enigmaticWord';
 
 const mapStateToProps = state => ({
   activities: state.trails,

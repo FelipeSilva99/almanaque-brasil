@@ -25,7 +25,7 @@ const Container = styled.div`
   padding: 1.25rem ;
   width: 100vw;
   height: 100%;
-  background-color: #EDEDED ;
+  background-color: #FAFAFA;
 `;
 
 const Stone = styled.div`
@@ -48,7 +48,6 @@ const Trail = styled.div`
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
-  background-color: #EDEDED ;
 `;
 
 const ActivitiesRow = styled.div`

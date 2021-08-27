@@ -146,7 +146,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
         case true:
           return (
             <MsgError>
-              <h1>Ixi, você errou!</h1>
+              <h1>Opa, você errou! Vamos tentar novamente?</h1>
               <p>Você tem mais {chances} chances de marcar<br />pontos. Se liga na dica:</p>
               <strong>{tips[0]}</strong>
             </MsgError>
@@ -155,7 +155,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
         default:
           return (
             <MsgError>
-              <h1>Ixi, você errou!</h1>
+              <h1>Opa, você errou! Vamos tentar novamente?</h1>
               <p>Você tem mais {chances} chances de marcar<br />pontos. O que acha de tentar<br />novamente?</p>
             </MsgError>
           );
@@ -166,7 +166,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
           case true:
             return (
               <MsgError>
-                <h1>Ixi, você errou de novo!</h1>
+                <h1>Opa, você errou de novo! Vamos tentar novamente?</h1>
                 <p>Você tem mais 1 chance de marcar<br />pontos. Se liga em outra dica:</p>
                 <strong>{tips[1]}</strong>
               </MsgError>
@@ -175,7 +175,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
           default:
             return (
               <MsgError>
-                <h1>Ixi, você errou de novo!</h1>
+                <h1>Opa, você errou de novo! Vamos tentar novamente?</h1>
                 <p>Você tem mais 1 chance de marcar<br />pontos. O que acha de tentar<br />novamente?</p>
               </MsgError>
             );

@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
+//Component
+import Footer from '../../components/footer/footerTrunk';
+
 //Images
 // import grupo1149 from '../../images/trails/grupo1149.svg';
 // import grupo1150 from '../../images/trails/grupo1150.svg';
@@ -92,6 +95,7 @@ const Trails = (props) => {
           </>
         ) 
       }
+      <Footer/>
     </Box>
   );
 }

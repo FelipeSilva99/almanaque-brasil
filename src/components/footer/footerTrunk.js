@@ -3,8 +3,18 @@ import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
 
 //Images
-import icon from '../../images/icons/tip.svg';
-import iconSelected from '../../images/icons/selectedTip.svg';
+import home from '../../images/icons/menu/home.svg';
+import selectedHome from '../../images/icons/menu/selectedHome.svg';
+
+import trail from '../../images/icons/menu/trail.svg';
+import selectedTrail from '../../images/icons/menu/selectedTrail.svg';
+
+import trunk from '../../images/icons/menu/thunk.svg';
+import selectedThunk from '../../images/icons/menu/selectedThunk.svg';
+
+import settings from '../../images/icons/menu/settings.svg';
+import selectedSettings from '../../images/icons/menu/selectedSettings.svg';
+
 
 // Styles
 const Container = styled.div`
@@ -38,26 +48,26 @@ const Footer = () => {
   const [isSelected, setIsSelected] = useState(0);
   const [options] = useState([
     {
-      img: icon,
-      imgSelected: iconSelected,
+      img: home,
+      imgSelected: selectedHome,
       txt: 'Home',
       history: 'dashboard',
     },
     {
-      img: icon,
-      imgSelected: iconSelected,
+      img: trail,
+      imgSelected: selectedTrail,
       txt: 'Trilhas',
       history: 'trails',
     },
     {
-      img: icon,
-      imgSelected: iconSelected,
+      img: trunk,
+      imgSelected: selectedThunk,
       txt: 'Baú',
       history: 'trunk',
     },
     {
-      img: icon,
-      imgSelected: iconSelected,
+      img: settings,
+      imgSelected: selectedSettings,
       txt: 'Config.',
       history: 'home',
     },

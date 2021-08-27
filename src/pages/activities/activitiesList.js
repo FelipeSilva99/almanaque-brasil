@@ -162,7 +162,10 @@ const Activities = (props) => {
   
   return (
     <Container>
-      <Header text={props.activities.data[props.selectedTrails].name}/>
+      <Header 
+        onClick={() => {props.history.goBack()}}
+        text={props.activities.data[props.selectedTrails].name}
+      />
 
       {renderLogoStone()}
 

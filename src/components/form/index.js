@@ -64,7 +64,6 @@ const Form = ({
   handleSubmit,
   isTermsAccepted,
   handleAceptTerms,
-  // Quando é um email de form
   login,
   attention,
   emailValue,
@@ -90,6 +89,7 @@ const Form = ({
           value={passValue}
           placeholder={"Digite sua senha aqui"}
           type={showPassword ? 'text' : 'password'}
+          autoFocus={false}
           showPassword={showPassword}
           handleChange={handleChange}
           handleViewPassword={handleViewPassword}

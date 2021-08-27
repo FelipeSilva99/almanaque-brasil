@@ -50,6 +50,7 @@ const ContentInput = ({
   type,
   handleChange, 
   showPassword,
+  autoFocus,
   handleViewPassword
 }) => {
   return (
@@ -60,7 +61,7 @@ const ContentInput = ({
         value={value}
         type={type}
         placeholder={placeholder || 'Digite aqui...'}
-        autoFocus={true}
+        autoFocus={autoFocus !== undefined ? autoFocus : true}
         onChange={handleChange}
       />
       {name === 'password' && (

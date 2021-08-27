@@ -3,12 +3,18 @@ import styled from 'styled-components';
 
 //Component
 import Header from '../../components/header/headerYellow';
+import Footer from '../../components/footer/footerTrunk';
 
 //Image
 import arrow from '../../images/icons/arrow.svg';
 
 //Styled
 const Container = styled.div`
+  background: #F3F3F3;
+  min-height: 100vh;
+`;
+
+const ContainerBox = styled.div`
   padding: 1.5rem 1rem 0;
 `;
 
@@ -29,7 +35,6 @@ const Title = styled.h1`
 `;
 
 const ContentText = styled.div`
-  /* padding-bottom: 1.0rem; */
   display: flex;
   align-items: center;
 `;
@@ -84,9 +89,9 @@ const Trunk = (props) => {
   }
 
   return (
-    <>
+    <Container>
       <Header text='Baú' />
-      <Container>
+      <ContainerBox>
         {data.map((item, index) => (
           <Content key={index}>
             <ContentTitle>
@@ -103,8 +108,9 @@ const Trunk = (props) => {
             ))}
           </Content>
         ))}
-      </Container>
-    </>
+      </ContainerBox>
+      <Footer />
+    </Container>
   );
 }
 

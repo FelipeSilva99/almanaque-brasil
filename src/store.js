@@ -12,7 +12,7 @@ import storage from 'redux-persist/lib/storage'
 // Reducers
 import TrailsReducer from './dataflow/modules/trails-module';
 import LoginReducer from './dataflow/modules/signIn-modules';
-import ActionsBookReducer from './dataflow/modules/actionBook-modules';
+import ActionsBookReducer from './dataflow/modules/actionsBook-modules';
 
 const reducers = combineReducers({
   trails: TrailsReducer,

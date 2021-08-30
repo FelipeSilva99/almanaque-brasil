@@ -5,6 +5,8 @@ import {
   useParams,
 } from "react-router-dom";
 
+import { register } from '../../dataflow/modules/actionsBook-modules'
+
 //Components
 import WhatIsWhatIs from './whatIsWhatIs';
 import WhoseEyesAreThese from './whoseEyesAreThese';
@@ -18,6 +20,12 @@ const mapStateToProps = state => ({
   activities: state.trails,
   selectedTrails: state.trails.selectedTrails,
 })
+
+const mapDispatchToProps = dispatch => ({
+  registerAction: (info) => {
+    dispatch(register(info));
+  },
+});
 
 // Styles
 const Container = styled.div`
@@ -64,11 +72,12 @@ const Activities = (props) => {
     return true
   }
 
-  const renderActivitie = (currentActivitie) => {
+
+  const renderActivitie = (currentActivitie, registerAction) => {
     // Renderizar component de acordo com o tipo de ativivdade
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
-        return <WhoseEyesAreThese useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+        return <WhoseEyesAreThese registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "o-que-e-o-que-e":
         return <WhatIsWhatIs useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
@@ -102,7 +111,7 @@ const Activities = (props) => {
       <>
         {
           currentActivitie
-            ? renderActivitie(currentActivitie)
+            ? renderActivitie(currentActivitie, props.registerAction)
             : <h1>não tem mais atividades</h1>
         }
       </>
@@ -120,4 +129,4 @@ const Activities = (props) => {
   );
 }
 
-export default connect(mapStateToProps)(Activities);
+export default connect(mapStateToProps, mapDispatchToProps)(Activities);

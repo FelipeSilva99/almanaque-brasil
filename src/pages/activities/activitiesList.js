@@ -163,7 +163,7 @@ const Activities = (props) => {
   return (
     <Container>
       <Header 
-        onClick={() => {props.history.goBack()}}
+        onClick={() => {props.history.push('/trails')}}
         text={props.activities.data[props.selectedTrails].name}
       />
 

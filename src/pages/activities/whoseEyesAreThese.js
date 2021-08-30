@@ -51,8 +51,29 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion, registerAction })
   }, []);
 
   useEffect(() => {
+    console.log(useActivitie)
     setActivitie(useActivitie);
   }, [useActivitie]);
+
+  useEffect(() => {
+    if(modalWrongAnswer) {
+      registerAction({
+        idActivitie: useActivitie.id,
+        idTrail: useActivitie.trailId,
+        success: false,
+        timestamp: Date.now()
+      })
+    }
+
+    if(modalCorrectAnswer) {
+      registerAction({
+        idActivitie: useActivitie.id,
+        idTrail: useActivitie.trailId,
+        success: true,
+        timestamp: Date.now()
+      })
+    }
+  }, [modalCorrectAnswer, modalWrongAnswer])
 
   const handleModalTip = () => {
     setIsModalTip(!isModalTip)
@@ -127,7 +148,7 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion, registerAction })
         }
         {isModalAnswerOption && renderAnswerOption()}
         {isModalTip && <ModalTip text={activitie.tips} handleModalTip={handleModalTip} />}
-        {modalWrongAnswer && <WrongAnswer registerAction={registerAction} chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={useActivitie.tips}/>}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={useActivitie.tips}/>}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore amountTrial={amountTrial}/>}
         {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[3]} amountTrial={amountTrial}/>}
       </Container>

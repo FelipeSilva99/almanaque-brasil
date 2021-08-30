@@ -80,25 +80,25 @@ const Activities = (props) => {
         return <WhoseEyesAreThese registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "o-que-e-o-que-e":
-        return <WhatIsWhatIs useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+        return <WhatIsWhatIs registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "coisas-nossas":
-        return <OurStuff useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />;
+        return <OurStuff registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />;
       
       case "origem-da-expressao":
-        return <InfoScreen useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} isShowLogo />
+        return <InfoScreen registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} isShowLogo />
 
       case "eureka":
-        return <InfoScreen useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} eureka />
+        return <InfoScreen registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} eureka />
       
       case "voce-sabia":
-        return <DidYouKnow useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
+        return <DidYouKnow registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
       case "se-liga":
-        return <IfTurnsOn useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
+        return <IfTurnsOn registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
       case "palavra-enigmatica":
-        return <EnigmaticWord activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
+        return <EnigmaticWord registerAction={registerAction} activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
       default:
         return <h1>{currentActivitie.question}</h1>;

@@ -132,19 +132,13 @@ const ALink = styled(Link)`
   justify-content: center;
 `;
 
-function WrongAnswer({ chances, handleClick, handleShowAnswer, tips, registerAction }) {
+function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
   const [hasChances, setHasChance] = useState(true)
   const [isFirstMistake, setIsFirstMistake] = useState(true)
   useEffect(() => {
     if (chances < 2) setIsFirstMistake(false)
     if (chances <= 0) setHasChance(false)
   }, [chances]);
-
-  useEffect(() => {
-    registerAction({
-      activitieId: '12345'
-    })
-  }, [])
 
   const renderText = (firstMistake) => {
     if (firstMistake) {

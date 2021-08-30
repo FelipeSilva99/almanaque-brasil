@@ -27,7 +27,7 @@ const Container = styled.div`
   }
 `;
 
-const DidYouKnow = ({ useActivitie, handlerNextActivitie }) => {
+const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
@@ -49,7 +49,25 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie }) => {
     setActivitie(useActivitie);
   }, [useActivitie]);
 
+  useEffect(() => {
+    if(modalWrongAnswer) {
+      registerAction({
+        idActivitie: useActivitie.id,
+        idTrail: useActivitie.trailId,
+        success: false,
+        timestamp: Date.now()
+      })
+    }
 
+    if(modalCorrectAnswer) {
+      registerAction({
+        idActivitie: useActivitie.id,
+        idTrail: useActivitie.trailId,
+        success: true,
+        timestamp: Date.now()
+      })
+    }
+  }, [modalCorrectAnswer, modalWrongAnswer])
 
   const handleIsModalAnswerOption = () => {
     setIsModalAnswerOption(true);

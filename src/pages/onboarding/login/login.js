@@ -9,7 +9,7 @@ import Header from '../../../components/header/headerOnb';
 
 //Redux
 import { signIn } from '../../../dataflow/modules/signIn-modules';
-import { clearActionsBook } from '../../../dataflow/modules/actionsBook-modules';
+import { getActionsBook } from '../../../dataflow/thunks/actionsBook-thunks';
 
 //Styles
 const Container = styled.div`
@@ -40,7 +40,7 @@ const ButtonSpacer = styled.div`
 const mapDispatchToProps = dispatch => {
 	return {
 		signIn: (info) => dispatch(signIn(info)),
-    clearActionsBook: () => dispatch(clearActionsBook())
+    getActionsBook: () => dispatch(getActionsBook())
 	}
 };
 
@@ -74,11 +74,11 @@ const Login = (props) => {
 
   async function handleSignIn() {
 		try {
-      props.clearActionsBook()
 			const user = await Auth.signIn(register.email, register.password);
       const token = user.signInUserSession.accessToken.jwtToken;
 			props.signIn(user.attributes)
       localStorage.setItem('accessToken', token)
+      props.getActionsBook()
 			props.history.push('/dashboard')
 		} catch (error) {
       console.log('error', error);

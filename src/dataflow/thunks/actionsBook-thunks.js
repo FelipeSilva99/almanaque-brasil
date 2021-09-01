@@ -24,6 +24,30 @@ export const postActionsBook = (book) => async (dispatch) => {
   }
 }
 
+export const getActionsBook = () => async (dispatch) => {
+  const auth = await Auth.currentAuthenticatedUser()
+  const idToken = auth.signInUserSession.idToken.jwtToken;
+  console.log('GET actions book')
+  try {
+    const response = await axios({
+      method: 'get',
+      url: `${process.env.REACT_APP_ACTIONS_BOOK_ENDPOINT}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${idToken}`,
+      },
+    })
+    dispatch(clearActionsBook())
+    response.data.map(action => {
+      dispatch(register(action))
+    })
+
+  } catch (error) {
+    console.log('error')
+  }
+
+}
+
 var batchWriteActions = async (actions, idToken, dispatch) => { // Função Recursiva
   try{
     let limite = 2

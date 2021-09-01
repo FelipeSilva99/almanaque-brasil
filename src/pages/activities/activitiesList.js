@@ -14,11 +14,20 @@ import church from '../../images/trails/church.svg'
 import houses from '../../images/trails/houses.svg'
 import trainStation from '../../images/trails/trainstation.svg'
 
+import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
+
 
 const mapStateToProps = state => ({
   activities: state.trails,
   selectedTrails: state.trails.selectedTrails,
+  actionsBook: state.actionsBook
 })
+
+const mapDispatchToProps = dispatch => ({
+  postActionsBook: (info) => {
+    dispatch(postActionsBook(info));
+  },
+});
 
 // Styles
 const Container = styled.div`
@@ -70,6 +79,10 @@ const Activities = (props) => {
     
     setActivities(allActivities);
   }, [props.selectedTrails, props.activities.data]);
+
+  useEffect(() => {
+    props.postActionsBook(props.actionsBook)
+  }, [])
 
   const handlerNextActivitie = (index) => {
     if (hasNextActivitie) {
@@ -183,4 +196,4 @@ const Activities = (props) => {
   );
 }
 
-export default connect(mapStateToProps)(Activities);
+export default connect(mapStateToProps, mapDispatchToProps)(Activities);

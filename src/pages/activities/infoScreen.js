@@ -136,8 +136,8 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
   useEffect(() => {
     if(currentScreen === screens.score) {
       registerAction({
-        idActivitie: useActivitie.id,
-        idTrail: useActivitie.trailId,
+        activityId: useActivitie.id,
+        trailId: useActivitie.trailId,
         success: true,
         timestamp: Date.now()
       })

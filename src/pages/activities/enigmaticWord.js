@@ -149,8 +149,8 @@ function EnigmaticWord({ activitie, handlerNextActivitie, registerAction }) {
   useEffect(() => {
     if(modalWrongAnswer) {
       registerAction({
-        idActivitie: activitie.id,
-        idTrail: activitie.trailId,
+        activityId: activitie.id,
+        trailId: activitie.trailId,
         success: false,
         timestamp: Date.now()
       })
@@ -158,8 +158,8 @@ function EnigmaticWord({ activitie, handlerNextActivitie, registerAction }) {
 
     if(modalCorrectAnswer) {
       registerAction({
-        idActivitie: activitie.id,
-        idTrail: activitie.trailId,
+        activityId: activitie.id,
+        trailId: activitie.trailId,
         success: true,
         timestamp: Date.now()
       })

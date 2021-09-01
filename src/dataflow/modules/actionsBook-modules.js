@@ -1,6 +1,6 @@
 // Action type
 const REGISTER = 'REGISTER';
-
+const CLEAR = 'CLEAR';
 
 const initialState = []
 
@@ -8,16 +8,13 @@ const initialState = []
 export default function main(state=initialState, action) {
   switch (action.type) {
     case REGISTER:
-      // let newActionsArray = state;
-      // newActionsArray.actions.push(action.info)
-      console.log([
-        ...state,
-        action.info
-      ])
       return [
         ...state,
         action.info
       ];
+
+    case CLEAR:
+      return []
   
     default:
       return state;
@@ -26,10 +23,14 @@ export default function main(state=initialState, action) {
 
 // Actions
 export function register (info) {
-
-  console.log('Action')
   return {
     type: REGISTER,
     info
+  }
+}
+
+export function clearActionsBook () {
+  return {
+    type: CLEAR,
   }
 }

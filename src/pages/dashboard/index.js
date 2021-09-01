@@ -9,9 +9,8 @@ import Footer from '../../components/footer/footerTrunk';
 
 //Redux
 import { signOut } from '../../dataflow/modules/signIn-modules';
-import {
-  selectedTrails,
-} from '../../dataflow/modules/trails-module';
+import { selectedTrails } from '../../dataflow/modules/trails-module';
+import { clearActionsBook } from '../../dataflow/modules/actionsBook-modules';
 
 const mapStateToProps = state => ({
   trails: state.trails.data,
@@ -25,6 +24,10 @@ const mapDispatchToProps = dispatch => ({
 
   signOut: () => {
     dispatch(signOut());
+  },
+
+  clearActionsBook: () => {
+    dispatch(clearActionsBook());
   },
 });
 
@@ -87,6 +90,7 @@ const Dashboard = (props) => {
     try {
       await Auth.signOut();
       localStorage.clear();
+      props.clearActionsBook();
       props.signOut();
       props.history.push({ pathname: '/' })
     } catch (error) {

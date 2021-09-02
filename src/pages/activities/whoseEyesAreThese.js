@@ -31,7 +31,7 @@ const Container = styled.div`
   }
 `;
 
-const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
+const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion, registerAction }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
@@ -51,8 +51,29 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
   }, []);
 
   useEffect(() => {
+    console.log(useActivitie)
     setActivitie(useActivitie);
   }, [useActivitie]);
+
+  useEffect(() => {
+    if(modalWrongAnswer) {
+      registerAction({
+        idActivitie: useActivitie.id,
+        idTrail: useActivitie.trailId,
+        success: false,
+        timestamp: Date.now()
+      })
+    }
+
+    if(modalCorrectAnswer) {
+      registerAction({
+        idActivitie: useActivitie.id,
+        idTrail: useActivitie.trailId,
+        success: true,
+        timestamp: Date.now()
+      })
+    }
+  }, [modalCorrectAnswer, modalWrongAnswer])
 
   const handleModalTip = () => {
     setIsModalTip(!isModalTip)

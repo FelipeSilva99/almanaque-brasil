@@ -81,7 +81,7 @@ const Button = styled.button`
   font-weight: 900;
   color: #373737;
   position: absolute;
-  bottom: 1rem;
+  bottom: 5rem;
 `;
 
 const Dashboard = (props) => {

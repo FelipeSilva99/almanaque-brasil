@@ -1,7 +1,7 @@
 // Libs
 import axios from 'axios';
 import { Auth } from 'aws-amplify'
-import { register, clearActionsBook } from '../modules/actionsBook-modules'
+import { register, clearActionsBook, synced } from '../modules/actionsBook-modules'
 
 
 
@@ -10,13 +10,15 @@ export const postActionsBook = (book) => async (dispatch) => {
   const idToken = auth.signInUserSession.idToken.jwtToken;
 
   try {
-    if(book.length <= 0) {
+    if(book.pendingSync.length <= 0) {
       throw {message: "actions is empty"}
     }
     
-    let retorno = await batchWriteActions(book, idToken, dispatch)
-    if(retorno) {
-      console.log('Deu erro')
+    let response = await batchWriteActions(book.pendingSync, idToken, dispatch)
+
+    if(response.status === 200) {
+      console.log('retorno')
+      dispatch(synced())
     }
   }
   catch (err) {
@@ -25,6 +27,8 @@ export const postActionsBook = (book) => async (dispatch) => {
 }
 
 export const getActionsBook = () => async (dispatch) => {
+  console.log('1')
+
   const auth = await Auth.currentAuthenticatedUser()
   const idToken = auth.signInUserSession.idToken.jwtToken;
   console.log('GET actions book')
@@ -38,12 +42,13 @@ export const getActionsBook = () => async (dispatch) => {
       },
     })
     dispatch(clearActionsBook())
+    console.log('response:', response)
     response.data.map(action => {
       dispatch(register(action))
     })
 
   } catch (error) {
-    console.log('error')
+    console.log(error)
   }
 
 }
@@ -70,12 +75,14 @@ var batchWriteActions = async (actions, idToken, dispatch) => { // Função Recu
 			},
       data: data
 		})
-    console.log('response', response.data)
-    dispatch(clearActionsBook())
-    dispatch(register(response.data.Items));
+    // console.log('response', response.data)
+    // if(response.status === 200) dispatch(synced())
+    return response.status
+    // dispatch(register(response.data.Items));
+    // console.log('items',response.data.Items);
+    // dispatch(synced())
 
   } catch (error) {
-    console.log(error);
-    return error;
+    throw error;
   }
 }

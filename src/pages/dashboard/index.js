@@ -104,7 +104,7 @@ const Dashboard = (props) => {
     <Container>
       <Header text={`Oi, ${props.user.name}`}/>
        <Content>
-        <Text paddingBottom>Qual atividade vamos fazer hoje?</Text>
+        <Text paddingBottom>Qual atividade você quer fazer?</Text>
         {trails && (
           <>
             <Card marginRight onClick={() => handleClick('trails')}>

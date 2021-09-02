@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 //Component
 import Header from '../../components/header/headerYellow';
+import InfoScreen from './infoScreen';
 import Footer from '../../components/footer/footerTrunk';
 
 //Image
@@ -15,7 +17,7 @@ const Container = styled.div`
 `;
 
 const ContainerBox = styled.div`
-  padding: 1.5rem 1rem 0;
+  padding: 1.5rem 1rem 4rem;
 `;
 
 const Content = styled.div`
@@ -39,16 +41,16 @@ const ContentText = styled.div`
   align-items: center;
 `;
 
-const Image = styled.div`
+const Image = styled.img`
   margin: 0 .5rem .5rem 0;
   width: 44px;
   height: 44px;
   background: #BBBBBB;
   border-radius: 8px;
+  object-fit: cover;
 
   >:last-child{
     margin-bottom: 1.0rem;
-    background: red;
   }
 `;
 
@@ -58,58 +60,81 @@ const Text = styled.h1`
   color: #373737;
 `;
 
-const Trunk = (props) => {
+const Trunk = () => {
   const [modal, setIsModal] = useState({ isModal: undefined, item: undefined });
-  const [data] = useState([
+  const [infoModal, setIsInfoModal] = useState({ isModal: undefined, data: undefined });
+  const [data, setData] = useState([
     {
-      title: 'Cultura',
-      items: ['item1', 'item2', 'item3',]
-    },
-    {
-      title: 'Empreendedorismo',
-      items: ['item2', 'item2', 'item3',]
-    },
-    {
-      title: 'História',
-      items: ['item3', 'item2', 'item3',]
-    },
-    {
-      title: 'Patrimônio',
-      items: ['item4', 'item2', 'item3',]
-    },
-    {
-      title: 'Profissão',
-      items: ['item5', 'item2', 'item3',]
-    },
-
+      category: 'História',
+      title: 'Dragão do Mar',
+      content: 'teatetest testestet testest',
+    }
   ]);
+
+  const getDataThunk = async () => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `https://qqxtiq6upd.execute-api.us-east-1.amazonaws.com/dev/chest`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${accessToken}`,
+        },
+      })
+      setData(response.data.Items);
+    }
+    catch (err) {
+      console.log('err', err);
+    }
+  }
+
+  useEffect(() => {
+    getDataThunk();
+  }, []);
 
   const handleModal = (item) => {
     setIsModal({ isModal: !modal.isModal, item: item });
   }
 
+  const handleInfoModal = (data) => {
+    setIsInfoModal({ isModal: true, data: data });
+  }
+
+  const handleCloseModal = () => {
+    setIsInfoModal({ isModal: false });
+  }
+
+  const renderTitle = (item, index) => (
+    <ContentTitle>
+      <Title>
+        {item.category}
+      </Title>
+      <img src={arrow} alt='Seta' onClick={() => handleModal(index)} />
+    </ContentTitle>
+  )
+
+  const renderOptions = (item) => (
+    <ContentText onClick={() => handleInfoModal(item)}>
+      <Image src={`data:image/jpeg;base64,${item.imageKey}`} alt='Img' />
+      <Text>{item.title}</Text>
+    </ContentText>
+  )
+
   return (
     <Container>
       <Header text='Baú' />
       <ContainerBox>
-        {data.map((item, index) => (
+        {data && data.map((item, index) => (
           <Content key={index}>
-            <ContentTitle>
-              <Title>
-                {item?.title}
-              </Title>
-              <img src={arrow} alt='Seta' onClick={() => handleModal(index)} />
-            </ContentTitle>
-            {modal.isModal && modal.item === index && item?.items.map(item => (
-              <ContentText>
-                <Image></Image>
-                <Text>{item}</Text>
-              </ContentText>
-            ))}
+            {renderTitle(item, index)}
+            {modal.isModal && modal.item === index && renderOptions(item)}
           </Content>
         ))}
       </ContainerBox>
       <Footer />
+      {infoModal.isModal && <InfoScreen itemData={infoModal.data} onClick={handleCloseModal}/>}
     </Container>
   );
 }

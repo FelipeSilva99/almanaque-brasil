@@ -1,5 +1,6 @@
 // Action type
 const REGISTER = 'actionsBook/REGISTER';
+const REFRESH_LOCAL_DATA = 'actionsBook/REFRESH_LOCAL_DATA';
 const SYNCED = 'actionsBook/SYNCED';
 const CLEAR = 'actionsBook/CLEAR';
 
@@ -18,6 +19,12 @@ export default function main(state=initialState, action) {
       return {
         synced: [...state.synced],
         pendingSync: newArray
+      }
+
+    case REFRESH_LOCAL_DATA:
+      return {
+        synced: [...action.info],
+        pendingSync: [],
       }
 
     case SYNCED:
@@ -57,5 +64,12 @@ export function clearActionsBook () {
 export function synced () {
   return {
     type: SYNCED,
+  }
+}
+
+export function refreshLocalData(info) {
+  return {
+    type: REFRESH_LOCAL_DATA,
+    info
   }
 }

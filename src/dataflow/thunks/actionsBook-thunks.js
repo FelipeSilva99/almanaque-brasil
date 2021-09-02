@@ -1,7 +1,9 @@
 // Libs
 import axios from 'axios';
 import { Auth } from 'aws-amplify'
-import { register, clearActionsBook, synced } from '../modules/actionsBook-modules'
+import { 
+  register, clearActionsBook, synced, refreshLocalData
+} from '../modules/actionsBook-modules'
 
 
 
@@ -27,7 +29,6 @@ export const postActionsBook = (book) => async (dispatch) => {
 }
 
 export const getActionsBook = () => async (dispatch) => {
-  console.log('1')
 
   const auth = await Auth.currentAuthenticatedUser()
   const idToken = auth.signInUserSession.idToken.jwtToken;
@@ -42,11 +43,10 @@ export const getActionsBook = () => async (dispatch) => {
       },
     })
     dispatch(clearActionsBook())
-    console.log('response:', response)
-    response.data.map(action => {
-      dispatch(register(action))
-    })
-
+    // response.data.map(action => {
+    //   dispatch(register(response.data))
+    // })
+    dispatch(refreshLocalData(response.data))
   } catch (error) {
     console.log(error)
   }
@@ -75,12 +75,8 @@ var batchWriteActions = async (actions, idToken, dispatch) => { // Função Recu
 			},
       data: data
 		})
-    // console.log('response', response.data)
-    // if(response.status === 200) dispatch(synced())
+
     return response
-    // dispatch(register(response.data.Items));
-    // console.log('items',response.data.Items);
-    // dispatch(synced())
 
   } catch (error) {
     throw error;

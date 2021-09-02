@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
 
+//Component
+import Config from '../../pages/config';
+
 //Images
 import home from '../../images/icons/menu/home.svg';
 import selectedHome from '../../images/icons/menu/selectedHome.svg';
@@ -14,7 +17,6 @@ import selectedThunk from '../../images/icons/menu/selectedThunk.svg';
 
 import settings from '../../images/icons/menu/settings.svg';
 import selectedSettings from '../../images/icons/menu/selectedSettings.svg';
-
 
 // Styles
 const Container = styled.div`
@@ -40,52 +42,61 @@ const Content = styled.button`
 
 const Text = styled.p`
   font-size: .75rem;
-  font-weight: ${props => props.isSelected ? '900' : 'regular' };
+  font-weight: ${props => props.isSelected ? '900' : 'regular'};
 `;
 
-const Footer = () => {
+const Footer = ({ screen }) => {
   const history = useHistory();
   const [isSelected, setIsSelected] = useState(0);
+  const [isModalConfig, setIsModalConfig] = useState(undefined);
   const [options] = useState([
     {
       img: home,
       imgSelected: selectedHome,
       txt: 'Home',
-      history: 'dashboard',
+      router: 'dashboard',
     },
     {
       img: trail,
       imgSelected: selectedTrail,
       txt: 'Trilhas',
-      history: 'trails',
+      router: 'trails',
     },
     {
       img: trunk,
       imgSelected: selectedThunk,
       txt: 'Baú',
-      history: 'trunk',
+      router: 'trunk',
     },
     {
       img: settings,
       imgSelected: selectedSettings,
       txt: 'Config.',
-      history: 'home',
+      router: 'config',
     },
   ]);
 
-  const handleSelectedItem = (i, router) => {
-    setIsSelected(i);
-    // history.push(`/${router}`);
+  const handleRouter = (router) => {
+    if (router === 'config') {
+      setIsModalConfig(!isModalConfig);
+    } else {
+      history.push(`/${router}`);
+      setIsModalConfig(false);
+    }
   }
-
+  
   return (
     <Container>
-      {options.map((item, i) => (
-        <Content onClick={() => handleSelectedItem(i, item.router)}>
-          <img src={i === isSelected ? item.imgSelected : item.img} />
-          <Text isSelected={isSelected === i}>{item.txt}</Text>
-        </Content>
-      ))}
+      {options.map((item, i) => {
+        const isSelected = (isModalConfig && item.router === 'config') || (!isModalConfig && screen === item.router);
+        return (
+          <Content onClick={() => handleRouter(item.router)}>
+            <img src={isSelected ? item.imgSelected : item.img} alt={item.txt} />
+            <Text isSelected={isSelected}>{item.txt}</Text>
+          </Content>
+        )
+      })}
+      {isModalConfig && <Config />}
     </Container>
   );
 }

@@ -5,7 +5,7 @@ import axios from 'axios';
 //Component
 import Header from '../../components/header/headerYellow';
 import InfoScreen from './infoScreen';
-import Footer from '../../components/footer/footerTrunk';
+import Footer from '../../components/footer/footerMenu';
 
 //Image
 import arrow from '../../images/icons/arrow.svg';
@@ -63,13 +63,7 @@ const Text = styled.h1`
 const Trunk = () => {
   const [modal, setIsModal] = useState({ isModal: undefined, item: undefined });
   const [infoModal, setIsInfoModal] = useState({ isModal: undefined, data: undefined });
-  const [data, setData] = useState([
-    {
-      category: 'História',
-      title: 'Dragão do Mar',
-      content: 'teatetest testestet testest',
-    }
-  ]);
+  const [data, setData] = useState([]);
 
   const getDataThunk = async () => {
     const accessToken = localStorage.getItem('accessToken');
@@ -126,15 +120,17 @@ const Trunk = () => {
     <Container>
       <Header text='Baú' />
       <ContainerBox>
-        {data && data.map((item, index) => (
-          <Content key={index}>
-            {renderTitle(item, index)}
-            {modal.isModal && modal.item === index && renderOptions(item)}
-          </Content>
-        ))}
+        {!data.length
+          ? <Text>Carregando</Text>
+          : data.map((item, index) => (
+            <Content key={index}>
+              {renderTitle(item, index)}
+              {modal.isModal && modal.item === index && renderOptions(item)}
+            </Content>
+          ))}
       </ContainerBox>
-      <Footer />
-      {infoModal.isModal && <InfoScreen itemData={infoModal.data} onClick={handleCloseModal}/>}
+      <Footer screen='trunk' />
+      {infoModal.isModal && <InfoScreen itemData={infoModal.data} onClick={handleCloseModal} />}
     </Container>
   );
 }

@@ -5,7 +5,7 @@ import { Auth } from 'aws-amplify';
 
 //Component
 import Header from '../../components/header/headerYellow';
-import Footer from '../../components/footer/footerTrunk';
+import Footer from '../../components/footer/footerMenu';
 
 //Redux
 import { signOut } from '../../dataflow/modules/signIn-modules';
@@ -108,7 +108,7 @@ const Dashboard = (props) => {
     <Container>
       <Header text={`Oi, ${props.user.name}`}/>
        <Content>
-        <Text paddingBottom>Qual atividade vamos fazer hoje?</Text>
+        <Text paddingBottom>Qual atividade você quer fazer?</Text>
         {trails && (
           <>
             <Card marginRight onClick={() => handleClick('trails')}>
@@ -120,8 +120,8 @@ const Dashboard = (props) => {
           </>
         )}
       </Content>
-      <Button onClick={handleSignOut}>Sair</Button>
-      <Footer/>
+      {/* <Button onClick={handleSignOut}>Sair</Button> */}
+      <Footer  screen='dashboard'/>
     </Container>
   );
 }

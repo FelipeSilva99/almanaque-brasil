@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 //Component
-import Footer from '../../components/footer/footerTrunk';
+import Footer from '../../components/footer/footerMenu';
 
 //Images
 // import grupo1149 from '../../images/trails/grupo1149.svg';
@@ -95,7 +95,7 @@ const Trails = (props) => {
           </>
         ) 
       }
-      <Footer/>
+      <Footer screen='trails' />
     </Box>
   );
 }

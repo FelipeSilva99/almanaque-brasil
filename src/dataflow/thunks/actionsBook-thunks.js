@@ -22,7 +22,7 @@ export const postActionsBook = (book) => async (dispatch) => {
     }
   }
   catch (err) {
-    console.log(err)
+    console.log('errorr no sync:', err)
   }
 }
 
@@ -77,7 +77,7 @@ var batchWriteActions = async (actions, idToken, dispatch) => { // Função Recu
 		})
     // console.log('response', response.data)
     // if(response.status === 200) dispatch(synced())
-    return response.status
+    return response
     // dispatch(register(response.data.Items));
     // console.log('items',response.data.Items);
     // dispatch(synced())

@@ -38,9 +38,6 @@ const Text = styled.h1`
 `;
 
 const Header = ({ noBack, trunkScreen, showTitle, text, onClick }) => {
-  console.log('trunkScreen',trunkScreen);
-  console.log('showTitle',showTitle);
-
   return (
     <Container trunkScreen={trunkScreen}>
       {!noBack && (

@@ -52,8 +52,8 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
   useEffect(() => {
     if(modalWrongAnswer) {
       registerAction({
-        idActivitie: useActivitie.id,
-        idTrail: useActivitie.trailId,
+        activityId: useActivitie.id,
+        trailId: useActivitie.trailId,
         success: false,
         timestamp: Date.now()
       })
@@ -61,8 +61,8 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
 
     if(modalCorrectAnswer) {
       registerAction({
-        idActivitie: useActivitie.id,
-        idTrail: useActivitie.trailId,
+        activityId: useActivitie.id,
+        trailId: useActivitie.trailId,
         success: true,
         timestamp: Date.now()
       })

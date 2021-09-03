@@ -55,8 +55,8 @@ const Login = (props) => {
   const [error, setError] = useState('');
 
   const handleViewPassword = (ev) => {
-    ev.preventDefault();
-
+    ev.stopPropagation();
+console.log('aquiii');
     setShowPassword(!showPassword);
   }
 

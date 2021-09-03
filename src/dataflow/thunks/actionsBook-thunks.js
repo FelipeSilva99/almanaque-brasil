@@ -55,7 +55,7 @@ export const getActionsBook = () => async (dispatch) => {
 
 var batchWriteActions = async (actions, idToken, dispatch) => { // Função Recursiva
   try{
-    let limite = 2
+    let limite = 25
     console.log(actions.length);
     if(actions.length > limite){
       var rest = actions.splice(limite)

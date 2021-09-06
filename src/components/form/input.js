@@ -37,7 +37,7 @@ const Input = styled.input`
   }
 `;
 
-const Button = styled.button`
+const Button = styled.span`
   padding-right: 1rem;
   display: flex;
   align-items: center;

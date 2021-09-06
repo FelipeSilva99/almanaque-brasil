@@ -61,7 +61,7 @@ const Text = styled.h1`
 `;
 
 const Trunk = () => {
-  const [modal, setIsModal] = useState({ isModal: undefined, item: undefined });
+  const [modal, setIsModal] = useState({ isModal: false, item: undefined });
   const [infoModal, setIsInfoModal] = useState({ isModal: undefined, data: undefined });
   const [data, setData] = useState([]);
 
@@ -100,13 +100,19 @@ const Trunk = () => {
     setIsInfoModal({ isModal: false });
   }
 
-  const renderTitle = (item, index) => (
-    <ContentTitle>
-      <Title>
-        {item.category}
-      </Title>
-      <img src={arrow} alt='Seta' onClick={() => handleModal(index)} />
-    </ContentTitle>
+  const renderContent = (title) => (
+    <Content>
+      <ContentTitle>
+        <Title>
+          {title}
+        </Title>
+        <img src={arrow} alt='Seta' onClick={() => handleModal(title)} />
+      </ContentTitle>
+      {modal.isModal && modal.item === title && 
+        data.filter(item => item.category === title).map(i => (
+        renderOptions(i)
+      ))}
+    </Content>
   )
 
   const renderOptions = (item) => (
@@ -116,18 +122,29 @@ const Trunk = () => {
     </ContentText>
   )
 
+  const renderScreen = () => {
+    let pairsList = [];
+
+    data.forEach(element => {
+      const pair = element.category;
+
+      const includesItem = pairsList.includes(pair);
+
+      if (!includesItem) {
+        pairsList.push(pair);
+      }
+    });
+
+    return pairsList.map((item, idx) => renderContent(item, idx))
+  }
   return (
     <Container>
       <Header text='Baú' />
       <ContainerBox>
         {!data.length
           ? <Text>Carregando</Text>
-          : data.map((item, index) => (
-            <Content key={index}>
-              {renderTitle(item, index)}
-              {modal.isModal && modal.item === index && renderOptions(item)}
-            </Content>
-          ))}
+          : renderScreen()
+        }
       </ContainerBox>
       <Footer screen='trunk' />
       {infoModal.isModal && <InfoScreen itemData={infoModal.data} onClick={handleCloseModal} />}

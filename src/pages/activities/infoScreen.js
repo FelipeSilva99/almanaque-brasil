@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 //Assets
@@ -123,14 +123,26 @@ const ScoreDiv = styled.div`
   }
 `;
 
-const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion }) => {
+const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, registerAction }) => {
   const screens = {
     info: "info",
     knowledge: "knowledge",
     score: "score"
   }
+
   const [currentScreen, setCurrentScreen] = useState(screens.info);
   const image = useActivitie.imageBase64;
+
+  useEffect(() => {
+    if(currentScreen === screens.score) {
+      registerAction({
+        activityId: useActivitie.id,
+        trailId: useActivitie.trailId,
+        success: true,
+        timestamp: Date.now()
+      })
+    }
+  }, [currentScreen])
 
   const renderScreen = () => {
     switch (currentScreen) {

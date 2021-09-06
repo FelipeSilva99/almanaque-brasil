@@ -5,6 +5,8 @@ import {
   useParams,
 } from "react-router-dom";
 
+import { register } from '../../dataflow/modules/actionsBook-modules'
+
 //Components
 import WhatIsWhatIs from './whatIsWhatIs';
 import WhoseEyesAreThese from './whoseEyesAreThese';
@@ -12,12 +14,18 @@ import InfoScreen from './infoScreen';
 import DidYouKnow from './didYouKnow';
 import IfTurnsOn from './ifTurnsOn';
 import OurStuff from './ourStuff';
-import EnigmaticWord from './enigmaticWord'
+import EnigmaticWord from './enigmaticWord';
 
 const mapStateToProps = state => ({
   activities: state.trails,
   selectedTrails: state.trails.selectedTrails,
 })
+
+const mapDispatchToProps = dispatch => ({
+  registerAction: (info) => {
+    dispatch(register(info));
+  },
+});
 
 // Styles
 const Container = styled.div`
@@ -64,32 +72,33 @@ const Activities = (props) => {
     return true
   }
 
-  const renderActivitie = (currentActivitie) => {
+
+  const renderActivitie = (currentActivitie, registerAction) => {
     // Renderizar component de acordo com o tipo de ativivdade
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
-        return <WhoseEyesAreThese useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+        return <WhoseEyesAreThese registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "o-que-e-o-que-e":
-        return <WhatIsWhatIs useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
+        return <WhatIsWhatIs registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />
 
       case "coisas-nossas":
-        return <OurStuff useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />;
+        return <OurStuff registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} />;
       
       case "origem-da-expressao":
-        return <InfoScreen useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} isShowLogo />
+        return <InfoScreen registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} isShowLogo />
 
       case "eureka":
-        return <InfoScreen useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} eureka />
+        return <InfoScreen registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} eureka />
       
       case "voce-sabia":
-        return <DidYouKnow useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
+        return <DidYouKnow registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
       case "se-liga":
-        return <IfTurnsOn useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
+        return <IfTurnsOn registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
       case "palavra-enigmatica":
-        return <EnigmaticWord activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
+        return <EnigmaticWord registerAction={registerAction} activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie}/>
 
       default:
         return <h1>{currentActivitie.question}</h1>;
@@ -102,7 +111,7 @@ const Activities = (props) => {
       <>
         {
           currentActivitie
-            ? renderActivitie(currentActivitie)
+            ? renderActivitie(currentActivitie, props.registerAction)
             : <h1>não tem mais atividades</h1>
         }
       </>
@@ -120,4 +129,4 @@ const Activities = (props) => {
   );
 }
 
-export default connect(mapStateToProps)(Activities);
+export default connect(mapStateToProps, mapDispatchToProps)(Activities);

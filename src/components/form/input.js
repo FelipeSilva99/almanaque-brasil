@@ -37,7 +37,7 @@ const Input = styled.input`
   }
 `;
 
-const Button = styled.button`
+const Button = styled.span`
   padding-right: 1rem;
   display: flex;
   align-items: center;
@@ -50,6 +50,7 @@ const ContentInput = ({
   type,
   handleChange, 
   showPassword,
+  autoFocus,
   handleViewPassword
 }) => {
   return (
@@ -60,7 +61,7 @@ const ContentInput = ({
         value={value}
         type={type}
         placeholder={placeholder || 'Digite aqui...'}
-        autoFocus={true}
+        autoFocus={autoFocus !== undefined ? autoFocus : true}
         onChange={handleChange}
       />
       {name === 'password' && (

@@ -51,7 +51,6 @@ const Button = ({
   isIcon,
   icon,
 }) => {
-  console.log(icon);
   return (
     <Content
       height={height}

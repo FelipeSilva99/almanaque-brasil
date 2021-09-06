@@ -9,6 +9,7 @@ import Header from '../../../components/header/headerOnb';
 
 //Redux
 import { signIn } from '../../../dataflow/modules/signIn-modules';
+import { getActionsBook } from '../../../dataflow/thunks/actionsBook-thunks';
 
 //Styles
 const Container = styled.div`
@@ -38,7 +39,8 @@ const ButtonSpacer = styled.div`
 
 const mapDispatchToProps = dispatch => {
 	return {
-		signIn: (info) => dispatch(signIn(info))
+		signIn: (info) => dispatch(signIn(info)),
+    getActionsBook: () => dispatch(getActionsBook())
 	}
 };
 
@@ -53,8 +55,8 @@ const Login = (props) => {
   const [error, setError] = useState('');
 
   const handleViewPassword = (ev) => {
-    ev.preventDefault();
-
+    ev.stopPropagation();
+console.log('aquiii');
     setShowPassword(!showPassword);
   }
 
@@ -76,6 +78,7 @@ const Login = (props) => {
       const token = user.signInUserSession.accessToken.jwtToken;
 			props.signIn(user.attributes)
       localStorage.setItem('accessToken', token)
+      props.getActionsBook()
 			props.history.push('/dashboard')
 		} catch (error) {
       console.log('error', error);
@@ -83,12 +86,13 @@ const Login = (props) => {
 			if(error.code === "UserNotConfirmedException") {
         props.history.push({
           pathname: `/accountCreated`,
-          state: { email: 'register.email' }
+          state: { email: register.email }
         });
       };
       if(error.code === "UserNotFoundException") {
         props.history.push({
           pathname: `/createAccount`,
+          state: { email: register.email }
         });
       };
 		}

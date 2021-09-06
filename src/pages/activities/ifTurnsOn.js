@@ -74,7 +74,7 @@ const Box = styled.div`
   
 `;
 
-function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
+function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
   const colors = {
     green: "#00FFEA", orange: "#F29F32", blue: "#8EBEFF", yellow: "#FFD932"
   }
@@ -127,6 +127,26 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie }) {
   const handleModalTip = () => {
     setIsModalTip(!isModalTip)
   }
+
+  useEffect(() => {
+    if(modalWrongAnswer) {
+      registerAction({
+        activityId: useActivitie.id,
+        trailId: useActivitie.trailId,
+        success: false,
+        timestamp: Date.now()
+      })
+    }
+
+    if(isModalCorrectAnswer) {
+      registerAction({
+        activityId: useActivitie.id,
+        trailId: useActivitie.trailId,
+        success: true,
+        timestamp: Date.now()
+      })
+    }
+  }, [isModalCorrectAnswer, modalWrongAnswer])
 
   const handleClick = (item) => {
     const itemIndex = isSelected(item)

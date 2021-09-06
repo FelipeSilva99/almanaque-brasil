@@ -31,7 +31,7 @@ const Container = styled.div`
   }
 `;
 
-const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
+const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion, registerAction }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
@@ -51,8 +51,29 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
   }, []);
 
   useEffect(() => {
+    console.log(useActivitie)
     setActivitie(useActivitie);
   }, [useActivitie]);
+
+  useEffect(() => {
+    if(modalWrongAnswer) {
+      registerAction({
+        activityId: useActivitie.id,
+        trailId: useActivitie.trailId,
+        success: false,
+        timestamp: Date.now()
+      })
+    }
+
+    if(modalCorrectAnswer) {
+      registerAction({
+        activityId: useActivitie.id,
+        trailId: useActivitie.trailId,
+        success: true,
+        timestamp: Date.now()
+      })
+    }
+  }, [modalCorrectAnswer, modalWrongAnswer])
 
   const handleModalTip = () => {
     setIsModalTip(!isModalTip)
@@ -127,7 +148,7 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion }) => {
         }
         {isModalAnswerOption && renderAnswerOption()}
         {isModalTip && <ModalTip text={activitie.tips} handleModalTip={handleModalTip} />}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} tips={useActivitie.tips}/>}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore amountTrial={amountTrial}/>}
         {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[3]} amountTrial={amountTrial}/>}
       </Container>

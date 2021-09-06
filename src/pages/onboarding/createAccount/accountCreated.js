@@ -47,24 +47,28 @@ const Error = styled.p`
 
 const AccountCreated = () => {
   const history = useHistory();
-  const [nickname, setNickname] = useState('');
+  const [email, setEmail] = useState('');
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    setNickname(history?.location?.state?.nickname);
-  }, [history?.location?.state?.nickname]);
+    setEmail(history?.location?.state?.email);
+  }, [history?.location?.state?.email]);
 
   const goHome = () => {
     history.push("/login");
   }
 
   async function resendConfirmationCode() {
-    console.log('nickname', nickname);
     try {
-      await Auth.resendSignUp(nickname);
+      await Auth.resendSignUp(email);
     } catch (err) {
-      setIsError({isError: true, msg: err.message});
-      console.log('error resending code: ', err);
+      if(err.message === "Username/client id combination not found") {
+        setIsError({isError: true, msg: 'Combinação de nome de usuário do cliente não encontrada.'});
+      } else if (err.message === "User is already confirmed.") {
+        setIsError({isError: true, msg: 'O usuário já está confirmado'});
+      } else {
+        setIsError({isError: true, msg: err.message});
+      }
     }
   }
 

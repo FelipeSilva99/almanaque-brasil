@@ -132,9 +132,10 @@ const ALink = styled(Link)`
   justify-content: center;
 `;
 
-function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
-  const [hasChances, setHasChance] = useState(true)
-  const [isFirstMistake, setIsFirstMistake] = useState(true)
+function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) {
+  const [hasChances, setHasChance] = useState(true);
+  const [isFirstMistake, setIsFirstMistake] = useState(true);
+
   useEffect(() => {
     if (chances < 2) setIsFirstMistake(false)
     if (chances <= 0) setHasChance(false)
@@ -142,40 +143,40 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
 
   const renderText = (firstMistake) => {
     if (firstMistake) {
-      switch (!!tips?.length) {
+      switch (!!errorMessages?.length) {
         case true:
           return (
             <MsgError>
-              <h1>Ixi, você errou!</h1>
+              <h1>Opa, você errou! Vamos tentar novamente?</h1>
               <p>Você tem mais {chances} chances de marcar<br />pontos. Se liga na dica:</p>
-              <strong>{tips[0]}</strong>
+              <strong>{errorMessages[0]}</strong>
             </MsgError>
           );
 
         default:
           return (
             <MsgError>
-              <h1>Ixi, você errou!</h1>
+              <h1>Opa, você errou! Vamos tentar novamente?</h1>
               <p>Você tem mais {chances} chances de marcar<br />pontos. O que acha de tentar<br />novamente?</p>
             </MsgError>
           );
       }
     } else {
       if (hasChances) {
-        switch (!!tips?.length) {
+        switch (!!errorMessages?.length) {
           case true:
             return (
               <MsgError>
-                <h1>Ixi, você errou de novo!</h1>
+                <h1>Opa, você errou de novo! Vamos tentar novamente?</h1>
                 <p>Você tem mais 1 chance de marcar<br />pontos. Se liga em outra dica:</p>
-                <strong>{tips[1]}</strong>
+                <strong>{errorMessages[1]}</strong>
               </MsgError>
             );
 
           default:
             return (
               <MsgError>
-                <h1>Ixi, você errou de novo!</h1>
+                <h1>Opa, você errou de novo! Vamos tentar novamente?</h1>
                 <p>Você tem mais 1 chance de marcar<br />pontos. O que acha de tentar<br />novamente?</p>
               </MsgError>
             );
@@ -207,7 +208,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, tips }) {
           backgroundPosition={setBackgroundImg().position}
           backgroundSize={setBackgroundImg().size}
         >
-          {renderText(isFirstMistake, tips)}
+          {renderText(isFirstMistake, errorMessages)}
         </DialogBox>
         <Avatar src={bento} />
       </RandomBox>

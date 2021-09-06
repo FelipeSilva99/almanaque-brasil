@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
 
+//Component
+import Header from '../../components/header/headerYellow';
+import Footer from '../../components/footer/footerMenu';
+
 //Redux
 import { signOut } from '../../dataflow/modules/signIn-modules';
-import {
-  selectedTrails,
-} from '../../dataflow/modules/trails-module';
+import { selectedTrails } from '../../dataflow/modules/trails-module';
+import { clearActionsBook } from '../../dataflow/modules/actionsBook-modules';
 
 const mapStateToProps = state => ({
   trails: state.trails.data,
@@ -22,6 +25,10 @@ const mapDispatchToProps = dispatch => ({
   signOut: () => {
     dispatch(signOut());
   },
+
+  clearActionsBook: () => {
+    dispatch(clearActionsBook());
+  },
 });
 
 const Container = styled.div`
@@ -34,12 +41,12 @@ const Content = styled.div`
   padding: 2.125rem 1rem 0;
 `;
 
-const Header = styled.div`
-  padding: 2.375rem 1rem;
-  background: #FFD000;
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
-`;
+// const Header = styled.div`
+//   padding: 2.375rem 1rem;
+//   background: #FFD000;
+//   border-bottom-left-radius: 24px;
+//   border-bottom-right-radius: 24px;
+// `;
 
 const Text = styled.h1`
   padding-bottom: ${props => props.paddingBottom && '.5rem'};
@@ -50,9 +57,10 @@ const Text = styled.h1`
 `;
 
 const Card = styled.button`
+  margin-bottom: 2rem;
   min-height: 150px;
-  width: ${props => props.width ? '100%' : '48%'};
-  /* margin: 10px; */
+  width: 100%;
+  max-width: 330px;
   border-radius: 16px;
   padding: 16px;
   /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
@@ -61,14 +69,10 @@ const Card = styled.button`
   &:hover{
     box-shadow: 0 6px 10px rgba(0,0,0,0.25), 0 1px 10px rgba(0,0,0,0.22);
   }
-`;
 
-const Row = styled.div`
-  padding-top: 1rem;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  flex-wrap: wrap;
+  @media (min-width: 1024px) {
+    margin-right: ${props => props.marginRight && '2rem'};
+  }
 `;
 
 const Button = styled.button`
@@ -77,7 +81,7 @@ const Button = styled.button`
   font-weight: 900;
   color: #373737;
   position: absolute;
-  bottom: 1rem;
+  bottom: 5rem;
 `;
 
 const Dashboard = (props) => {
@@ -86,6 +90,7 @@ const Dashboard = (props) => {
     try {
       await Auth.signOut();
       localStorage.clear();
+      props.clearActionsBook();
       props.signOut();
       props.history.push({ pathname: '/' })
     } catch (error) {
@@ -93,46 +98,30 @@ const Dashboard = (props) => {
     }
   }
 
-  const handleClick = () => {
-    props.history.push({ pathname: '/trails' });
-  }
-
-  const renderTrails = () => (
-    <Card width onClick={handleClick}>
-      <Text>Trilha</Text>
-    </Card>
-  )
-
-  const renderOptions = () => {
-    return (
-      <Row>
-        <Card>
-          <Text>Baú</Text>
-        </Card>
-        <Card>
-          <Text>Ranking</Text>
-        </Card>
-      </Row>
-    )
+  const handleClick = (route) => {
+    props.history.push({ pathname: `/${route}` });
   }
 
   const trails = props?.trails;
 
   return (
     <Container>
-      <Header>
-        <Text name>Oi, {props.user.name}</Text>
-      </Header>
-      <Content>
-        <Text paddingBottom>Qual atividade vamos fazer hoje?</Text>
+      <Header text={`Oi, ${props.user.name}`}/>
+       <Content>
+        <Text paddingBottom>Qual atividade você quer fazer?</Text>
         {trails && (
           <>
-            {renderTrails()}
-            {renderOptions()}
+            <Card marginRight onClick={() => handleClick('trails')}>
+              <Text>Trilha</Text>
+            </Card>
+            <Card onClick={() => handleClick('trunk')}>
+              <Text>Baú</Text>
+            </Card>
           </>
         )}
       </Content>
-      <Button onClick={handleSignOut}>Sair</Button>
+      {/* <Button onClick={handleSignOut}>Sair</Button> */}
+      <Footer  screen='dashboard'/>
     </Container>
   );
 }

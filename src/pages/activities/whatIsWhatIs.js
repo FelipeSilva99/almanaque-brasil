@@ -149,7 +149,7 @@ const TextIndividualLetter = styled.p`
   }
 `;
 
-const WhatIsWhatIs = ({ useActivitie, handleNextQuestion }) => {
+const WhatIsWhatIs = ({ useActivitie, handleNextQuestion, registerAction }) => {
   const [answer, setAnswer] = useState([]);
   const [letterOption, setLetterOption] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState([]);
@@ -190,6 +190,26 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion }) => {
     setActivitive(useActivitie);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useActivitie]);
+
+  useEffect(() => {
+    if(modalWrongAnswer) {
+      registerAction({
+        activityId: useActivitie.id,
+        trailId: useActivitie.trailId,
+        success: false,
+        timestamp: Date.now()
+      })
+    }
+
+    if(modalCorrectAnswer) {
+      registerAction({
+        activityId: useActivitie.id,
+        trailId: useActivitie.trailId,
+        success: true,
+        timestamp: Date.now()
+      })
+    }
+  }, [modalCorrectAnswer, modalWrongAnswer])
 
   useEffect(() => {
     let timer1 = setTimeout(() => setIsLoading(false), 2000);

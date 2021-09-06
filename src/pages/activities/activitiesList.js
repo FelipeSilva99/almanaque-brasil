@@ -3,24 +3,49 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 //Components
+import Header from '../../components/header/headerOnb';
 import ActivitieIcon from '../../components/trail/activitieIcon'
-import Way from '../../components/trail/way'
+import Way from '../../components/trail/way';
+
+//Assets
+import aquamarineStone from '../../images/stones/aquamarine2.svg'
+import aquamarine from '../../images/stones/aquamarine.svg'
+import church from '../../images/trails/church.svg'
+import houses from '../../images/trails/houses.svg'
+import trainStation from '../../images/trails/trainstation.svg'
+
+import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
+
 
 const mapStateToProps = state => ({
   activities: state.trails,
   selectedTrails: state.trails.selectedTrails,
+  actionsBook: state.actionsBook
 })
 
+const mapDispatchToProps = dispatch => ({
+  postActionsBook: (info) => {
+    dispatch(postActionsBook(info));
+  },
+});
+
 // Styles
-
 const Container = styled.div`
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+  padding: 1.25rem ;
   width: 100vw;
-  height: 100vh;
-  background-color: #EDEDED ;
+  height: 100%;
+  background-color: #FAFAFA;
+`;
 
+const Stone = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: ${props => props.margin || '4rem 0 6rem 0'};
+  div{
+    width: 2rem;
+    height: 2rem;
+    background: red;
+    }
 `;
 
 const Trail = styled.div`
@@ -28,11 +53,10 @@ const Trail = styled.div`
   width: 375px;
   background-color: transparent;
   overflow: hidden;
-  width: 100vw;
+  width: 100%;
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
-  background-color: #EDEDED ;
 `;
 
 const ActivitiesRow = styled.div`
@@ -41,32 +65,13 @@ const ActivitiesRow = styled.div`
   justify-content: center;
 `;
 
-// const setActivitiesOrder = (quantity) => {
-//   let nextItemIsSingular = true;
-//   let linesArray = []
-//   // console.log('quantity:',quantity)
-//   for(let i = 0; i < quantity; i++) {
-//     if(nextItemIsSingular) {
-//       console.log("A")
-//       nextItemIsSingular = false
-//       linesArray.push("oneItem")
-//     } else {
-//       if((i+1) % 3 === 0) {
-//         console.log("B")
-//         nextItemIsSingular = true
-//         linesArray.push("ignore")
-//       }
-//       else {
-//         console.log("C")
-//         linesArray.push("twoItems")
-//       }
-//     }
-//   }
-//   return linesArray;
-// }
-
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
+  const backgroundDecorations = {
+    top: church,
+    center: houses,
+    bottom: trainStation
+  }
 
   useEffect(() => {
     const trail = props.selectedTrails;
@@ -74,6 +79,10 @@ const Activities = (props) => {
     
     setActivities(allActivities);
   }, [props.selectedTrails, props.activities.data]);
+
+  useEffect(() => {
+    props.postActionsBook(props.actionsBook)
+  }, [])
 
   const handlerNextActivitie = (index) => {
     if (hasNextActivitie) {
@@ -86,10 +95,6 @@ const Activities = (props) => {
   const hasNextActivitie = () => {
     return true
   }
-
-  // const makeListOfActivities = () => {
-    
-  // }
 
   const renderActivities = () => {
     // logic for deciding whether to return one or two items in a row
@@ -137,20 +142,58 @@ const Activities = (props) => {
       }
     })
   } 
+
+  const renderLogoStone = () => {
+    switch (props.activities.data[props.selectedTrails].name) {
+      case 'Água-Marinha':
+        return (
+          <Stone>
+            <img src={aquamarine} />
+          </Stone>
+        );
+
+    
+      default:
+        return
+    }
+  }
+
+  const renderStone = () => {
+    switch (props.activities.data[props.selectedTrails].name) {
+      case 'Água-Marinha':
+        return (
+          <Stone margin='4rem 0 2rem 0'>
+            <img src={aquamarineStone} />
+          </Stone>
+        );
+
+    
+      default:
+        return
+    }
+  }
   
   return (
     <Container>
+      <Header 
+        onClick={() => {props.history.push('/trails')}}
+        text={props.activities.data[props.selectedTrails].name}
+      />
+
+      {renderLogoStone()}
+
       <Trail>
-      {activities && <Way linesQuantity={activities.length-1}/>}
+      {activities && <Way backgroundDecorations={backgroundDecorations} linesQuantity={activities.length-1}/>}
         {
           activities && activities.length > 0
             ? renderActivities()
-            // ?null
             : <h1>Carregando</h1>
         }
       </Trail>
+
+      {renderStone()}
     </Container>
   );
 }
 
-export default connect(mapStateToProps)(Activities);
+export default connect(mapStateToProps, mapDispatchToProps)(Activities);

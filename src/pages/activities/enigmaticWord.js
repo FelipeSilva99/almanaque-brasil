@@ -122,7 +122,7 @@ const Word = styled.div`
   background-color: #F08800;
 `;
 
-function EnigmaticWord({ activitie, handlerNextActivitie }) {
+function EnigmaticWord({ activitie, handlerNextActivitie, registerAction }) {
   const [isLoading, setIsLoading] = useState(true)
   const [enigmas, setEnigmas] = useState(undefined)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
@@ -145,6 +145,26 @@ function EnigmaticWord({ activitie, handlerNextActivitie }) {
     }))
     
   }, [activitie]);
+
+  useEffect(() => {
+    if(modalWrongAnswer) {
+      registerAction({
+        activityId: activitie.id,
+        trailId: activitie.trailId,
+        success: false,
+        timestamp: Date.now()
+      })
+    }
+
+    if(modalCorrectAnswer) {
+      registerAction({
+        activityId: activitie.id,
+        trailId: activitie.trailId,
+        success: true,
+        timestamp: Date.now()
+      })
+    }
+  }, [modalCorrectAnswer, modalWrongAnswer])
 
   const handleValue = (e, i) => {
     const newEnigmas = enigmas

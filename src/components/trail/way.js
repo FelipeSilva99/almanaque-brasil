@@ -58,6 +58,14 @@ const LineToleft = styled.div`
   }
 `;
 
+const Decoration = styled.img`
+  position: absolute;
+  top: ${props => props.top};
+  bottom: ${props => props.bottom};
+  left: ${props => props.left};
+  right: ${props => props.right};
+`;
+
 const defineLines = (quantity) => {
   let nextItemIsSingular = true;
   let linesArray = []
@@ -82,7 +90,7 @@ const defineLines = (quantity) => {
   // console.log('lA:',linesArray)
   return linesArray;
 }
-const Way = ({ linesQuantity }) => {
+const Way = ({ backgroundDecorations, linesQuantity }) => {
   const [lines, setLines] = useState(undefined)
 
   useEffect(() => {
@@ -91,28 +99,32 @@ const Way = ({ linesQuantity }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
-  const setComponent = (type) => {
+  const setComponent = (type, i) => {
     switch (type) {
       case 'right':
-        return <LineToRight color={'#4C90AF'}/>
+        return <LineToRight key={i} color={'#4C90AF'}/>
 
       case 'straight':
-        return <LineStraight color={'#4C90AF'}/>
+        return <LineStraight key={i} color={'#4C90AF'}/>
 
       case 'left':
-        return <LineToleft color={'#4C90AF'}/>
+        return <LineToleft key={i} color={'#4C90AF'}/>
 
       default:
-        return <LineToRight color={'#4C90AF'}/>
+        return <LineToRight key={i} color={'#4C90AF'}/>
     }
   }
 
   return(
     <Container>
-      {lines && lines.map(type => {
-        return setComponent(type)
+      <Decoration src={backgroundDecorations.top}></Decoration>
+      <Decoration top={'488px'} left={'110px'} src={backgroundDecorations.center}></Decoration>
+      <Decoration bottom={'0'} right={0} src={backgroundDecorations.bottom}></Decoration>
+      {lines && lines.map((type, i) => {
+        return setComponent(type, i)
       })}
     </Container>
+
   )
 }
 

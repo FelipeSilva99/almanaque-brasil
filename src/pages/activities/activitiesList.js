@@ -141,7 +141,28 @@ const Activities = (props) => {
         }
       }
     })
-  } 
+  }
+
+  function isDone(activitie) {
+    const actionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync]
+
+    const filteredActions = actionsBook.actions.filter((action) => {
+      return action.activityId === activitie
+    })
+  
+    if(filteredActions.length >= 3) return true
+    else if(filteredActions.length > 0) {
+      const checkIfIsDone = filteredActions.findIndex((action) => {
+        return action.success === true
+      })
+      return checkIfIsDone === -1 ? false : true
+    } else return false
+  }
+  
+  function defineState(canBeDone) {
+    if(canBeDone) return "Em espera"
+    else return "Bloqueada"
+  }
 
   const renderLogoStone = () => {
     switch (props.activities.data[props.selectedTrails].name) {

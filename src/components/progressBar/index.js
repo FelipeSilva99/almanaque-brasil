@@ -5,8 +5,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  width: calc( 100vw - 2rem );
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const Text = styled.div`
@@ -16,7 +16,7 @@ const Text = styled.div`
 `;
 
 const BoxBar = styled.div`
-  width: 70%;
+  width: calc(100% - 5.3rem) ;
   height: 11px;
   border-radius: 5px;
   background-color: #FFFFFF;

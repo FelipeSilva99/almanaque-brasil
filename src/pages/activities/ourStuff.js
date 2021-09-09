@@ -97,9 +97,7 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
 
     return (
       <>
-        <Header
-          logo={logo}
-        />
+        <Header title={activitie?.name} />
         <ContentImageText
           image={`data:image/jpeg;base64,${activitie.imageBase64}`}
           title={activitie?.question}

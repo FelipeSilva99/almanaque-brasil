@@ -228,7 +228,7 @@ const Activities = (props) => {
       {renderLogoStone()}
 
       <Trail>
-      {activities && <Way backgroundDecorations={backgroundDecorations} linesQuantity={activities.length-1}/>}
+      {activities && <Way progress={activitiesProgress} backgroundDecorations={backgroundDecorations} linesQuantity={activities.length-1}/>}
         {
           activities && activities.length > 0
             ? renderActivities()

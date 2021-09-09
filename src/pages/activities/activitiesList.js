@@ -141,7 +141,7 @@ const Activities = (props) => {
           return (
             <ActivitiesRow key={index}>
               <ActivitieIcon
-                activitieState={activitiesProgress[index+1].state}
+                activitieState={activitiesProgress[index].state}
                 item={item}
                 itemValue={index}
                 lineTo={'straight'}

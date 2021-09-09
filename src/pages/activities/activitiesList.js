@@ -66,11 +66,28 @@ const ActivitiesRow = styled.div`
 
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
+  const [activitiesProgress, setActivitiesProgress] = useState(undefined)
   const backgroundDecorations = {
     top: church,
     center: houses,
     bottom: trainStation
   }
+
+  useEffect(() => {
+    if(activities === null) return  
+
+    let canBeDone = true
+    const activitiesStates = activities.map((activitie, ind, array) => {
+      const isDoneActivitie = isDone(activitie.id)
+      // const background = setBackgroundColor(activitie)
+      const activitieState = isDoneActivitie ? "done" : defineState(canBeDone && !isDoneActivitie)
+      if(!isDoneActivitie) canBeDone = false
+      return {id: activitie.id, state: activitieState}
+    })
+
+    console.log('state:', activitiesStates)
+    setActivitiesProgress(activitiesStates)
+  }, [activities])
 
   useEffect(() => {
     const trail = props.selectedTrails;
@@ -97,6 +114,7 @@ const Activities = (props) => {
 
   const renderActivities = () => {
     // logic for deciding whether to return one or two items in a row
+    if(activitiesProgress === undefined) return
     let nextItemIsSingular = true;
     return activities.map((item, index, array) => {
       if(nextItemIsSingular) {
@@ -104,6 +122,7 @@ const Activities = (props) => {
         return(
           <ActivitiesRow key={index}>
             <ActivitieIcon
+            activitieState={activitiesProgress[index].state}
             item={item}
             itemValue={index}
             onClick={() => handlerNextActivitie(index)}
@@ -121,6 +140,7 @@ const Activities = (props) => {
           return (
             <ActivitiesRow key={index}>
               <ActivitieIcon
+                activitieState={activitiesProgress[index].state}
                 item={item}
                 itemValue={index}
                 lineTo={'straight'}
@@ -129,6 +149,7 @@ const Activities = (props) => {
                 >{index}</ActivitieIcon>
 
               <ActivitieIcon
+                activitieState={activitiesProgress[index+1].state}
                 item={array[index+1]}
                 itemValue={index+1}
                 lineTo={'left'}
@@ -140,7 +161,31 @@ const Activities = (props) => {
         }
       }
     })
-  } 
+  }
+
+  function isDone(activityId) {
+    const actionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync]
+    if(actionsBook === undefined) return
+
+    const filteredActions = actionsBook.filter((action) => {
+      return action.activityId === activityId
+    })
+
+    console.log('filtered', filteredActions)
+  
+    if(filteredActions.length >= 3) return true
+    else if(filteredActions.length > 0) {
+      const checkIfIsDone = filteredActions.findIndex((action) => {
+        return action.success === true
+      })
+      return checkIfIsDone === -1 ? false : true
+    } else return false
+  }
+  
+  function defineState(canBeDone) {
+    if(canBeDone) return "waiting"
+    else return "bloqued"
+  }
 
   const renderLogoStone = () => {
     switch (props.activities.data[props.selectedTrails].name) {
@@ -182,7 +227,7 @@ const Activities = (props) => {
       {renderLogoStone()}
 
       <Trail>
-      {activities && <Way backgroundDecorations={backgroundDecorations} linesQuantity={activities.length-1}/>}
+      {activities && <Way progress={activitiesProgress} backgroundDecorations={backgroundDecorations} linesQuantity={activities.length-1}/>}
         {
           activities && activities.length > 0
             ? renderActivities()

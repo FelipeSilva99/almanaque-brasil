@@ -81,13 +81,13 @@ const Activities = (props) => {
     const activitiesStates = activities.map((activitie, ind, array) => {
       const isDoneActivitie = isDone(activitie.id)
       // const background = setBackgroundColor(activitie)
-      const activitieState = isDoneActivitie ? "Feita" : defineState(canBeDone && !isDoneActivitie)
+      const activitieState = isDoneActivitie ? "done" : defineState(canBeDone && !isDoneActivitie)
       if(!isDoneActivitie) canBeDone = false
       return {id: activitie.id, state: activitieState}
     })
 
+    console.log('state:', activitiesStates)
     setActivitiesProgress(activitiesStates)
-    console.log('states:', activitiesStates)
   }, [activities])
 
   useEffect(() => {
@@ -115,6 +115,7 @@ const Activities = (props) => {
 
   const renderActivities = () => {
     // logic for deciding whether to return one or two items in a row
+    if(activitiesProgress === undefined) return
     let nextItemIsSingular = true;
     return activities.map((item, index, array) => {
       if(nextItemIsSingular) {
@@ -122,6 +123,7 @@ const Activities = (props) => {
         return(
           <ActivitiesRow key={index}>
             <ActivitieIcon
+            activitieState={activitiesProgress[index].state}
             item={item}
             itemValue={index}
             onClick={() => handlerNextActivitie(index)}
@@ -139,6 +141,7 @@ const Activities = (props) => {
           return (
             <ActivitiesRow key={index}>
               <ActivitieIcon
+                activitieState={activitiesProgress[index+1].state}
                 item={item}
                 itemValue={index}
                 lineTo={'straight'}
@@ -147,6 +150,7 @@ const Activities = (props) => {
                 >{index}</ActivitieIcon>
 
               <ActivitieIcon
+                activitieState={activitiesProgress[index+1].state}
                 item={array[index+1]}
                 itemValue={index+1}
                 lineTo={'left'}
@@ -160,13 +164,15 @@ const Activities = (props) => {
     })
   }
 
-  function isDone(activity) {
+  function isDone(activityId) {
     const actionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync]
     if(actionsBook === undefined) return
 
     const filteredActions = actionsBook.filter((action) => {
-      return action.activityId === activity.id
+      return action.activityId === activityId
     })
+
+    console.log('filtered', filteredActions)
   
     if(filteredActions.length >= 3) return true
     else if(filteredActions.length > 0) {
@@ -178,8 +184,8 @@ const Activities = (props) => {
   }
   
   function defineState(canBeDone) {
-    if(canBeDone) return "Em espera"
-    else return "Bloqueada"
+    if(canBeDone) return "waiting"
+    else return "bloqued"
   }
 
   const renderLogoStone = () => {

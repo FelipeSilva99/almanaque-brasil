@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import iconVisualized from '../../images/activity/iconVisualized.svg';
+import iconVisualizedBloqued from '../../images/activity/iconVisualizedBloqued.svg';
 
 //Styles
 const ActivitiesCircle = styled.button`
@@ -21,16 +22,25 @@ const Box = styled.div`
 `;
   
 const Text = styled.p`
+  color: ${props => props.color};
   position: absolute;
   font-size: 1.5rem;
 `;
 
 const ActivitieIcon = (props) => {
+  const setColor = () => {
+    return props.activitieState === 'bloqued' ? '#a0a0a0' : '#2a2929'
+  }
+
+  const handleClick = () => {
+    return props.activitieState === 'bloqued' ? undefined : props.onClick
+  }
+
   return (
     <Box>
-      <ActivitiesCircle type={props.item.type} onClick={props.onClick} history={props.history}>
-        <img src={iconVisualized} />
-        <Text>{props.children + 1}</Text>
+      <ActivitiesCircle type={props.item.type} onClick={handleClick()} history={props.history}>
+        { props.activitieState === 'bloqued' ? <img src={iconVisualizedBloqued} /> : <img src={iconVisualized} /> }
+        <Text color={() => setColor()}>{props.children + 1}</Text>
       </ActivitiesCircle>
       <p>{props.item.name}</p>
     </Box>

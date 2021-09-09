@@ -40,7 +40,9 @@ export const Card = styled.button`
 `;
 
 export const Box = styled.div`
+  width: 100%;
   min-height: 100vh;
+  background-color: #f3f3f3;
 `;
 
 export const Row = styled.div`

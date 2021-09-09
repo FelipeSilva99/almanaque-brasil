@@ -16,7 +16,7 @@ const Container = styled.div`
   align-items: center;
   background-image: url("${background}");
   background-color: #f3f3f3;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 
   @media (min-width: 1024px) {
@@ -47,7 +47,7 @@ const IconBottom = styled.img`
 `;
 
 const Logo = styled.img`
-  position: fixed;
+  position: absolute;
   left: 1rem;
   bottom: 1rem;
   width: 4rem;

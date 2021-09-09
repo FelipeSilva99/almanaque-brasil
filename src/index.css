@@ -6,12 +6,20 @@
 }
 
 body {
+  display: flex;
+  justify-content: center;
+  background-color: #c0c0c0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Nunito', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#root{
+  width: 100vw;
+  max-width: 425px;
 }
 
 code {

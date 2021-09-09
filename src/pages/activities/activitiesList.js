@@ -67,11 +67,28 @@ const ActivitiesRow = styled.div`
 
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
+  const [activitiesProgress, setActivitiesProgress] = useState(undefined)
   const backgroundDecorations = {
     top: church,
     center: houses,
     bottom: trainStation
   }
+
+  useEffect(() => {
+    if(activities === null) return  
+
+    let canBeDone = true
+    const activitiesStates = activities.map((activitie, ind, array) => {
+      const isDoneActivitie = isDone(activitie.id)
+      // const background = setBackgroundColor(activitie)
+      const activitieState = isDoneActivitie ? "Feita" : defineState(canBeDone && !isDoneActivitie)
+      if(!isDoneActivitie) canBeDone = false
+      return {id: activitie.id, state: activitieState}
+    })
+
+    setActivitiesProgress(activitiesStates)
+    console.log('states:', activitiesStates)
+  }, [activities])
 
   useEffect(() => {
     const trail = props.selectedTrails;
@@ -143,11 +160,12 @@ const Activities = (props) => {
     })
   }
 
-  function isDone(activitie) {
+  function isDone(activity) {
     const actionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync]
+    if(actionsBook === undefined) return
 
-    const filteredActions = actionsBook.actions.filter((action) => {
-      return action.activityId === activitie
+    const filteredActions = actionsBook.filter((action) => {
+      return action.activityId === activity.id
     })
   
     if(filteredActions.length >= 3) return true

@@ -207,7 +207,7 @@ function EnigmaticWord({ activitie, handlerNextActivitie, registerAction }) {
   return (
     isLoading ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
-        <Header logo={logo} />
+        <Header title={activitie?.name} />
         <Content>
           <Puzzle>
             {/* {JSON.stringify(activitie?.enigmas)} */}

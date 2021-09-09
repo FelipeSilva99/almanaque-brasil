@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 //Components
-import Header from '../../components/header/headerOnb';
+import Header from '../../components/header';
 import ActivitieIcon from '../../components/trail/activitieIcon'
 import Way from '../../components/trail/way';
 
@@ -31,7 +31,6 @@ const mapDispatchToProps = dispatch => ({
 
 // Styles
 const Container = styled.div`
-  padding: 1.25rem ;
   width: 100vw;
   height: 100%;
   background-color: #FAFAFA;
@@ -176,8 +175,8 @@ const Activities = (props) => {
   return (
     <Container>
       <Header 
-        onClick={() => {props.history.push('/trails')}}
-        text={props.activities.data[props.selectedTrails].name}
+        title={props.activities.data[props.selectedTrails].name}
+        goBack={() => {props.history.push('/trails')}}
       />
 
       {renderLogoStone()}

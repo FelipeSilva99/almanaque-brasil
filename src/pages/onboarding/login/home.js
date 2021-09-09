@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Button from '../../../components/buttons/button';
 
 //Images
+import logo from '../../../images/logo/almanaque.svg';
 import iconFacebook from '../../../images/icons/onboarding/iconFacebook.svg';
 import iconGoogle from '../../../images/icons/onboarding/iconGoogle.svg';
 

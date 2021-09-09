@@ -16,6 +16,10 @@ const Container = styled.form`
   justify-content: center;
   align-items: ${props => props.login ? 'flex-start' : 'center'};
   flex-direction: column;
+
+  @media(min-width: 1024px) {
+    padding-top: ${props => props.login && '2rem'};
+  }
 `;
 
 const Label = styled.label`

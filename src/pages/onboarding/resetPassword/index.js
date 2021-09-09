@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Auth } from 'aws-amplify';
 
 //Components
-import Header from '../../../components/header/headerOnb';
+import Header from '../../../components/header';
 import Form from '../../../components/form';
 
 //Styles
@@ -207,7 +207,7 @@ const ResetPassword = (props) => {
 
   return (
     <Container>
-      <Header text='Redefinir senha' onClick={handleGoBack} />
+      <Header title='Redefinir senha' noPadding goBack={handleGoBack} />
       {renderByStep()}
       <Info isSuccessNewPassword={isSuccessNewPassword}>{isSuccessNewPassword && 'Senha redefinida com sucesso!'}</Info>
     </Container>

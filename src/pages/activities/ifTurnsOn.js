@@ -373,7 +373,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
     isLoading ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
         <Header
-          logo={logo}
+          title={activitie.name}
           tips
           isSelectedTips={isModalTip}
           handleModalTip={handleModalTip}

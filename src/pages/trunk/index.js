@@ -36,6 +36,10 @@ const Title = styled.h1`
   color: #373737;
 `;
 
+const IconModal = styled.img`
+  transform: ${props => props.isOpen && 'rotate(90deg)'};
+`;
+
 const ContentText = styled.div`
   display: flex;
   align-items: center;
@@ -100,20 +104,24 @@ const Trunk = () => {
     setIsInfoModal({ isModal: false });
   }
 
-  const renderContent = (title) => (
-    <Content>
-      <ContentTitle>
-        <Title>
-          {title}
-        </Title>
-        <img src={arrow} alt='Seta' onClick={() => handleModal(title)} />
-      </ContentTitle>
-      {modal.isModal && modal.item === title && 
-        data.filter(item => item.category === title).map(i => (
-        renderOptions(i)
-      ))}
-    </Content>
-  )
+  const renderContent = (title) => {
+    const isModal = modal.isModal && modal.item === title;
+    
+    return (
+      <Content>
+        <ContentTitle>
+          <Title>
+            {title}
+          </Title>
+          <IconModal src={arrow} alt='Seta' isOpen={isModal} onClick={() => handleModal(title)} />
+        </ContentTitle>
+        {isModal && 
+          data.filter(item => item.category === title).map(i => (
+          renderOptions(i)
+        ))}
+      </Content>
+    )
+  }
 
   const renderOptions = (item) => (
     <ContentText onClick={() => handleInfoModal(item)}>

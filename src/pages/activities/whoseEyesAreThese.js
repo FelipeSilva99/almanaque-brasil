@@ -104,13 +104,11 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion, registerAction })
   }
 
   const renderScreen = () => {
-    const hasSelectedTips = isModalTip ? selectedTips : tips;
-
     return (
       <>
         <Header
-          logo={logo}
-          tips={isModalAnswerOption && hasSelectedTips}
+          title={activitie?.name}
+          tips
           isSelectedTips={isModalTip}
           handleModalTip={handleModalTip}
         />

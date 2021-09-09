@@ -2,7 +2,7 @@ import React, { useState, useEffect, createRef } from 'react';
 import styled from 'styled-components';
 
 //Component
-import Header from '../../components/header/headerOnb';
+import Header from '../../components/header';
 
 //Styles
 const Container = styled.div`
@@ -87,7 +87,7 @@ const InfoScreen = ({ itemData, onClick }) => {
 
   return (
     <Container ref={myRef} onScroll={onScroll}>
-      <Header trunkScreen showTitle={showTitle} text={data.category} onClick={onClick} />
+      <Header trunkScreen showTitle={showTitle} title={data.category} goBack={onClick} />
       <Img src={`data:image/jpeg;base64,${data.imageKey}`} alt='Imagem da atividade' />
       <MessageBox>
         <Title>

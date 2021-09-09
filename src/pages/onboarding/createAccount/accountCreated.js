@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Auth } from 'aws-amplify';
 
 //Components
-import Header from '../../../components/header/headerOnb';
+import Header from '../../../components/header';
 import Button from '../../../components/buttons/button';
 
 // Styles
@@ -74,7 +74,7 @@ const AccountCreated = () => {
 
   return (
     <Container>
-      <Header noBack text='Verificar e-mail' />
+      <Header noBack title='Verificar e-mail' />
       <Content>
         <Title>Verifique seu e-mail</Title>
         <Text>Enviamos uma mensagem de confirmação para o seu e-mail cadastrado.</Text>

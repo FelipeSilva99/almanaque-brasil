@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 
 //Components
 import Button from '../../../components/buttons/button';
+import SplashAlmanaque from '../../splash';
+import SplashPartner from '../../splash/achievement';
 
 //Images
 import logo from '../../../images/logo/almanaque.svg';
@@ -10,6 +12,16 @@ import iconFacebook from '../../../images/icons/onboarding/iconFacebook.svg';
 import iconGoogle from '../../../images/icons/onboarding/iconGoogle.svg';
 
 const Container = styled.div`
+  min-height: 100vh;
+  background: #FFFEFC;
+`;
+
+const Img = styled.img`
+  flex: 4;
+  width: min-content;
+`;
+
+const Content = styled.div`
   padding: 1.875rem 1rem 1rem;
   min-height: 100vh;
   background: #F3F3F3;
@@ -19,12 +31,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Img = styled.img`
-  flex: 4;
-  width: min-content;
-`;
-
-const Content = styled.div`
+const ContentBox = styled.div`
   width: 100%;
   flex: 1;
   display: flex;
@@ -34,15 +41,30 @@ const Content = styled.div`
 `;
 
 const Home = (props) => {
+  const [screen, setScreen] = useState('almanaque');
+
   const handleClick = (type) => {
     props.history.push({ pathname: `/${type}` });
   }
 
-  return (
-    <Container>
-      {/* <Title>Almanaque Miguel Burnier</Title> */}
+  const handleNextScreen = () => {
+    let timer;
+    if (screen === 'almanaque') {
+      timer = setTimeout(() => setScreen('partner'), 2000);
+    }
+    if (screen === 'partner') {
+      timer = setTimeout(() => setScreen('home'), 2000);
+    }
+    
+    return () => {
+      clearTimeout(timer);
+    };
+  }
+
+  const renderScreenHome = () => (
+    <Content>
       <Img src={logo} alt='logo' />
-      <Content>
+      <ContentBox>
         <Button
           handleClick={() => handleClick('createAccount')}
         >
@@ -75,7 +97,27 @@ const Home = (props) => {
         >
           entrar
         </Button>
-      </Content>
+      </ContentBox>
+    </Content>
+  )
+
+  const renderScreen = () => {
+    handleNextScreen();
+    switch (screen) {
+      case "almanaque":
+        return <SplashAlmanaque />
+
+      case "partner":
+        return <SplashPartner />
+
+      default:
+        return renderScreenHome()
+    }
+  }
+
+  return (
+    <Container>
+      {renderScreen()}
     </Container>
   );
 }

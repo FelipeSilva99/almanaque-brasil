@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Container = styled.header`
   position: relative;
   padding: 2.375rem 1rem;
-  width: 100vw;
+  width: 100%;
   background: #F4DE9B;
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;

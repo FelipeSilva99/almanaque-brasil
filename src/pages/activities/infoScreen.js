@@ -4,7 +4,9 @@ import styled from 'styled-components';
 //Assets
 import LogoOrigin from '../../images/logo/originOfExpression.svg'
 import LogoEureka from '../../images/logo/eureka.svg'
-import book from '../../images/book/book.png'
+import oneBook from '../../images/books/one-book.svg'
+import twoBooks from '../../images/books/two-books.svg'
+import threeBooks from '../../images/books/three-books.svg'
 
 //Components
 import Button from '../../components/buttons/button';
@@ -144,6 +146,15 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
     }
   }, [currentScreen])
 
+  var book = "";
+
+  if(useActivitie.sequence < 3)
+    book = oneBook
+  else if(useActivitie.sequence < 6)
+    book = twoBooks
+  else
+    book = threeBooks
+    
   const renderScreen = () => {
     switch (currentScreen) {
       case screens.knowledge:
@@ -151,7 +162,7 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
           <Content>
             <KnowledgeTexts>
               <h1>Parabéns</h1>
-              <p>Por ter adquirido um novo<br/>conhecimento, você ganhou:</p>
+              <p>Por ter adquirido um novo:</p>
             </KnowledgeTexts>
             <KnowledgeTexts>
               <img src={book} alt='Livro' />

@@ -22,18 +22,20 @@ const mapDispatchToProps = dispatch => ({
 const Container = styled.div`
   padding: .5rem;
   position: absolute;
-  top: -36px;
-  right: 0;
+  bottom: 60px;
+  right: 205px;
   width: 30vw;
-  height: 8rem;
+  height: 3rem;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   background: #fff;
   text-align: end;
-  z-index: -1;
+  /* z-index: -1; */
 `;
 
 const Button = styled.button`
+  width: 100%;
+  height: 100%;
   font-size: 1rem;
   font-weight: 900;
   color: #373737;

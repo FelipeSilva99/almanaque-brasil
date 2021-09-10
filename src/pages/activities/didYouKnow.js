@@ -50,7 +50,7 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
   }, [useActivitie]);
 
   useEffect(() => {
-    if(modalWrongAnswer) {
+    if (modalWrongAnswer) {
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
@@ -59,7 +59,7 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
       })
     }
 
-    if(modalCorrectAnswer) {
+    if (modalCorrectAnswer) {
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
@@ -96,9 +96,7 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
   const renderScreen = () => {
     return (
       <>
-        <Header
-          logo={logo}
-        />
+        <Header title={activitie?.name} />
         <ContentImageText
           image={`data:image/jpeg;base64,${activitie.imageBase64}`}
           title={activitie?.question}
@@ -133,9 +131,9 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore isTrunk amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={useActivitie.answers[3]} isTrunk amountTrial={amountTrial}/>}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages} />}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore isTrunk amountTrial={amountTrial} />}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={useActivitie.answers[3]} isTrunk amountTrial={amountTrial} />}
       </Container>
     )
   );

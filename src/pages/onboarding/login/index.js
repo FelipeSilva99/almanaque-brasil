@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 //Components
 import Form from '../../../components/form'
-import Header from '../../../components/header/headerOnb';
+import Header from '../../../components/header';
 
 //Redux
 import { signIn } from '../../../dataflow/modules/signIn-modules';
@@ -56,7 +56,6 @@ const Login = (props) => {
 
   const handleViewPassword = (ev) => {
     ev.stopPropagation();
-console.log('aquiii');
     setShowPassword(!showPassword);
   }
 
@@ -108,7 +107,11 @@ console.log('aquiii');
 
   return (
     <Container>
-      <Header text="Login" onClick={goBack}/>
+      <Header
+        title="Login"
+        noPadding
+        goBack={goBack}
+      />
       <Form
         login
         handleLogin={handleLogin}

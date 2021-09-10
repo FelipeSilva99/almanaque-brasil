@@ -90,7 +90,7 @@ const defineLines = (quantity) => {
   // console.log('lA:',linesArray)
   return linesArray;
 }
-const Way = ({ backgroundDecorations, linesQuantity }) => {
+const Way = ({ backgroundDecorations, linesQuantity, progress }) => {
   const [lines, setLines] = useState(undefined)
 
   useEffect(() => {
@@ -102,17 +102,22 @@ const Way = ({ backgroundDecorations, linesQuantity }) => {
   const setComponent = (type, i) => {
     switch (type) {
       case 'right':
-        return <LineToRight key={i} color={'#4C90AF'}/>
+        return <LineToRight key={i} color={setColor(i)}/>
 
       case 'straight':
-        return <LineStraight key={i} color={'#4C90AF'}/>
+        return <LineStraight key={i} color={setColor(i)}/>
 
       case 'left':
-        return <LineToleft key={i} color={'#4C90AF'}/>
+        return <LineToleft key={i} color={setColor(i)}/>
 
       default:
-        return <LineToRight key={i} color={'#4C90AF'}/>
+        return <LineToRight key={i} color={setColor(i)}/>
     }
+  }
+
+  const setColor = (ind) => {
+    if(progress[ind].state === 'done') return '#4C90AF'
+    else return 'silver'
   }
 
   return(

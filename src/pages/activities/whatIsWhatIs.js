@@ -342,7 +342,7 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion, registerAction }) => {
   const renderScreen = () => {
     return (
       <>
-        <Header iconBack={iconBack} logo={logo} />
+        <Header iconBack={iconBack} title={activitie?.name} />
         <Content isModal={isModalAnswer}>
           <Title><span>"</span>{activitie?.question}</Title><span>"</span>
         </Content>

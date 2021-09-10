@@ -2,7 +2,7 @@ import React, { useState, useEffect, createRef } from 'react';
 import styled from 'styled-components';
 
 //Component
-import Header from '../../components/header/headerOnb';
+import Header from '../../components/header';
 
 //Styles
 const Container = styled.div`
@@ -11,7 +11,7 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   background: #fff;
-  overflow-y: auto; 
+  overflow-y: auto;
 
   ::-webkit-scrollbar {
     width: 4px;
@@ -87,8 +87,8 @@ const InfoScreen = ({ itemData, onClick }) => {
 
   return (
     <Container ref={myRef} onScroll={onScroll}>
-      <Header trunkScreen showTitle={showTitle} text={data.category} onClick={onClick} />
-      <Img src={`data:image/jpeg;base64,${data.imageKey}`} alt='Imagem da atividade' />
+      <Header trunkScreen showTitle={showTitle} title={data.category} goBack={onClick} />
+      <Img src={`data:image/jpeg;base64,${data.imageBase64}`} alt='Imagem da atividade' />
       <MessageBox>
         <Title>
           {data.title}

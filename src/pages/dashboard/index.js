@@ -7,6 +7,9 @@ import { Auth } from 'aws-amplify';
 import Header from '../../components/header/headerYellow';
 import Footer from '../../components/footer/footerMenu';
 
+//Image
+import home from '../../images/icons/menu/selectedHome.svg';
+
 //Redux
 import { signOut } from '../../dataflow/modules/signIn-modules';
 import { selectedTrails } from '../../dataflow/modules/trails-module';
@@ -106,7 +109,7 @@ const Dashboard = (props) => {
 
   return (
     <Container>
-      <Header text={`Oi, ${props.user.name}`}/>
+      <Header text={`Oi, ${props.user.name}`} icon={home} home/>
        <Content>
         <Text paddingBottom>Qual atividade você quer fazer?</Text>
         {trails && (

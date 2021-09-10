@@ -65,6 +65,7 @@ const CreateAccount = (props) => {
   }, []);
 
   const goToAccountCreatedScreen = () => {
+    console.log('olllll');
     props.history.push({
       pathname: `/accountCreated`,
       state: { email: register.email }
@@ -97,7 +98,6 @@ const CreateAccount = (props) => {
   }
 
   const handleGoBack = () => {
-    console.log('aqui');
     if (currentStep.value > 1) {
       setCurrentStep(steps[currentStep.value - 2]);
       setLastScreen(false);

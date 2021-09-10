@@ -19,15 +19,9 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Title = styled.h1`
+const Img = styled.img`
   flex: 4;
-  font-size: 1.5rem;
-  font-weight: 900;
-  color: #373737;
-  display: flex;
-  align-items: center;
-
-  @media (max-width: 320px) { font-size: 1.25rem; }
+  width: min-content;
 `;
 
 const Content = styled.div`
@@ -46,7 +40,8 @@ const Home = (props) => {
 
   return (
     <Container>
-      <Title>Almanaque Miguel Burnier</Title>
+      {/* <Title>Almanaque Miguel Burnier</Title> */}
+      <Img src={logo} alt='logo' />
       <Content>
         <Button
           handleClick={() => handleClick('createAccount')}

@@ -74,12 +74,12 @@ const AccountCreated = () => {
 
   return (
     <Container>
-      <Header noBack title='Verificar e-mail' />
+      <Header noBack title='Confirmar criação da conta' />
       <Content>
-        <Title>Verifique seu e-mail</Title>
-        <Text>Enviamos uma mensagem de confirmação para o seu e-mail cadastrado.</Text>
-        <Button margin='1rem' handleClick={goHome}>continuar</Button>
-        <Button margin='1rem' handleClick={resendConfirmationCode}>reenviar</Button>
+        <Title>Quase finalizado!</Title>
+        <Text>Verifique o e-mail que enviamos para o seu e-mail cadastrado.</Text>
+        <Button margin='1rem' handleClick={goHome}>continuar para o login</Button>
+        <Button margin='0' background='transparent' boxShadow='nobe' handleClick={resendConfirmationCode}>reenviar</Button>
         {isError && <Error>{isError.msg ? isError.msg : 'Erro ao reenviar'}</Error>}
       </Content>
     </Container>

@@ -56,7 +56,6 @@ const Login = (props) => {
 
   const handleViewPassword = (ev) => {
     ev.stopPropagation();
-console.log('aquiii');
     setShowPassword(!showPassword);
   }
 

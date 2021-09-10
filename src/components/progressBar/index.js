@@ -39,8 +39,6 @@ const Progress = styled.div`
 const setWidth = (currentValue, totalValue) => currentValue*(100/totalValue)
 
 const ProgressBar = ({currentStep, steps}) => {
-
-
   return (
     <Container>
       <BoxBar>

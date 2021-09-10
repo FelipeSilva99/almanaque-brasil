@@ -18,10 +18,11 @@ const Container = styled.header`
   z-index: 1;
 `;
 
-const Figure = styled.button`
+const Figure = styled.figure`
   padding-left: ${props => props.trunkScreen && '1.5rem'};
   width: 2.25rem;
   display: ${props => props.noBack ? 'none' : 'flex'};
+  cursor: pointer;
 `;
 
 const Img = styled.img`
@@ -71,24 +72,33 @@ const Header = ({
   const history = useHistory();
   const imgTip = isSelectedTips ? selectedTip : tip;
 
+  const handleGoBack = () => {
+    if (goBack) {
+      goBack();
+    } else {
+      history.push('/activities');
+    }
+  }
+
   return (
     <Container trunkScreen={trunkScreen} noPadding={noPadding}>
-      <Figure
-        noBack={noBack}
-        trunkScreen={trunkScreen}
-        onClick={goBack ? goBack : history.push('/activities')}
-      >
-        <Img src={iconBack} alt='Voltar' />
-      </Figure>
+      {!noBack && (
+        <Figure
+          trunkScreen={trunkScreen}
+          onClick={handleGoBack}
+        >
+          <Img src={iconBack} alt='Voltar' />
+        </Figure>
+      )}
       <Title trunkScreen={trunkScreen} animation={showTitle}>{title}</Title>
       {
-    tips ? (
-      <ButtonTip isSelectedTips={isSelectedTips} onClick={handleModalTip}>
-        <img src={imgTip} alt='Dica' />
-      </ButtonTip>
-    ) : <ButtonTip noBack={noBack} />
-  }
-    </Container >
+        tips ? (
+          <ButtonTip isSelectedTips={isSelectedTips} onClick={handleModalTip}>
+            <img src={imgTip} alt='Dica' />
+          </ButtonTip>
+        ) : <ButtonTip noBack={noBack} />
+      }
+    </Container>
   );
 }
 

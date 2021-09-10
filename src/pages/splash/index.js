@@ -21,19 +21,18 @@ const Logo = styled.img`
 
 const Footer = styled.img`
   position: fixed;
-  bottom: -7rem;
+  bottom: 0;
   left: 0;
-  width: calc(100vw + 7rem);
+  width: 100vw;
 
-  @media(max-width: 1024px) {width: 100vw}
-
+  @media(min-width: 1024px) {display: none}
 `;
 
 const SplashPresentation = (props) => {
   const [isModalAchievement, setIsModalAchievement] = useState(false);
 
   useEffect(() => {
-    let timer = setTimeout(() => setIsModalAchievement(true), 5000);
+    let timer = setTimeout(() => setIsModalAchievement(true), 3000);
     // if(isModalAchievement) {
     //   props.history.push(`/achievement`);
     // }
@@ -47,7 +46,7 @@ const SplashPresentation = (props) => {
     <Container>
       <Logo src={almanaque} alt="Logo almanaque" />
       <Footer src={footer} alt="Img de fundo" />
-      {/* {isModalAchievement && <Achievement />} */}
+      {isModalAchievement && <Achievement />}
     </Container>
   );
 }

@@ -37,7 +37,7 @@ const Option = styled.option`
   }
 `;
 
-const Arrow = styled.figure`
+const Figure = styled.figure`
   position: relative;
   float: right;
   margin: .75rem 1rem .625rem 0;
@@ -73,9 +73,9 @@ const Select = ({ name, value, handleChange }) => {
         setIsOpen(!isOpen)
       }}
     >
-      <Arrow isOpen={isOpen}>
+      <Figure isOpen={isOpen}>
         <img src={arrow}></img>
-      </Arrow>
+      </Figure>
       {(value === 'sim' && !isOpen) && <Text active>Sim</Text>}
       {(value === 'não' && !isOpen) && <Text active>Não</Text>}
       {(value === undefined || isOpen) && <Text>Escolha uma opção:</Text>}

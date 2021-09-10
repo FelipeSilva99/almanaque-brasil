@@ -10,7 +10,7 @@ import Button from '../../../components/buttons/button';
 // Styles
 const Container = styled.div`
   padding: 1rem;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: #F3F3F3;
 `;

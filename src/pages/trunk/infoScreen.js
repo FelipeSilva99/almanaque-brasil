@@ -8,7 +8,8 @@ import Header from '../../components/header';
 const Container = styled.div`
   position: fixed;
   bottom: 0;
-  width: 100vw;
+  width: 100%;
+  max-width: 26.5625rem;
   height: 100vh;
   background: #fff;
   overflow-y: auto;
@@ -49,13 +50,12 @@ const MessageBox = styled.div`
 
 const Img = styled.img`
   width: 100%;
-  height: 100vh;
   min-height: 245px;
   max-width: 500px;
   object-fit: fill;
 
   @media(max-width: 425px) {max-height: 310px;}
-  @media(min-width: 1024px) {height: 40vh;  object-fit: contain;}
+  @media(min-width: 1024px) {height: 40vh;  object-fit: cover;}
 `;
 
 const Title = styled.h1`

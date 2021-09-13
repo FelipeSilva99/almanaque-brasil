@@ -37,11 +37,6 @@ const Content = styled.div`
   border-top-right-radius: 24px;
   overflow: scroll;
   
-  @media(max-width: 320px) {
-    padding-bottom: 1rem;
-    font-size: .875rem;
-    color: red;
-  }
   @media(min-width: 768px) {
     height: 70vh;
     padding-top: 6rem;

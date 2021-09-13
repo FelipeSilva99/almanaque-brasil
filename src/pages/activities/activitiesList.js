@@ -39,7 +39,7 @@ const Container = styled.div`
 const Stone = styled.div`
   display: flex;
   justify-content: center;
-  margin: ${props => props.margin || '4rem 0 6rem 0'};
+  padding: ${props => props.padding || '4rem 0 6rem 0'};
   div{
     width: 2rem;
     height: 2rem;
@@ -206,7 +206,7 @@ const Activities = (props) => {
     switch (props.activities.data[props.selectedTrails].name) {
       case 'Água-Marinha':
         return (
-          <Stone margin='4rem 0 2rem 0'>
+          <Stone padding='4rem 0 2rem 0'>
             <img src={aquamarineStone} />
           </Stone>
         );

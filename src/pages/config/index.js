@@ -21,17 +21,14 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const Container = styled.div`
-  padding: .5rem;
   position: absolute;
   bottom: 60px;
-  right: 205px;
-  width: 30vw;
-  height: 3rem;
+  right: 1rem;
+  width: 10rem;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   background: #fff;
   text-align: end;
-  /* z-index: -1; */
 `;
 
 const Button = styled.button`
@@ -49,10 +46,8 @@ const Config = (props) => {
     try {
       await Auth.signOut();
       localStorage.clear();
-      props.clearActionsBook();
       props.signOut();
       history.push('/');
-
     } catch (error) {
       console.log('error signing out: ', error);
     }
@@ -61,7 +56,7 @@ const Config = (props) => {
   async function handleResetProgress() {
     const auth = await Auth.currentAuthenticatedUser()
     const idToken = auth.signInUserSession.idToken.jwtToken;
-    
+
     try {
       const response = await axios({
         method: 'delete',
@@ -71,13 +66,15 @@ const Config = (props) => {
           'Authorization': `${idToken}`,
         },
       });
-      if(response.status === 200){
-        handleSignOut();
+      if (response.status === 200) {
+        // handleSignOut();
+        props.clearActionsBook();
+        history.push('/activities');
         console.log('Progresso reiniciado com sucesso.')
-      } else{
+      } else {
         console.log('Não foi possível reiniciar o progresso. \n', response);
       }
-      
+
     }
     catch (err) {
       console.log('err', err);
@@ -87,7 +84,7 @@ const Config = (props) => {
   return (
     <Container>
       <Button onClick={handleResetProgress}>Reset</Button>
-      <Button onClick={handleSignOut}>Sair</Button>      
+      <Button onClick={handleSignOut}>Sair</Button>
     </Container>
   );
 }

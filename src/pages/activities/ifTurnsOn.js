@@ -5,7 +5,6 @@ import { shuffle } from '../../utils'
 // Component
 import Header from '../../components/header';
 import ContainerButton from '../../components/buttons/containerButton';
-import ModalTip from '../../components/modal/tip';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 import SplashScreen from './splashScreen';
 import ScoreScreen from '../../components/activities/scoreScreen';
@@ -15,18 +14,19 @@ import logo from '../../images/logo/ifTurnsOn.svg';
 
 const Container = styled.div`
   position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #f3f3f3;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
-  background-color: #f3f3f3;
-  width: 100vw;
 `
 
 const Content = styled.div`
   padding: 2rem;
   padding-bottom: 0;
-  width: 100vw;
+  width: 100%;
   height: calc(100% - 83px);
   background: ${props => !props.isCorrectAnswer && '#fff'};
   display: flex;
@@ -35,14 +35,25 @@ const Content = styled.div`
   justify-content: space-between;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
+  overflow: scroll;
+  
+  @media(max-width: 320px) {
+    padding-bottom: 1rem;
+    font-size: .875rem;
+    color: red;
+  }
+  @media(min-width: 768px) {
+    height: 70vh;
+    padding-top: 6rem;
+    color: pink;
 
-  @media(min-width: 768px) {height: 70vh; padding-top: 6rem;}
+  }
 `
 
 const ContentInfo = styled.div`
   margin-bottom: 1rem;
   width: 100%;
-  max-width: 300px;
+  /* max-width: 300px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,7 +79,7 @@ const Text = styled.div`
 const Box = styled.div`
   display: flex;
   width: 100%;
-  max-width: 300px;
+  /* max-width: 300px; */
   flex-direction: row;
   justify-content:  ${props => props.isCorrectAnswer ? 'space-evenly' : 'space-between'};
   
@@ -374,7 +385,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
       <Container>
         <Header
           title={activitie.name}
-          tips
+          tips={activitie.tips}
           isSelectedTips={isModalTip}
           handleModalTip={handleModalTip}
         />
@@ -385,6 +396,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
             background={isCorrectAnswer && '#399119'}
             boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
             noBorder={!isCorrectAnswer}
+            noPadding
             isCorrectAnswer={isCorrectAnswer}
             isError={isError && 'Você precisa selecionar todos os items'}
             handleClick={handleSubmit}
@@ -392,7 +404,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
             {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}
           </ContainerButton>
         </Content>
-        {isModalTip && <ModalTip text={activitie?.tips} handleModalTip={handleModalTip} />}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isModalCorrectAnswer && <ScoreScreen amountTrial={amountTrial} handleClick={handleContinue} />}
       </Container>

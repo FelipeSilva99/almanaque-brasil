@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 
 // Assets
-import bento from '../../images/icons/bento.png'
-import leaf from '../../images/whatIsWhatIs/pale_leaves.svg'
+import iconElifas from '../../images/elifas/withBackpack.png';
+import leaf from '../../images/whatIsWhatIs/pale_leaves.svg';
 import flags from '../../images/icons/flags.svg';
 import starrySky from '../../images/icons/starrySky.svg';
 
@@ -20,7 +20,7 @@ const Container = styled.div`
   left: 0;
   display: flex;
   background-color: #F3F3F3; 
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   justify-content: center;
   z-index: 2;
@@ -109,16 +109,17 @@ const Avatar = styled.img`
 `;
 
 const ButtonsBox = styled.div`
+  position: absolute;
+  bottom: 0;
+  padding: 0 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: fixed;
-  bottom: 0;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   padding-top: 4vh;
   background-color: #FFFFFF;
-  width: 100vw;
+  width: 100%;
 
   @media(max-width: 425px) {
     padding-left: 5vw;
@@ -210,7 +211,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
         >
           {renderText(isFirstMistake, errorMessages)}
         </DialogBox>
-        <Avatar src={bento} />
+        <Avatar src={iconElifas} />
       </RandomBox>
       <ButtonsBox>
         {hasChances ? (

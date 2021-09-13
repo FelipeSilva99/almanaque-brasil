@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 //Images
 import dialogBox from '../../images/icons/dialogBox.svg';
-import bento from '../../images/icons/bento.png';
+import iconElifas from '../../images/elifas/tip.svg';
 import close from '../../images/icons/close.svg';
 
 //Styled
@@ -12,16 +12,21 @@ const ContainerTip = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  display: flex;
-  justify-content: center;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: flex-end;
+  align-items: center;
 
   @media (min-width: 1024px) { align-items: center; }
 `;
 
 const ContentTip = styled.div`
+  /* margin: auto; */
+  width: 100%;
   max-width: 340px;
 `;
 
@@ -34,11 +39,12 @@ const ContentInfoTip = styled.div`
 
 const ImgDialogBox = styled.img`
   width: 100%;
+  transform: scaleX(-1);
 `;
 
 const ContentInfo = styled.div`
   position: absolute;
-  padding-top: 2rem;
+  margin-top: 2rem;
   max-width: 260px;
   display: flex;
   flex-direction: column;
@@ -46,14 +52,9 @@ const ContentInfo = styled.div`
   justify-content: space-between;
 `;
 
-const ScrollTip  = styled.div`
-  padding-top: 1rem;
-  height: 15rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+const ScrollTip = styled.div`
   overflow-y: auto;
+  height: 14rem;
 
   ::-webkit-scrollbar {
 		width: 4px;
@@ -82,26 +83,25 @@ const TextTip = styled.p`
 
 const ImgBento = styled.img`
   position: relative;
-  top: -1rem;
-  left: -3rem;
+  right: -55%;
 `;
 
 function Tip({ text, handleModalTip }) {
   return (
     <ContainerTip>
-        <ContentTip>
-          <ContentInfoTip>
-            <ImgDialogBox src={dialogBox} />
-            <ContentInfo>
-              <ScrollTip>
-                {text?.map(item =>  <TextTip>{item}</TextTip>)}
-              </ScrollTip>
-              <img src={close} alt={"fechar"} onClick={handleModalTip} />
-            </ContentInfo>
-          </ContentInfoTip>
-          <ImgBento src={bento} />
-        </ContentTip>
-      </ContainerTip>
+      <ContentTip>
+        <ContentInfoTip>
+          <ImgDialogBox src={dialogBox} />
+          <ContentInfo>
+            <ScrollTip>
+              {text?.map(item => <TextTip>{item}</TextTip>)}
+            </ScrollTip>
+            <img src={close} alt={"fechar"} onClick={handleModalTip} />
+          </ContentInfo>
+        </ContentInfoTip>
+        <ImgBento src={iconElifas} />
+      </ContentTip>
+    </ContainerTip>
   )
 }
 

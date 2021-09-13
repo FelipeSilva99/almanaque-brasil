@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
 
+//Component
+import ModalTip from '../../components/modal/tip';
+
 //Images
 import iconBack from '../../images/icons/arrow.svg';
 import tip from '../../images/icons/tip.svg';
@@ -86,24 +89,27 @@ const Header = ({
     }
   }
 
+  const renderGoBack = () => (
+    <Figure
+      trunkScreen={trunkScreen}
+      onClick={handleGoBack}
+    >
+      <Img src={iconBack} alt='Voltar' />
+    </Figure>
+  )
+
+  const renderTips = () => (
+    <ButtonTip isSelectedTips={isSelectedTips} onClick={handleModalTip}>
+      <img src={imgTip} alt='Dica' />
+    </ButtonTip>
+  )
+
   return (
     <Container trunkScreen={trunkScreen} noPadding={noPadding} animation={showTitle}>
-      {!noBack && (
-        <Figure
-          trunkScreen={trunkScreen}
-          onClick={handleGoBack}
-        >
-          <Img src={iconBack} alt='Voltar' />
-        </Figure>
-      )}
+      {!noBack && renderGoBack()}
       <Title trunkScreen={trunkScreen} animation={showTitle}>{title}</Title>
-      {
-        tips ? (
-          <ButtonTip isSelectedTips={isSelectedTips} onClick={handleModalTip}>
-            <img src={imgTip} alt='Dica' />
-          </ButtonTip>
-        ) : <ButtonTip noBack={noBack} />
-      }
+      {tips ? renderTips() : <ButtonTip noBack={noBack} />}
+      {isSelectedTips && <ModalTip text={tips} handleModalTip={handleModalTip} />}
     </Container>
   );
 }

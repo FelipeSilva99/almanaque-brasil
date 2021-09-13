@@ -77,7 +77,7 @@ const InfoScreen = ({ itemData, onClick }) => {
 
   useEffect(() => {
     setData(itemData);
-  });
+  }, [itemData]);
 
   const onScroll = () => {
     const scrollTop = myRef.current.scrollTop

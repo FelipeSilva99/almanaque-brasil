@@ -12,10 +12,16 @@ const Container = styled.header`
   width: 100%;
   position: ${props => props.trunkScreen ? 'fixed' : 'relative'};
   padding: ${props => (props.trunkScreen && '1.5rem 1rem 1.5rem 0') || (!props.noPadding && '1rem')};
+  background: transparent;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 1;
+  animation: .3s fadeIn ease-in-out;
+
+  ${({ animation }) => animation && `
+    background: #fff;
+  `}
 `;
 
 const Figure = styled.figure`
@@ -81,7 +87,7 @@ const Header = ({
   }
 
   return (
-    <Container trunkScreen={trunkScreen} noPadding={noPadding}>
+    <Container trunkScreen={trunkScreen} noPadding={noPadding} animation={showTitle}>
       {!noBack && (
         <Figure
           trunkScreen={trunkScreen}

@@ -7,7 +7,7 @@ import Button from './button';
 // Styles
 const Content = styled.div`
   padding: ${props => props.noPadding || '0 1rem'};
-  width: 100%;
+  width: ${props => props.fullScreen ? '100vw' : '100%'};
   height: ${props => props.height || '6.2rem'};
 	background: #fff;
   display: flex;
@@ -41,7 +41,7 @@ const ContainerButton = ({
   handleClick,
 }) => {
   return (
-    <Content height={height} noBorder={noBorder} noPadding={noPadding}>
+    <Content fullScreen={isCorrectAnswer} height={height} noBorder={noBorder} noPadding={noPadding && !isCorrectAnswer}>
       {isCorrectAnswer && <Text>A resposta certa é</Text>}
       {isError && <Text>{isError}</Text>}
       <Button

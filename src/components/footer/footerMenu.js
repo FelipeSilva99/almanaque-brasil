@@ -19,17 +19,18 @@ import settings from '../../images/icons/menu/settings.svg';
 import selectedSettings from '../../images/icons/menu/selectedSettings.svg';
 
 // Styles
-const Alingment = styled.div`
+const Alingment = styled.footer`
   display: flex;
   justify-content: center;
-  width: 100vw;
-position: absolute;
-left: 0;
-right: 0;
-bottom: 0;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
 `;
+
 const Container = styled.div`
-padding: .7rem 0 0;
+  padding: .7rem 0 0;
   width: 100%;
   max-width: 425px;
   display: flex;

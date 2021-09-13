@@ -41,16 +41,23 @@ const LineStraight = styled.div`
 const LineToleft = styled.div`
   /* display: none; */
   position: relative;
-  left: 22px;
+  left: 34px;
   right: 33px;
-  transform: rotate(-104deg);
+  transform: rotate(-90deg);
   width: 157px;
   height: 147px;
   border: dashed 5px ${props => props.color};
+  border-right: none;
   border-color: ${props => props.color} ${props => props.color} transparent ${props => props.color};
-  border-radius: 50% 50% 50% 0;
+  border-radius: 50% 50% 0 0;
   top: 41px;
   z-index: 3;
+  /* &:after{
+    content: '';
+    position: absolute;
+    width: 100px;
+    border-bottom: dashed 5px ${props => props.color};
+  } */
   /* background-color: gainsboro; */
 
   @media (max-width: 320px) {

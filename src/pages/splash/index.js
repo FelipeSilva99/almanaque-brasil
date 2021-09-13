@@ -7,9 +7,10 @@ import footer from '../../images/footerSplash.svg';
 
 //Styled
 const Container = styled.div`
-  width: 100vw;
-  display: flex;
-  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  text-align: center ;
 `;
 
 const Logo = styled.img`
@@ -17,12 +18,10 @@ const Logo = styled.img`
 `;
 
 const Footer = styled.img`
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
-  width: 100vw;
-
-  @media(min-width: 1024px) {display: none}
+  width: 100%;
 `;
 
 const SplashPresentation = (props) => {

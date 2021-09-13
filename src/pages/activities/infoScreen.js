@@ -20,7 +20,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background: #a4a4a4 0% 0% no-repeat padding-box;
+  background-color: transparent;
   box-shadow: 0px 3px 6px #00000029;
 `;
 
@@ -46,8 +46,8 @@ const KnowledgeTexts = styled.div`
   h1{font-size: 3rem; color: #399119; font-weight: 800;}
   p{
     font-size: 1.2rem;
-    margin-top: .7rem;
     strong{ 
+      padding-top: 2rem;
       font-size: 1.2rem;
       color: #373737;
       font-weight: 800; 
@@ -169,6 +169,7 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
               <p><strong>Conhecimento</strong></p>
             </KnowledgeTexts>
             <Button
+              margin='0'
               height='39px'
               background='#399119'
               boxShadow='#245812 0px 7px 0px'

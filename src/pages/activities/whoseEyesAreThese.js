@@ -7,7 +7,6 @@ import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
-import ModalTip from '../../components/modal/tip';
 import ContentImageText from '../../components/activities/activitieDescription';
 import OptionsButtons from '../../components/activities/optionsButtons';
 
@@ -20,7 +19,7 @@ import tips from '../../images/icons/tip.svg';
 // Styles
 const Container = styled.div`
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -108,7 +107,7 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion, registerAction })
       <>
         <Header
           title={activitie?.name}
-          tips
+          tips={activitie?.tips}
           isSelectedTips={isModalTip}
           handleModalTip={handleModalTip}
         />
@@ -145,7 +144,6 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion, registerAction })
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {isModalTip && <ModalTip text={activitie.tips} handleModalTip={handleModalTip} />}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore amountTrial={amountTrial}/>}
         {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[3]} amountTrial={amountTrial}/>}

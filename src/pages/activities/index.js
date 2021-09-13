@@ -37,7 +37,6 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
-  background-color: #F3F3F3;
 `;
 
 const Activities = (props) => {

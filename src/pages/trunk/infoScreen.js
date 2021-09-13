@@ -2,16 +2,17 @@ import React, { useState, useEffect, createRef } from 'react';
 import styled from 'styled-components';
 
 //Component
-import Header from '../../components/header/headerOnb';
+import Header from '../../components/header';
 
 //Styles
 const Container = styled.div`
   position: fixed;
   bottom: 0;
-  width: 100vw;
+  width: 100%;
+  max-width: 26.5625rem;
   height: 100vh;
   background: #fff;
-  overflow-y: auto; 
+  overflow-y: auto;
 
   ::-webkit-scrollbar {
     width: 4px;
@@ -49,13 +50,12 @@ const MessageBox = styled.div`
 
 const Img = styled.img`
   width: 100%;
-  height: 100vh;
   min-height: 245px;
   max-width: 500px;
   object-fit: fill;
 
   @media(max-width: 425px) {max-height: 310px;}
-  @media(min-width: 1024px) {height: 40vh;  object-fit: contain;}
+  @media(min-width: 1024px) {height: 40vh;  object-fit: cover;}
 `;
 
 const Title = styled.h1`
@@ -77,7 +77,7 @@ const InfoScreen = ({ itemData, onClick }) => {
 
   useEffect(() => {
     setData(itemData);
-  });
+  }, [itemData]);
 
   const onScroll = () => {
     const scrollTop = myRef.current.scrollTop
@@ -87,8 +87,8 @@ const InfoScreen = ({ itemData, onClick }) => {
 
   return (
     <Container ref={myRef} onScroll={onScroll}>
-      <Header trunkScreen showTitle={showTitle} text={data.category} onClick={onClick} />
-      <Img src={`data:image/jpeg;base64,${data.imageKey}`} alt='Imagem da atividade' />
+      <Header trunkScreen showTitle={showTitle} title={data.category} goBack={onClick} />
+      <Img src={`data:image/jpeg;base64,${data.imageBase64}`} alt='Imagem da atividade' />
       <MessageBox>
         <Title>
           {data.title}

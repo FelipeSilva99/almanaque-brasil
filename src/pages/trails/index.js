@@ -5,19 +5,6 @@ import { connect } from 'react-redux';
 //Component
 import Footer from '../../components/footer/footerMenu';
 
-//Images
-// import grupo1149 from '../../images/trails/grupo1149.svg';
-// import grupo1150 from '../../images/trails/grupo1150.svg';
-// import grupo1151 from '../../images/trails/grupo1151.svg';
-// import grupo1152 from '../../images/trails/grupo1152.svg';
-// import grupo1153 from '../../images/trails/grupo1153.svg';
-// import grupo1154 from '../../images/trails/grupo1154.svg';
-// import grupo1155 from '../../images/trails/grupo1155.svg';
-// import grupo1156 from '../../images/trails/grupo1156.svg';
-// import grupo1157 from '../../images/trails/grupo1157.svg';
-// import grupo1158 from '../../images/trails/grupo1158.svg';
-// import grupo1159 from '../../images/trails/grupo1159.svg';
-
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';
 import { getTrailsThunk } from '../../dataflow/thunks/trails-thunk';
@@ -53,7 +40,9 @@ export const Card = styled.button`
 `;
 
 export const Box = styled.div`
+  width: 100%;
   min-height: 100vh;
+  background-color: #f3f3f3;
 `;
 
 export const Row = styled.div`

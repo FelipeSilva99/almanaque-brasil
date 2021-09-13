@@ -4,7 +4,7 @@ import { Auth } from 'aws-amplify';
 
 //Components
 import ProgressBar from '../../../components/progressBar';
-import Header from '../../../components/header/headerOnb';
+import Header from '../../../components/header';
 import Form from '../../../components/form';
 
 //Styles
@@ -22,7 +22,7 @@ const Content = styled.div`
   align-items: center;
   flex-direction: column;
   padding-top: 5vh;
-  
+
   @media (max-height: 600px) {
     height: calc(95vh - 2rem );
   }
@@ -65,6 +65,7 @@ const CreateAccount = (props) => {
   }, []);
 
   const goToAccountCreatedScreen = () => {
+    console.log('olllll');
     props.history.push({
       pathname: `/accountCreated`,
       state: { email: register.email }
@@ -101,7 +102,7 @@ const CreateAccount = (props) => {
       setCurrentStep(steps[currentStep.value - 2]);
       setLastScreen(false);
     } else {
-      props.history.goBack()
+      props.history.goBack();
     }
   }
 
@@ -269,12 +270,14 @@ const CreateAccount = (props) => {
 
   return (
     <Container>
-      <Header text='Cadastro' onClick={handleGoBack} />
+      <Header
+        title='Cadastro'
+        noPadding
+        goBack={handleGoBack}
+      />
       <Content>
-        <div>
-          <ProgressBar currentStep={currentStep.value} steps={steps.length} />
-          {renderByStep()}
-        </div>
+        <ProgressBar currentStep={currentStep.value} steps={steps.length} />
+        {renderByStep()}
         <ButtonAndAlertBox>
           {attention && (
             <AttentionText>Você deve marcar que concorda com os termos para seguir</AttentionText>

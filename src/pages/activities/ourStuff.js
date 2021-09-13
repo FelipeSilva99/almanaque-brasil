@@ -16,12 +16,13 @@ import logo from '../../images/logo/ourStuff.svg';
 // Styles
 const Container = styled.div`
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
   background: #f3f3f3;
+  
   @media (min-width: 1024px) {
     justify-content: center;
   }
@@ -97,9 +98,7 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
 
     return (
       <>
-        <Header
-          logo={logo}
-        />
+        <Header title={activitie?.name} />
         <ContentImageText
           image={`data:image/jpeg;base64,${activitie.imageBase64}`}
           title={activitie?.question}
@@ -136,10 +135,11 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
           && !showAnswer)
           && renderScreen()
         }
+        {console.log('coisas nossas',activitie)}
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isAnswerCorrect()[0]} amountTrial={amountTrial}/>}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore isTrunk amountTrial={amountTrial}/>}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isAnswerCorrect()[0]} isTrunk amountTrial={amountTrial}/>}
       </Container>
     )
   );

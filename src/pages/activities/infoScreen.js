@@ -4,7 +4,9 @@ import styled from 'styled-components';
 //Assets
 import LogoOrigin from '../../images/logo/originOfExpression.svg'
 import LogoEureka from '../../images/logo/eureka.svg'
-import book from '../../images/book/book.png'
+import oneBook from '../../images/books/one-book.svg'
+import twoBooks from '../../images/books/two-books.svg'
+import threeBooks from '../../images/books/three-books.svg'
 
 //Components
 import Button from '../../components/buttons/button';
@@ -18,7 +20,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background: #a4a4a4 0% 0% no-repeat padding-box;
+  background-color: transparent;
   box-shadow: 0px 3px 6px #00000029;
 `;
 
@@ -44,8 +46,8 @@ const KnowledgeTexts = styled.div`
   h1{font-size: 3rem; color: #399119; font-weight: 800;}
   p{
     font-size: 1.2rem;
-    margin-top: .7rem;
     strong{ 
+      padding-top: 2rem;
       font-size: 1.2rem;
       color: #373737;
       font-weight: 800; 
@@ -144,6 +146,15 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
     }
   }, [currentScreen])
 
+  var book = "";
+
+  if(useActivitie.sequence < 3)
+    book = oneBook
+  else if(useActivitie.sequence < 6)
+    book = twoBooks
+  else
+    book = threeBooks
+    
   const renderScreen = () => {
     switch (currentScreen) {
       case screens.knowledge:
@@ -151,13 +162,14 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
           <Content>
             <KnowledgeTexts>
               <h1>Parabéns</h1>
-              <p>Por ter adquirido um novo<br/>conhecimento, você ganhou:</p>
+              <p>Por ter adquirido um novo:</p>
             </KnowledgeTexts>
             <KnowledgeTexts>
               <img src={book} alt='Livro' />
               <p><strong>Conhecimento</strong></p>
             </KnowledgeTexts>
             <Button
+              margin='0'
               height='39px'
               background='#399119'
               boxShadow='#245812 0px 7px 0px'

@@ -6,6 +6,7 @@ import iconTop from '../../images/icons/moonAndStar.svg'
 import iconBottom from '../../images/icons/cactus.svg'
 import background from '../../images/icons/background.svg'
 import ABLogo from '../../images/logo/AB_logo.svg';
+import logo from '../../images/logo/almanaque.svg';
 
 const Container = styled.div`
   position: relative;
@@ -15,7 +16,7 @@ const Container = styled.div`
   align-items: center;
   background-image: url("${background}");
   background-color: #f3f3f3;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 
   @media (min-width: 1024px) {
@@ -45,10 +46,11 @@ const IconBottom = styled.img`
   @media(min-width: 1024px) {bottom: -15px; top: auto;}
 `;
 
-const LogoAB = styled.img`
-  position: fixed;
-  left: 20px;
-  bottom: 20px;
+const Logo = styled.img`
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  width: 4rem;
 `;
 
 function SplashScreen({ activitieLogo }) {
@@ -57,7 +59,7 @@ function SplashScreen({ activitieLogo }) {
       <IconTop src={iconTop} />
       <ActivitieLogo src={activitieLogo} />
       <IconBottom src={iconBottom} />
-      <LogoAB src={ABLogo} />
+      <Logo src={logo} />
     </Container>
   )
 }

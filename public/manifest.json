@@ -1,28 +1,28 @@
 {
-  "short_name": "Almanaque Brasil",
-  "name": "Almanaque Brasil",
+  "short_name": "Almanaque MB",
+  "name": "Almanaque Miguel Burnier",
   "lang": "pt",
-  "description": "Almanaque Brasil",
-  "orientation": "any",
+  "description": "Teste seus conhecimentos sobre o Brasil",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "amb-logo.png",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/png"
     },
     {
-      "src": "logo192.png",
+      "src": "amb-logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "amb-logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
   "start_url": "https://almanaquebrasil.netlify.app/",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#fcd029",
+  "background_color": "#fcd029"
 }

@@ -4,13 +4,13 @@ import { useHistory } from "react-router-dom";
 import { Auth } from 'aws-amplify';
 
 //Components
-import Header from '../../../components/header/headerOnb';
+import Header from '../../../components/header';
 import Button from '../../../components/buttons/button';
 
 // Styles
 const Container = styled.div`
   padding: 1rem;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: #F3F3F3;
 `;
@@ -74,12 +74,12 @@ const AccountCreated = () => {
 
   return (
     <Container>
-      <Header noBack text='Verificar e-mail' />
+      <Header noBack title='Confirmar criação da conta' />
       <Content>
-        <Title>Verifique seu e-mail</Title>
-        <Text>Enviamos uma mensagem de confirmação para o seu e-mail cadastrado.</Text>
-        <Button margin='1rem' handleClick={goHome}>continuar</Button>
-        <Button margin='1rem' handleClick={resendConfirmationCode}>reenviar</Button>
+        <Title>Quase finalizado!</Title>
+        <Text>Verifique o e-mail que enviamos para o seu e-mail cadastrado.</Text>
+        <Button margin='1rem' handleClick={goHome}>continuar para o login</Button>
+        <Button margin='0' background='transparent' boxShadow='nobe' handleClick={resendConfirmationCode}>reenviar</Button>
         {isError && <Error>{isError.msg ? isError.msg : 'Erro ao reenviar'}</Error>}
       </Content>
     </Container>

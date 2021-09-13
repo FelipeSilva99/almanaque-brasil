@@ -18,7 +18,7 @@ const Content = styled.div`
 `;
 
 const Text = styled.p`
-  margin: 1rem 1rem 1rem 0;
+  margin: .75rem 1rem .625rem 0;
   font-weight: ${props => props.active ? '900' : 'normal'};
   color: ${props => props.active ? '#373737' : '#B9B9B9'};
 `;
@@ -37,16 +37,15 @@ const Option = styled.option`
   }
 `;
 
-const Arrow = styled.figure`
+const Figure = styled.figure`
   position: relative;
   float: right;
-  margin: 1rem 1rem .8rem 0;
+  margin: .75rem 1rem .625rem 0;
   >img{
     width: 70%;
     transform: ${props => props.isOpen ? 'rotate(90deg)' : 'rotate(-90deg)'};
   }
 `;
-
 
 const Select = ({ name, value, handleChange }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -61,8 +60,6 @@ const Select = ({ name, value, handleChange }) => {
   }
   const options = () => {
     return <>
-      {/* <Option onClick={(ev) => handleSelect(ev, true)}>Sim</Option>
-      <Option onClick={(ev) => handleSelect(ev, false)}>Não</Option> */}
       <Option onClick={(ev) => handleSelect(ev, 'sim')}>Sim</Option>
       <Option onClick={(ev) => handleSelect(ev, 'não')}>Não</Option>
     </>
@@ -76,11 +73,9 @@ const Select = ({ name, value, handleChange }) => {
         setIsOpen(!isOpen)
       }}
     >
-      <Arrow isOpen={isOpen}>
+      <Figure isOpen={isOpen}>
         <img src={arrow}></img>
-      </Arrow>
-      {/* {(value === true && !isOpen) && <Text active>Sim</Text>}
-      {(value === false && !isOpen) && <Text active>Não</Text>} */}
+      </Figure>
       {(value === 'sim' && !isOpen) && <Text active>Sim</Text>}
       {(value === 'não' && !isOpen) && <Text active>Não</Text>}
       {(value === undefined || isOpen) && <Text>Escolha uma opção:</Text>}

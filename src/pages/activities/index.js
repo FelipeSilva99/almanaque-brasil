@@ -32,12 +32,11 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   overflow: hidden;
-  width: 100vw;
+  width: 100%;
   /* height: 100vh; */
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
-  background-color: #F3F3F3;
 `;
 
 const Activities = (props) => {

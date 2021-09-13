@@ -7,6 +7,9 @@ import { Auth } from 'aws-amplify';
 import Header from '../../components/header/headerYellow';
 import Footer from '../../components/footer/footerMenu';
 
+//Image
+import home from '../../images/icons/menu/selectedHome.svg';
+
 //Redux
 import { signOut } from '../../dataflow/modules/signIn-modules';
 import { selectedTrails } from '../../dataflow/modules/trails-module';
@@ -35,6 +38,7 @@ const Container = styled.div`
   padding-bottom: 1rem;
   min-height: 100vh;
   background: #F3F3F3;
+  position: relative;
 `;
 
 const Content = styled.div`
@@ -58,8 +62,8 @@ const Text = styled.h1`
 
 const Card = styled.button`
   margin-bottom: 2rem;
-  min-height: 150px;
   width: 100%;
+  height: 10rem;
   max-width: 330px;
   border-radius: 16px;
   padding: 16px;
@@ -70,18 +74,12 @@ const Card = styled.button`
     box-shadow: 0 6px 10px rgba(0,0,0,0.25), 0 1px 10px rgba(0,0,0,0.22);
   }
 
+  @media (max-width: 320px) {
+    height: 8rem;
+  }
   @media (min-width: 1024px) {
     margin-right: ${props => props.marginRight && '2rem'};
   }
-`;
-
-const Button = styled.button`
-  padding-left: 1rem;
-  font-size: 1rem;
-  font-weight: 900;
-  color: #373737;
-  position: absolute;
-  bottom: 5rem;
 `;
 
 const Dashboard = (props) => {
@@ -106,12 +104,12 @@ const Dashboard = (props) => {
 
   return (
     <Container>
-      <Header text={`Oi, ${props.user.name}`}/>
+      <Header text={`Oi, ${props.user.name}`} icon={home} home/>
        <Content>
         <Text paddingBottom>Qual atividade você quer fazer?</Text>
         {trails && (
           <>
-            <Card marginRight onClick={() => handleClick('trails')}>
+            <Card marginRight onClick={() => handleClick('activities')}>
               <Text>Trilha</Text>
             </Card>
             <Card onClick={() => handleClick('trunk')}>
@@ -120,7 +118,6 @@ const Dashboard = (props) => {
           </>
         )}
       </Content>
-      {/* <Button onClick={handleSignOut}>Sair</Button> */}
       <Footer  screen='dashboard'/>
     </Container>
   );

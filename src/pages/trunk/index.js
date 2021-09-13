@@ -9,23 +9,21 @@ import Footer from '../../components/footer/footerMenu';
 
 //Image
 import arrow from '../../images/icons/arrow.svg';
+import thunk from '../../images/icons/menu/selectedThunk.svg';
 
 //Styled
 const Container = styled.div`
   background: #F3F3F3;
   min-height: 100vh;
+  overflow-x: hidden;
 `;
 
 const ContainerBox = styled.div`
-  padding: 1.5rem 1rem 4rem;
-`;
-
-const Content = styled.div`
-  margin-bottom: 1.0rem;
+  padding: 0 1rem 4rem;
 `;
 
 const ContentTitle = styled.div`
-  padding-bottom: 1.5rem;
+  margin: 1.5rem 0;
   display: flex;
   justify-content: space-between;
 `;
@@ -36,13 +34,18 @@ const Title = styled.h1`
   color: #373737;
 `;
 
+const IconModal = styled.img`
+  transform: ${props => props.isOpen && 'rotate(90deg)'};
+`;
+
 const ContentText = styled.div`
+  padding-bottom: .5rem;
   display: flex;
   align-items: center;
 `;
 
 const Image = styled.img`
-  margin: 0 .5rem .5rem 0;
+  margin-right: .5rem;
   width: 44px;
   height: 44px;
   background: #BBBBBB;
@@ -100,24 +103,28 @@ const Trunk = () => {
     setIsInfoModal({ isModal: false });
   }
 
-  const renderContent = (title) => (
-    <Content>
-      <ContentTitle>
-        <Title>
-          {title}
-        </Title>
-        <img src={arrow} alt='Seta' onClick={() => handleModal(title)} />
-      </ContentTitle>
-      {modal.isModal && modal.item === title && 
-        data.filter(item => item.category === title).map(i => (
-        renderOptions(i)
-      ))}
-    </Content>
-  )
+  const renderContent = (title) => {
+    const isModal = modal.isModal && modal.item === title;
+
+    return (
+      <>
+        <ContentTitle>
+          <Title>
+            {title}
+          </Title>
+          <IconModal src={arrow} alt='Seta' isOpen={isModal} onClick={() => handleModal(title)} />
+        </ContentTitle>
+        {isModal &&
+          data.filter(item => item.category === title).map(i => (
+            renderOptions(i)
+          ))}
+      </>
+    )
+  }
 
   const renderOptions = (item) => (
     <ContentText onClick={() => handleInfoModal(item)}>
-      <Image src={`data:image/jpeg;base64,${item.imageKey}`} alt='Img' />
+      <Image src={`data:image/jpeg;base64,${item.imageBase64}`} alt='Img' />
       <Text>{item.title}</Text>
     </ContentText>
   )
@@ -139,7 +146,7 @@ const Trunk = () => {
   }
   return (
     <Container>
-      <Header text='Baú' />
+      <Header text='Baú' icon={thunk} />
       <ContainerBox>
         {!data.length
           ? <Text>Carregando</Text>

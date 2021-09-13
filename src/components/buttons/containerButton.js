@@ -6,8 +6,8 @@ import Button from './button';
 
 // Styles
 const Content = styled.div`
-  padding: 0 1rem;
-  width: 100vw;
+  padding: ${props => props.noPadding || '0 1rem'};
+  width: ${props => props.fullScreen ? '100vw' : '100%'};
   height: ${props => props.height || '6.2rem'};
 	background: #fff;
   display: flex;
@@ -16,13 +16,16 @@ const Content = styled.div`
   flex-direction: column;
   border-top-left-radius: ${props => !props.noBorder && '25px'};
   border-top-right-radius: ${props => !props.noBorder && '25px'};
-  z-index: 1;
 `;
 
 const Text = styled.p`
   padding-top: .5rem; 
   font-size: .9375rem;
   color: #373737;
+
+  @media(max-width: 320px) {
+    font-size: .875rem;
+  }
 `;
 
 const ContainerButton = ({
@@ -31,14 +34,14 @@ const ContainerButton = ({
   background,
   boxShadow,
   noBorder,
+  noPadding,
   children,
   isCorrectAnswer,
   isError,
   handleClick,
 }) => {
   return (
-    <Content height={height} noBorder={noBorder}>
-    {console.log('isError', isError)}
+    <Content fullScreen={isCorrectAnswer} height={height} noBorder={noBorder} noPadding={noPadding && !isCorrectAnswer}>
       {isCorrectAnswer && <Text>A resposta certa é</Text>}
       {isError && <Text>{isError}</Text>}
       <Button

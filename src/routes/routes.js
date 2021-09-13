@@ -6,12 +6,11 @@ import PrivateRoute from './PrivateRoute'
 
 // Onboarding
 import Home from '../pages/onboarding/login/home';
-import Login from '../pages/onboarding/login/login';
+import Login from '../pages/onboarding/login';
 import CreateAccount from '../pages/onboarding/createAccount';
 import AccountCreated from '../pages/onboarding/createAccount/accountCreated';
 import ResetPassword from '../pages/onboarding/resetPassword';
 
-// import Login from '../pages/login';
 import Trails from '../pages/trails';
 import Activities from '../pages/activities';
 import ActivitiesList from '../pages/activities/activitiesList';

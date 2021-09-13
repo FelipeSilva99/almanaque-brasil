@@ -19,13 +19,20 @@ import settings from '../../images/icons/menu/settings.svg';
 import selectedSettings from '../../images/icons/menu/selectedSettings.svg';
 
 // Styles
-const Container = styled.div`
-  position: fixed;
+const Alingment = styled.footer`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
+`;
+
+const Container = styled.div`
   padding: .7rem 0 0;
   width: 100%;
+  max-width: 425px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -60,7 +67,7 @@ const Footer = ({ screen }) => {
       img: trail,
       imgSelected: selectedTrail,
       txt: 'Trilhas',
-      router: 'trails',
+      router: 'activities',
     },
     {
       img: trunk,
@@ -86,18 +93,20 @@ const Footer = ({ screen }) => {
   }
   
   return (
-    <Container>
-      {options.map((item, i) => {
-        const isSelected = (isModalConfig && item.router === 'config') || (!isModalConfig && screen === item.router);
-        return (
-          <Content onClick={() => handleRouter(item.router)}>
-            <img src={isSelected ? item.imgSelected : item.img} alt={item.txt} />
-            <Text isSelected={isSelected}>{item.txt}</Text>
-          </Content>
-        )
-      })}
-      {isModalConfig && <Config />}
-    </Container>
+    <Alingment>
+      <Container>
+        {options.map((item, i) => {
+          const isSelected = (isModalConfig && item.router === 'config') || (!isModalConfig && screen === item.router);
+          return (
+            <Content onClick={() => handleRouter(item.router)}>
+              <img src={isSelected ? item.imgSelected : item.img} alt={item.txt} />
+              <Text isSelected={isSelected}>{item.txt}</Text>
+            </Content>
+          )
+        })}
+        {isModalConfig && <Config />}
+      </Container>
+    </Alingment>
   );
 }
 

@@ -12,7 +12,7 @@ import Button from '../../components/buttons/containerButton';
 import logo from '../../images/logo/enigmaticWord.svg';
 
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -207,7 +207,7 @@ function EnigmaticWord({ activitie, handlerNextActivitie, registerAction }) {
   return (
     isLoading ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
-        <Header logo={logo} />
+        <Header title={activitie?.name} />
         <Content>
           <Puzzle>
             {/* {JSON.stringify(activitie?.enigmas)} */}

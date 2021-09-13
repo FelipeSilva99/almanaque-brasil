@@ -17,7 +17,7 @@ import iconDelete from '../../images/whatIsWhatIs/iconDelete.svg';
 // Styles
 const Container = styled.div`
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -342,7 +342,7 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion, registerAction }) => {
   const renderScreen = () => {
     return (
       <>
-        <Header iconBack={iconBack} logo={logo} />
+        <Header iconBack={iconBack} title={activitie?.name} />
         <Content isModal={isModalAnswer}>
           <Title><span>"</span>{activitie?.question}</Title><span>"</span>
         </Content>

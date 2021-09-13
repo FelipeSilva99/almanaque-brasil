@@ -6,11 +6,9 @@ import styled from 'styled-components';
 import Select from './select';
 import CheckBox from './checkBox';
 
-
 //styled
 const Error = styled.p`
   padding: .25rem 0 1rem 1rem;
-  /* padding-left: 1rem; */
   font-size: .75rem;
   color: #FF3333;
   align-self: self-end;

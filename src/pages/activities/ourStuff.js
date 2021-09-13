@@ -68,6 +68,7 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
         timestamp: Date.now()
       })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalCorrectAnswer, modalWrongAnswer])
 
   const handleIsModalAnswerOption = () => {

@@ -209,6 +209,7 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion, registerAction }) => {
         timestamp: Date.now()
       })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalCorrectAnswer, modalWrongAnswer])
 
   useEffect(() => {

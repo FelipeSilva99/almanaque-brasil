@@ -126,7 +126,7 @@ const Activities = (props) => {
             item={item}
             itemValue={index}
             onClick={() => handlerNextActivitie(index)}
-            history={props}
+            history={props.history}
             >{index}</ActivitieIcon>
           </ActivitiesRow>
         )
@@ -188,14 +188,14 @@ const Activities = (props) => {
   }
 
   const renderLogoStone = () => {
-    switch (props.activities.data[props.selectedTrails].name) {
+    const name = props.activities.data[props.selectedTrails].name;
+    switch (name) {
       case 'Água-Marinha':
         return (
           <Stone>
-            <img src={aquamarine} />
+            <img src={aquamarine} alt={name} />
           </Stone>
         );
-
     
       default:
         return
@@ -203,11 +203,13 @@ const Activities = (props) => {
   }
 
   const renderStone = () => {
-    switch (props.activities.data[props.selectedTrails].name) {
+    const name = props.activities.data[props.selectedTrails].name;
+
+    switch (name) {
       case 'Água-Marinha':
         return (
           <Stone padding='4rem 0 2rem 0'>
-            <img src={aquamarineStone} />
+            <img src={aquamarineStone} alt={name}/>
           </Stone>
         );
 

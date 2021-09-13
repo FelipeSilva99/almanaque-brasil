@@ -166,7 +166,7 @@ const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial }) => {
                   margin={"0 0 20px 0"}
                   background={"#399119"}
                   boxShadow={"#245812 0px 7px 0px"}
-                >Continuar</Button>
+                >Continuar trilha</Button>
               </ALink>
 
               {/* </StlyedLink> */}

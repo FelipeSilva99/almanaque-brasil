@@ -48,14 +48,16 @@ const Content = styled.div`
 const ContentInfo = styled.div`
   margin-bottom: 1rem;
   width: 100%;
-  /* max-width: 300px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
   user-select: none;
   background-color: ${props => (props.isCorrectAnswer && 'none') || props.backgroundColor};
-  img { opacity: ${props => (props.isCorrectAnswer && '1') || props.opacity}}
+  
+  img {
+    opacity: ${props => (props.isCorrectAnswer && '1') || props.opacity}
+  }
 `
 
 const Text = styled.div`
@@ -74,10 +76,8 @@ const Text = styled.div`
 const Box = styled.div`
   display: flex;
   width: 100%;
-  /* max-width: 300px; */
   flex-direction: row;
   justify-content:  ${props => props.isCorrectAnswer ? 'space-evenly' : 'space-between'};
-  
 `;
 
 function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
@@ -152,6 +152,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
         timestamp: Date.now()
       })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalCorrectAnswer, modalWrongAnswer])
 
   const handleClick = (item) => {
@@ -300,14 +301,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
 
 
   const handleWrongAnswer = () => {
-    // const cleanPairs = [];
-    // pairs.map(item => cleanPairs.push({ ...item, backgroundColor: '#fff' }))
-
-    // setSelectedItems([])
-    // setPairs(cleanPairs)
-    // setAvailableColors(availableColorsInit)
-    // setInMemoryItem(undefined)
-    // setHasItemInMemory(false)
     setModalWrongAnswer(false);
   }
 

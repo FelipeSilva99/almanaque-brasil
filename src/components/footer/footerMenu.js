@@ -54,7 +54,6 @@ const Text = styled.p`
 
 const Footer = ({ screen }) => {
   const history = useHistory();
-  const [isSelected, setIsSelected] = useState(0);
   const [isModalConfig, setIsModalConfig] = useState(undefined);
   const [options] = useState([
     {

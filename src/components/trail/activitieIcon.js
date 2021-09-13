@@ -42,25 +42,25 @@ const BoxName = styled.div`
   p{ width: 6.25rem; }
 `;
 
-const ActivitieIcon = (props) => {
+const ActivitieIcon = ({item, children, activitieState, onClick, history }) => {
   const setColor = () => {
-    return props.activitieState === 'bloqued' ? '#a0a0a0' : '#2a2929'
+    return activitieState === 'bloqued' ? '#a0a0a0' : '#2a2929'
   }
 
   const handleClick = () => {
-    return props.activitieState === 'bloqued' ? undefined : props.onClick
+    return activitieState === 'bloqued' ? undefined : onClick
   }
 
   return (
     <Box>
-      <ActivitiesCircle type={props.item.type} onClick={handleClick()} history={props.history}>
-        { props.activitieState === 'bloqued' ? <img src={iconVisualizedBloqued} /> : <img src={iconVisualized} /> }
-        <Text color={() => setColor()}>{props.children + 1}</Text>
-        {props.activitieState === 'done' && <Check src={checkIcon}/>}
+      <ActivitiesCircle type={item.type} onClick={handleClick()} history={history}>
+        { activitieState === 'bloqued' ? <img src={iconVisualizedBloqued} alt={item.name} /> : <img src={iconVisualized} alt={item.name}/> }
+        <Text color={() => setColor()}>{children + 1}</Text>
+        {activitieState === 'done' && <Check src={checkIcon}/>}
       </ActivitiesCircle>
-      <BoxName><p>{props.item.name}</p></BoxName>
+      <BoxName><p>{item.name}</p></BoxName>
     </Box>
   )
 }
 
-export default ActivitieIcon
+export default ActivitieIcon;

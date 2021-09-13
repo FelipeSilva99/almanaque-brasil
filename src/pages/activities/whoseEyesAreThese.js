@@ -11,10 +11,7 @@ import ContentImageText from '../../components/activities/activitieDescription';
 import OptionsButtons from '../../components/activities/optionsButtons';
 
 //Images
-import logo from '../../images/logo/whoseEyesAreThese.svg';
-import logoBig from '../../images/logo/whoseEyesAreTheseBig.svg'
-import selectedTips from '../../images/icons/selectedTip.svg';
-import tips from '../../images/icons/tip.svg';
+import logo from '../../images/logo/whoseEyesAreTheseBig.svg'
 
 // Styles
 const Container = styled.div`
@@ -72,6 +69,7 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion, registerAction })
         timestamp: Date.now()
       })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalCorrectAnswer, modalWrongAnswer])
 
   const handleModalTip = () => {
@@ -135,7 +133,7 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion, registerAction })
   }
 
   return (
-    isLoading ? <SplashScreen activitieLogo={logoBig} /> : (
+    isLoading ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
         {(
           !modalWrongAnswer

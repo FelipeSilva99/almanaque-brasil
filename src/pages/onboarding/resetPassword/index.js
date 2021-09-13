@@ -187,7 +187,7 @@ const ResetPassword = (props) => {
         type={showPassword ? 'text' : 'password'}
         value={register?.password}
         placeholder='Digite sua nova senha aqui'
-        isError={isError?.password && 'Sua senha deve conter 6 caracteres'}
+        isError={isError?.password && 'Sua senha deve conter no mínimo 6 caracteres'}
         handleChange={handleChange}
         showPassword={showPassword}
         handleViewPassword={handleViewPassword}

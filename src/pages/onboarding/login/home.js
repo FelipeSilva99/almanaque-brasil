@@ -18,7 +18,7 @@ const Container = styled.div`
 
 const Img = styled.img`
   flex: 4;
-  width: min-content;
+  width: 11.25rem;
 `;
 
 const Content = styled.div`

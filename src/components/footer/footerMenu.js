@@ -67,7 +67,7 @@ const Footer = ({ screen }) => {
       img: trail,
       imgSelected: selectedTrail,
       txt: 'Trilhas',
-      router: 'activities',
+      router: 'trails',
     },
     {
       img: trunk,

@@ -109,7 +109,7 @@ const Dashboard = (props) => {
         <Text paddingBottom>Qual atividade você quer fazer?</Text>
         {trails && (
           <>
-            <Card marginRight onClick={() => handleClick('activities')}>
+            <Card marginRight onClick={() => handleClick('trails')}>
               <Text>Trilha</Text>
             </Card>
             <Card onClick={() => handleClick('trunk')}>

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 //Component
 import Footer from '../../components/footer/footerMenu';
+import Map from './Map';
 
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';
@@ -40,6 +41,7 @@ export const Card = styled.button`
 `;
 
 export const Box = styled.div`
+  position: relative;
   width: 100%;
   min-height: 100vh;
   background-color: #f3f3f3;
@@ -82,7 +84,8 @@ const Trails = (props) => {
       {
         trails && (
           <>
-            {renderTrails(trails)}
+            {/* {renderTrails(trails)} */}
+            <Map trails={trails} goToActivitie={handleClick}></Map>
           </>
         ) 
       }

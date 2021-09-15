@@ -52,6 +52,8 @@ export const Row = styled.div`
 
 const Trails = (props) => {
 
+
+
 	useEffect(() => {
 		console.log("GET TOKEN")
 		props.getTrailsThunk();

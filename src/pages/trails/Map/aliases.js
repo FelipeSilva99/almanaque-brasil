@@ -14,7 +14,7 @@ import turmalinaMap from '../../../images/trails/map/turmalina.svg'
 
 const trailsMap = {
   "Água-Marinha": {
-    "position": {bottom: "0", left: "0"},
+    "position": {bottom: "25px", left: "113px"},
     "img": aguaMarinhaMap,
     "stone": {
       "todo": "",
@@ -24,7 +24,7 @@ const trailsMap = {
   },
 
   "Diamante": {
-    "position": {bottom: "0", left: "0"},
+    "position": {bottom: "2px", left: "128px"},
     "img": diamanteMap,
     "stone": {
       "todo": "",
@@ -34,7 +34,7 @@ const trailsMap = {
   },
 
   "Ametista": {
-    "position": {bottom: "0", left: "0"},
+    "position": {bottom: "0px", left: "0px"},
     "img": ametistaMap,
     "stone": {
       "todo": "",
@@ -44,7 +44,7 @@ const trailsMap = {
   },
 
   "Turmalina": {
-    "position": {bottom: "0", left: "0"},
+    "position": {bottom: "43px", left: "119px"},
     "img": turmalinaMap,
     "stone": {
       "todo": "",
@@ -54,7 +54,7 @@ const trailsMap = {
   },
 
   "Prata": {
-    "position": {bottom: "0", left: "0"},
+    "position": {bottom: "91px", left: "68px"},
     "img": prataMap,
     "stone": {
       "todo": "",
@@ -64,7 +64,7 @@ const trailsMap = {
   },
 
   "Ouro": {
-    "position": {bottom: "0", left: "0"},
+    "position": {bottom: "75px", left: "0px"},
     "img": ouroMap,
     "stone": {
       "todo": "",
@@ -74,7 +74,7 @@ const trailsMap = {
   },
 
   "Esmeralda": {
-    "position": {bottom: "0", left: "0"},
+    "position": {bottom: "217px", left: "172px"},
     "img": esmeraldaMap,
     "stone": {
       "todo": "",
@@ -84,7 +84,7 @@ const trailsMap = {
   },
 
   "Safíra": {
-    "position": {bottom: "0", left: "0"},
+    "position": {bottom: "128px", left: "120px"},
     "img": safiraMap,
     "stone": {
       "todo": "",
@@ -94,7 +94,7 @@ const trailsMap = {
   },
 
   "Alexandrita": {
-    "position": {bottom: "0", left: "0"},
+    "position": {bottom: "257px", left: "0px"},
     "img": alexandritaMap,
     "stone": {
       "todo": "",
@@ -104,7 +104,7 @@ const trailsMap = {
   },
 
   "Topázio": {
-    "position": {bottom: "0", left: "0"},
+    "position": {bottom: "39px", left: "229px"},
     "img": topazioMap,
     "stone": {
       "todo": "",

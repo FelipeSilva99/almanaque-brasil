@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 //Component
 import Footer from '../../components/footer/footerMenu';
 import Map from './Map';
+import ProgressHeader from '../../components/progressHeader'
 
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';
@@ -54,10 +55,7 @@ export const Row = styled.div`
 
 const Trails = (props) => {
 
-
-
 	useEffect(() => {
-		console.log("GET TOKEN")
 		props.getTrailsThunk();
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -81,6 +79,7 @@ const Trails = (props) => {
 
   return (
     <Box>
+      <ProgressHeader />
       {
         trails && (
           <>

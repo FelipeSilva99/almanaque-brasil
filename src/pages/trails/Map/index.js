@@ -7,7 +7,7 @@ import aliases from './aliases';
 const AlignToCenter = styled.div`
   position: absolute;
   background-color: #d5e2ff;
-  /* bottom: 48px; */
+  bottom: 39px;
   display: flex;
   justify-content: center;
   width: 100%;

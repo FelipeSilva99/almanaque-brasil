@@ -101,7 +101,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
   const [inMemoryItem, setInMemoryItem] = useState(undefined);
   const [hasItemInMemory, setHasItemInMemory] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
-  const [isModalCorrectAnswer, setIsModalCorrectAnswer] = useState(undefined);
+  const [isModalCorrectAnswer, setIsModalCorrectAnswer] = useState(false);
   const [isError, setIsError] = useState(undefined);
 
   useEffect(() => {
@@ -374,6 +374,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
         <Header
           title={activitie.name}
           tips={activitie.tips}
+          noTips={isCorrectAnswer}
           isSelectedTips={isModalTip}
           handleModalTip={handleModalTip}
         />

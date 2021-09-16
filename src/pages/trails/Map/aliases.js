@@ -83,7 +83,7 @@ const trailsMap = {
     }
   },
 
-  "Safíra": {
+  "Safira": {
     "position": {bottom: "128px", left: "120px"},
     "img": safiraMap,
     "stone": {

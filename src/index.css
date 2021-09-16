@@ -45,3 +45,12 @@ input{
   outline: 0;
   outline: none;
 }
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}

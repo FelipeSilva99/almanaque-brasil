@@ -65,7 +65,6 @@ const CreateAccount = (props) => {
   }, []);
 
   const goToAccountCreatedScreen = () => {
-    console.log('olllll');
     props.history.push({
       pathname: `/accountCreated`,
       state: { email: register.email }
@@ -210,7 +209,7 @@ const CreateAccount = (props) => {
     return (
       <Form
         label='Crie sua senha'
-        subtitle='Crie uma senha para acessar sua conta'
+        subtitle='Crie uma senha no mínimo com 6 caracteres'
         name='password'
         type={showPassword ? 'text' : 'password'}
         value={register?.password}

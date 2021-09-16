@@ -9,17 +9,17 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const Text = styled.div`
+const Text = styled.p`
   margin-left: 10px;
   color: #373737;
   font-size: .8rem;
 `;
 
 const BoxBar = styled.div`
-  width: calc(100% - 5.3rem) ;
+  flex: 1;
   height: 11px;
   border-radius: 5px;
-  background-color: #FFFFFF;
+  background-color: #fff;
   overflow: auto;
 `;
 

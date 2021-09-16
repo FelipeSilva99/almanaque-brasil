@@ -87,6 +87,7 @@ const Activities = (props) => {
 
     console.log('state:', activitiesStates)
     setActivitiesProgress(activitiesStates)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activities])
 
   useEffect(() => {
@@ -98,7 +99,7 @@ const Activities = (props) => {
 
   useEffect(() => {
     props.postActionsBook(props.actionsBook)
-  }, [])
+  }, [props])
 
   const handlerNextActivitie = (index) => {
     if (hasNextActivitie) {
@@ -171,8 +172,6 @@ const Activities = (props) => {
       return action.activityId === activityId
     })
 
-    console.log('filtered', filteredActions)
-  
     if(filteredActions.length >= 3) return true
     else if(filteredActions.length > 0) {
       const checkIfIsDone = filteredActions.findIndex((action) => {
@@ -213,7 +212,6 @@ const Activities = (props) => {
           </Stone>
         );
 
-    
       default:
         return
     }

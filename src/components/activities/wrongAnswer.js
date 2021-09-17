@@ -57,7 +57,6 @@ const DialogBox = styled.div`
   align-items: center;
   flex-direction: column;
   width: 95%;
-  height: 5rem;
   min-height: 219px;
   max-height: 285px;
   border-radius: 25px;
@@ -68,9 +67,7 @@ const DialogBox = styled.div`
   background-size:  ${props => props.backgroundSize};
   padding-top: 1rem;
   z-index: 1;
-
   overflow-y: auto; 
-  height: 5rem;
 
   ::-webkit-scrollbar {
 		width: 4px;
@@ -111,6 +108,14 @@ const ImgDialogBox = styled.img`
 
 const MsgError = styled.div`
   margin: auto;
+`;
+
+const ErrorTip = styled.h2`
+  margin: auto;
+  width: 80%; 
+  font-size: 1rem;
+  font-weight: 800;
+  color: #161616;
 `;
 
 const Avatar = styled.img`
@@ -166,8 +171,8 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
           return (
             <MsgError>
               {renderMsgError()}
-              <strong>{errorMessages[0]}</strong>
               <p>Você tem mais {chances} chances de marcar<br />pontos. Se liga na dica:</p>
+              <ErrorTip>{errorMessages[0]}</ErrorTip>
             </MsgError>
           );
 
@@ -187,7 +192,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
               <MsgError>
                 {renderMsgError()}
                 <p>Você tem mais 1 chance de marcar<br />pontos. Se liga em outra dica:</p>
-                <strong>{errorMessages[1]}</strong>
+                <ErrorTip>{errorMessages[1]}</ErrorTip>
               </MsgError>
             );
 

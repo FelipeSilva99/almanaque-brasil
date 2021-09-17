@@ -221,7 +221,7 @@ const Activities = (props) => {
     <Container>
       <Header 
         title={props.activities.data[props.selectedTrails].name}
-        goBack={() => {props.history.push('/dashboard')}}
+        goBack={() => {props.history.push('/trails')}}
       />
 
       {renderLogoStone()}

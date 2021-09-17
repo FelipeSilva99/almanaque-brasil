@@ -11,7 +11,7 @@ import ContentImageText from '../../components/activities/activitieDescription';
 import OptionsButtons from '../../components/activities/optionsButtons';
 
 //Images
-import logo from '../../images/logo/whoseEyesAreTheseBig.svg'
+import logo from '../../images/logo/whoseEyesAreThese.svg'
 
 // Styles
 const Container = styled.div`

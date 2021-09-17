@@ -6,10 +6,11 @@ import {
 } from "react-router-dom";
 
 // Assets
-import iconElifas from '../../images/elifas/withBackpack.png';
+import iconElifas from '../../images/elifas/tip.svg';
 import leaf from '../../images/whatIsWhatIs/pale_leaves.svg';
 import flags from '../../images/icons/flags.svg';
 import starrySky from '../../images/icons/starrySky.svg';
+import dialogBox from '../../images/dialogBox/dialogBoxMedium.svg';
 
 // Components
 import Button from '../buttons/button';
@@ -32,38 +33,44 @@ const RandomBox = styled.div`
   align-items: center;
   flex-direction: column;
   position: absolute;
-  bottom: 12vh;
+  bottom: 16vh;
   background: #F3F3F3;
 
-  @media(min-width: 1024px) {bottom: 10vh}
+  @media(min-width: 1024px) {bottom: 12vh}
+`;
 
+const ContentDialogBox = styled.div`
+  position: relative;
+  top: 6rem;
+  display: flex;
+  justify-content: center;
+    
+  @media(max-width: 375px) {
+    width: 100vw;
+  }
 `;
 
 const DialogBox = styled.div`
-  z-index: 1;
-  position: relative;
-  top: 20px;
+  position: absolute;
+  top: 5px;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
-  width: 326px;
-  height: 6rem;
+  width: 95%;
+  height: 5rem;
   min-height: 219px;
   max-height: 285px;
-  background-color: #FFFFFF;
   border-radius: 25px;
-  box-shadow: silver 0px 5px 15px 0px;
   text-align: center;
   background-image: url("${props => props.backgroundImg}");
   background-repeat: no-repeat;
-  /* background-position: 132px -328px; */
   background-position: ${props => props.backgroundPosition};
   background-size:  ${props => props.backgroundSize};
-  padding: 1rem 1rem 1rem 1rem;
   padding-top: 1rem;
+  z-index: 1;
+
   overflow-y: auto; 
-    height: 5rem;
+  height: 5rem;
 
   ::-webkit-scrollbar {
 		width: 4px;
@@ -82,20 +89,24 @@ const DialogBox = styled.div`
 	}
   
   h1 {
-    font-size: 1.625rem;
+    font-size: 1.5rem;
     font-weight: 900;
     line-height: 2.3rem;
     color: #FB6C76;
+
+    @media(max-width: 375px) {
+      font-size: 1.4rem;
+    }
   }
   p {
     font-size: 1rem;
     margin: 1rem 0 1rem 0;
     color: #161616;
   }
-  
-  @media(max-width: 375px) {
-    width: 95vw;
-  }
+`;
+
+const ImgDialogBox = styled.img`
+  width: 100%;
 `;
 
 const MsgError = styled.div`
@@ -103,9 +114,8 @@ const MsgError = styled.div`
 `;
 
 const Avatar = styled.img`
-  width: 230px;
-  left: -61px;
   position: relative;
+  right: -130px;
 `;
 
 const ButtonsBox = styled.div`
@@ -142,23 +152,30 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
     if (chances <= 0) setHasChance(false)
   }, [chances]);
 
+  const renderMsgError = () => (
+    <>
+      <h1>Opa, você errou!</h1>
+      <h1>Vamos tentar novamente?</h1>
+    </>
+  );
+
   const renderText = (firstMistake) => {
     if (firstMistake) {
       switch (!!errorMessages?.length) {
         case true:
           return (
             <MsgError>
-              <h1>Opa, você errou! Vamos tentar novamente?</h1>
-              <p>Você tem mais {chances} chances de marcar<br />pontos. Se liga na dica:</p>
+              {renderMsgError()}
               <strong>{errorMessages[0]}</strong>
+              <p>Você tem mais {chances} chances de marcar<br />pontos. Se liga na dica:</p>
             </MsgError>
           );
 
         default:
           return (
             <MsgError>
-              <h1>Opa, você errou! Vamos tentar novamente?</h1>
-              <p>Você tem mais {chances} chances de marcar<br />pontos. O que acha de tentar<br />novamente?</p>
+              {renderMsgError()}
+              <p>Você tem mais {chances} chances de marcar<br />pontos.</p>
             </MsgError>
           );
       }
@@ -168,7 +185,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
           case true:
             return (
               <MsgError>
-                <h1>Opa, você errou de novo! Vamos tentar novamente?</h1>
+                {renderMsgError()}
                 <p>Você tem mais 1 chance de marcar<br />pontos. Se liga em outra dica:</p>
                 <strong>{errorMessages[1]}</strong>
               </MsgError>
@@ -177,8 +194,8 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
           default:
             return (
               <MsgError>
-                <h1>Opa, você errou de novo! Vamos tentar novamente?</h1>
-                <p>Você tem mais 1 chance de marcar<br />pontos. O que acha de tentar<br />novamente?</p>
+                {renderMsgError()}
+                <p>Você tem mais 1 chance de marcar<br />pontos.</p>
               </MsgError>
             );
         }
@@ -195,15 +212,15 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
 
   const setBackgroundImg = () => {
     switch (chances) {
-      case 2: return { img: leaf, position: "132px -328px", size: "497px" }
+      case 2: return { img: leaf, position: "-305px -296px", size: "500px" }
       case 1: return { img: flags, position: "", size: "" }
       default: return { img: starrySky, position: "184px  -90px", size: "" }
     }
   }
 
-  return (
-    <Container>
-      <RandomBox>
+  const renderDialogBox = () => (
+    <>
+      <ContentDialogBox>
         <DialogBox
           backgroundImg={setBackgroundImg().img}
           backgroundPosition={setBackgroundImg().position}
@@ -211,35 +228,50 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
         >
           {renderText(isFirstMistake, errorMessages)}
         </DialogBox>
-        <Avatar src={iconElifas} />
+        <ImgDialogBox src={dialogBox} alt='DialogBox' />
+      </ContentDialogBox>
+      <Avatar src={iconElifas} />
+    </>
+  );
+
+  const renderButton = () => (
+    <>
+      {hasChances ? (
+        <Button
+          margin={"0 0 20px 0"}
+          background={"#ff3d4a"}
+          color={"#FFFFFF"}
+          boxShadow={"#e61a28 0px 7px 0px"}
+          handleClick={handleClick}
+        >Tente Novamente</Button>
+      ) : (
+        <Button
+          handleClick={handleShowAnswer}
+          margin={"0 0 20px 0"}
+          background={"#399119"}
+          color={"#FFFFFF"}
+          boxShadow={"#245812 0px 7px 0px"}
+        >Saber a resposta</Button>
+      )
+
+      }
+      <ALink to="/activities" >
+        <Button
+          margin={"0 0 20px 0"}
+          background={"rgb(252, 208, 41)"}
+          boxShadow={"rgb(238 137 47) 0px 7px 0px"}
+        >Voltar a Trilha</Button>
+      </ALink>
+    </>
+  );
+
+  return (
+    <Container>
+      <RandomBox>
+        {renderDialogBox()}
       </RandomBox>
       <ButtonsBox>
-        {hasChances ? (
-          <Button
-            margin={"0 0 20px 0"}
-            background={"#ff3d4a"}
-            color={"#FFFFFF"}
-            boxShadow={"#e61a28 0px 7px 0px"}
-            handleClick={handleClick}
-          >Tente Novamente</Button>
-        ) : (
-          <Button
-            handleClick={handleShowAnswer}
-            margin={"0 0 20px 0"}
-            background={"#399119"}
-            color={"#FFFFFF"}
-            boxShadow={"#245812 0px 7px 0px"}
-          >Saber a resposta</Button>
-        )
-
-        }
-        <ALink to="/activities" >
-          <Button
-            margin={"0 0 20px 0"}
-            background={"rgb(252, 208, 41)"}
-            boxShadow={"rgb(238 137 47) 0px 7px 0px"}
-          >Voltar a Trilha</Button>
-        </ALink>
+        {renderButton()}
       </ButtonsBox>
     </Container>
   )

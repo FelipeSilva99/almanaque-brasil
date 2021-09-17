@@ -70,7 +70,6 @@ const Title = styled.h1`
 const Header = ({
   title,
   tips,
-  noTips,
   noPadding,
   noBack,
   isSelectedTips,
@@ -109,7 +108,7 @@ const Header = ({
     <Container trunkScreen={trunkScreen} noPadding={noPadding} animation={showTitle}>
       {!noBack && renderGoBack()}
       <Title trunkScreen={trunkScreen} animation={showTitle}>{title}</Title>
-      {tips && !noTips ? renderTips() : <ButtonTip noBack={noBack} />}
+      {tips ? renderTips() : <ButtonTip noBack={noBack} />}
       {isSelectedTips && <ModalTip text={tips} handleModalTip={handleModalTip} />}
     </Container>
   );

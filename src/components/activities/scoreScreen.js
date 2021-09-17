@@ -34,11 +34,11 @@ const ContentTitle = styled.div`
   text-align: center;
   h1{
     font-weight: 800;
-    font-size: 3rem;
+    font-size: 2.6875rem;
     color: #399119;
   }
   p{
-    font-size: 1.5rem;
+    font-size: 1.625rem;
     strong{
       font-size: 3rem;
       color: #399119;

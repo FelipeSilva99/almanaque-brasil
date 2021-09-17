@@ -14,7 +14,6 @@ const ContainerAnswer = styled.div`
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   overflow: hidden;
-  /* z-index: 1; */
 
   @media (min-width: 1024px) {height: 60%;}
   @media (max-width: 320px) {min-height: 45vh;}

@@ -31,7 +31,6 @@ const Content = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* justify-content: ${props => !props.isModal && 'center'}; */
   align-items: center;
   z-index: 1;
 
@@ -39,7 +38,7 @@ const Content = styled.div`
 `;
 
 const Img = styled.img`
-  width: 17.188rem;
+  width: 18.75rem;
   max-width: 300px;
   border-radius: 10px;
   box-shadow: 0px 5px 6px silver;
@@ -67,7 +66,7 @@ const Text = styled.p`
 const contentImageText = ({ isModal, image, title, info }) => {
   return (
     <Scroll isModal={isModal}>
-      <Content isModal={isModal}>
+      <Content>
         <Img src={image} alt={"imagem da atividade"} />
         <Title>{title}</Title>
         {info && !isModal && <Text>{info}</Text>}

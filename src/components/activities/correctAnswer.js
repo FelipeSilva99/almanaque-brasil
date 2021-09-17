@@ -46,7 +46,7 @@ const ButtonBox = styled.div`
   bottom: 0;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  padding-top: 4vh;
+  /* padding-top: 4vh; */
   background-color: ${props => props.backgroundColor || '#FFFFFF'};
   width: 100vw;
 
@@ -60,38 +60,45 @@ const Img = styled.img`
   width: 100vw;
   height: 53vh;
   max-width: 500px;
-  object-fit: initial;
+  object-fit: cover;
 
   @media(max-width: 425px) {width: 100%;}
   @media(min-width: 1024px) {height: 40vh;}
 `;
 
 const ComplementaryInformationBox = styled.div`
-  padding-bottom: 3rem;
+  padding-bottom: 4rem;
+  height: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
   text-align: center;
   color: #373737;
-  overflow-y: auto;
+`;
+
+const Scroll = styled.div`
+  overflow-y: scroll;
+  height: 100%;
 
   ::-webkit-scrollbar {
-		width: 4px;
-		height: 10px;
-		background: transparent;
+    width: 4px;
+    height: 10px;
+    background: transparent;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 13px;
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+  }
 
-	}
-	::-webkit-scrollbar-track {
-		background: transparent;
-		border-radius: 20px;
-	}
-	::-webkit-scrollbar-thumb {
-		border-radius: 13px;
-		background: transparent;
-	}
-	::-webkit-scrollbar-thumb:hover {
-		background: transparent;
-	}
+  @media(max-width: 320px) {height: 43%;}
+  @media(min-width: 1024px) {height: 90vh;}
 `;
 
 const Title = styled.h1`
@@ -112,7 +119,7 @@ const TextName = styled.h1`
 const Text = styled.p`
   margin-top: 1rem;
   width: 80vw;
-  max-width: 348px;
+  max-width: 412px;
   font-size: .875rem;
   color: #000000;
   text-align: left;
@@ -165,17 +172,18 @@ const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial }) => {
             <ComplementaryInformationBox>
               <Title>A reposta é</Title>
               <TextName>{answer.answer}</TextName>
-              <Text>{answer.complementaryInformation}</Text>
+              <Scroll>
+                <Text>{answer.complementaryInformation}</Text>
+              </Scroll>
             </ComplementaryInformationBox>
             <ButtonBox>
               {isTrunk && (
                 <ALink to="/trunk">
                   <Button
-                    color={"#399119"}
+                    color={"#373737"}
                     margin={"0 0 20px 0"}
-                    background={"#D4D4D4"}
-                    boxShadow={"#AFAFAF 0px 7px 0px"}
-                    isIcon='thunk'
+                    background={"#FFD000"}
+                    boxShadow={"#F08800 0px 7px 0px"}
                   >Veja mais no nosso Baú</Button>
                 </ALink>
               )}

@@ -57,7 +57,7 @@ const DialogBox = styled.div`
   align-items: center;
   flex-direction: column;
   width: 95%;
-  min-height: 219px;
+  min-height: 261px;
   max-height: 285px;
   border-radius: 25px;
   text-align: center;
@@ -65,7 +65,6 @@ const DialogBox = styled.div`
   background-repeat: no-repeat;
   background-position: ${props => props.backgroundPosition};
   background-size:  ${props => props.backgroundSize};
-  padding-top: 1rem;
   z-index: 1;
   overflow-y: auto; 
 

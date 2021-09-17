@@ -18,10 +18,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
-
-  @media (min-width: 1024px) {
-    justify-content: center;
-  }
+  background-color: #F3F3F3;
 `;
 
 const Content = styled.div`
@@ -81,7 +78,7 @@ const EnigmaBox = styled.div`
 const EnigmaImage = styled.div`
   background-color: #fff;
   background-image: url(${props => props.src});
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;

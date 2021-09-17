@@ -96,13 +96,13 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
   }
 
   const renderScreen = () => {
-
     return (
       <>
         <Header title={activitie?.name} />
         <ContentImageText
           image={`data:image/jpeg;base64,${activitie.imageBase64}`}
           title={activitie?.question}
+          info={activitie?.complementaryInformation}
           isModal={isModalAnswerOption}
         />
         <Button
@@ -136,7 +136,6 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
           && !showAnswer)
           && renderScreen()
         }
-        {console.log('coisas nossas',activitie)}
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore isTrunk amountTrial={amountTrial}/>}

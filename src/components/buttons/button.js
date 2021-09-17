@@ -1,15 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-//Images
-import trunk from '../../images/icons/trunk.png';
-
 // Styles
 const Content = styled.button`
   margin: ${props => props.margin || 'auto'};
 	width: 100%;
 	height: ${props => props.height || '2.375rem'};
-  /* padding: 1rem; */
   max-width: 425px;
 	display: flex;
 	justify-content: center;
@@ -26,7 +22,7 @@ const Content = styled.button`
 `;
 
 const Image = styled.img`
-  width: ${props => props.isIcon === 'thunk' && '24px'};
+  width: 24px;
   margin-right: 1rem;
 `
 
@@ -60,7 +56,7 @@ const Button = ({
       disabled={disabled}
       onClick={handleClick}
     >
-      {isIcon && <Image isIcon={isIcon} src={icon ? icon : trunk} />}
+      {isIcon && <Image isIcon={isIcon} src={icon} />}
       <Btn color={color}>{children}</Btn>
     </Content>
   );

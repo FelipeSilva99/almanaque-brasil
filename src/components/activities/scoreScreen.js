@@ -20,7 +20,7 @@ const Container = styled.div`
   padding-top: 1.5rem;
   background-color: #FFFFFF;
   width: 100vw;
-  height: ${props => props.height || "90vh"};
+  height: ${props => props.height || "95vh"};
   z-index: 1;
 
   @media(max-width: 425px) {
@@ -49,11 +49,11 @@ const ContentTitle = styled.div`
 const ScoreText = styled.p`
   position: relative;
   bottom: 8vh;
-  font-size: 2.5rem;
+  font-size: 2.1875rem;
   font-weight: 900;
   color: #373737;
   strong{
-    font-size: 10rem;
+    font-size: 8.3125rem;
     font-weight: 900;
     color: #399119;
   }
@@ -82,7 +82,7 @@ const ScoreScreen = ({ amountTrial, handleClick }) => {
   const HorseShoe = styled.img`
     position: absolute;
     right: ${props => (props.img === 'wave' && '-149px') || (props.img === 'cactus' && '-130px') || (props.img === 'hardShell' && '-40px')};
-    bottom: ${props => (props.img === 'wave' && '-220px') || (props.img === 'cactus' && '-65px') || (props.img === 'hardShell' && '-10px')};
+    bottom: ${props => (props.img === 'wave' && '-195px') || (props.img === 'cactus' && '-65px') || (props.img === 'hardShell' && '-10px')};
     z-index: -1;
   `;
 
@@ -93,7 +93,7 @@ const ScoreScreen = ({ amountTrial, handleClick }) => {
   return (
     <Container>
       <ContentTitle>
-        <h1>Parabéns</h1>
+        <h1>Parabéns!</h1>
         <p>Você acertou e ganhou:</p>
       </ContentTitle>
       <ScoreText><strong>{score}</strong> pts</ScoreText>

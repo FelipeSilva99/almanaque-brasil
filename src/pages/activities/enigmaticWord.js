@@ -18,17 +18,12 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
-  /* background: #f3f3f3; */
-  @media (min-width: 1024px) {
-    justify-content: center;
-  }
+  background-color: #F3F3F3;
 `;
 
 const Content = styled.div`
-  /* padding: 2rem;*/
   margin-bottom: 1rem; 
   width: 100vw;
-  /* height: calc(100% - 83px); */
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -37,12 +32,9 @@ const Content = styled.div`
   border-top-right-radius: 24px;
   box-sizing: border-box;
   background: #f3f3f3;
-
 `
 
 const Puzzle = styled.div`
-  /* position: relative;
-  bottom: 7vh; */
   display: flex;
   justify-content: space-around;
   width: calc(100vw - 4rem);
@@ -63,6 +55,7 @@ const EnigmaBox = styled.div`
   margin-top: ${props => props.secondBox && '10px'};
   border-radius: 10px;
   background-color: #FFD000;
+
   input{
     background-color: #F08800;
     border: none;
@@ -79,14 +72,13 @@ const EnigmaBox = styled.div`
   input::placeholder{
     font-size: .8rem;
     font-weight: normal;
-    /* margin-bottom: 1rem; */
   }
 `;
 
 const EnigmaImage = styled.div`
   background-color: #fff;
   background-image: url(${props => props.src});
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
@@ -164,6 +156,7 @@ function EnigmaticWord({ activitie, handlerNextActivitie, registerAction }) {
         timestamp: Date.now()
       })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalCorrectAnswer, modalWrongAnswer])
 
   const handleValue = (e, i) => {

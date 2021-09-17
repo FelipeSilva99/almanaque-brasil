@@ -1,10 +1,5 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import styled from 'styled-components';
-
-//Images
-import eye from '../../images/icons/onboarding/eye.svg';
-import eyeBlocked from '../../images/icons/onboarding/eyeBlocked.svg';
 
 // Styles
 const Content = styled.div`
@@ -37,24 +32,18 @@ const Input = styled.input`
   }
 `;
 
-const Button = styled.span`
-  padding-right: 1rem;
-  display: flex;
-  align-items: center;
-`;
-
 const ContentInput = ({
   name,
   value,
   placeholder,
   type,
   handleChange, 
-  showPassword,
   autoFocus,
-  handleViewPassword
+  handleFocus
 }) => {
+  const isCodeScreen = name === 'code'
   return (
-    <Content>
+    <Content code={isCodeScreen}>
       <Input
         required
         name={name}
@@ -63,12 +52,9 @@ const ContentInput = ({
         placeholder={placeholder || 'Digite aqui...'}
         autoFocus={autoFocus !== undefined ? autoFocus : true}
         onChange={handleChange}
+        onFocus={handleFocus}
+        maxLength={isCodeScreen && 6}
       />
-      {name === 'password' && (
-        <Button onClick={handleViewPassword}>
-          <img src={showPassword ? eye : eyeBlocked} alt='visualizar senha' />
-        </Button> 
-      )}
     </Content>
   );
 }

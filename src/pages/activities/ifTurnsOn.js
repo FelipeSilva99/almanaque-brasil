@@ -18,44 +18,47 @@ const Container = styled.div`
   height: 100vh;
   background-color: #f3f3f3;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   flex-direction: column;
   align-items: center;
 `
 
 const Content = styled.div`
-  padding: 2rem;
-  padding-bottom: 0;
+  position: absolute;
+  bottom: 0;
+  padding-top: 2rem;
   width: 100%;
-  height: calc(100% - 83px);
   background: ${props => !props.isCorrectAnswer && '#fff'};
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
-  overflow: scroll;
   
   @media(min-width: 768px) {
-    height: 70vh;
     padding-top: 6rem;
     color: pink;
-
+  }
+  @media (max-width: 320px) {
+    overflow: auto;
   }
 `
 
 const ContentInfo = styled.div`
   margin-bottom: 1rem;
   width: 100%;
-  /* max-width: 300px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
   user-select: none;
   background-color: ${props => (props.isCorrectAnswer && 'none') || props.backgroundColor};
-  img { opacity: ${props => (props.isCorrectAnswer && '1') || props.opacity}}
+  
+  img {
+    border-radius: 8px;
+    opacity: ${props => (props.isCorrectAnswer && '1') || props.opacity}
+  }
 `
 
 const Text = styled.div`
@@ -71,13 +74,26 @@ const Text = styled.div`
   box-shadow: ${props => props.isCorrectAnswer ? 'none' : '0 3px 6px #00000029'};
 `
 
+const TextCorrectAnswer = styled.h1`
+  padding-bottom: 2rem;
+  font-size: .9375rem;
+  color: #373737;
+  font-weight: 900;
+`
+
 const Box = styled.div`
+  padding: 0 3rem;
   display: flex;
   width: 100%;
-  /* max-width: 300px; */
   flex-direction: row;
   justify-content:  ${props => props.isCorrectAnswer ? 'space-evenly' : 'space-between'};
-  
+
+  @media (max-width: 320px) {
+    padding: 0 2rem;
+  }
+  @media (min-width: 768px) {
+    padding: 0 4rem;
+  }
 `;
 
 function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
@@ -101,7 +117,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
   const [inMemoryItem, setInMemoryItem] = useState(undefined);
   const [hasItemInMemory, setHasItemInMemory] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
-  const [isModalCorrectAnswer, setIsModalCorrectAnswer] = useState(undefined);
+  const [isModalCorrectAnswer, setIsModalCorrectAnswer] = useState(false);
   const [isError, setIsError] = useState(undefined);
 
   useEffect(() => {
@@ -135,7 +151,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
   }
 
   useEffect(() => {
-    if(modalWrongAnswer) {
+    if (modalWrongAnswer) {
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
@@ -144,7 +160,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
       })
     }
 
-    if(isModalCorrectAnswer) {
+    if (isModalCorrectAnswer) {
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
@@ -152,6 +168,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
         timestamp: Date.now()
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalCorrectAnswer, modalWrongAnswer])
 
   const handleClick = (item) => {
@@ -281,7 +298,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
   }
 
   const handleSubmit = () => {
-    const isError  = pairs.filter(item => item.backgroundColor === "#fff").length > 0;
+    const isError = pairs.filter(item => item.backgroundColor === "#fff").length > 0;
 
     if (selectedItems.length < pairs.length || isError) {
       setIsError(true);
@@ -300,14 +317,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
 
 
   const handleWrongAnswer = () => {
-    // const cleanPairs = [];
-    // pairs.map(item => cleanPairs.push({ ...item, backgroundColor: '#fff' }))
-
-    // setSelectedItems([])
-    // setPairs(cleanPairs)
-    // setAvailableColors(availableColorsInit)
-    // setInMemoryItem(undefined)
-    // setHasItemInMemory(false)
     setModalWrongAnswer(false);
   }
 
@@ -378,20 +387,22 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
   return (
     isLoading ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
-        <Header
-          title={activitie.name}
-          tips={activitie.tips}
-          isSelectedTips={isModalTip}
-          handleModalTip={handleModalTip}
-        />
+        {!isCorrectAnswer && (
+          <Header
+            title={activitie.name}
+            tips={activitie.tips}
+            isSelectedTips={isModalTip}
+            handleModalTip={handleModalTip}
+          />
+        )}
         <Content isCorrectAnswer={isCorrectAnswer}>
+          {isCorrectAnswer && <TextCorrectAnswer>A resposta certa é</TextCorrectAnswer>}
           {renderScreen(pairs)}
           <ContainerButton
             color={isCorrectAnswer && '#fff'}
             background={isCorrectAnswer && '#399119'}
             boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
             noBorder={!isCorrectAnswer}
-            noPadding
             isCorrectAnswer={isCorrectAnswer}
             isError={isError && 'Você precisa selecionar todos os items'}
             handleClick={handleSubmit}

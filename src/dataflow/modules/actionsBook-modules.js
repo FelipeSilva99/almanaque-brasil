@@ -10,7 +10,7 @@ const initialState = {
 }
 
 // Reducer
-export default function main(state=initialState, action) {
+export default function main(state = initialState, action) {
 
   switch (action.type) {
     case REGISTER:
@@ -30,8 +30,8 @@ export default function main(state=initialState, action) {
     case SYNCED:
       const syncedArray = state.synced;
       // if(state.pendingSync.length > 0) {
-        console.log('teste')
-        state.pendingSync.map(item => syncedArray.push(item))
+      console.log('teste')
+      state.pendingSync.map(item => syncedArray.push(item))
       // }
 
       return {
@@ -41,27 +41,27 @@ export default function main(state=initialState, action) {
 
     case CLEAR:
       return initialState
-  
+
     default:
       return state;
   }
 }
 
 // Actions
-export function register (info) {
+export function register(info) {
   return {
     type: REGISTER,
     info
   }
 }
 
-export function clearActionsBook () {
+export function clearActionsBook() {
   return {
     type: CLEAR,
   }
 }
 
-export function synced () {
+export function synced() {
   return {
     type: SYNCED,
   }

@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
+//Image
 import iconVisualized from '../../images/activity/iconVisualized.svg';
-import iconVisualizedBloqued from '../../images/activity/iconVisualizedBloqued.svg';
+import iconBloqued from '../../images/activity/iconBloqued.svg';
+import iconBookBloqued from '../../images/activity/iconBookBloqued.svg';
+import iconBookVisualized from '../../images/activity/iconBookVisualized.svg';
 import checkIcon from '../../images/activity/check.svg';
 
 //Styles
@@ -27,6 +30,7 @@ const Text = styled.p`
   color: ${props => props.color};
   position: absolute;
   font-size: 1.5rem;
+  font-weight: 800;
 `;
 
 const Check = styled.img`
@@ -42,25 +46,34 @@ const BoxName = styled.div`
   p{ width: 6.25rem; }
 `;
 
-const ActivitieIcon = (props) => {
+const ActivitieIcon = ({item, children, activitieState, onClick, history }) => {
   const setColor = () => {
-    return props.activitieState === 'bloqued' ? '#a0a0a0' : '#2a2929'
+    return activitieState === 'bloqued' ? '#a0a0a0' : '#2a2929'
   }
 
   const handleClick = () => {
-    return props.activitieState === 'bloqued' ? undefined : props.onClick
+    return activitieState === 'bloqued' ? undefined : onClick
+  }
+
+  //Alterar quando tiver a imagem
+  const renderImageBloqued = () => {
+    return item.name === 'Eureka' || item.name === 'Origem da expressão' ? iconBookBloqued : iconBloqued;
+  }
+
+  const renderImageVisualized = () => {
+    return item.name === 'Eureka' || item.name === 'Origem da expressão' ? iconVisualized : iconVisualized;
   }
 
   return (
     <Box>
-      <ActivitiesCircle type={props.item.type} onClick={handleClick()} history={props.history}>
-        { props.activitieState === 'bloqued' ? <img src={iconVisualizedBloqued} /> : <img src={iconVisualized} /> }
-        <Text color={() => setColor()}>{props.children + 1}</Text>
-        {props.activitieState === 'done' && <Check src={checkIcon}/>}
+      <ActivitiesCircle type={item.type} onClick={handleClick()} history={history}>
+        { activitieState === 'bloqued' ? <img src={renderImageBloqued()} alt={item.name} /> : <img src={renderImageVisualized()} alt={item.name}/> }
+        <Text color={() => setColor()}>{children + 1}</Text>
+        {activitieState === 'done' && <Check src={checkIcon}/>}
       </ActivitiesCircle>
-      <BoxName><p>{props.item.name}</p></BoxName>
+      <BoxName><p>{item.name}</p></BoxName>
     </Box>
   )
 }
 
-export default ActivitieIcon
+export default ActivitieIcon;

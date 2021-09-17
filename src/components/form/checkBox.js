@@ -45,7 +45,7 @@ const CheckBox = ({ attention, isSelected, onClick }) => {
       <Check attention={attention} onClick={onClick}>
         {isSelected && <CheckIcon />}
       </Check>
-      <Text>Concordo com os <strong>termos de serviço</strong> do app...</Text>
+      <Text>Concordo com os <strong>termos de uso</strong> do app...</Text>
     </Content>  
   );
 }

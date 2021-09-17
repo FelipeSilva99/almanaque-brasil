@@ -37,7 +37,7 @@ const ResetPassword = (props) => {
     { name: 'password', value: 3 },
   ];
   const [currentStep, setCurrentStep] = useState(steps[0]);
-  const [register, setRegister] = useState({ email: '', password: '' });
+  const [register, setRegister] = useState({ email: '', password: '', code: ''});
   const [isError, setIsError] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [isSuccessNewPassword, setIsSuccessNewPassword] = useState(false);
@@ -146,7 +146,7 @@ const ResetPassword = (props) => {
     }
   }
 
-  const RenderValidateEmail = () => {
+  const RenderEmail = () => {
     return (
       <Form
         label='Vamos te ajudar a redefinir sua senha'
@@ -162,17 +162,16 @@ const ResetPassword = (props) => {
     );
   }
 
-  const RenderValidateCode = () => {
+  const RenderCode = () => {
     return (
       <Form
         label='Verifique seu e-mail'
-        subtitle='Enviamos um código de confirmação para o seu e-mail digitado.'
+        subtitle='Digite abaixo o código que você recebeu por e-mail.'
         name='code'
         value={register?.code}
-        type='number'
-        placeholder='Digite o código de redefinição aqui'
+        placeholder='Digite o código aqui'
         isError={isError?.code && isError?.msg}
-        handleChange={handleChangeSelect}
+        handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
     );
@@ -187,7 +186,7 @@ const ResetPassword = (props) => {
         type={showPassword ? 'text' : 'password'}
         value={register?.password}
         placeholder='Digite sua nova senha aqui'
-        isError={isError?.password && 'Sua senha deve conter 6 caracteres'}
+        isError={isError?.password && 'Sua senha deve conter no mínimo 6 caracteres'}
         handleChange={handleChange}
         showPassword={showPassword}
         handleViewPassword={handleViewPassword}
@@ -198,15 +197,16 @@ const ResetPassword = (props) => {
 
   const renderByStep = () => {
     switch (currentStep.name) {
-      case steps[0].name: return <RenderValidateEmail />
-      case steps[1].name: return <RenderValidateCode />
+      case steps[0].name: return <RenderEmail />
+      case steps[1].name: return <RenderCode />
       case steps[2].name: return <RenderNewPassword />
-      default: return <RenderValidateEmail />
+      default: return <RenderEmail />
     }
   }
 
   return (
     <Container>
+    {console.log(register)}
       <Header title='Redefinir senha' noPadding goBack={handleGoBack} />
       {renderByStep()}
       <Info isSuccessNewPassword={isSuccessNewPassword}>{isSuccessNewPassword && 'Senha redefinida com sucesso!'}</Info>

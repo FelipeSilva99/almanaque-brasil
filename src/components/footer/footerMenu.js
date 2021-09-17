@@ -30,6 +30,7 @@ const Alingment = styled.footer`
 `;
 
 const Container = styled.div`
+  position: relative;
   padding: .7rem 0 0;
   width: 100%;
   max-width: 425px;

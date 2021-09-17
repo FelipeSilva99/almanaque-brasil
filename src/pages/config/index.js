@@ -22,19 +22,13 @@ const mapDispatchToProps = dispatch => ({
 
 const Container = styled.div`
   position: fixed;
-  /* position: fixed; */
-    /* bottom: 4rem; */
   bottom: 60px;
-  right: 1rem;
+  left: 51vw;
   width: 10rem;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   background: #fff;
   /* text-align: end; */
-
-  /* @media(min-width: 768px) {right: 30vw}
-  @media(min-width: 1024px) {right: 40vw} */
-
 `;
 
 const Button = styled.button`

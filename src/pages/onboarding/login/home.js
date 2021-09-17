@@ -74,17 +74,18 @@ const Home = (props) => {
           backgroundDisabled='#ccc'
           background='#FFFFFF'
           boxShadow='#EFE2E2 0px 7px 0px'
-          disabled={true}
+          // disabled={true}
           isIcon
           icon={iconGoogle}
         >
           continuar com o google
         </Button>
         <Button
+          width='.5625rem'
           backgroundDisabled='#ccc'
           color='#fff' background='#3C5A9A'
           boxShadow='#153372 0px 7px 0px'
-          disabled={true}
+          // disabled={true}
           isIcon
           icon={iconFacebook}
         >

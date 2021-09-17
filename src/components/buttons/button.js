@@ -22,8 +22,8 @@ const Content = styled.button`
 `;
 
 const Image = styled.img`
-  width: 24px;
   margin-right: 1rem;
+  width: ${props => props.width || '.9375rem'};
 `
 
 const Btn = styled.p`
@@ -37,6 +37,7 @@ const Btn = styled.p`
 
 const Button = ({
   height,
+  width,
   background,
   boxShadow,
   children,
@@ -56,7 +57,7 @@ const Button = ({
       disabled={disabled}
       onClick={handleClick}
     >
-      {isIcon && <Image isIcon={isIcon} src={icon} />}
+      {isIcon && <Image src={icon}  alt='' width={width}/>}
       <Btn color={color}>{children}</Btn>
     </Content>
   );

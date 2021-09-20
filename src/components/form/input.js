@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+//Images
+import eye from '../../images/icons/onboarding/eye.svg';
+import eyeBlocked from '../../images/icons/onboarding/eyeBlocked.svg';
+
 // Styles
 const Content = styled.div`
   width: 100%;
@@ -32,6 +36,12 @@ const Input = styled.input`
   }
 `;
 
+const Button = styled.span`
+  padding-right: 1rem;
+  display: flex;
+  align-items: center;
+`;
+
 const ContentInput = ({
   name,
   value,
@@ -39,7 +49,9 @@ const ContentInput = ({
   type,
   handleChange, 
   autoFocus,
-  handleFocus
+  handleFocus,
+  showPassword,
+  handleViewPassword
 }) => {
   const isCodeScreen = name === 'code'
   return (
@@ -55,6 +67,11 @@ const ContentInput = ({
         onFocus={handleFocus}
         maxLength={isCodeScreen && 6}
       />
+       {name === 'password' && (
+        <Button onClick={handleViewPassword}>
+          <img src={showPassword ? eye : eyeBlocked} alt='visualizar senha' />
+        </Button> 
+      )}
     </Content>
   );
 }

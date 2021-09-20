@@ -28,7 +28,7 @@ const Container = styled.div`
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   background: #fff;
-  /* text-align: end; */
+  text-align: end;
 `;
 
 const Button = styled.button`

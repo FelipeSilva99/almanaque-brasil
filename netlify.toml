@@ -7,21 +7,21 @@
 [context.main]
   publish = "build/"
   command = "CI=false yarn build"
-  AMBIENT = "DEVELOPMENT",
-  REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://qqxtiq6upd.execute-api.us-east-1.amazonaws.com/dev/actions",
-  REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_2z0VNGp1U",
-  REACT_APP_COGNITO_WEB_CLIENT_ID = "7ei4rqjt6houa833qluisa9e7c",
+  AMBIENT = "MAIN"
+  REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://qqxtiq6upd.execute-api.us-east-1.amazonaws.com/dev/actions"
+  REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_2z0VNGp1U"
+  REACT_APP_COGNITO_WEB_CLIENT_ID = "7ei4rqjt6houa833qluisa9e7c"
   REACT_APP_TRAILS_ENDPOINT = "https://qqxtiq6upd.execute-api.us-east-1.amazonaws.com/dev/trails"
 
 # Development context:
 [context.development]
   publish = "build/"
   command = "CI=false yarn build"
-  AMBIENT = "DEVELOPMENT",
-  REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://qqxtiq6upd.execute-api.us-east-1.amazonaws.com/dev/actions",
-  REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_2z0VNGp1U",
-  REACT_APP_COGNITO_WEB_CLIENT_ID = "7ei4rqjt6houa833qluisa9e7c",
-  REACT_APP_TRAILS_ENDPOINT = "https://qqxtiq6upd.execute-api.us-east-1.amazonaws.com/dev/trails"
+  AMBIENT = "DEVELOPMENT"
+  REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/actions"
+  REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_1jHyLS2pd"
+  REACT_APP_COGNITO_WEB_CLIENT_ID = "5hjm47evfa0buh1to68d7fsee8"
+  REACT_APP_TRAILS_ENDPOINT = "https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/trails"
 
 # Deploy Preview context: all deploys generated from a pull/merge request will
 # inherit these settings.

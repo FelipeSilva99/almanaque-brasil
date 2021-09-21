@@ -1,34 +1,27 @@
 [build]
   base = ""
   publish = "build/"
-
   # Default build command.
   command = "CI=false yarn build"
 
 [context.main]
   publish = "build/"
   command = "CI=false yarn build"
-  environment = {
   AMBIENT = "DEVELOPMENT",
-  #NODE_VERSION = "14.15.3",
   REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://qqxtiq6upd.execute-api.us-east-1.amazonaws.com/dev/actions",
   REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_2z0VNGp1U",
   REACT_APP_COGNITO_WEB_CLIENT_ID = "7ei4rqjt6houa833qluisa9e7c",
   REACT_APP_TRAILS_ENDPOINT = "https://qqxtiq6upd.execute-api.us-east-1.amazonaws.com/dev/trails"
-  }
 
 # Development context:
 [context.development]
   publish = "build/"
   command = "CI=false yarn build"
-  environment = {
   AMBIENT = "DEVELOPMENT",
-  #NODE_VERSION = "14.15.3",
   REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://qqxtiq6upd.execute-api.us-east-1.amazonaws.com/dev/actions",
   REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_2z0VNGp1U",
   REACT_APP_COGNITO_WEB_CLIENT_ID = "7ei4rqjt6houa833qluisa9e7c",
   REACT_APP_TRAILS_ENDPOINT = "https://qqxtiq6upd.execute-api.us-east-1.amazonaws.com/dev/trails"
-  }
 
 # Deploy Preview context: all deploys generated from a pull/merge request will
 # inherit these settings.
@@ -109,7 +102,7 @@
   #to = "/index.html"
   #status = 200
 
-[[headers]]
+#[[headers]]
   # Define which paths this specific [[headers]] block will cover.
   #for = "/*"
 

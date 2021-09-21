@@ -9,7 +9,7 @@ import Amplify from 'aws-amplify';
 
 // Routes
 import Routes from './routes/routes';
-
+console.log("VARIÁVEIS DE AMBIENTE:", process.env.REACT_APP_COGNITO_USER_POOL_ID)
 Amplify.configure({
 	Auth: {
 		userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,

@@ -206,7 +206,6 @@ const ResetPassword = (props) => {
 
   return (
     <Container>
-    {console.log(register)}
       <Header title='Redefinir senha' noPadding goBack={handleGoBack} />
       {renderByStep()}
       <Info isSuccessNewPassword={isSuccessNewPassword}>{isSuccessNewPassword && 'Senha redefinida com sucesso!'}</Info>

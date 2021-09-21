@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import trailsMap from './aliases';
-import aliases from './aliases';
 
+//Component
+import aliases from './aliases';
 
 const AlignToCenter = styled.div`
   position: absolute;
@@ -38,11 +38,9 @@ const Map = ({ trails, goToActivitie }) => {
   }
 
   return (
-    console.log('aliases', aliases),
     <AlignToCenter>
       <MapBackground>
         {trails.map((trail, key) => (
-          // console.log('trail dfd:', trail.name),
           <MapFragment 
             key={key}
             left={aliases[trail.name].position.left}
@@ -52,7 +50,6 @@ const Map = ({ trails, goToActivitie }) => {
           </MapFragment>
         ))}
         {/* {Object.keys(aliases).map((trail, key) => (
-          console.log('trail', trail),
 
           <MapFragment 
             key={key}

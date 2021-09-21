@@ -72,7 +72,7 @@ const Activities = (props) => {
   }
 
 
-  const renderActivitie = (currentActivitie, registerAction) => {
+  const renderActivitie = (currentActivitie, registerAction, isLastActivity) => {
     // Renderizar component de acordo com o tipo de ativivdade
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
@@ -101,16 +101,17 @@ const Activities = (props) => {
 
       default:
         return <h1>{currentActivitie.question}</h1>;
-
     }
   }
 
   const renderScreen = (currentActivitie) => {
+    const isLastActivity = currentActivitie.id === activities.pop().id;
+
     return (
       <>
         {
           currentActivitie
-            ? renderActivitie(currentActivitie, props.registerAction)
+            ? renderActivitie(currentActivitie, props.registerAction, isLastActivity)
             : <h1>não tem mais atividades</h1>
         }
       </>

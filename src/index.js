@@ -4,7 +4,7 @@ import './index.css';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react'
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import Amplify from 'aws-amplify';
 
 // Routes

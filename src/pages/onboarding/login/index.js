@@ -38,10 +38,10 @@ const ButtonSpacer = styled.div`
 `;
 
 const mapDispatchToProps = dispatch => {
-	return {
-		signIn: (info) => dispatch(signIn(info)),
+  return {
+    signIn: (info) => dispatch(signIn(info)),
     getActionsBook: () => dispatch(getActionsBook())
-	}
+  }
 };
 
 const Login = (props) => {
@@ -68,42 +68,42 @@ const Login = (props) => {
 
   const handleLogin = (e) => {
     e.preventDefault()
-    handleSignIn() 
+    handleSignIn()
   }
 
   async function handleSignIn() {
-		try {
-			const user = await Auth.signIn(register.email, register.password);
+    try {
+      const user = await Auth.signIn(register.email, register.password);
       const token = user.signInUserSession.accessToken.jwtToken;
-			props.signIn(user.attributes)
+      props.signIn(user.attributes)
       localStorage.setItem('accessToken', token)
       props.getActionsBook()
-			props.history.push('/dashboard')
-		} catch (error) {
+      props.history.push('/dashboard')
+    } catch (error) {
       console.log('error', error);
-			if(error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.");
-			if(error.code === "UserNotConfirmedException") {
+      if (error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.");
+      if (error.code === "UserNotConfirmedException") {
         props.history.push({
           pathname: `/accountCreated`,
           state: { email: register.email }
         });
       };
-      if(error.code === "UserNotFoundException") {
+      if (error.code === "UserNotFoundException") {
         props.history.push({
           pathname: `/createAccount`,
           state: { email: register.email }
         });
       };
-		}
+    }
   }
 
-	const resetPassword = () => {
-		props.history.push('/resetPassword');
-	}
+  const resetPassword = () => {
+    props.history.push('/resetPassword');
+  }
 
   const goBack = () => {
-		props.history.push('/');
-	}
+    props.history.push('/');
+  }
 
   return (
     <Container>
@@ -123,14 +123,14 @@ const Login = (props) => {
         isError={error}
         pass
       />
-			<ButtonSpacer>
-				<ResetButton onClick={resetPassword}>Esqueceu a senha?</ResetButton>
-			</ButtonSpacer>
+      <ButtonSpacer>
+        <ResetButton onClick={resetPassword}>Esqueceu a senha?</ResetButton>
+      </ButtonSpacer>
     </Container>
   );
 }
 
 export default connect(
-	null,
-	mapDispatchToProps
+  null,
+  mapDispatchToProps
 )(Login);

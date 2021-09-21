@@ -4,30 +4,16 @@
   # Default build command.
   command = "CI=false yarn build"
 
-[context.production]
+[context.main]
   publish = "build/"
   command = "CI=false yarn build"
-  NODE_ENV = "production"
-  AMBIENT = "production"
-  REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://ppy698remi.execute-api.us-east-1.amazonaws.com/prod/actions"
-  REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_HAyFHvQlT"
-  REACT_APP_COGNITO_WEB_CLIENT_ID = "3u0sfeumo8vt6iulgvbfqmv8mc"
-  REACT_APP_COGNITO_REGION="us-east-1"
-  REACT_APP_TRAILS_ENDPOINT = "https://ppy698remi.execute-api.us-east-1.amazonaws.com/prod/trails"
-  REACT_APP_TRUNK_ENDPOINT="https://ppy698remi.execute-api.us-east-1.amazonaws.com/prod/chest"
+  environment = {AMBIENT = "main",REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://ppy698remi.execute-api.us-east-1.amazonaws.com/prod/actions", REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_HAyFHvQlT", REACT_APP_COGNITO_WEB_CLIENT_ID = "3u0sfeumo8vt6iulgvbfqmv8mc", REACT_APP_COGNITO_REGION="us-east-1", REACT_APP_TRAILS_ENDPOINT = "https://ppy698remi.execute-api.us-east-1.amazonaws.com/prod/trails", REACT_APP_TRUNK_ENDPOINT="https://ppy698remi.execute-api.us-east-1.amazonaws.com/prod/chest"}
 
 # Development context:
 [context.development]
   publish = "build/"
   command = "CI=false yarn build"
-  NODE_ENV = "development"
-  AMBIENT = "development"
-  REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/actions"
-  REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_1jHyLS2pd"
-  REACT_APP_COGNITO_WEB_CLIENT_ID = "5hjm47evfa0buh1to68d7fsee8"
-  REACT_APP_COGNITO_REGION="us-east-1"
-  REACT_APP_TRAILS_ENDPOINT = "https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/trails"
-  REACT_APP_TRUNK_ENDPOINT="https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/chest"
+  environment = {AMBIENT = "development", REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/actions", REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_1jHyLS2pd", REACT_APP_COGNITO_WEB_CLIENT_ID = "5hjm47evfa0buh1to68d7fsee8", REACT_APP_COGNITO_REGION="us-east-1", REACT_APP_TRAILS_ENDPOINT = "https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/trails", REACT_APP_TRUNK_ENDPOINT="https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/chest"}
 
 # Deploy Preview context: all deploys generated from a pull/merge request will
 # inherit these settings.

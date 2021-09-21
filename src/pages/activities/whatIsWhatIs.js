@@ -71,6 +71,7 @@ const IconLeaves = styled.img`
 const ContainerAnswer = styled.div`
   position: absolute;
   bottom: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -192,7 +193,7 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion, registerAction }) => {
   }, [useActivitie]);
 
   useEffect(() => {
-    if(modalWrongAnswer) {
+    if (modalWrongAnswer) {
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
@@ -201,7 +202,7 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion, registerAction }) => {
       })
     }
 
-    if(modalCorrectAnswer) {
+    if (modalCorrectAnswer) {
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
@@ -209,6 +210,7 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion, registerAction }) => {
         timestamp: Date.now()
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalCorrectAnswer, modalWrongAnswer])
 
   useEffect(() => {
@@ -339,6 +341,28 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion, registerAction }) => {
     });
   };
 
+  const renderModalAnswerOption = () => (
+    <ContainerAnswer>
+      <figure>
+        <IconLeaves top left zIndex src={paleLeaves} />
+      </figure>
+      <BoxAnswer>
+        <ContentAnswer>
+          {answer.map(i => renderSquareAnswer(i))}
+        </ContentAnswer>
+        <ContentAnswer padding>
+          {renderIndividualLetters()}
+          <IconDelete src={iconDelete} onClick={handleEraseLetter} />
+        </ContentAnswer>
+      </BoxAnswer>
+      <Button
+        handleClick={handleClick}
+      >
+        Confirmar Resposta
+      </Button>
+    </ContainerAnswer>
+  )
+
   const renderScreen = () => {
     return (
       <>
@@ -346,35 +370,12 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion, registerAction }) => {
         <Content isModal={isModalAnswer}>
           <Title><span>"</span>{activitie?.question}</Title><span>"</span>
         </Content>
-        <figure>
-          <IconLeaves src={paleLeaves} />
-        </figure>
         <Button
           handleClick={handleIsModalAnswer}
         >
           responder
         </Button>
-        {isModalAnswer && (
-          <ContainerAnswer>
-            <figure>
-              <IconLeaves top left zIndex src={paleLeaves} />
-            </figure>
-            <BoxAnswer>
-              <ContentAnswer>
-                {answer.map(i => renderSquareAnswer(i))}
-              </ContentAnswer>
-              <ContentAnswer padding>
-                {renderIndividualLetters()}
-                <IconDelete src={iconDelete} onClick={handleEraseLetter} />
-              </ContentAnswer>
-            </BoxAnswer>
-            <Button
-              handleClick={handleClick}
-            >
-              Confirmar Resposta
-            </Button>
-          </ContainerAnswer>
-        )}
+        {isModalAnswer && renderModalAnswerOption()}
       </>
     )
   }

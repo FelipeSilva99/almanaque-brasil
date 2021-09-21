@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import iconTop from '../../images/icons/moonAndStar.svg'
 import iconBottom from '../../images/icons/cactus.svg'
 import background from '../../images/icons/background.svg'
-import ABLogo from '../../images/logo/AB_logo.svg';
 import logo from '../../images/logo/almanaque.svg';
 
 const Container = styled.div`

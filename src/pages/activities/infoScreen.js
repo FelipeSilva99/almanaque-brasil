@@ -144,6 +144,7 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
         timestamp: Date.now()
       })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentScreen])
 
   var book = "";

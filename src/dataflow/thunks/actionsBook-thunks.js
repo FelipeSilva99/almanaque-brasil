@@ -1,11 +1,10 @@
+/* eslint-disable no-throw-literal */
 // Libs
 import axios from 'axios';
 import { Auth } from 'aws-amplify'
 import { 
-  register, clearActionsBook, synced, refreshLocalData
+  clearActionsBook, synced, refreshLocalData
 } from '../modules/actionsBook-modules'
-
-
 
 export const postActionsBook = (book) => async (dispatch) => {
   const auth = await Auth.currentAuthenticatedUser()

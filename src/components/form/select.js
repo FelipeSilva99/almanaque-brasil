@@ -23,7 +23,7 @@ const Text = styled.p`
   color: ${props => props.active ? '#373737' : '#B9B9B9'};
 `;
 
-const Option = styled.option`
+const Option = styled.div`
   margin: 1rem 0;
   width: 100%;
   border-radius: 8px;
@@ -58,12 +58,12 @@ const Select = ({ name, value, handleChange }) => {
       }
     })
   }
-  const options = () => {
-    return <>
+  const renderOptions = () => (
+    <>
       <Option onClick={(ev) => handleSelect(ev, 'sim')}>Sim</Option>
       <Option onClick={(ev) => handleSelect(ev, 'não')}>Não</Option>
     </>
-  }
+  )
 
   return (
     <Content
@@ -79,7 +79,7 @@ const Select = ({ name, value, handleChange }) => {
       {(value === 'sim' && !isOpen) && <Text active>Sim</Text>}
       {(value === 'não' && !isOpen) && <Text active>Não</Text>}
       {(value === undefined || isOpen) && <Text>Escolha uma opção:</Text>}
-      {isOpen && options()}
+      {isOpen && renderOptions()}
     </Content>
   );
 }

@@ -30,6 +30,7 @@ const Alingment = styled.footer`
 `;
 
 const Container = styled.div`
+  position: relative;
   padding: .7rem 0 0;
   width: 100%;
   max-width: 425px;
@@ -54,7 +55,6 @@ const Text = styled.p`
 
 const Footer = ({ screen }) => {
   const history = useHistory();
-  const [isSelected, setIsSelected] = useState(0);
   const [isModalConfig, setIsModalConfig] = useState(undefined);
   const [options] = useState([
     {

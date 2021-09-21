@@ -43,7 +43,7 @@ const mapDispatchToProps = dispatch => {
     getActionsBook: () => dispatch(getActionsBook())
   }
 };
-console.log("From the enviroment:", process.env.REACT_APP_COGNITO_REGION)
+
 const Login = (props) => {
   const [register, setRegister] = useState(
     {

@@ -7,7 +7,8 @@
 [context.main]
   publish = "build/"
   command = "CI=false yarn build"
-  AMBIENT = "MAIN"
+  #NODE_ENV = "main"
+  AMBIENT = "main"
   REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://ppy698remi.execute-api.us-east-1.amazonaws.com/prod/actions"
   REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_HAyFHvQlT"
   REACT_APP_COGNITO_WEB_CLIENT_ID = "3u0sfeumo8vt6iulgvbfqmv8mc"
@@ -18,7 +19,8 @@
 [context.development]
   publish = "build/"
   command = "CI=false yarn build"
-  AMBIENT = "DEVELOPMENT"
+  NODE_ENV = "development"
+  AMBIENT = "development"
   REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/actions"
   REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_1jHyLS2pd"
   REACT_APP_COGNITO_WEB_CLIENT_ID = "5hjm47evfa0buh1to68d7fsee8"

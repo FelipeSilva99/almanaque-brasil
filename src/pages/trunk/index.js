@@ -74,7 +74,7 @@ const Trunk = () => {
     try {
       const response = await axios({
         method: 'get',
-        url: `https://qqxtiq6upd.execute-api.us-east-1.amazonaws.com/dev/chest`,
+        url: process.env.REACT_APP_TRUNK_ENDPOINT,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `${accessToken}`,

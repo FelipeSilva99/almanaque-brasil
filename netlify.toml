@@ -23,7 +23,7 @@
   publish = "build/"
   command = "CI=false yarn build"
 
-[context.development.enviroment]
+[context.development.environment]
   NODE_ENV = "development"
   AMBIENT = "development"
   REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/actions"

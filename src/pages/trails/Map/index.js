@@ -5,6 +5,10 @@ import aliases from './aliases';
 
 
 const AlignToCenter = styled.div`
+  &::-webkit-scrollbar {
+    display: none;               /* width of the entire scrollbar */
+  }
+  overflow: auto;
   position: absolute;
   background-color: #d5e2ff;
   bottom: 39px;

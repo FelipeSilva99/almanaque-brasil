@@ -42,6 +42,7 @@ export const Card = styled.button`
 `;
 
 export const Box = styled.div`
+  overflow: hidden;
   position: relative;
   width: 100%;
   min-height: 100vh;

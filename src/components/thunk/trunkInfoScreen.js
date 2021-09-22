@@ -2,7 +2,7 @@ import React, { useState, useEffect, createRef } from 'react';
 import styled from 'styled-components';
 
 //Component
-import Header from '../../components/header';
+import Header from '../header';
 
 //Styles
 const Container = styled.div`
@@ -70,13 +70,22 @@ const Text = styled.p`
   color: #373737;
 `;
 
-const InfoScreen = ({ itemData, onClick }) => {
+const TrunkInfoScreen = ({ itemData, activityId, onClick }) => {
   const [showTitle, setShowTitle] = useState(undefined);
   const [data, setData] = useState([]);
   const myRef = createRef();
 
   useEffect(() => {
-    setData(itemData);
+    console.log('-----itemData', itemData.id);
+    if(itemData) {
+      // setData(itemData);
+
+    }
+
+    if (activityId) {
+
+    }
+    console.log({activityId});
   }, [itemData]);
 
   const onScroll = () => {
@@ -87,16 +96,16 @@ const InfoScreen = ({ itemData, onClick }) => {
 
   return (
     <Container ref={myRef} onScroll={onScroll}>
-      <Header trunkScreen showTitle={showTitle} title={data.category} goBack={onClick} />
+      {/* <Header trunkScreen showTitle={showTitle} title={data.category} goBack={onClick} />
       <Img src={`data:image/jpeg;base64,${data.imageBase64}`} alt='Imagem da atividade' />
       <MessageBox>
         <Title>
           {data.title}
         </Title>
         <Text>{data.content}</Text>
-      </MessageBox>
+      </MessageBox> */}
     </Container>
   );
 }
 
-export default InfoScreen;
+export default TrunkInfoScreen;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 //Components
 import ScoreScreen from '../activities/scoreScreen';
@@ -134,12 +135,14 @@ const ALink = styled(Link)`
   justify-content: center;
 `;
 
-const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial }) => {
+const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial, handleModalThunk }) => {
+  const history = useHistory();
+  const [actualModal, setActualModal] = useState(undefined);
+
   const modals = {
     toScore: "toScore",
     answerDescription: "answerDescription"
   }
-  const [actualModal, setActualModal] = useState(undefined);
 
   useEffect(() => {
     toScore
@@ -155,6 +158,10 @@ const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial }) => {
       default:
         break;
     }
+  }
+
+  const handleGoActivities = () => {
+    history.push('/activities');
   }
 
   const renderModal = () => {
@@ -178,14 +185,14 @@ const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial }) => {
             </ComplementaryInformationBox>
             <ButtonBox>
               {isTrunk && (
-                <ALink to="/trunk">
+
                   <Button
                     color={"#373737"}
                     margin={"0 0 20px 0"}
                     background={"#FFD000"}
                     boxShadow={"#F08800 0px 7px 0px"}
+                    handleClick={handleModalThunk}
                   >Veja mais no nosso Baú</Button>
-                </ALink>
               )}
               <ALink to="/activities">
                 <Button
@@ -193,6 +200,7 @@ const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial }) => {
                   margin={"0 0 20px 0"}
                   background={"#399119"}
                   boxShadow={"#245812 0px 7px 0px"}
+                  handleClick={handleGoActivities}
                 >Continuar trilha</Button>
               </ALink>
             </ButtonBox>

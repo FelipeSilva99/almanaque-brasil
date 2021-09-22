@@ -9,6 +9,7 @@ import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 import ContentImageText from '../../components/activities/activitieDescription';
 import OptionsButtons from '../../components/activities/optionsButtons';
+import TrunkInfoScreen from '../../components/thunk/trunkInfoScreen';
 
 //Images
 import logo from '../../images/logo/didYouKnow.svg';
@@ -37,6 +38,7 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [amountTrial, setAmountTrial] = useState(3);
+  const [isModalThunk, setIsModalThunk] = useState(undefined);
 
   useEffect(() => {
     let timer1 = setTimeout(() => setIsLoading(false), 2000);
@@ -95,6 +97,11 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
     setShowAnswer(true);
   }
 
+  const handleModalThunk = () => {
+    console.log('olaaaaaaa');
+    setIsModalThunk(!isModalThunk);
+  }
+
   const renderScreen = () => {
     return (
       <>
@@ -134,8 +141,9 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
         }
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore isTrunk amountTrial={amountTrial} />}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={useActivitie.answers[3]} isTrunk amountTrial={amountTrial} />}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore isTrunk amountTrial={amountTrial} handleModalThunk={handleModalThunk} />}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={useActivitie.answers[3]} isTrunk amountTrial={amountTrial} handleModalThunk={handleModalThunk} />}
+        {isModalThunk && <TrunkInfoScreen itemData={activitie} onClick={handleModalThunk} />}
       </Container>
     )
   );

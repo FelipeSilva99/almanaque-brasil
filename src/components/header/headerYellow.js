@@ -10,8 +10,17 @@ const Container = styled.header`
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  align-items: center;
   overflow: hidden;
+`;
+
+const Circle = styled.div`
+  padding: 13px;
+  font-weight: bold;
+  border-radius: 50%;
+  margin-right: 20px;
+  background-color: #ffffff;
 `;
 
 const Text = styled.h1`
@@ -28,9 +37,10 @@ const Img = styled.img`
   width: ${props => props.home ? '7rem' : '9rem'};
 `;
 
-const Header = ({ text, icon, home }) => {
+const Header = ({ text, icon, home, initialLettersName }) => {
   return (
     <Container>
+      <Circle>{initialLettersName}</Circle>
       <Text home={home}>{text}</Text>
       {icon && <Img src={icon} alt={text} home={home} />}
     </Container>

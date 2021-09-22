@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 //Images
-import dialogBox from '../../images/icons/dialogBox.svg';
+import dialogBox from '../../images/dialogBox/dialogBox.svg';
 import iconElifas from '../../images/elifas/tip.svg';
 import close from '../../images/icons/close.svg';
 
@@ -50,6 +50,10 @@ const ContentInfo = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+
+  img {
+    cursor: pointer;
+  }
 `;
 
 const ScrollTip = styled.div`
@@ -84,6 +88,7 @@ const TextTip = styled.p`
 const ImgBento = styled.img`
   position: relative;
   right: -55%;
+  bottom: -10px
 `;
 
 function Tip({ text, handleModalTip }) {

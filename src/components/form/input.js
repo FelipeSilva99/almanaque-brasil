@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -49,12 +48,14 @@ const ContentInput = ({
   placeholder,
   type,
   handleChange, 
-  showPassword,
   autoFocus,
+  handleFocus,
+  showPassword,
   handleViewPassword
 }) => {
+  const isCodeScreen = name === 'code'
   return (
-    <Content>
+    <Content code={isCodeScreen}>
       <Input
         required
         name={name}
@@ -63,8 +64,10 @@ const ContentInput = ({
         placeholder={placeholder || 'Digite aqui...'}
         autoFocus={autoFocus !== undefined ? autoFocus : true}
         onChange={handleChange}
+        onFocus={handleFocus}
+        maxLength={isCodeScreen && 6}
       />
-      {name === 'password' && (
+       {name === 'password' && (
         <Button onClick={handleViewPassword}>
           <img src={showPassword ? eye : eyeBlocked} alt='visualizar senha' />
         </Button> 

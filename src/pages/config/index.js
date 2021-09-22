@@ -21,9 +21,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 60px;
-  right: 1rem;
+  left: 51vw;
   width: 10rem;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;

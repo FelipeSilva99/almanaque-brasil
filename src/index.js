@@ -4,12 +4,11 @@ import './index.css';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react'
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import Amplify from 'aws-amplify';
 
 // Routes
 import Routes from './routes/routes';
-
 Amplify.configure({
 	Auth: {
 		userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,

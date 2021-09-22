@@ -35,6 +35,7 @@ const MessageBox = styled.div`
     padding-left: 5vw;
     padding-right: 5vw;
   }
+  @media(min-width: 1024px) {height: 60vh;}
 `;
 
 const ButtonBox = styled.div`
@@ -45,7 +46,7 @@ const ButtonBox = styled.div`
   bottom: 0;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  padding-top: 4vh;
+  /* padding-top: 4vh; */
   background-color: ${props => props.backgroundColor || '#FFFFFF'};
   width: 100vw;
 
@@ -57,47 +58,73 @@ const ButtonBox = styled.div`
 
 const Img = styled.img`
   width: 100vw;
-  height: 100vh;
+  height: 53vh;
   max-width: 500px;
-  object-fit: initial;
+  object-fit: cover;
 
-  @media(max-width: 425px) {width: 100%; max-height: 310px;}
+  @media(max-width: 425px) {width: 100%;}
   @media(min-width: 1024px) {height: 40vh;}
 `;
 
 const ComplementaryInformationBox = styled.div`
-  /* margin: 10vh 0 18vh 0; */
-  padding-bottom: 3rem;
-	height: 85%;
+  padding-bottom: 4rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   text-align: center;
   color: #373737;
-  overflow-y: auto; 
+`;
+
+const Scroll = styled.div`
+  overflow-y: scroll;
+  height: 100%;
 
   ::-webkit-scrollbar {
-		width: 4px;
-		height: 10px;
-	}
-	::-webkit-scrollbar-track {
-		background: transparent;
-		border-radius: 20px;
-	}
-	::-webkit-scrollbar-thumb {
-		background: #ccc;
-		border-radius: 13px;
-	}
-	::-webkit-scrollbar-thumb:hover {
-		background: #ccc;
-	}
+    width: 4px;
+    height: 10px;
+    background: transparent;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 13px;
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+  }
 
-  strong{ font-size: 1.625rem; }
-  `;
+  @media(max-width: 320px) {height: 43%;}
+  @media(min-width: 1024px) {height: 90vh;}
+`;
+
+const Title = styled.h1`
+  font-size: .9375rem;
+  font-weight: 300;
+  color: #373737;
+  
+  @media(min-width: 1024px) {font-size: 1rem;}
+`;
+
+const TextName = styled.h1`
+  font-size: 1.625rem;
+  color: #0D0D0D;
+  font-weight: 900;
+  width: 14rem;
+`;
 
 const Text = styled.p`
-  margin-top: 4vh;
+  margin-top: 1rem;
   width: 80vw;
-  max-width: 348px;
+  max-width: 412px;
   font-size: .875rem;
+  color: #000000;
   text-align: left;
+
+  @media(min-width: 1024px) {font-size: 1rem;}
 `;
 
 const ALink = styled(Link)`
@@ -141,22 +168,22 @@ const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial }) => {
         );
       case modals.answerDescription:
         return (
-          <MessageBox height={'65vh'}>
+          <MessageBox height={'52vh'}>
             <ComplementaryInformationBox>
-              <p>A reposta é</p>
-              <strong>{answer.answer}</strong>
-              <Text>{answer.complementaryInformation}</Text>
+              <Title>A reposta é</Title>
+              <TextName>{answer.answer}</TextName>
+              <Scroll>
+                <Text>{answer.complementaryInformation}</Text>
+              </Scroll>
             </ComplementaryInformationBox>
             <ButtonBox>
-              {/* <StlyedLink to="/">  */}
               {isTrunk && (
                 <ALink to="/trunk">
                   <Button
-                    color={"#399119"}
+                    color={"#373737"}
                     margin={"0 0 20px 0"}
-                    background={"#D4D4D4"}
-                    boxShadow={"#AFAFAF 0px 7px 0px"}
-                    isIcon='thunk'
+                    background={"#FFD000"}
+                    boxShadow={"#F08800 0px 7px 0px"}
                   >Veja mais no nosso Baú</Button>
                 </ALink>
               )}
@@ -166,10 +193,8 @@ const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial }) => {
                   margin={"0 0 20px 0"}
                   background={"#399119"}
                   boxShadow={"#245812 0px 7px 0px"}
-                >Continuar</Button>
+                >Continuar trilha</Button>
               </ALink>
-
-              {/* </StlyedLink> */}
             </ButtonBox>
           </MessageBox>
         );

@@ -87,6 +87,7 @@ const Activities = (props) => {
 
     console.log('state:', activitiesStates)
     setActivitiesProgress(activitiesStates)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activities])
 
   useEffect(() => {
@@ -98,7 +99,7 @@ const Activities = (props) => {
 
   useEffect(() => {
     props.postActionsBook(props.actionsBook)
-  }, [])
+  }, [props])
 
   const handlerNextActivitie = (index) => {
     if (hasNextActivitie) {
@@ -126,7 +127,7 @@ const Activities = (props) => {
             item={item}
             itemValue={index}
             onClick={() => handlerNextActivitie(index)}
-            history={props}
+            history={props.history}
             >{index}</ActivitieIcon>
           </ActivitiesRow>
         )
@@ -171,8 +172,6 @@ const Activities = (props) => {
       return action.activityId === activityId
     })
 
-    console.log('filtered', filteredActions)
-  
     if(filteredActions.length >= 3) return true
     else if(filteredActions.length > 0) {
       const checkIfIsDone = filteredActions.findIndex((action) => {
@@ -188,14 +187,14 @@ const Activities = (props) => {
   }
 
   const renderLogoStone = () => {
-    switch (props.activities.data[props.selectedTrails].name) {
+    const name = props.activities.data[props.selectedTrails].name;
+    switch (name) {
       case 'Água-Marinha':
         return (
           <Stone>
-            <img src={aquamarine} />
+            <img src={aquamarine} alt={name} />
           </Stone>
         );
-
     
       default:
         return
@@ -203,15 +202,16 @@ const Activities = (props) => {
   }
 
   const renderStone = () => {
-    switch (props.activities.data[props.selectedTrails].name) {
+    const name = props.activities.data[props.selectedTrails].name;
+
+    switch (name) {
       case 'Água-Marinha':
         return (
           <Stone padding='4rem 0 2rem 0'>
-            <img src={aquamarineStone} />
+            <img src={aquamarineStone} alt={name}/>
           </Stone>
         );
 
-    
       default:
         return
     }

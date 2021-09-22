@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Auth } from 'aws-amplify';
 
 //Component
 import Header from '../../components/header/headerYellow';
@@ -45,13 +44,6 @@ const Content = styled.div`
   padding: 2.125rem 1rem 0;
 `;
 
-// const Header = styled.div`
-//   padding: 2.375rem 1rem;
-//   background: #FFD000;
-//   border-bottom-left-radius: 24px;
-//   border-bottom-right-radius: 24px;
-// `;
-
 const Text = styled.h1`
   padding-bottom: ${props => props.paddingBottom && '.5rem'};
   font-size: ${props => props.name ? '1.5rem' : '1.25rem'};
@@ -67,7 +59,6 @@ const Card = styled.button`
   max-width: 330px;
   border-radius: 16px;
   padding: 16px;
-  /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
   background-color: #fff;
 
   &:hover{
@@ -83,18 +74,6 @@ const Card = styled.button`
 `;
 
 const Dashboard = (props) => {
-
-  async function handleSignOut() {
-    try {
-      await Auth.signOut();
-      localStorage.clear();
-      props.clearActionsBook();
-      props.signOut();
-      props.history.push({ pathname: '/' })
-    } catch (error) {
-      console.log('error signing out: ', error);
-    }
-  }
 
   const handleClick = (route) => {
     props.history.push({ pathname: `/${route}` });

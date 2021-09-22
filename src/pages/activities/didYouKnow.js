@@ -22,6 +22,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   background: #f3f3f3;
+
   @media (min-width: 1024px) {
     justify-content: center;
   }
@@ -67,6 +68,7 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
         timestamp: Date.now()
       })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalCorrectAnswer, modalWrongAnswer])
 
   const handleIsModalAnswerOption = () => {

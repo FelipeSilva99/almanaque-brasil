@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import trailsMap from './aliases';
 import aliases from './aliases';
 
 
@@ -19,7 +18,7 @@ const AlignToCenter = styled.div`
 
 const MapBackground = styled.div`
   position: relative;
-  width: 361px;
+  width: 413px;
   min-height: 430px;
   height: 100vh;
 `;

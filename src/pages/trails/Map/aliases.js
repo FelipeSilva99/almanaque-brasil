@@ -14,7 +14,7 @@ import turmalinaMap from '../../../images/trails/map/turmalina.svg'
 
 const trailsMap = {
   "Água-Marinha": {
-    "position": {bottom: "25px", left: "113px"},
+    "position": {bottom: "428px", left: "104px"},
     "img": aguaMarinhaMap,
     "stone": {
       "todo": "",
@@ -24,7 +24,7 @@ const trailsMap = {
   },
 
   "Diamante": {
-    "position": {bottom: "2px", left: "128px"},
+    "position": {bottom: "263px", left: "-6px"},
     "img": diamanteMap,
     "stone": {
       "todo": "",
@@ -34,7 +34,7 @@ const trailsMap = {
   },
 
   "Ametista": {
-    "position": {bottom: "0px", left: "0px"},
+    "position": {bottom: "0px", left: "-9px"},
     "img": ametistaMap,
     "stone": {
       "todo": "",
@@ -44,7 +44,7 @@ const trailsMap = {
   },
 
   "Turmalina": {
-    "position": {bottom: "43px", left: "119px"},
+    "position": {bottom: "319px", left: "223px"},
     "img": turmalinaMap,
     "stone": {
       "todo": "",
@@ -54,7 +54,7 @@ const trailsMap = {
   },
 
   "Prata": {
-    "position": {bottom: "91px", left: "68px"},
+    "position": {bottom: "102px", left: "-6px"},
     "img": prataMap,
     "stone": {
       "todo": "",
@@ -64,7 +64,7 @@ const trailsMap = {
   },
 
   "Ouro": {
-    "position": {bottom: "75px", left: "0px"},
+    "position": {bottom: "118px", left: "142px"},
     "img": ouroMap,
     "stone": {
       "todo": "",
@@ -74,7 +74,7 @@ const trailsMap = {
   },
 
   "Esmeralda": {
-    "position": {bottom: "217px", left: "172px"},
+    "position": {bottom: "262px", left: "166px"},
     "img": esmeraldaMap,
     "stone": {
       "todo": "",
@@ -84,7 +84,7 @@ const trailsMap = {
   },
 
   "Safira": {
-    "position": {bottom: "128px", left: "120px"},
+    "position": {bottom: "98px", left: "287px"},
     "img": safiraMap,
     "stone": {
       "todo": "",
@@ -94,7 +94,7 @@ const trailsMap = {
   },
 
   "Alexandrita": {
-    "position": {bottom: "257px", left: "0px"},
+    "position": {bottom: "0", left: "141px"},
     "img": alexandritaMap,
     "stone": {
       "todo": "",
@@ -104,7 +104,7 @@ const trailsMap = {
   },
 
   "Topázio": {
-    "position": {bottom: "39px", left: "229px"},
+    "position": {bottom: "384px", left: "-9px"},
     "img": topazioMap,
     "stone": {
       "todo": "",

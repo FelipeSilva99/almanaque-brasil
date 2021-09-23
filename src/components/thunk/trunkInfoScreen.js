@@ -12,6 +12,7 @@ const Container = styled.div`
   max-width: 26.5625rem;
   height: 100vh;
   background: #fff;
+  z-index: 2;
   overflow-y: auto;
 
   ::-webkit-scrollbar {
@@ -70,40 +71,31 @@ const Text = styled.p`
   color: #373737;
 `;
 
-const TrunkInfoScreen = ({ itemData, activityId, onClick }) => {
+const TrunkInfoScreen = ({ itemData, onClick }) => {
   const [showTitle, setShowTitle] = useState(undefined);
   const [data, setData] = useState([]);
   const myRef = createRef();
 
   useEffect(() => {
-    console.log('-----itemData', itemData.id);
-    if(itemData) {
-      // setData(itemData);
-
-    }
-
-    if (activityId) {
-
-    }
-    console.log({activityId});
+    setData(itemData);
   }, [itemData]);
 
   const onScroll = () => {
     const scrollTop = myRef.current.scrollTop
 
-    scrollTop >= 220 ? setShowTitle(true) : setShowTitle(false);
+    scrollTop >= 200 ? setShowTitle(true) : setShowTitle(false);
   }
 
   return (
     <Container ref={myRef} onScroll={onScroll}>
-      {/* <Header trunkScreen showTitle={showTitle} title={data.category} goBack={onClick} />
+      <Header trunkScreen showTitle={showTitle} title={data.category} goBack={onClick} />
       <Img src={`data:image/jpeg;base64,${data.imageBase64}`} alt='Imagem da atividade' />
       <MessageBox>
         <Title>
           {data.title}
         </Title>
         <Text>{data.content}</Text>
-      </MessageBox> */}
+      </MessageBox>
     </Container>
   );
 }

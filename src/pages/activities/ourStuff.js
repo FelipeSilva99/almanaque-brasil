@@ -138,8 +138,8 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
         }
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore isTrunk amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isAnswerCorrect()[0]} isTrunk amountTrial={amountTrial}/>}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isAnswerCorrect()[0]} isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
       </Container>
     )
   );

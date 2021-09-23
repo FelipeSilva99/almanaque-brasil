@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import Header from '../../components/header';
 import ActivitieIcon from '../../components/trail/activitieIcon'
 import Way from '../../components/trail/way';
-import TrailCompleted from '../../components/modal/trailCompleted';
 
 //Assets
 import aquamarineStone from '../../images/stones/aquamarine2.svg'
@@ -130,7 +129,7 @@ const Activities = (props) => {
         return(
           <ActivitiesRow key={index}>
             <ActivitieIcon
-            activitieState={activitiesProgress[index].state}
+            activitieState={activitiesProgress[index]?.state}
             item={item}
             itemValue={index}
             onClick={() => handlerNextActivitie(index)}
@@ -176,7 +175,7 @@ const Activities = (props) => {
     if(actionsBook === undefined) return
 
     const filteredActions = actionsBook.filter((action) => {
-      return action.activityId === activityId
+      return action.activityId === activityId;
     })
 
     if(filteredActions.length >= 3) return true

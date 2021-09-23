@@ -9,7 +9,6 @@ import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 import ContentImageText from '../../components/activities/activitieDescription';
 import OptionsButtons from '../../components/activities/optionsButtons';
-import TrunkInfoScreen from '../../components/thunk/trunkInfoScreen';
 
 //Images
 import logo from '../../images/logo/didYouKnow.svg';
@@ -29,7 +28,7 @@ const Container = styled.div`
   }
 `;
 
-const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
+const DidYouKnow = (props) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
@@ -38,7 +37,6 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [amountTrial, setAmountTrial] = useState(3);
-  const [isModalThunk, setIsModalThunk] = useState(undefined);
 
   useEffect(() => {
     let timer1 = setTimeout(() => setIsLoading(false), 2000);
@@ -49,23 +47,23 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
   }, []);
 
   useEffect(() => {
-    setActivitie(useActivitie);
-  }, [useActivitie]);
+    setActivitie(props.useActivitie);
+  }, [props.useActivitie]);
 
   useEffect(() => {
     if (modalWrongAnswer) {
-      registerAction({
-        activityId: useActivitie.id,
-        trailId: useActivitie.trailId,
+      props.registerAction({
+        activityId: props.useActivitie.id,
+        trailId: props.useActivitie.trailId,
         success: false,
         timestamp: Date.now()
       })
     }
 
     if (modalCorrectAnswer) {
-      registerAction({
-        activityId: useActivitie.id,
-        trailId: useActivitie.trailId,
+      props.registerAction({
+        activityId: props.useActivitie.id,
+        trailId: props.useActivitie.trailId,
         success: true,
         timestamp: Date.now()
       })
@@ -92,14 +90,10 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
   }
 
   const showModalAnswer = () => {
+    const useAnswers = activitie.answers.filter(item => item.isCorrect);
     setModalWrongAnswer(false);
     setModalCorrectAnswer(false);
-    setShowAnswer(true);
-  }
-
-  const handleModalThunk = () => {
-    console.log('olaaaaaaa');
-    setIsModalThunk(!isModalThunk);
+    setShowAnswer({isModal: true, answer: useAnswers});
   }
 
   const renderScreen = () => {
@@ -136,14 +130,13 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
         {(
           !modalWrongAnswer
           && !modalCorrectAnswer
-          && !showAnswer)
+          && !showAnswer.isModal)
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore isTrunk amountTrial={amountTrial} handleModalThunk={handleModalThunk} />}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={useActivitie.answers[3]} isTrunk amountTrial={amountTrial} handleModalThunk={handleModalThunk} />}
-        {isModalThunk && <TrunkInfoScreen itemData={activitie} onClick={handleModalThunk} />}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={activitie.errorMessages} />}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={props.handlerNextActivitie} answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial} />}
+        {showAnswer.isModal && <CorrectAnswer handlerNextActivitie={props.handlerNextActivitie} answer={showAnswer.answer} isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial} />}
       </Container>
     )
   );

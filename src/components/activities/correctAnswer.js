@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
+import { connect } from 'react-redux';
 
 //Components
 import ScoreScreen from '../activities/scoreScreen';
 import Button from '../buttons/button';
+import TrunkInfoScreen from '../thunk/trunkInfoScreen';
+
+//Redux
+const mapStateToProps = state => ({
+  thunk: state.thunk.data,
+});
 
 //Styles
 const Container = styled.div`
@@ -47,7 +53,6 @@ const ButtonBox = styled.div`
   bottom: 0;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  /* padding-top: 4vh; */
   background-color: ${props => props.backgroundColor || '#FFFFFF'};
   width: 100vw;
 
@@ -128,16 +133,11 @@ const Text = styled.p`
   @media(min-width: 1024px) {font-size: 1rem;}
 `;
 
-const ALink = styled(Link)`
-  width: 100%;
-  max-width: 425px;
-  display: flex;
-  justify-content: center;
-`;
-
-const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial, handleModalThunk }) => {
+const CorrectAnswer = (props) => {
   const history = useHistory();
   const [actualModal, setActualModal] = useState(undefined);
+
+  const [isModalThunk, setIsModalThunk] = useState({ isModal: undefined, data: undefined });
 
   const modals = {
     toScore: "toScore",
@@ -145,10 +145,11 @@ const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial, handleModalThunk
   }
 
   useEffect(() => {
-    toScore
+    props.toScore
       ? setActualModal(modals.toScore)
       : setActualModal(modals.answerDescription)
-  }, [toScore, modals.answerDescription, modals.toScore]);
+
+  }, [props.toScore, modals.answerDescription, modals.toScore, props.idActivitie]);
 
   const handleContinue = () => {
     switch (actualModal) {
@@ -160,11 +161,20 @@ const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial, handleModalThunk
     }
   }
 
-  const handleGoActivities = () => {
+  const handleModalThunk = () => {
+    const { thunk, idActivitie } = props;
+    const data = thunk.filter(item => item.id === idActivitie)[0];
+
+    setIsModalThunk({ isModal: !isModalThunk.isModal, data: data });
+  }
+
+  const goActivities = () => {
     history.push('/activities');
   }
 
   const renderModal = () => {
+    const { amountTrial, answer, isTrunk, idActivitie } = props;
+
     switch (actualModal) {
       case modals.toScore:
         return (
@@ -184,25 +194,22 @@ const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial, handleModalThunk
               </Scroll>
             </ComplementaryInformationBox>
             <ButtonBox>
-              {isTrunk && (
-
-                  <Button
-                    color={"#373737"}
-                    margin={"0 0 20px 0"}
-                    background={"#FFD000"}
-                    boxShadow={"#F08800 0px 7px 0px"}
-                    handleClick={handleModalThunk}
-                  >Veja mais no nosso Baú</Button>
-              )}
-              <ALink to="/activities">
+              {isTrunk && idActivitie && (
                 <Button
-                  color={"#fff"}
+                  color={"#373737"}
                   margin={"0 0 20px 0"}
-                  background={"#399119"}
-                  boxShadow={"#245812 0px 7px 0px"}
-                  handleClick={handleGoActivities}
-                >Continuar trilha</Button>
-              </ALink>
+                  background={"#FFD000"}
+                  boxShadow={"#F08800 0px 7px 0px"}
+                  handleClick={handleModalThunk}
+                >Veja mais no nosso Baú</Button>
+              )}
+              <Button
+                color={"#fff"}
+                margin={"0 0 20px 0"}
+                background={"#399119"}
+                boxShadow={"#245812 0px 7px 0px"}
+                handleClick={goActivities}
+              >Continuar trilha</Button>
             </ButtonBox>
           </MessageBox>
         );
@@ -214,10 +221,13 @@ const CorrectAnswer = ({ answer, toScore, isTrunk, amountTrial, handleModalThunk
 
   return (
     <Container>
-      {(answer?.imageBase64) && <Img src={`data:image/jpeg;base64,${answer.imageBase64}`}></Img>}
+      {(props.answer?.imageBase64) && <Img src={`data:image/jpeg;base64,${props.answer.imageBase64}`}></Img>}
       {renderModal()}
+      {isModalThunk?.isModal && <TrunkInfoScreen itemData={isModalThunk?.data} onClick={handleModalThunk} />}
     </Container>
   );
 }
 
-export default CorrectAnswer;
+export default connect(
+  mapStateToProps,
+)(CorrectAnswer);

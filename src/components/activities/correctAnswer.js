@@ -187,7 +187,7 @@ const CorrectAnswer = (props) => {
         return (
           <MessageBox height={'52vh'}>
             <ComplementaryInformationBox>
-              <Title>A reposta é</Title>
+              <Title>A resposta é:</Title>
               <TextName>{answer.answer}</TextName>
               <Scroll>
                 <Text>{answer.complementaryInformation}</Text>

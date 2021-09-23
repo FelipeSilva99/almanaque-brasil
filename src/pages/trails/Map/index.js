@@ -28,7 +28,7 @@ const MapFragment = styled.div`
   position: absolute;
   left: ${props => props.left};
   bottom: ${props => props.bottom};
-
+  z-index: 1;
   p{
     position: absolute;
     color: red;
@@ -39,6 +39,7 @@ const MapFragment = styled.div`
 const Skeleton = styled.img`
   position: absolute;
   bottom: 0;
+
 `;
 
 const Map = ({ trails, goToActivitie }) => {

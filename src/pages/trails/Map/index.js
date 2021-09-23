@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import trailsMap from './aliases';
 import aliases from './aliases';
+import skeleton from '../../../images/trails/map/skeleton.svg'
 
 
 const AlignToCenter = styled.div`
@@ -10,7 +10,7 @@ const AlignToCenter = styled.div`
   }
   overflow: auto;
   position: absolute;
-  background-color: #d5e2ff;
+  background-color: #ebeeec;
   bottom: 39px;
   display: flex;
   justify-content: center;
@@ -19,7 +19,7 @@ const AlignToCenter = styled.div`
 
 const MapBackground = styled.div`
   position: relative;
-  width: 361px;
+  width: 413px;
   min-height: 430px;
   height: 100vh;
 `;
@@ -34,6 +34,11 @@ const MapFragment = styled.div`
     color: red;
     z-index: 3;
   }
+`;
+
+const Skeleton = styled.img`
+  position: absolute;
+  bottom: 0;
 `;
 
 const Map = ({ trails, goToActivitie }) => {
@@ -55,18 +60,7 @@ const Map = ({ trails, goToActivitie }) => {
             ><img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} />
           </MapFragment>
         ))}
-        {/* {Object.keys(aliases).map((trail, key) => (
-          console.log('trail', trail),
-
-          <MapFragment 
-            key={key}
-            src={aliases[trail].img}
-            left={aliases[trail].position.left}
-            bottom={aliases[trail].position.bottom}
-            onClick={() => goToActivitie(trail.id)}></MapFragment>
-        ))
-
-        } */}
+        <Skeleton src={skeleton} />
         
       </MapBackground>
     </AlignToCenter>

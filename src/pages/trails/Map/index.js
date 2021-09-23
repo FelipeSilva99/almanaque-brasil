@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import aliases from './aliases';
+import skeleton from '../../../images/trails/map/skeleton.svg'
 
 
 const AlignToCenter = styled.div`
@@ -21,6 +22,11 @@ const MapBackground = styled.div`
   width: 413px;
   min-height: 430px;
   height: 100vh;
+  background-image: url(${skeleton});
+  background-repeat: no-repeat;
+  background-position-x: 0px;
+  background-position-y: 184px;
+  backgroundn-size: ; 
 `;
 
 const MapFragment = styled.div`
@@ -43,7 +49,7 @@ const Map = ({ trails, goToActivitie }) => {
   return (
     console.log('aliases', aliases),
     <AlignToCenter>
-      <MapBackground>
+      <MapBackground backgroundImage={skeleton}>
         {trails.map((trail, key) => (
           // console.log('trail dfd:', trail.name),
           <MapFragment 

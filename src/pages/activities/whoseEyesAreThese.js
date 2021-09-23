@@ -47,7 +47,6 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion, registerAction })
   }, []);
 
   useEffect(() => {
-    console.log(useActivitie)
     setActivitie(useActivitie);
   }, [useActivitie]);
 

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Assets
-import headerBackground from '../../images/progressHeaderBackground.svg'
 import trophiesIcon from '../../images/icons/progressHeader/trophies.svg'
 import booksIcon from '../../images/icons/progressHeader/books.svg'
 import trailsIcon from '../../images/icons/progressHeader/trails.svg'

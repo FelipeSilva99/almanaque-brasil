@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
@@ -13,9 +13,7 @@ import dashboardTrail from '../../images/dashboardTrail.svg';
 import thunk from '../../images/icons/menu/selectedThunk.svg';
 
 //Redux
-import { signOut } from '../../dataflow/modules/signIn-modules';
-import { selectedTrails } from '../../dataflow/modules/trails-module';
-import { clearActionsBook } from '../../dataflow/modules/actionsBook-modules';
+import { getDataThunk } from '../../dataflow/thunks/thunk-thunks';
 
 const mapStateToProps = state => ({
   trails: state.trails.data,
@@ -23,16 +21,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  selectedTrails: (info) => {
-    dispatch(selectedTrails(info));
-  },
-
-  signOut: () => {
-    dispatch(signOut());
-  },
-
-  clearActionsBook: () => {
-    dispatch(clearActionsBook());
+  getDataThunk: () => {
+    dispatch(getDataThunk());
   },
 });
 
@@ -89,6 +79,11 @@ const ElifasSVG = styled.img`
 `;
 
 const Dashboard = (props) => {
+
+  useEffect(() => {
+		props.getDataThunk();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
   const handleClick = (route) => {
     props.history.push({ pathname: `/${route}` });

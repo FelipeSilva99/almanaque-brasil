@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Header from '../../components/header';
 import ActivitieIcon from '../../components/trail/activitieIcon'
 import Way from '../../components/trail/way';
+import TrailCompleted from '../../components/modal/trailCompleted';
 
 //Assets
 import aquamarineStone from '../../images/stones/aquamarine2.svg'
@@ -33,6 +34,7 @@ const mapDispatchToProps = dispatch => ({
 const Container = styled.div`
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   background-color: #FAFAFA;
 `;
 
@@ -56,6 +58,10 @@ const Trail = styled.div`
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+
+  h1 {
+    padding-top: 5rem;
+  }
 `;
 
 const ActivitiesRow = styled.div`
@@ -66,7 +72,8 @@ const ActivitiesRow = styled.div`
 
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
-  const [activitiesProgress, setActivitiesProgress] = useState(undefined)
+  const [activitiesProgress, setActivitiesProgress] = useState(undefined);
+
   const backgroundDecorations = {
     top: church,
     center: houses,
@@ -76,7 +83,8 @@ const Activities = (props) => {
   useEffect(() => {
     if(activities === null) return  
 
-    let canBeDone = true
+    let canBeDone = true;
+
     const activitiesStates = activities.map((activitie, ind, array) => {
       const isDoneActivitie = isDone(activitie.id)
       // const background = setBackgroundColor(activitie)
@@ -84,16 +92,15 @@ const Activities = (props) => {
       if(!isDoneActivitie) canBeDone = false
       return {id: activitie.id, state: activitieState}
     })
-
-    console.log('state:', activitiesStates)
-    setActivitiesProgress(activitiesStates)
+    
+    setActivitiesProgress(activitiesStates);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activities])
+  }, [activities]);
 
   useEffect(() => {
     const trail = props.selectedTrails;
     const allActivities = props.activities.data[trail].activities;
-    
+
     setActivities(allActivities);
   }, [props.selectedTrails, props.activities.data]);
 
@@ -236,6 +243,7 @@ const Activities = (props) => {
       </Trail>
 
       {renderStone()}
+
     </Container>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect, createRef } from 'react';
 import styled from 'styled-components';
 
 //Component
-import Header from '../../components/header';
+import Header from '../header';
 
 //Styles
 const Container = styled.div`
@@ -12,6 +12,7 @@ const Container = styled.div`
   max-width: 26.5625rem;
   height: 100vh;
   background: #fff;
+  z-index: 2;
   overflow-y: auto;
 
   ::-webkit-scrollbar {
@@ -70,7 +71,7 @@ const Text = styled.p`
   color: #373737;
 `;
 
-const InfoScreen = ({ itemData, onClick }) => {
+const TrunkInfoScreen = ({ itemData, onClick }) => {
   const [showTitle, setShowTitle] = useState(undefined);
   const [data, setData] = useState([]);
   const myRef = createRef();
@@ -82,7 +83,7 @@ const InfoScreen = ({ itemData, onClick }) => {
   const onScroll = () => {
     const scrollTop = myRef.current.scrollTop
 
-    scrollTop >= 220 ? setShowTitle(true) : setShowTitle(false);
+    scrollTop >= 200 ? setShowTitle(true) : setShowTitle(false);
   }
 
   return (
@@ -99,4 +100,4 @@ const InfoScreen = ({ itemData, onClick }) => {
   );
 }
 
-export default InfoScreen;
+export default TrunkInfoScreen;

@@ -83,8 +83,8 @@ const Trails = (props) => {
       {
         trails && (
           <>
-            {renderTrails(trails)}
-            {/* <Map trails={trails} goToActivitie={handleClick}></Map> */}
+            {/* {renderTrails(trails)} */}
+            <Map trails={trails} goToActivitie={handleClick}></Map>
           </>
         ) 
       }

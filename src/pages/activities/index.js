@@ -104,23 +104,11 @@ const Activities = (props) => {
     }
   }
 
-  const renderScreen = (currentActivitie) => {
-    return (
-      <>
-        {
-          currentActivitie
-            ? renderActivitie(currentActivitie, props.registerAction)
-            : <h1>não tem mais atividades</h1>
-        }
-      </>
-    )
-  }
-
   return (
     <Container>
       {
         activities && activities.length > 0
-          ? renderScreen(activities[currentActivitie-1])
+          ? renderActivitie(activities[currentActivitie-1], props.registerAction)
           : <h1>Carregando</h1>
       }
     </Container>

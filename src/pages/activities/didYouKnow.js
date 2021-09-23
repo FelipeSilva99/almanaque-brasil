@@ -34,7 +34,7 @@ const DidYouKnow = (props) => {
   const [answer, setAnswer] = useState(undefined);
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [activitie, setActivitie] = useState(undefined)
-  const [showAnswer, setShowAnswer] = useState(false);
+  const [showAnswer, setShowAnswer] = useState({isModal: undefined, answer: undefined});
   const [isLoading, setIsLoading] = useState(true);
   const [amountTrial, setAmountTrial] = useState(3);
 
@@ -68,7 +68,7 @@ const DidYouKnow = (props) => {
         timestamp: Date.now()
       })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalCorrectAnswer, modalWrongAnswer])
 
   const handleIsModalAnswerOption = () => {

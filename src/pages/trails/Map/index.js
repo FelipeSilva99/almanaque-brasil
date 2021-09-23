@@ -3,10 +3,15 @@ import styled from 'styled-components';
 
 //Component
 import aliases from './aliases';
+import skeleton from '../../../images/trails/map/skeleton.svg'
 
 const AlignToCenter = styled.div`
+  &::-webkit-scrollbar {
+    display: none;               /* width of the entire scrollbar */
+  }
+  overflow: auto;
   position: absolute;
-  background-color: #d5e2ff;
+  background-color: #ebeeec;
   bottom: 39px;
   display: flex;
   justify-content: center;
@@ -15,7 +20,7 @@ const AlignToCenter = styled.div`
 
 const MapBackground = styled.div`
   position: relative;
-  width: 361px;
+  width: 413px;
   min-height: 430px;
   height: 100vh;
 `;
@@ -32,6 +37,11 @@ const MapFragment = styled.div`
   }
 `;
 
+const Skeleton = styled.img`
+  position: absolute;
+  bottom: 0;
+`;
+
 const Map = ({ trails, goToActivitie }) => {
   const handleMapFragmentClick = (trail, key) => {
     trail.isActive ? goToActivitie(key) : alert(`Trilha ${trail.name} bloqueada`)
@@ -46,20 +56,11 @@ const Map = ({ trails, goToActivitie }) => {
             left={aliases[trail.name].position.left}
             bottom={aliases[trail.name].position.bottom}
             type="image/svg+xml"
-            ><img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} />
+            >
+            <img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} />
           </MapFragment>
         ))}
-        {/* {Object.keys(aliases).map((trail, key) => (
-
-          <MapFragment 
-            key={key}
-            src={aliases[trail].img}
-            left={aliases[trail].position.left}
-            bottom={aliases[trail].position.bottom}
-            onClick={() => goToActivitie(trail.id)}></MapFragment>
-        ))
-
-        } */}
+        <Skeleton src={skeleton} />
         
       </MapBackground>
     </AlignToCenter>

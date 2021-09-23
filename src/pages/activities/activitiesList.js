@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Header from '../../components/header';
 import ActivitieIcon from '../../components/trail/activitieIcon'
 import Way from '../../components/trail/way';
+import TrailCompleted from '../../components/modal/trailCompleted';
 
 //Assets
 import aquamarineStone from '../../images/stones/aquamarine2.svg'
@@ -121,7 +122,6 @@ const Activities = (props) => {
 
   const renderActivities = () => {
     // logic for deciding whether to return one or two items in a row
-    console.log('activitiesProgress123', activitiesProgress)
     if(activitiesProgress === undefined) return
     let nextItemIsSingular = true;
     return activities.map((item, index, array) => {
@@ -130,11 +130,11 @@ const Activities = (props) => {
         return(
           <ActivitiesRow key={index}>
             <ActivitieIcon
-              activitieState={activitiesProgress[index]?.state}
-              item={item}
-              itemValue={index}
-              onClick={() => handlerNextActivitie(index)}
-              history={props.history}
+            activitieState={activitiesProgress[index].state}
+            item={item}
+            itemValue={index}
+            onClick={() => handlerNextActivitie(index)}
+            history={props.history}
             >{index}</ActivitieIcon>
           </ActivitiesRow>
         )
@@ -148,7 +148,7 @@ const Activities = (props) => {
           return (
             <ActivitiesRow key={index}>
               <ActivitieIcon
-                activitieState={activitiesProgress[index]?.state}
+                activitieState={activitiesProgress[index].state}
                 item={item}
                 itemValue={index}
                 lineTo={'straight'}
@@ -157,7 +157,7 @@ const Activities = (props) => {
                 >{index}</ActivitieIcon>
 
               <ActivitieIcon
-                activitieState={activitiesProgress[index+1]?.state}
+                activitieState={activitiesProgress[index+1].state}
                 item={array[index+1]}
                 itemValue={index+1}
                 lineTo={'left'}
@@ -176,7 +176,7 @@ const Activities = (props) => {
     if(actionsBook === undefined) return
 
     const filteredActions = actionsBook.filter((action) => {
-      return action.activityId === activityId;
+      return action.activityId === activityId
     })
 
     if(filteredActions.length >= 3) return true
@@ -223,10 +223,6 @@ const Activities = (props) => {
         return
     }
   }
-
-
-{console.log('activitiesProgress----', activitiesProgress)}
-{console.log('activities----', activities)}
   
   return (
     <Container>

@@ -10,7 +10,7 @@ const AlignToCenter = styled.div`
   }
   overflow: auto;
   position: absolute;
-  background-color: #d5e2ff;
+  background-color: #ebeeec;
   bottom: 39px;
   display: flex;
   justify-content: center;
@@ -22,11 +22,6 @@ const MapBackground = styled.div`
   width: 413px;
   min-height: 430px;
   height: 100vh;
-  background-image: url(${skeleton});
-  background-repeat: no-repeat;
-  background-position-x: 0px;
-  background-position-y: 184px;
-  backgroundn-size: ; 
 `;
 
 const MapFragment = styled.div`
@@ -41,6 +36,11 @@ const MapFragment = styled.div`
   }
 `;
 
+const Skeleton = styled.img`
+  position: absolute;
+  bottom: 0;
+`;
+
 const Map = ({ trails, goToActivitie }) => {
   const handleMapFragmentClick = (trail, key) => {
     trail.isActive ? goToActivitie(key) : alert(`Trilha ${trail.name} bloqueada`)
@@ -49,7 +49,7 @@ const Map = ({ trails, goToActivitie }) => {
   return (
     console.log('aliases', aliases),
     <AlignToCenter>
-      <MapBackground backgroundImage={skeleton}>
+      <MapBackground>
         {trails.map((trail, key) => (
           // console.log('trail dfd:', trail.name),
           <MapFragment 
@@ -60,18 +60,7 @@ const Map = ({ trails, goToActivitie }) => {
             ><img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} />
           </MapFragment>
         ))}
-        {/* {Object.keys(aliases).map((trail, key) => (
-          console.log('trail', trail),
-
-          <MapFragment 
-            key={key}
-            src={aliases[trail].img}
-            left={aliases[trail].position.left}
-            bottom={aliases[trail].position.bottom}
-            onClick={() => goToActivitie(trail.id)}></MapFragment>
-        ))
-
-        } */}
+        <Skeleton src={skeleton} />
         
       </MapBackground>
     </AlignToCenter>

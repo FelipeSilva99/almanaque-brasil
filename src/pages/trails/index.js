@@ -80,7 +80,7 @@ const Trails = (props) => {
 
   return (
     <Box>
-      {/* <ProgressHeader /> */}
+      <ProgressHeader />
       {
         trails && (
           <>

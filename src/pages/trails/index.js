@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 //Component
 import Footer from '../../components/footer/footerMenu';
 import Map from './Map';
-import ProgressHeader from '../../components/progressHeader'
+import ProgressHeader from '../../components/progressHeader';
 
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';
@@ -84,8 +84,8 @@ const Trails = (props) => {
       {
         trails && (
           <>
-            {/* {renderTrails(trails)} */}
-            <Map trails={trails} goToActivitie={handleClick}></Map>
+            {renderTrails(trails)}
+            {/* <Map trails={trails} goToActivitie={handleClick}></Map> */}
           </>
         ) 
       }

@@ -137,9 +137,9 @@ const OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore isTrunk amountTrial={amountTrial} />}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isAnswerCorrect()[0]} isTrunk amountTrial={amountTrial} />}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
+        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isAnswerCorrect()[0]} isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
       </Container>
     )
   );

@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+
+//Component
 import aliases from './aliases';
 import skeleton from '../../../images/trails/map/skeleton.svg'
-
 
 const AlignToCenter = styled.div`
   &::-webkit-scrollbar {
@@ -48,17 +49,16 @@ const Map = ({ trails, goToActivitie }) => {
   }
 
   return (
-    console.log('aliases', aliases),
     <AlignToCenter>
       <MapBackground>
         {trails.map((trail, key) => (
-          // console.log('trail dfd:', trail.name),
           <MapFragment 
             key={key}
             left={aliases[trail.name].position.left}
             bottom={aliases[trail.name].position.bottom}
             type="image/svg+xml"
-            ><img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} />
+            >
+            <img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} />
           </MapFragment>
         ))}
         <Skeleton src={skeleton} />

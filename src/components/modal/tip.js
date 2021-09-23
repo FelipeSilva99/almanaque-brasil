@@ -14,12 +14,11 @@ const ContainerTip = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: 1;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   justify-content: flex-end;
   align-items: center;
+  z-index: 1;
 
   @media (min-width: 1024px) { align-items: center; }
 `;

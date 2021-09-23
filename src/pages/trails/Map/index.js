@@ -34,6 +34,14 @@ const MapFragment = styled.div`
     color: red;
     z-index: 3;
   }
+  overflow: auto;
+`;
+
+const Stone = styled.img`
+  position: absolute;
+  right: -20px;
+  top: ${props => props.top};
+  right: ${props => props.right};
 `;
 
 const Skeleton = styled.img`
@@ -58,7 +66,9 @@ const Map = ({ trails, goToActivitie }) => {
             left={aliases[trail.name].position.left}
             bottom={aliases[trail.name].position.bottom}
             type="image/svg+xml"
-            ><img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} />
+          >
+            <Stone top={aliases[trail.name].stone.position.top} right={aliases[trail.name].stone.position.right} src={aliases[trail.name].stone.state.done}></Stone>
+            <img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} />
           </MapFragment>
         ))}
         <Skeleton src={skeleton} />

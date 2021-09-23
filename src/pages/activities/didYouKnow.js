@@ -68,7 +68,7 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
         timestamp: Date.now()
       })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalCorrectAnswer, modalWrongAnswer])
 
   const handleIsModalAnswerOption = () => {
@@ -135,7 +135,7 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages} />}
         {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore isTrunk amountTrial={amountTrial} />}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={useActivitie.answers[3]} isTrunk amountTrial={amountTrial} />}
+        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={useActivitie.answers.filter((item) => item.isCorrect === true)[0]} isTrunk amountTrial={amountTrial} />}
       </Container>
     )
   );

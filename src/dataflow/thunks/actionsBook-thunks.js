@@ -79,7 +79,6 @@ export const deleteActionsBook = () => async (dispatch) => {
 var batchWriteActions = async (actions, idToken, dispatch) => { // Função Recursiva
   try{
     let limite = 25
-    console.log(actions.length);
     if(actions.length > limite){
       var rest = actions.splice(limite)
       console.log("Chunk: ",actions.length, "Rest: ", rest.length);

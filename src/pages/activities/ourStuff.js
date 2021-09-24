@@ -28,7 +28,7 @@ const Container = styled.div`
   }
 `;
 
-const OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
+const OurStuff = ({ useActivitie, registerAction }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);

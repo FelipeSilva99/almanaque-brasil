@@ -27,7 +27,7 @@ const Container = styled.div`
   }
 `;
 
-const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion, registerAction }) => {
+const WhoseEyesAreThese = ({ useActivitie, registerAction }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
@@ -142,8 +142,8 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion, registerAction })
         }
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
-        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer answer={useActivitie.answers[3]} amountTrial={amountTrial}/>}
+        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore amountTrial={amountTrial} idActivitie={activitie.id}/>}
+        {showAnswer && <CorrectAnswer answer={useActivitie.answers[3]} amountTrial={amountTrial} idActivitie={activitie.id}/>}
       </Container>
     )
   );

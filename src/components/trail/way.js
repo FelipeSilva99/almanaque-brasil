@@ -131,7 +131,6 @@ const Way = ({ backgroundDecorations, linesQuantity, progress }) => {
       {lines && lines.map((type, i) => {
         return setComponent(type, i)
       })}
-      {console.log({lines})}
     </Container>
 
   )

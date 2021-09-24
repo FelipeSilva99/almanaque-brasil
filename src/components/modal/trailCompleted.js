@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from "react-router-dom";
 
 //Components
 import Button from '../buttons/button';
@@ -75,8 +76,10 @@ const ImgBento = styled.img`
 `;
 
 function TrailCompleted(props) {
+  const history = useHistory();
+
   const handleClick = () => {
-    props.history.push('/trails')
+    history.push('/trails');
   }
 
   return (

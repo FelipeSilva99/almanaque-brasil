@@ -305,7 +305,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
       return;
     }
     if (isCorrectAnswer) {
-      handlerNextActivitie();
+      handlerNextActivitie(activitie.id);
     } else if (isCorrect()) {
       handleCorrectAnswer();
       handleModalCorrectAnswer();

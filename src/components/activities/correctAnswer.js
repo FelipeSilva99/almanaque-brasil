@@ -145,7 +145,6 @@ const CorrectAnswer = (props) => {
   }
 
   useEffect(() => {
-    console.log('propss', props);
     props.toScore
       ? setActualModal(modals.toScore)
       : setActualModal(modals.answerDescription)
@@ -170,7 +169,13 @@ const CorrectAnswer = (props) => {
   }
 
   const goActivities = () => {
-    history.push('/activities');
+    const idActivitie = props.idActivitie && props.idActivitie;
+console.log('idActivitiens correct anwer', idActivitie);
+
+    history.push({
+      pathname: '/activities',
+      state: {idActivitie: idActivitie},
+    });
   }
 
   const renderModal = () => {

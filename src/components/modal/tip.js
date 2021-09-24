@@ -85,7 +85,7 @@ const ScrollTip = styled.ol`
   padding-left: 2.7rem;
   list-style: none;
   overflow-y: auto;
-  counter-reset: counter;
+  counter-reset: count;
 
   ::-webkit-scrollbar {
 		width: 4px;

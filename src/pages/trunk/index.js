@@ -14,6 +14,7 @@ import iconThunk from '../../images/icons/menu/selectedThunk.svg';
 
 const mapStateToProps = state => ({
   thunk: state.thunk.data,
+  userName: state.login.user.name
 });
 
 //Styled
@@ -132,7 +133,7 @@ const Trunk = (props) => {
   }
   return (
     <Container>
-      <Header text='Baú' icon={iconThunk} />
+      <Header initialLettersName={props.userName[0] + props.userName[1]} text='Baú' icon={iconThunk} />
       <ContainerBox>
         {!data.length
           ? <Text>Carregando</Text>

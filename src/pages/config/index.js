@@ -29,6 +29,7 @@ const Container = styled.div`
   border-top-right-radius: 8px;
   background: #fff;
   text-align: end;
+  z-index: 3;
 `;
 
 const Button = styled.button`

@@ -99,7 +99,7 @@ const Dashboard = (props) => {
 
   return (
     <Container>
-      { showWelcomeModal && <WelcomeModal onClick={() => setWelcomeModal(!showWelcomeModal)}/> }
+      { showWelcomeModal && <WelcomeModal handleClose={() => setWelcomeModal(!showWelcomeModal)}/> }
       <Header
         initialLettersName={props.user.name[0] + props.user.name[1]}
         text={`Oi, ${props.user.name}`}

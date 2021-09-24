@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Header from '../../components/header';
 import ActivitieIcon from '../../components/trail/activitieIcon'
 import Way from '../../components/trail/way';
-import TrailCompleted from '../../components/modal/trailCompleted';
+import ActivitiesCompleted from '../../components/modal/activitiesCompletedModal';
 
 //Assets
 import aquamarineStone from '../../images/stones/aquamarine2.svg'
@@ -16,7 +16,6 @@ import houses from '../../images/trails/houses.svg'
 import trainStation from '../../images/trails/trainstation.svg'
 
 import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
-
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -72,7 +71,7 @@ const ActivitiesRow = styled.div`
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
   const [activitiesProgress, setActivitiesProgress] = useState(undefined);
-  const [isModalTrailCompleted, setIsModalTrailCompleted] = useState(undefined);
+  const [isModalActivitiesCompleted, setIsModalActivitiesCompleted] = useState(undefined);
 
   const backgroundDecorations = {
     top: church,
@@ -104,7 +103,7 @@ const Activities = (props) => {
     const idDaUltimaAtividade = allActivities[allActivities.length - 1].id;
 
     if(lastActivityDone) {
-      setIsModalTrailCompleted(lastActivityDone === idDaUltimaAtividade);
+      setIsModalActivitiesCompleted(lastActivityDone === idDaUltimaAtividade);
     }
 
     setActivities(allActivities);
@@ -244,7 +243,7 @@ const Activities = (props) => {
 
       {renderStone()}
 
-      {isModalTrailCompleted && <TrailCompleted />}
+      {isModalActivitiesCompleted && <ActivitiesCompleted />}
 
     </Container>
   );

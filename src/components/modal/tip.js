@@ -14,12 +14,12 @@ const ContainerTip = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
+  z-index: 1;
   display: flex;
   flex-direction: column;
+  height: 100vh;
   justify-content: flex-end;
   align-items: center;
-  z-index: 1;
-
   @media (min-width: 1024px) { align-items: center; }
 `;
 
@@ -49,7 +49,6 @@ const ContentInfo = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-
   img {
     cursor: pointer;
   }
@@ -58,7 +57,6 @@ const ContentInfo = styled.div`
 const ScrollTip = styled.div`
   overflow-y: auto;
   height: 14rem;
-
   ::-webkit-scrollbar {
 		width: 4px;
 		height: 10px;
@@ -80,7 +78,6 @@ const TextTip = styled.p`
   padding-bottom: .8rem;
   color: #373737F2;
   line-height: 1.2rem;
-
   @media (max-width: 320px) { padding: ${props => props.padding && '1.5rem 0 .4rem 0 '}; }
 `;
 

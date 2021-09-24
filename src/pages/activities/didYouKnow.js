@@ -135,8 +135,8 @@ const DidYouKnow = (props) => {
         }
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={activitie.errorMessages} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={props.handlerNextActivitie} answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial} />}
-        {showAnswer.isModal && <CorrectAnswer handlerNextActivitie={props.handlerNextActivitie} answer={showAnswer.answer} isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial} />}
+        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial} />}
+        {showAnswer.isModal && <CorrectAnswer answer={showAnswer.answer} isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial} />}
       </Container>
     )
   );

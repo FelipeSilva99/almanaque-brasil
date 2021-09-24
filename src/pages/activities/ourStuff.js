@@ -28,7 +28,7 @@ const Container = styled.div`
   }
 `;
 
-const OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
+const OurStuff = ({ useActivitie, registerAction }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
@@ -138,8 +138,8 @@ const OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
         }
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isAnswerCorrect()[0]} isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
+        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
+        {showAnswer && <CorrectAnswer answer={isAnswerCorrect()[0]} isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
       </Container>
     )
   );

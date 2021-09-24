@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 //Component
 import Header from '../../components/header/headerYellow';
 import Footer from '../../components/footer/footerMenu';
+import WelcomeModal from '../../components/modal/welcomeModal'
 
 //Image
 import home from '../../images/icons/menu/selectedHome.svg';
@@ -78,7 +79,11 @@ const ElifasSVG = styled.img`
   bottom: 2.875rem;
 `;
 
+
+
 const Dashboard = (props) => {
+
+  const [showWelcomeModal, setWelcomeModal] = useState(true);
 
   useEffect(() => {
 		props.getDataThunk();
@@ -91,13 +96,16 @@ const Dashboard = (props) => {
 
   const trails = props?.trails;
 
+
   return (
     <Container>
+      { showWelcomeModal && <WelcomeModal onClick={() => setWelcomeModal(!showWelcomeModal)}/> }
       <Header
         initialLettersName={props.user.name[0] + props.user.name[1]}
         text={`Oi, ${props.user.name}`}
-        icon={home} home
-      />
+        icon={home}
+        />
+
        <Content>
         <Text paddingBottom>Qual atividade você quer fazer?</Text>
         {trails && (
@@ -109,7 +117,7 @@ const Dashboard = (props) => {
               backgroundSize={'209px'}
               backgroundPositionX={'217px'}
               onClick={() => handleClick('trails')}
-            ><Text>Mapa das<br/>trilhas</Text>
+              ><Text>Mapa das<br/>trilhas</Text>
             </Card>
 
             <Card
@@ -120,12 +128,12 @@ const Dashboard = (props) => {
               backgroundPositionX={'70px'}
               backgroundPositionY={'28px'}
               onClick={() => handleClick('trunk')}
-            ><Text>Baú</Text>
+              ><Text>Baú</Text>
             </Card>
           </>
         )}
+      {!showWelcomeModal && <ElifasSVG src={elifas}/>}
       </Content>
-      <ElifasSVG src={elifas}/>
       <Footer  screen='dashboard'/>
     </Container>
   );

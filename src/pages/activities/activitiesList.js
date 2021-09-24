@@ -7,6 +7,8 @@ import Header from '../../components/header';
 import ActivitieIcon from '../../components/trail/activitieIcon'
 import Way from '../../components/trail/way';
 import ActivitiesCompleted from '../../components/modal/activitiesCompletedModal';
+import TrailCompletedModal from '../../components/modal/trailCompletedModal';
+
 
 //Assets
 import aquamarineStone from '../../images/stones/aquamarine2.svg'
@@ -244,7 +246,7 @@ const Activities = (props) => {
       {renderStone()}
 
       {isModalActivitiesCompleted && <ActivitiesCompleted />}
-
+      {/* <TrailCompletedModal /> */}
     </Container>
   );
 }

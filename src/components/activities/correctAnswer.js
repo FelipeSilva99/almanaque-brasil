@@ -145,6 +145,7 @@ const CorrectAnswer = (props) => {
   }
 
   useEffect(() => {
+    console.log('propss', props);
     props.toScore
       ? setActualModal(modals.toScore)
       : setActualModal(modals.answerDescription)

@@ -108,15 +108,12 @@ const Activities = (props) => {
   }, [props])
 
   const handlerNextActivitie = (index) => {
-    if (hasNextActivitie) {
+    // const isLastActivity = activities.length - 1  === index;
+    //falta saber se a atividade foi concluida ou não
       props.history.push({
         pathname: `/activities/${index+1}`,
+        // state: { isLastActivity: isLastActivity }
       });
-    }
-  }
-
-  const hasNextActivitie = () => {
-    return true
   }
 
   const renderActivities = () => {
@@ -242,6 +239,8 @@ const Activities = (props) => {
       </Trail>
 
       {renderStone()}
+
+      {/* <TrailCompleted/> */}
 
     </Container>
   );

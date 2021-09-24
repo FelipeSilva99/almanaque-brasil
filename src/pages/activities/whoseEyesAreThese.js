@@ -142,8 +142,8 @@ const WhoseEyesAreThese = ({ useActivitie, handleNextQuestion, registerAction })
         }
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[3]} amountTrial={amountTrial}/>}
+        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore amountTrial={amountTrial}/>}
+        {showAnswer && <CorrectAnswer answer={useActivitie.answers[3]} amountTrial={amountTrial}/>}
       </Container>
     )
   );

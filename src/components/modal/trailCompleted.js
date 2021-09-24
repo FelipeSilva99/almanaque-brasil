@@ -11,7 +11,7 @@ import iconElifas from '../../images/elifas/tip.svg';
 //Styled
 const Container = styled.div`
   background: #70707073;
-   position: absolute;
+   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -20,7 +20,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  z-index: 1;
+  z-index: 3;
   overflow: hidden;
 `;
 
@@ -74,7 +74,11 @@ const ImgBento = styled.img`
   bottom: -10px
 `;
 
-function TrailCompleted({ text, handleModalTip }) {
+function TrailCompleted(props) {
+  const handleClick = () => {
+    props.history.push('/trails')
+  }
+
   return (
     <Container>
       <Content>
@@ -92,7 +96,7 @@ function TrailCompleted({ text, handleModalTip }) {
           <SubTitle>
             vamos continuar nessa jornada de conhecimento?
           </SubTitle>
-          <Button margin='0'>escolher outra trilha</Button>
+          <Button handleClick={handleClick} margin='0' on>escolher outra trilha</Button>
         </ContentInfo>
       </Content>
       <ImgBento src={iconElifas} alt='Elifas' />

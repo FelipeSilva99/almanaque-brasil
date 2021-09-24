@@ -66,7 +66,11 @@ const Map = ({ trails, goToActivitie }) => {
             bottom={aliases[trail.name].position.bottom}
             type="image/svg+xml"
           >
-            <Stone top={aliases[trail.name].stone.position.top} right={aliases[trail.name].stone.position.right} src={aliases[trail.name].stone.state.done}></Stone>
+            <Stone
+              onClick={() => handleMapFragmentClick(trail, key)}
+              top={aliases[trail.name].stone.position.top}
+              right={aliases[trail.name].stone.position.right}
+              src={aliases[trail.name].stone.state.done} />
             <img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} />
           </MapFragment>
         ))}

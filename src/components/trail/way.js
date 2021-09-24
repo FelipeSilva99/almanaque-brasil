@@ -73,27 +73,28 @@ const Decoration = styled.img`
   right: ${props => props.right};
 `;
 
-const defineLines = (quantity) => {
-  let nextItemIsSingular = true;
-  let linesArray = []
-  for(let i = 0; i < quantity; i++) {
-    if(nextItemIsSingular) {
-      nextItemIsSingular = false
-      linesArray.push("right")
-    } else {
-      if((i+1) % 3 === 0) {
-        nextItemIsSingular = true
-        linesArray.push("left")
-      }
-      else {
-        linesArray.push("straight")
-      }
-    }
-  }
-  return linesArray;
-}
 const Way = ({ backgroundDecorations, linesQuantity, progress }) => {
   const [lines, setLines] = useState(undefined)
+  
+  const defineLines = (quantity) => {
+    let nextItemIsSingular = true;
+    let linesArray = []
+    for(let i = 0; i < quantity; i++) {
+      if(nextItemIsSingular) {
+        nextItemIsSingular = false
+        linesArray.push("right")
+      } else {
+        if((i+1) % 3 === 0) {
+          nextItemIsSingular = true
+          linesArray.push("left")
+        }
+        else {
+          linesArray.push("straight")
+        }
+      }
+    }
+    return linesArray;
+  }
 
   useEffect(() => {
     const lines = defineLines(linesQuantity)

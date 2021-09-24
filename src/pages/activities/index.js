@@ -57,12 +57,13 @@ const Activities = (props) => {
     setCurrentActivitie(convertIdToNumber);
   }, [trailId]);
   
-  const handlerNextActivitie = () => {
-    
+  const handlerNextActivitie = (idActivitie) => {
+    const hasIdActivitie = idActivitie && idActivitie;
+
     if (hasNextActivitie) {
       props.history.push({
         pathname: `/activities`,
-        // pathname: `/activities/${currentActivitie + 1}`,
+        state: {idActivitie: hasIdActivitie},
       });
     }
   }
@@ -70,7 +71,6 @@ const Activities = (props) => {
   const hasNextActivitie = () => {
     return true
   }
-
 
   const renderActivitie = (currentActivitie, registerAction) => {
     // Renderizar component de acordo com o tipo de ativivdade

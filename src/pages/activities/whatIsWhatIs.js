@@ -150,7 +150,7 @@ const TextIndividualLetter = styled.p`
   }
 `;
 
-const WhatIsWhatIs = ({ useActivitie, handleNextQuestion, registerAction }) => {
+const WhatIsWhatIs = ({ useActivitie, registerAction }) => {
   const [answer, setAnswer] = useState([]);
   const [letterOption, setLetterOption] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState([]);
@@ -390,8 +390,8 @@ const WhatIsWhatIs = ({ useActivitie, handleNextQuestion, registerAction }) => {
           && renderScreen()
         }
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[0]} toScore amountTrial={amountTrial} />}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={useActivitie.answers[0]} amountTrial={amountTrial} />}
+        {modalCorrectAnswer && <CorrectAnswer answer={useActivitie.answers[0]} toScore amountTrial={amountTrial} idActivitie={activitie.id}/>}
+        {showAnswer && <CorrectAnswer answer={useActivitie.answers[0]} amountTrial={amountTrial} idActivitie={activitie.id}/>}
       </Container>
     )
   );

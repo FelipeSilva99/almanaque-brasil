@@ -58,7 +58,6 @@ const Trail = styled.div`
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
-
   h1 {
     padding-top: 5rem;
   }
@@ -73,6 +72,7 @@ const ActivitiesRow = styled.div`
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
   const [activitiesProgress, setActivitiesProgress] = useState(undefined);
+  const [isModalTrailCompleted, setIsModalTrailCompleted] = useState(undefined);
 
   const backgroundDecorations = {
     top: church,
@@ -81,7 +81,7 @@ const Activities = (props) => {
   }
 
   useEffect(() => {
-    if(activities === null) return  
+    if (activities === null) return
 
     let canBeDone = true;
 
@@ -89,57 +89,57 @@ const Activities = (props) => {
       const isDoneActivitie = isDone(activitie.id)
       // const background = setBackgroundColor(activitie)
       const activitieState = isDoneActivitie ? "done" : defineState(canBeDone && !isDoneActivitie)
-      if(!isDoneActivitie) canBeDone = false
-      return {id: activitie.id, state: activitieState}
+      if (!isDoneActivitie) canBeDone = false
+      return { id: activitie.id, state: activitieState }
     })
-    
+
     setActivitiesProgress(activitiesStates);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activities]);
 
   useEffect(() => {
     const trail = props.selectedTrails;
     const allActivities = props.activities.data[trail].activities;
+    const lastActivityDone = props.history?.location?.state?.idActivitie;
+    const idDaUltimaAtividade = allActivities[allActivities.length - 1].id;
+
+    if(lastActivityDone) {
+      setIsModalTrailCompleted(lastActivityDone === idDaUltimaAtividade);
+    }
 
     setActivities(allActivities);
-  }, [props.selectedTrails, props.activities.data]);
+  }, [props.selectedTrails, props.activities.data, props.history?.location?.state?.idActivitie]);
 
   useEffect(() => {
     props.postActionsBook(props.actionsBook)
-  }, [props])
+  }, [props]);
 
   const handlerNextActivitie = (index) => {
-    if (hasNextActivitie) {
-      props.history.push({
-        pathname: `/activities/${index+1}`,
-      });
-    }
-  }
-
-  const hasNextActivitie = () => {
-    return true
+    props.history.push({
+      pathname: `/activities/${index + 1}`,
+    });
   }
 
   const renderActivities = () => {
     // logic for deciding whether to return one or two items in a row
-    if(activitiesProgress === undefined) return
+    if (activitiesProgress === undefined) return
     let nextItemIsSingular = true;
     return activities.map((item, index, array) => {
-      if(nextItemIsSingular) {
+      if (nextItemIsSingular) {
         nextItemIsSingular = false
-        return(
+        return (
           <ActivitiesRow key={index}>
             <ActivitieIcon
-            activitieState={activitiesProgress[index].state}
-            item={item}
-            itemValue={index}
-            onClick={() => handlerNextActivitie(index)}
-            history={props.history}
+              activitieState={activitiesProgress[index].state}
+              item={item}
+              itemValue={index}
+              onClick={() => handlerNextActivitie(index)}
+              history={props.history}
             >{index}</ActivitieIcon>
           </ActivitiesRow>
         )
       } else {
-        if((index+1) % 3 === 0) {
+        if ((index + 1) % 3 === 0) {
           nextItemIsSingular = true
           // skip this rendering
           return null
@@ -154,16 +154,16 @@ const Activities = (props) => {
                 lineTo={'straight'}
                 onClick={() => handlerNextActivitie(index)}
                 history={props}
-                >{index}</ActivitieIcon>
+              >{index}</ActivitieIcon>
 
               <ActivitieIcon
-                activitieState={activitiesProgress[index+1].state}
-                item={array[index+1]}
-                itemValue={index+1}
+                activitieState={activitiesProgress[index + 1].state}
+                item={array[index + 1]}
+                itemValue={index + 1}
                 lineTo={'left'}
-                onClick={() => handlerNextActivitie(index+1)}
+                onClick={() => handlerNextActivitie(index + 1)}
                 history={props}
-                >{index+1}</ActivitieIcon>
+              >{index + 1}</ActivitieIcon>
             </ActivitiesRow>
           )
         }
@@ -173,23 +173,23 @@ const Activities = (props) => {
 
   function isDone(activityId) {
     const actionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync]
-    if(actionsBook === undefined) return
+    if (actionsBook === undefined) return
 
     const filteredActions = actionsBook.filter((action) => {
       return action.activityId === activityId
     })
 
-    if(filteredActions.length >= 3) return true
-    else if(filteredActions.length > 0) {
+    if (filteredActions.length >= 3) return true
+    else if (filteredActions.length > 0) {
       const checkIfIsDone = filteredActions.findIndex((action) => {
         return action.success === true
       })
       return checkIfIsDone === -1 ? false : true
     } else return false
   }
-  
+
   function defineState(canBeDone) {
-    if(canBeDone) return "waiting"
+    if (canBeDone) return "waiting"
     else return "bloqued"
   }
 
@@ -202,7 +202,7 @@ const Activities = (props) => {
             <img src={aquamarine} alt={name} />
           </Stone>
         );
-    
+
       default:
         return
     }
@@ -215,7 +215,7 @@ const Activities = (props) => {
       case 'Água-Marinha':
         return (
           <Stone padding='4rem 0 2rem 0'>
-            <img src={aquamarineStone} alt={name}/>
+            <img src={aquamarineStone} alt={name} />
           </Stone>
         );
 
@@ -223,18 +223,18 @@ const Activities = (props) => {
         return
     }
   }
-  
+
   return (
     <Container>
-      <Header 
+      <Header
         title={props.activities.data[props.selectedTrails].name}
-        goBack={() => {props.history.push('/trails')}}
+        goBack={() => { props.history.push('/trails') }}
       />
 
       {renderLogoStone()}
 
       <Trail>
-      {activities && <Way progress={activitiesProgress} backgroundDecorations={backgroundDecorations} linesQuantity={activities.length-1}/>}
+        {activities && <Way progress={activitiesProgress} backgroundDecorations={backgroundDecorations} linesQuantity={activities.length - 1} />}
         {
           activities && activities.length > 0
             ? renderActivities()
@@ -243,6 +243,8 @@ const Activities = (props) => {
       </Trail>
 
       {renderStone()}
+
+      {isModalTrailCompleted && <TrailCompleted />}
 
     </Container>
   );

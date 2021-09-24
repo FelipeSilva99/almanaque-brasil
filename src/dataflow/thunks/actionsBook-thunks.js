@@ -1,10 +1,10 @@
 /* eslint-disable no-throw-literal */
 // Libs
 import axios from 'axios';
-import { Auth } from 'aws-amplify'
+import { Auth } from 'aws-amplify';
 import { 
   clearActionsBook, synced, refreshLocalData
-} from '../modules/actionsBook-modules'
+} from '../modules/actionsBook-modules';
 
 export const postActionsBook = (book) => async (dispatch) => {
   const auth = await Auth.currentAuthenticatedUser()
@@ -18,7 +18,6 @@ export const postActionsBook = (book) => async (dispatch) => {
     let response = await batchWriteActions(book.pendingSync, idToken, dispatch)
 
     if(response.status === 200) {
-      console.log('retorno')
       dispatch(synced())
     }
   }
@@ -52,6 +51,31 @@ export const getActionsBook = () => async (dispatch) => {
 
 }
 
+export const deleteActionsBook = () => async (dispatch) => {
+  const auth = await Auth.currentAuthenticatedUser()
+  const idToken = auth.signInUserSession.idToken.jwtToken;
+
+  try {
+    const response = await axios({
+      method: 'delete',
+      url: process.env.REACT_APP_ACTIONS_BOOK_ENDPOINT,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${idToken}`,
+      },
+    });
+    if (response.status === 200) {
+      dispatch(clearActionsBook());
+      console.log('Progresso reiniciado com sucesso.')
+    } else {
+      console.log('Não foi possível reiniciar o progresso. \n', response);
+    }
+  }
+  catch (err) {
+    console.log('err', err);
+  }
+}
+
 var batchWriteActions = async (actions, idToken, dispatch) => { // Função Recursiva
   try{
     let limite = 25
@@ -75,7 +99,7 @@ var batchWriteActions = async (actions, idToken, dispatch) => { // Função Recu
       data: data
 		})
 
-    return response
+    return response;
 
   } catch (error) {
     throw error;

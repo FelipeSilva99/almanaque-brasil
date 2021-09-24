@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
 import { useHistory } from "react-router-dom";
-import axios from 'axios';
-
 
 //Redux
 import { signOut } from '../../dataflow/modules/signIn-modules';
 import { clearActionsBook } from '../../dataflow/modules/actionsBook-modules';
+import { deleteActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 
 const mapDispatchToProps = dispatch => ({
   signOut: () => {
@@ -18,6 +17,11 @@ const mapDispatchToProps = dispatch => ({
   clearActionsBook: () => {
     dispatch(clearActionsBook());
   },
+
+  deleteActionsBook: () => {
+    dispatch(deleteActionsBook());
+  },
+
 });
 
 const Container = styled.div`
@@ -29,6 +33,7 @@ const Container = styled.div`
   border-top-right-radius: 8px;
   background: #fff;
   text-align: end;
+  z-index: 1;
 `;
 
 const Button = styled.button`
@@ -53,32 +58,10 @@ const Config = (props) => {
     }
   }
 
-  async function handleResetProgress() {
-    const auth = await Auth.currentAuthenticatedUser()
-    const idToken = auth.signInUserSession.idToken.jwtToken;
+  const handleResetProgress = async () => {
+    props.deleteActionsBook();
 
-    try {
-      const response = await axios({
-        method: 'delete',
-        url: process.env.REACT_APP_ACTIONS_BOOK_ENDPOINT,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${idToken}`,
-        },
-      });
-      if (response.status === 200) {
-        // handleSignOut();
-        props.clearActionsBook();
-        history.push('/activities');
-        console.log('Progresso reiniciado com sucesso.')
-      } else {
-        console.log('Não foi possível reiniciar o progresso. \n', response);
-      }
-
-    }
-    catch (err) {
-      console.log('err', err);
-    }
+    history.push('/activities');
   }
 
   return (

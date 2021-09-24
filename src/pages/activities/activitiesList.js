@@ -58,7 +58,6 @@ const Trail = styled.div`
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
-
   h1 {
     padding-top: 5rem;
   }

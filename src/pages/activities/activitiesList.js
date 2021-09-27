@@ -11,6 +11,7 @@ import TrailCompletedModal from '../../components/modal/trailCompletedModal';
 
 
 //Assets
+import { LineStraight } from '../../components/trail/way';
 import aquamarineStone from '../../images/stones/aquamarine2.svg'
 import aquamarine from '../../images/stones/aquamarine.svg'
 import church from '../../images/trails/church.svg'
@@ -69,6 +70,7 @@ const Trail = styled.div`
 `;
 
 const ActivitiesRow = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
@@ -161,9 +163,12 @@ const Activities = (props) => {
     // logic for deciding whether to return one or two items in a row
     if (activitiesProgress === undefined) return
     let nextItemIsSingular = true;
+
     return activities.map((item, index, array) => {
       if (nextItemIsSingular) {
         nextItemIsSingular = false
+        console.log(activities)
+
         return (
           <ActivitiesRow key={index}>
             <ActivitieIcon
@@ -173,15 +178,17 @@ const Activities = (props) => {
               onClick={() => handlerNextActivitie(index)}
               history={props.history}
             >{index}</ActivitieIcon>
+
+            {index !== activities.length - 1 && <LineStraight/>}
           </ActivitiesRow>
         )
       } else {
         if ((index + 1) % 3 === 0) {
           nextItemIsSingular = true
+
           // skip this rendering
           return null
-        }
-        else {
+        } else {
           return (
             <ActivitiesRow key={index}>
               <ActivitieIcon
@@ -192,6 +199,8 @@ const Activities = (props) => {
                 onClick={() => handlerNextActivitie(index)}
                 history={props}
               >{index}</ActivitieIcon>
+
+              <LineStraight/>
 
               <ActivitieIcon
                 activitieState={activitiesProgress[index + 1]?.state}
@@ -236,7 +245,11 @@ const Activities = (props) => {
       case 'Água-Marinha':
         return (
           <Stone>
-            <img src={aquamarine} alt={name} />
+            <img
+              src={aquamarine}
+              alt={name}
+              style={{ width: '15rem' }}
+            />
           </Stone>
         );
 
@@ -252,7 +265,11 @@ const Activities = (props) => {
       case 'Água-Marinha':
         return (
           <Stone padding='4rem 0 2rem 0'>
-            <img src={aquamarineStone} alt={name} />
+            <img
+              src={aquamarineStone}
+              alt={name}
+              style={{ width: '4rem' }}
+            />
           </Stone>
         );
 
@@ -271,7 +288,13 @@ const Activities = (props) => {
       {renderLogoStone()}
 
       <Trail>
-        {activities && <Way progress={activitiesProgress} backgroundDecorations={backgroundDecorations} linesQuantity={activities.length - 1} />}
+        {activities && 
+          <Way
+            progress={activitiesProgress}
+            backgroundDecorations={backgroundDecorations}
+            linesQuantity={activities.length - 1}
+          />
+        }
         {
           activities && activities.length > 0
             ? renderActivities()

@@ -25,6 +25,10 @@ const Container = styled.div`
 
 const ActivitieLogo = styled.img`  
   @media (max-width: 370px) { width: 90%; }
+
+  &:path {
+    background: red;
+  }
 `;
 
 const IconTop = styled.img`

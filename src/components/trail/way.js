@@ -13,7 +13,8 @@ const Container = styled.div`
 const LineToRight = styled.div`
   position: relative;
   top: 57px;
-  left: 52%;
+  /* left: 52%; */
+  left: 50%;
   transform: rotate(32deg);
   width: 170px;
   height: 160px;
@@ -31,12 +32,13 @@ const LineToRight = styled.div`
 const LineStraight = styled.div`
   position: absolute;
   top: 3.5rem;
-  left: 39%;
+  /* left: 39%; */
   width: 110px;
   height: 10px;
   border-top: 5px dashed rgb(76, 144, 175);
   background: #fff;
   z-index: 2;
+  left: 34%;
 `;
 export { LineStraight };
 

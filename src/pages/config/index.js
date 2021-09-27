@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import { signOut } from '../../dataflow/modules/signIn-modules';
 import { clearActionsBook } from '../../dataflow/modules/actionsBook-modules';
 import { deleteActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
+import { clearModalsState } from '../../dataflow/modules/modals-module';
 
 const mapDispatchToProps = dispatch => ({
   signOut: () => {
@@ -16,6 +17,10 @@ const mapDispatchToProps = dispatch => ({
 
   clearActionsBook: () => {
     dispatch(clearActionsBook());
+  },
+
+  clearModalsState: () => {
+    dispatch(clearModalsState())
   },
 
   deleteActionsBook: () => {
@@ -50,11 +55,12 @@ const Config = (props) => {
   async function handleSignOut() {
     try {
       await Auth.signOut();
+      props.clearModalsState();
       localStorage.clear();
-      props.signOut();
       history.push('/');
+      props.signOut();
     } catch (error) {
-      console.log('error signing out: ', error);
+      console.log('error signout: ', error);
     }
   }
 

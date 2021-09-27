@@ -1,19 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useHistory } from "react-router-dom";
 
-//Components
+//Component
 import Button from '../buttons/button';
 
 //Images
-import dialogBox from '../../images/dialogBox/dialogBox.svg';
 import iconElifas from '../../images/elifas/tip.svg';
 
 //Styled
 const Container = styled.div`
-  background: #70707073;
-   position: fixed;
-  bottom: 0;
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
@@ -21,90 +18,103 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  z-index: 3;
-  overflow: hidden;
+  background: #70707095;
+	z-index: 3;
+  @media (min-width: 1024px) { align-items: center; }
 `;
 
 const Content = styled.div`
   position: relative;
-  top: 6rem;
   width: 100%;
-  max-width: 400px;
-  display: flex;
-  justify-content: center; 
+  height: 100%;
+  max-width: 380px;
+	display: flex;
+	align-items: center;
+
+  @media(max-width: 375px) {padding-top: 2rem; align-items: flex-start;}
+  @media(min-width: 1024px) {height: 80vh;}
 `;
 
 const ContentInfo = styled.div`
-  padding: 0 1rem;
-  width: 100%;
-  max-width: 340px;
-  position: absolute;
-  top: 0;
-  height: 75%;
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  margin: auto;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 3rem;
+  width: 96%;
+  filter: drop-shadow(1px 4px 3px #999);
+  border-radius: 30px;
+  background: #fff;
+
+  img {
+    cursor: pointer;
+  }
+
+  &:after {
+    position: absolute;
+    content: '';
+    left: 51%;
+    bottom: -9%;
+    display: block;
+    width: 50px;
+    height: 70px;
+    border: 0px solid;
+    background-color: transparent;
+    border-bottom-left-radius: 100%;
+    box-shadow: -34px -34px 0px 30px #fff;
+    transform: rotate(5deg);
+    z-index: -1;
+  }
 `;
 
 const Title = styled.h1`
-  font-size: 1.5rem;
+  font-size: 1.5em;
   font-weight: 900;
+	line-height: 1em;
   color: #373737;
-  text-align: center;
+	text-align: center;
 
   strong {
     font-size: 2.5rem;
+    font-weight: 900;
   }
 `;
 
-const SubTitle = styled.p`
-  font-size: 1rem;
-  color: #373737;
-`;
+const Text = styled.p`
+  padding: 1.5rem 0;
+	font-size: 1rem;
+  line-height: 1.4;
 
-const ImgDialogBox = styled.img`
-  width: 100%;
-  transform: scaleX(-1);
+  @media (max-width: 320px) { padding: ${props => props.padding && '1.5rem 0 .4rem 0 '}; }
 `;
 
 const ImgBento = styled.img`
-  width: min-content;
-  position: relative;
-  right: -30%;
-  bottom: -10px
+  position: absolute;
+  right: -3%;
+  bottom: 0;
+  width: 10rem;
 `;
 
-function TrailCompleted(props) {
-  const history = useHistory();
-
-  const handleClick = () => {
-    history.push('/trails');
-  }
-
-  return (
-    <Container>
-      <Content>
-        <ImgDialogBox src={dialogBox} alt='Elifas' />
-        <ContentInfo>
+function TrailCompletedModal({ handleCloseModal }) {
+	return (
+		<Container>
+			<Content>
+				<ContentInfo>
+					<Title>Paranéns!</Title>
+          <Text>Você concluiu a trilha, e conquistou:</Text>
           <Title>
-            Parabéns!
-          </Title>
-          <SubTitle>
-            Você concluiu a trilha, e conquistou:
-          </SubTitle>
-          <Title>
-            <strong>100</strong>pts
-          </Title>
-          <SubTitle>
-            vamos continuar nessa jornada de conhecimento?
-          </SubTitle>
-          <Button handleClick={handleClick} margin='0' on>escolher outra trilha</Button>
-        </ContentInfo>
-      </Content>
-      <ImgBento src={iconElifas} alt='Elifas' />
-    </Container>
-  )
+              <strong>100</strong> pts
+            </Title>
+            <Text>
+              vamos continuar nessa jornada de conhecimento?
+            </Text>
+          <Button handleClick={handleCloseModal} margin='0'>escolher outra trilha</Button>
+				</ContentInfo>
+				<ImgBento src={iconElifas} />
+			</Content>
+		</Container>
+	)
 }
 
-export default TrailCompleted;
+export default TrailCompletedModal;

@@ -18,7 +18,6 @@ const Container = styled.div`
   height: 100vh;
   background-color: #f3f3f3;
   display: flex;
-  /* justify-content: space-between; */
   flex-direction: column;
   align-items: center;
 `
@@ -26,27 +25,32 @@ const Container = styled.div`
 const Content = styled.div`
   position: absolute;
   bottom: 0;
-  padding-top: 2rem;
   width: 100%;
+  height: 85%;
   background: ${props => !props.isCorrectAnswer && '#fff'};
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
-  
-  @media(min-width: 768px) {
-    padding-top: 6rem;
-    color: pink;
-  }
+
   @media (max-width: 320px) {
     overflow: auto;
+    padding-top: .5rem;
   }
 `
 
+const ContentBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const ContentInfo = styled.div`
-  margin-bottom: 1rem;
+  padding-bottom: 1.5rem;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -79,6 +83,7 @@ const TextCorrectAnswer = styled.h1`
   font-size: .9375rem;
   color: #373737;
   font-weight: 900;
+  text-align: center;
 `
 
 const Box = styled.div`
@@ -396,8 +401,10 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
           />
         )}
         <Content isCorrectAnswer={isCorrectAnswer}>
-          {isCorrectAnswer && <TextCorrectAnswer>A resposta é:</TextCorrectAnswer>}
-          {renderScreen(pairs)}
+          <ContentBox>
+            {isCorrectAnswer && <TextCorrectAnswer>A resposta é:</TextCorrectAnswer>}
+            {renderScreen(pairs)}
+          </ContentBox>
           <ContainerButton
             color={isCorrectAnswer && '#fff'}
             background={isCorrectAnswer && '#399119'}

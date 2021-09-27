@@ -7,7 +7,6 @@ import Header from '../../components/header';
 import ActivitieIcon from '../../components/trail/activitieIcon'
 import Way from '../../components/trail/way';
 import ActivitiesCompleted from '../../components/modal/activitiesCompletedModal';
-import TrailCompletedModal from '../../components/modal/trailCompletedModal';
 
 
 //Assets
@@ -18,7 +17,7 @@ import church from '../../images/trails/church.svg'
 import houses from '../../images/trails/houses.svg'
 import trainStation from '../../images/trails/trainstation.svg'
 
-import { postActionsBook, deleteActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
+import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -30,10 +29,6 @@ const mapDispatchToProps = dispatch => ({
   postActionsBook: (info) => {
     dispatch(postActionsBook(info));
   },
-
-  deleteActionsBook: () => {
-    dispatch(deleteActionsBook());
-  }
 });
 
 // Styles
@@ -79,7 +74,7 @@ const ActivitiesRow = styled.div`
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
   const [activitiesProgress, setActivitiesProgress] = useState(undefined);
-  const [isModal, setIsModal] = useState(undefined);
+  const [isModalActivitiesCompleted, setIsModalActivitiesCompleted] = useState(undefined);
 
   const backgroundDecorations = {
     top: church,
@@ -113,14 +108,7 @@ const Activities = (props) => {
     const isLastActivity = lastActivityDone === idLastActivity;
 
     if(isLastActivity) {
-      setIsModal('activitiesCompleted');
-
-    } else {
-      const isFullTrails = activitiesProgress && activitiesProgress?.every(elem => elem.state ==='done')
-
-      if(isFullTrails) {
-        setIsModal('trailCompleted');
-      }
+      setIsModalActivitiesCompleted(true);
     }
 
     setActivities(allActivities);
@@ -134,29 +122,6 @@ const Activities = (props) => {
     props.history.push({
       pathname: `/activities/${index + 1}`,
     });
-  }
-
-  const handleCloseModalActivities = () => {
-    setIsModal('trailCompleted');
-  }
-
-  const handleCloseModal = () => {
-    setIsModal('');
-  }
-
-  const handleDeleteScore = () => {
-    props.deleteActionsBook();
-
-    // setTimeout(()=>{
-      // props.history.push('/activities')
-      props.history.push({
-        pathname: `/activities`,
-        state: { idActivitie: undefined}
-      });
-    // }
-    // }, 1000);
-
-    handleCloseModal();
   }
 
   const renderActivities = () => {
@@ -304,9 +269,7 @@ const Activities = (props) => {
 
       {renderStone()}
 
-      {isModal === 'activitiesCompleted' && <ActivitiesCompleted handleCloseModal={handleCloseModalActivities}/>}
-      {isModal === 'trailCompleted' && <TrailCompletedModal handleCloseModal={handleCloseModal} handleDeleteScore={handleDeleteScore} />}
-      {/* <TrailCompletedModal handleCloseModal={handleCloseModal} handleDeleteScore={handleDeleteScore} /> */}
+      {isModalActivitiesCompleted && <ActivitiesCompleted history={props.history}/>}
     </Container>
   );
 }

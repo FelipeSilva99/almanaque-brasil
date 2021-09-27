@@ -15,13 +15,16 @@ import thunk from '../../images/icons/menu/selectedThunk.svg';
 
 //Redux
 import { getDataThunk } from '../../dataflow/thunks/thunk-thunks';
+import { setModal } from '../../dataflow/modules/modals-module';
 
 const mapStateToProps = state => ({
   trails: state.trails.data,
   user: state.login.user,
+  modals: state.modals
 });
 
 const mapDispatchToProps = dispatch => ({
+  setModal: (modal) => {dispatch(setModal(modal))},
   getDataThunk: () => {
     dispatch(getDataThunk());
   },
@@ -96,12 +99,17 @@ const Dashboard = (props) => {
 
   const trails = props?.trails;
 
+  const handleCloseModal = () => {
+    setWelcomeModal(!showWelcomeModal)
+    props.setModal({modal: 'welcomeModal', wasShowed: true})
+  }
+
 
   return (
     <Container>
-      { showWelcomeModal && <WelcomeModal handleClose={() => setWelcomeModal(!showWelcomeModal)}/> }
+      { !props.modals.welcomeModal.wasShowed && <WelcomeModal handleClose={handleCloseModal}/> }
       <Header
-        initialLettersName={props.user.name[0] + props.user.name[1]}
+        initialLettersName={props.user?.name[0] + props.user?.name[1]}
         text={`Oi, ${props.user.name}`}
         icon={home}
         />
@@ -132,7 +140,7 @@ const Dashboard = (props) => {
             </Card>
           </>
         )}
-      {!showWelcomeModal && <ElifasSVG src={elifas}/>}
+      {props.modals.welcomeModal.wasShowed && <ElifasSVG onClick={() => handleCloseModal()} src={elifas}/>}
       </Content>
       <Footer  screen='dashboard'/>
     </Container>

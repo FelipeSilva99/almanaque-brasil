@@ -132,7 +132,7 @@ const Form = ({
             <Error>{isError}</Error>
           </>
         )}
-        <Button>{children ? children : 'Próximo'}</Button>
+        <Button>{children ? children : 'Próximo'}</Button>  
       </Container>
   );
 }

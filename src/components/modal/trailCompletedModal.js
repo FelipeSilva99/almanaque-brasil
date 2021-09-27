@@ -26,23 +26,25 @@ const Container = styled.div`
 const Content = styled.div`
   position: relative;
   width: 100%;
-  height: 93vh;
+  height: 100%;
   max-width: 380px;
 	display: flex;
 	align-items: center;
+
+  @media(max-width: 375px) {padding-top: 1rem; align-items: flex-start;}
+  @media(min-width: 1024px) {height: 80vh;}
+  @media(min-width: 1440px) {height: 60vh;}
 `;
 
 const ContentInfo = styled.div`
   position: relative;
-	/* top: 2rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
   padding: 1.5rem 1.5rem 1rem;
-  /* width: 96%; */
-  letter-spacing: 1px;
+  width: 90%;
   filter: drop-shadow(1px 4px 3px #999);
   border-radius: 30px;
   background: #fff;
@@ -66,10 +68,13 @@ const ContentInfo = styled.div`
     transform: rotate(5deg);
     z-index: -1;
   }
+
+  @media(max-width: 320px) {width: 95%; padding: 1rem}
+
 `;
 
 const Title = styled.h1`
-  margin: .4rem 0 2rem;
+  padding-bottom: 1rem;
   font-size: 1.5em;
   font-weight: 900;
 	line-height: 1em;
@@ -77,39 +82,13 @@ const Title = styled.h1`
 	text-align: center;
 `;
 
-const Scroll = styled.ol`
-  list-style: none;
-  overflow-y: auto;
-  counter-reset: count;
-
-  ::-webkit-scrollbar {
-		width: 4px;
-		height: 10px;
-	}
-	::-webkit-scrollbar-track {
-		background: transparent;
-		border-radius: 20px;
-	}
-	::-webkit-scrollbar-thumb {
-		background: #ccc;
-		border-radius: 13px;
-	}
-	::-webkit-scrollbar-thumb:hover {
-		background: #ccc;
-	}
-`;
-
-const Text = styled.li`
+const Text = styled.p`
   position: relative;
-  margin-bottom: 1.9rem;
+  padding-bottom: ${props => props.lastText ? '1.5rem' : '.9375rem'};
 	font-size: 1rem;
   line-height: 1.4;
-
-  &:last-child {
-    margin-bottom: 1.5rem;
-  }
-
-  @media (max-width: 320px) { padding: ${props => props.padding && '1.5rem 0 .4rem 0 '}; }
+  
+  @media(max-width: 320px) {padding-bottom: 1rem}
 `;
 
 const ImgBento = styled.img`
@@ -119,23 +98,19 @@ const ImgBento = styled.img`
   width: 10rem;
 `;
 
-function TrailCompletedModal({ text, handleModalTip }) {
+function TrailCompletedModal({ handleCloseModal, handleDeleteScore }) {
 	return (
 		<Container>
 			<Content>
-
 				<ContentInfo>
 					<Title>Você já concluiu essa trilha!</Title>
-					<Scroll>
+					{/* <Scroll> */}
 						<Text>Tem certeza que quer jogar novamente? Se jogar irá manter sua pontuação.</Text>
-						<Text>Para conseguir uma nova pontuação você precisará apagar a anterior antes de jogar.</Text>
-					</Scroll>
-					<Button>Jogar sem pontuar</Button>
-					<Button margin='1.5rem 0 1.25rem 0'>Apagar pontuação e jogar</Button>
-
-
+						<Text lastText>Para conseguir uma nova pontuação você precisará apagar a anterior antes de jogar.</Text>
+					{/* </Scroll> */}
+					<Button handleClick={handleCloseModal}>Jogar sem pontuar</Button>
+					<Button margin='1.5rem 0 1.25rem 0' handleClick={handleDeleteScore}>Apagar pontuação e jogar</Button>
 				</ContentInfo>
-
 				<ImgBento src={iconElifas} />
 			</Content>
 		</Container>

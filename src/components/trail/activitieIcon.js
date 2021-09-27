@@ -57,21 +57,23 @@ const ActivitieIcon = ({item, children, activitieState, onClick, history }) => {
 
   //Alterar quando tiver a imagem
   const renderImageBloqued = () => {
-    return item.name === 'Eureka' || item.name === 'Origem da expressão' ? iconBookBloqued : iconBloqued;
+    const name =  item?.name;
+    return name === 'Eureka' || name === 'Origem da expressão' ? iconBookBloqued : iconBloqued;
   }
 
   const renderImageVisualized = () => {
-    return item.name === 'Eureka' || item.name === 'Origem da expressão' ? iconVisualized : iconVisualized;
+    const name =  item?.name;
+    return name === 'Eureka' || name === 'Origem da expressão' ? iconBookVisualized : iconVisualized;
   }
 
   return (
     <Box>
-      <ActivitiesCircle type={item.type} onClick={handleClick()} history={history}>
-        { activitieState === 'bloqued' ? <img src={renderImageBloqued()} alt={item.name} /> : <img src={renderImageVisualized()} alt={item.name}/> }
+      <ActivitiesCircle type={item?.type} onClick={handleClick()} history={history}>
+        { activitieState === 'bloqued' ? <img src={renderImageBloqued()} alt={item?.name} /> : <img src={renderImageVisualized()} alt={item?.name}/> }
         <Text color={() => setColor()}>{children + 1}</Text>
         {activitieState === 'done' && <Check src={checkIcon}/>}
       </ActivitiesCircle>
-      <BoxName><p>{item.name}</p></BoxName>
+      <BoxName><p>{item?.name}</p></BoxName>
     </Box>
   )
 }

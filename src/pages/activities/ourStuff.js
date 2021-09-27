@@ -28,7 +28,7 @@ const Container = styled.div`
   }
 `;
 
-const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
+const OurStuff = ({ useActivitie, registerAction }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
@@ -51,7 +51,7 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
   }, [useActivitie]);
 
   useEffect(() => {
-    if(modalWrongAnswer) {
+    if (modalWrongAnswer) {
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
@@ -60,7 +60,7 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
       })
     }
 
-    if(modalCorrectAnswer) {
+    if (modalCorrectAnswer) {
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
@@ -68,7 +68,7 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
         timestamp: Date.now()
       })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalCorrectAnswer, modalWrongAnswer])
 
   const handleIsModalAnswerOption = () => {
@@ -124,7 +124,7 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
   }
 
   const isAnswerCorrect = () => {
-    return  activitie.answers.filter(item => item.isCorrect);
+    return activitie.answers.filter(item => item.isCorrect);
   }
 
   return (
@@ -137,12 +137,12 @@ const  OurStuff = ({ useActivitie, handleNextQuestion, registerAction }) => {
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={answer} toScore isTrunk amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handleNextQuestion} answer={isAnswerCorrect()[0]} isTrunk amountTrial={amountTrial}/>}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
+        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
+        {showAnswer && <CorrectAnswer answer={isAnswerCorrect()[0]} isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
       </Container>
     )
   );
 }
 
-export default  OurStuff;
+export default OurStuff;

@@ -6,33 +6,41 @@ import styled from 'styled-components';
 import Header from '../../components/header';
 import ActivitieIcon from '../../components/trail/activitieIcon'
 import Way from '../../components/trail/way';
+import ActivitiesCompleted from '../../components/modal/activitiesCompletedModal';
+import TrailCompletedModal from '../../components/modal/trailCompletedModal';
+
 
 //Assets
+import { LineStraight } from '../../components/trail/way';
 import aquamarineStone from '../../images/stones/aquamarine2.svg'
 import aquamarine from '../../images/stones/aquamarine.svg'
 import church from '../../images/trails/church.svg'
 import houses from '../../images/trails/houses.svg'
 import trainStation from '../../images/trails/trainstation.svg'
 
-import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
-
+import { postActionsBook, deleteActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 
 const mapStateToProps = state => ({
   activities: state.trails,
   selectedTrails: state.trails.selectedTrails,
-  actionsBook: state.actionsBook
+  actionsBook: state.actionsBook,
 })
 
 const mapDispatchToProps = dispatch => ({
   postActionsBook: (info) => {
     dispatch(postActionsBook(info));
   },
+
+  deleteActionsBook: () => {
+    dispatch(deleteActionsBook());
+  }
 });
 
 // Styles
 const Container = styled.div`
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   background-color: #FAFAFA;
 `;
 
@@ -56,9 +64,13 @@ const Trail = styled.div`
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+  h1 {
+    padding-top: 5rem;
+  }
 `;
 
 const ActivitiesRow = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
@@ -66,7 +78,9 @@ const ActivitiesRow = styled.div`
 
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
-  const [activitiesProgress, setActivitiesProgress] = useState(undefined)
+  const [activitiesProgress, setActivitiesProgress] = useState(undefined);
+  const [isModal, setIsModal] = useState(undefined);
+
   const backgroundDecorations = {
     top: church,
     center: houses,
@@ -74,89 +88,128 @@ const Activities = (props) => {
   }
 
   useEffect(() => {
-    if(activities === null) return  
+    if (activities === null) return
 
-    let canBeDone = true
+    let canBeDone = true;
+
     const activitiesStates = activities.map((activitie, ind, array) => {
       const isDoneActivitie = isDone(activitie.id)
       // const background = setBackgroundColor(activitie)
       const activitieState = isDoneActivitie ? "done" : defineState(canBeDone && !isDoneActivitie)
-      if(!isDoneActivitie) canBeDone = false
-      return {id: activitie.id, state: activitieState}
-    })
+      if (!isDoneActivitie) canBeDone = false
+      return { id: activitie.id, state: activitieState }
+    });
 
-    console.log('state:', activitiesStates)
-    setActivitiesProgress(activitiesStates)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activities])
+    setActivitiesProgress(activitiesStates);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activities]);
 
   useEffect(() => {
     const trail = props.selectedTrails;
     const allActivities = props.activities.data[trail].activities;
-    
+    const lastActivityDone = props.history?.location?.state?.idActivitie;
+    const idLastActivity = allActivities[allActivities.length - 1].id;
+    const isLastActivity = lastActivityDone === idLastActivity;
+
+    if(isLastActivity) {
+      setIsModal('activitiesCompleted');
+
+    } else {
+      const isFullTrails = activitiesProgress && activitiesProgress?.every(elem => elem.state ==='done')
+
+      if(isFullTrails) {
+        setIsModal('trailCompleted');
+      }
+    }
+
     setActivities(allActivities);
-  }, [props.selectedTrails, props.activities.data]);
+  }, [props.selectedTrails, props.activities.data, props.history?.location?.state?.idActivitie, activitiesProgress]);
 
   useEffect(() => {
     props.postActionsBook(props.actionsBook)
-  }, [props])
+  }, [props]);
 
   const handlerNextActivitie = (index) => {
-    if (hasNextActivitie) {
-      props.history.push({
-        pathname: `/activities/${index+1}`,
-      });
-    }
+    props.history.push({
+      pathname: `/activities/${index + 1}`,
+    });
   }
 
-  const hasNextActivitie = () => {
-    return true
+  const handleCloseModalActivities = () => {
+    setIsModal('trailCompleted');
+  }
+
+  const handleCloseModal = () => {
+    setIsModal('');
+  }
+
+  const handleDeleteScore = () => {
+    props.deleteActionsBook();
+
+    // setTimeout(()=>{
+      // props.history.push('/activities')
+      props.history.push({
+        pathname: `/activities`,
+        state: { idActivitie: undefined}
+      });
+    // }
+    // }, 1000);
+
+    handleCloseModal();
   }
 
   const renderActivities = () => {
     // logic for deciding whether to return one or two items in a row
-    if(activitiesProgress === undefined) return
+    if (activitiesProgress === undefined) return
     let nextItemIsSingular = true;
+
     return activities.map((item, index, array) => {
-      if(nextItemIsSingular) {
+      if (nextItemIsSingular) {
         nextItemIsSingular = false
-        return(
+        console.log(activities)
+
+        return (
           <ActivitiesRow key={index}>
             <ActivitieIcon
-            activitieState={activitiesProgress[index].state}
-            item={item}
-            itemValue={index}
-            onClick={() => handlerNextActivitie(index)}
-            history={props.history}
+              activitieState={activitiesProgress[index]?.state}
+              item={item}
+              itemValue={index}
+              onClick={() => handlerNextActivitie(index)}
+              history={props.history}
             >{index}</ActivitieIcon>
+
+            {index !== activities.length - 1 && <LineStraight/>}
           </ActivitiesRow>
         )
       } else {
-        if((index+1) % 3 === 0) {
+        if ((index + 1) % 3 === 0) {
           nextItemIsSingular = true
+
           // skip this rendering
           return null
-        }
-        else {
+        } else {
           return (
             <ActivitiesRow key={index}>
               <ActivitieIcon
-                activitieState={activitiesProgress[index].state}
+                activitieState={activitiesProgress[index]?.state}
                 item={item}
                 itemValue={index}
                 lineTo={'straight'}
                 onClick={() => handlerNextActivitie(index)}
                 history={props}
-                >{index}</ActivitieIcon>
+              >{index}</ActivitieIcon>
+
+              <LineStraight/>
 
               <ActivitieIcon
-                activitieState={activitiesProgress[index+1].state}
-                item={array[index+1]}
-                itemValue={index+1}
+                activitieState={activitiesProgress[index + 1]?.state}
+                item={array[index + 1]}
+                itemValue={index + 1}
                 lineTo={'left'}
-                onClick={() => handlerNextActivitie(index+1)}
+                onClick={() => handlerNextActivitie(index + 1)}
                 history={props}
-                >{index+1}</ActivitieIcon>
+              >{index + 1}</ActivitieIcon>
             </ActivitiesRow>
           )
         }
@@ -166,23 +219,23 @@ const Activities = (props) => {
 
   function isDone(activityId) {
     const actionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync]
-    if(actionsBook === undefined) return
+    if (actionsBook === undefined) return
 
     const filteredActions = actionsBook.filter((action) => {
       return action.activityId === activityId
     })
 
-    if(filteredActions.length >= 3) return true
-    else if(filteredActions.length > 0) {
+    if (filteredActions.length >= 3) return true
+    else if (filteredActions.length > 0) {
       const checkIfIsDone = filteredActions.findIndex((action) => {
         return action.success === true
       })
       return checkIfIsDone === -1 ? false : true
     } else return false
   }
-  
+
   function defineState(canBeDone) {
-    if(canBeDone) return "waiting"
+    if (canBeDone) return "waiting"
     else return "bloqued"
   }
 
@@ -192,10 +245,14 @@ const Activities = (props) => {
       case 'Água-Marinha':
         return (
           <Stone>
-            <img src={aquamarine} alt={name} />
+            <img
+              src={aquamarine}
+              alt={name}
+              style={{ width: '15rem' }}
+            />
           </Stone>
         );
-    
+
       default:
         return
     }
@@ -208,7 +265,11 @@ const Activities = (props) => {
       case 'Água-Marinha':
         return (
           <Stone padding='4rem 0 2rem 0'>
-            <img src={aquamarineStone} alt={name}/>
+            <img
+              src={aquamarineStone}
+              alt={name}
+              style={{ width: '4rem' }}
+            />
           </Stone>
         );
 
@@ -216,18 +277,24 @@ const Activities = (props) => {
         return
     }
   }
-  
+
   return (
     <Container>
-      <Header 
+      <Header
         title={props.activities.data[props.selectedTrails].name}
-        goBack={() => {props.history.push('/trails')}}
+        goBack={() => { props.history.push('/trails') }}
       />
 
       {renderLogoStone()}
 
       <Trail>
-      {activities && <Way progress={activitiesProgress} backgroundDecorations={backgroundDecorations} linesQuantity={activities.length-1}/>}
+        {activities && 
+          <Way
+            progress={activitiesProgress}
+            backgroundDecorations={backgroundDecorations}
+            linesQuantity={activities.length - 1}
+          />
+        }
         {
           activities && activities.length > 0
             ? renderActivities()
@@ -236,6 +303,10 @@ const Activities = (props) => {
       </Trail>
 
       {renderStone()}
+
+      {isModal === 'activitiesCompleted' && <ActivitiesCompleted handleCloseModal={handleCloseModalActivities}/>}
+      {isModal === 'trailCompleted' && <TrailCompletedModal handleCloseModal={handleCloseModal} handleDeleteScore={handleDeleteScore} />}
+      {/* <TrailCompletedModal handleCloseModal={handleCloseModal} handleDeleteScore={handleDeleteScore} /> */}
     </Container>
   );
 }

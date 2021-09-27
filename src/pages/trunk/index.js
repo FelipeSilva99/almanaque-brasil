@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
+import { connect } from 'react-redux';
+
 
 //Component
 import Header from '../../components/header/headerYellow';
-import InfoScreen from './infoScreen';
+import TrunkInfoScreen from '../../components/thunk/trunkInfoScreen';
 import Footer from '../../components/footer/footerMenu';
 
 //Image
 import arrow from '../../images/icons/arrow.svg';
-import thunk from '../../images/icons/menu/selectedThunk.svg';
+import iconThunk from '../../images/icons/menu/selectedThunk.svg';
+
+const mapStateToProps = state => ({
+  thunk: state.thunk.data,
+  userName: state.login.user.name
+});
 
 //Styled
 const Container = styled.div`
@@ -63,32 +69,13 @@ const Text = styled.h1`
   color: #373737;
 `;
 
-const Trunk = () => {
+const Trunk = (props) => {
   const [modal, setIsModal] = useState({ isModal: false, item: undefined });
   const [infoModal, setIsInfoModal] = useState({ isModal: undefined, data: undefined });
   const [data, setData] = useState([]);
 
-  const getDataThunk = async () => {
-    const accessToken = localStorage.getItem('accessToken');
-
-    try {
-      const response = await axios({
-        method: 'get',
-        url: process.env.REACT_APP_TRUNK_ENDPOINT,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${accessToken}`,
-        },
-      })
-      setData(response.data.Items);
-    }
-    catch (err) {
-      console.log('err', err);
-    }
-  }
-
   useEffect(() => {
-    getDataThunk();
+    setData(props?.thunk);
   }, []);
 
   const handleModal = (item) => {
@@ -146,7 +133,7 @@ const Trunk = () => {
   }
   return (
     <Container>
-      <Header text='Baú' icon={thunk} />
+      <Header initialLettersName={props.userName[0] + props.userName[1]} text='Baú' icon={iconThunk} />
       <ContainerBox>
         {!data.length
           ? <Text>Carregando</Text>
@@ -154,9 +141,11 @@ const Trunk = () => {
         }
       </ContainerBox>
       <Footer screen='trunk' />
-      {infoModal.isModal && <InfoScreen itemData={infoModal.data} onClick={handleCloseModal} />}
+      {infoModal.isModal && <TrunkInfoScreen itemData={infoModal.data} onClick={handleCloseModal} />}
     </Container>
   );
 }
 
-export default Trunk;
+export default connect(
+  mapStateToProps,
+)(Trunk);

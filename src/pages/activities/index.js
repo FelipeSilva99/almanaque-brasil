@@ -57,12 +57,13 @@ const Activities = (props) => {
     setCurrentActivitie(convertIdToNumber);
   }, [trailId]);
   
-  const handlerNextActivitie = () => {
-    
+  const handlerNextActivitie = (idActivitie) => {
+    const hasIdActivitie = idActivitie && idActivitie;
+
     if (hasNextActivitie) {
       props.history.push({
         pathname: `/activities`,
-        // pathname: `/activities/${currentActivitie + 1}`,
+        state: {idActivitie: hasIdActivitie},
       });
     }
   }
@@ -70,7 +71,6 @@ const Activities = (props) => {
   const hasNextActivitie = () => {
     return true
   }
-
 
   const renderActivitie = (currentActivitie, registerAction) => {
     // Renderizar component de acordo com o tipo de ativivdade
@@ -101,27 +101,14 @@ const Activities = (props) => {
 
       default:
         return <h1>{currentActivitie.question}</h1>;
-
     }
-  }
-
-  const renderScreen = (currentActivitie) => {
-    return (
-      <>
-        {
-          currentActivitie
-            ? renderActivitie(currentActivitie, props.registerAction)
-            : <h1>não tem mais atividades</h1>
-        }
-      </>
-    )
   }
 
   return (
     <Container>
       {
         activities && activities.length > 0
-          ? renderScreen(activities[currentActivitie-1])
+          ? renderActivitie(activities[currentActivitie-1], props.registerAction)
           : <h1>Carregando</h1>
       }
     </Container>

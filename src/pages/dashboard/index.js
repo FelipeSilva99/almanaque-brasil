@@ -1,35 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 //Component
 import Header from '../../components/header/headerYellow';
 import Footer from '../../components/footer/footerMenu';
+import WelcomeModal from '../../components/modal/welcomeModal'
 
 //Image
 import home from '../../images/icons/menu/selectedHome.svg';
+import elifas from '../../images/elifas.svg';
+import dashboardTrail from '../../images/dashboardTrail.svg';
+import thunk from '../../images/icons/menu/selectedThunk.svg';
 
 //Redux
-import { signOut } from '../../dataflow/modules/signIn-modules';
-import { selectedTrails } from '../../dataflow/modules/trails-module';
-import { clearActionsBook } from '../../dataflow/modules/actionsBook-modules';
+import { getDataThunk } from '../../dataflow/thunks/thunk-thunks';
+import { setModal } from '../../dataflow/modules/modals-module';
 
 const mapStateToProps = state => ({
   trails: state.trails.data,
   user: state.login.user,
+  modals: state.modals
 });
 
 const mapDispatchToProps = dispatch => ({
-  selectedTrails: (info) => {
-    dispatch(selectedTrails(info));
-  },
-
-  signOut: () => {
-    dispatch(signOut());
-  },
-
-  clearActionsBook: () => {
-    dispatch(clearActionsBook());
+  setModal: (modal) => {dispatch(setModal(modal))},
+  getDataThunk: () => {
+    dispatch(getDataThunk());
   },
 });
 
@@ -56,11 +53,17 @@ const Card = styled.button`
   margin-bottom: 2rem;
   width: 100%;
   height: 10rem;
-  max-width: 330px;
+  max-width: ${props => props.maxWidth};
   border-radius: 16px;
   padding: 16px;
-  background-color: #fff;
-
+  background-color: ${props => props.backgroundColor};
+  background-image: url(${props => props.backgroundImage});
+  background-size: ${props => props.backgroundSize};
+  background-position-x: ${props => props.backgroundPositionX};
+  background-position-y: ${props => props.backgroundPositionY};
+  background-repeat: no-repeat;
+  text-align: left;
+  font-size: 1rem;
   &:hover{
     box-shadow: 0 6px 10px rgba(0,0,0,0.25), 0 1px 10px rgba(0,0,0,0.22);
   }
@@ -73,7 +76,22 @@ const Card = styled.button`
   }
 `;
 
+const ElifasSVG = styled.img`
+  position: absolute;
+  right: 0px;
+  bottom: 2.875rem;
+`;
+
+
+
 const Dashboard = (props) => {
+
+  const [showWelcomeModal, setWelcomeModal] = useState(true);
+
+  useEffect(() => {
+		props.getDataThunk();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
   const handleClick = (route) => {
     props.history.push({ pathname: `/${route}` });
@@ -81,21 +99,48 @@ const Dashboard = (props) => {
 
   const trails = props?.trails;
 
+  const handleCloseModal = () => {
+    setWelcomeModal(!showWelcomeModal)
+    props.setModal({modal: 'welcomeModal', wasShowed: true})
+  }
+
+
   return (
     <Container>
-      <Header text={`Oi, ${props.user.name}`} icon={home} home/>
+      { !props.modals.welcomeModal.wasShowed && <WelcomeModal handleClose={handleCloseModal}/> }
+      <Header
+        initialLettersName={props.user?.name[0] + props.user?.name[1]}
+        text={`Oi, ${props.user.name}`}
+        icon={home}
+        />
+
        <Content>
         <Text paddingBottom>Qual atividade você quer fazer?</Text>
         {trails && (
           <>
-            <Card marginRight onClick={() => handleClick('trails')}>
-              <Text>Trilha</Text>
+            <Card 
+              backgroundImage={dashboardTrail}
+              backgroundColor={"#d5e2ff"}
+              marginRight
+              backgroundSize={'209px'}
+              backgroundPositionX={'217px'}
+              onClick={() => handleClick('trails')}
+              ><Text>Mapa das<br/>trilhas</Text>
             </Card>
-            <Card onClick={() => handleClick('trunk')}>
-              <Text>Baú</Text>
+
+            <Card
+              backgroundColor={"#f4de9b"}
+              maxWidth={'220px'}
+              backgroundImage={thunk}
+              backgroundSize={'175px'}
+              backgroundPositionX={'70px'}
+              backgroundPositionY={'28px'}
+              onClick={() => handleClick('trunk')}
+              ><Text>Baú</Text>
             </Card>
           </>
         )}
+      {props.modals.welcomeModal.wasShowed && <ElifasSVG onClick={() => handleCloseModal()} src={elifas}/>}
       </Content>
       <Footer  screen='dashboard'/>
     </Container>

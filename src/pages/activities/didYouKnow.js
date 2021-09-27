@@ -28,13 +28,13 @@ const Container = styled.div`
   }
 `;
 
-const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
+const DidYouKnow = (props) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [activitie, setActivitie] = useState(undefined)
-  const [showAnswer, setShowAnswer] = useState(false);
+  const [showAnswer, setShowAnswer] = useState({isModal: undefined, answer: undefined});
   const [isLoading, setIsLoading] = useState(true);
   const [amountTrial, setAmountTrial] = useState(3);
 
@@ -47,28 +47,28 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
   }, []);
 
   useEffect(() => {
-    setActivitie(useActivitie);
-  }, [useActivitie]);
+    setActivitie(props.useActivitie);
+  }, [props.useActivitie]);
 
   useEffect(() => {
     if (modalWrongAnswer) {
-      registerAction({
-        activityId: useActivitie.id,
-        trailId: useActivitie.trailId,
+      props.registerAction({
+        activityId: props.useActivitie.id,
+        trailId: props.useActivitie.trailId,
         success: false,
         timestamp: Date.now()
       })
     }
 
     if (modalCorrectAnswer) {
-      registerAction({
-        activityId: useActivitie.id,
-        trailId: useActivitie.trailId,
+      props.registerAction({
+        activityId: props.useActivitie.id,
+        trailId: props.useActivitie.trailId,
         success: true,
         timestamp: Date.now()
       })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalCorrectAnswer, modalWrongAnswer])
 
   const handleIsModalAnswerOption = () => {
@@ -90,9 +90,10 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
   }
 
   const showModalAnswer = () => {
+    const useAnswers = activitie.answers.filter(item => item.isCorrect);
     setModalWrongAnswer(false);
     setModalCorrectAnswer(false);
-    setShowAnswer(true);
+    setShowAnswer({isModal: true, answer: useAnswers});
   }
 
   const renderScreen = () => {
@@ -129,13 +130,13 @@ const DidYouKnow = ({ useActivitie, handlerNextActivitie, registerAction }) => {
         {(
           !modalWrongAnswer
           && !modalCorrectAnswer
-          && !showAnswer)
+          && !showAnswer.isModal)
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages} />}
-        {modalCorrectAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={answer} toScore isTrunk amountTrial={amountTrial} />}
-        {showAnswer && <CorrectAnswer handlerNextActivitie={handlerNextActivitie} answer={useActivitie.answers[3]} isTrunk amountTrial={amountTrial} />}
+        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={activitie.errorMessages} />}
+        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial} />}
+        {showAnswer.isModal && <CorrectAnswer answer={showAnswer.answer} isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial} />}
       </Container>
     )
   );

@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import trailsMap from './aliases';
-import aliases from './aliases';
 
+//Component
+import aliases from './aliases';
+import skeleton from '../../../images/trails/map/skeleton.svg'
 
 const AlignToCenter = styled.div`
+  &::-webkit-scrollbar {
+    display: none;               /* width of the entire scrollbar */
+  }
+  overflow: auto;
   position: absolute;
-  background-color: #d5e2ff;
+  background-color: #ebeeec;
   bottom: 39px;
   display: flex;
   justify-content: center;
@@ -15,7 +20,7 @@ const AlignToCenter = styled.div`
 
 const MapBackground = styled.div`
   position: relative;
-  width: 361px;
+  width: 413px;
   min-height: 430px;
   height: 100vh;
 `;
@@ -24,12 +29,26 @@ const MapFragment = styled.div`
   position: absolute;
   left: ${props => props.left};
   bottom: ${props => props.bottom};
-
+  z-index: 1;
   p{
     position: absolute;
     color: red;
     z-index: 3;
   }
+  overflow: auto;
+`;
+
+const Stone = styled.img`
+  position: absolute;
+  right: -20px;
+  top: ${props => props.top};
+  right: ${props => props.right};
+`;
+
+const Skeleton = styled.img`
+  position: absolute;
+  bottom: 0;
+
 `;
 
 const Map = ({ trails, goToActivitie }) => {
@@ -38,31 +57,24 @@ const Map = ({ trails, goToActivitie }) => {
   }
 
   return (
-    console.log('aliases', aliases),
     <AlignToCenter>
       <MapBackground>
         {trails.map((trail, key) => (
-          // console.log('trail dfd:', trail.name),
           <MapFragment 
             key={key}
             left={aliases[trail.name].position.left}
             bottom={aliases[trail.name].position.bottom}
             type="image/svg+xml"
-            ><img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} />
+          >
+            <Stone
+              onClick={() => handleMapFragmentClick(trail, key)}
+              top={aliases[trail.name].stone.position.top}
+              right={aliases[trail.name].stone.position.right}
+              src={aliases[trail.name].stone.state.done} />
+            <img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} />
           </MapFragment>
         ))}
-        {/* {Object.keys(aliases).map((trail, key) => (
-          console.log('trail', trail),
-
-          <MapFragment 
-            key={key}
-            src={aliases[trail].img}
-            left={aliases[trail].position.left}
-            bottom={aliases[trail].position.bottom}
-            onClick={() => goToActivitie(trail.id)}></MapFragment>
-        ))
-
-        } */}
+        <Skeleton src={skeleton} />
         
       </MapBackground>
     </AlignToCenter>

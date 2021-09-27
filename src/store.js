@@ -1,4 +1,3 @@
-
 // Libs
 import {
   compose, createStore, applyMiddleware, combineReducers,
@@ -13,11 +12,16 @@ import storage from 'redux-persist/lib/storage'
 import TrailsReducer from './dataflow/modules/trails-module';
 import LoginReducer from './dataflow/modules/signIn-modules';
 import ActionsBookReducer from './dataflow/modules/actionsBook-modules';
+import ThunkReducer from './dataflow/modules/thunk-module';
+import ModalsReducer from './dataflow/modules/modals-module';
+
 
 const reducers = combineReducers({
   trails: TrailsReducer,
   login: LoginReducer,
-  actionsBook: ActionsBookReducer
+  modals: ModalsReducer,             
+  actionsBook: ActionsBookReducer,
+  thunk: ThunkReducer,
 });
 
 const persistConfig = {

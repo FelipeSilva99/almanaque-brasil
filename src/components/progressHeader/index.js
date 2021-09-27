@@ -2,24 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Assets
-import headerBackground from '../../images/progressHeaderBackground.svg'
 import trophiesIcon from '../../images/icons/progressHeader/trophies.svg'
 import booksIcon from '../../images/icons/progressHeader/books.svg'
 import trailsIcon from '../../images/icons/progressHeader/trails.svg'
 
-const Container = styled.header`
-  position: absolute;
-  top: -20px;
-  width: 100%;
-  background-color: #d5e2ff;
-  overflow: hidden;
-  z-index: 1;
 
-  img{
-    position: relative;
-    left: -14px;
-    width: 456px;
-  }
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  z-index: 1;
 `;
 
 const Square = styled.div`
@@ -46,17 +41,6 @@ const Item = styled.div`
   /* min-height: 43px; */
 `;
 
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  position: absolute;
-  top: 52px;
-  width: 100%;
-  /* height: 30px; */
-  z-index: 1;
-`;
-
 const ValueBox = styled.div`
   width: 66px;
   padding: 2px 0 2px 0;
@@ -66,6 +50,7 @@ const ValueBox = styled.div`
   text-align: center;
   font-weight: 800;
   font-size: 1.2rem;
+  background-color: #fff;
 `;
 
 export default ({ points=0, trails=0, books=0 }) => {
@@ -76,8 +61,7 @@ export default ({ points=0, trails=0, books=0 }) => {
   ]
 
   return(
-    <Container>
-      <img src={headerBackground}></img>
+    // <Container>
       <Row>
         {items.map(item => {
           return <Item>
@@ -86,6 +70,6 @@ export default ({ points=0, trails=0, books=0 }) => {
           </Item>
         })}
       </Row>
-    </Container>
+    // </Container> */
   );
 }

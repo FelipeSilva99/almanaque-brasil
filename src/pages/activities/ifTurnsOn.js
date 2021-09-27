@@ -305,7 +305,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
       return;
     }
     if (isCorrectAnswer) {
-      handlerNextActivitie();
+      handlerNextActivitie(activitie.id);
     } else if (isCorrect()) {
       handleCorrectAnswer();
       handleModalCorrectAnswer();
@@ -396,7 +396,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
           />
         )}
         <Content isCorrectAnswer={isCorrectAnswer}>
-          {isCorrectAnswer && <TextCorrectAnswer>A resposta certa é</TextCorrectAnswer>}
+          {isCorrectAnswer && <TextCorrectAnswer>A resposta é:</TextCorrectAnswer>}
           {renderScreen(pairs)}
           <ContainerButton
             color={isCorrectAnswer && '#fff'}

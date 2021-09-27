@@ -30,7 +30,6 @@ export default function main(state = initialState, action) {
     case SYNCED:
       const syncedArray = state.synced;
       // if(state.pendingSync.length > 0) {
-      console.log('teste')
       state.pendingSync.map(item => syncedArray.push(item))
       // }
 

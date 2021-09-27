@@ -12,14 +12,14 @@ const Container = styled.div`
 
 const LineToRight = styled.div`
   position: relative;
-  left: 144px;
-  transform: rotate(33deg);
-  width: 180px;
-  height: 180px;
+  top: 57px;
+  left: 52%;
+  transform: rotate(32deg);
+  width: 170px;
+  height: 160px;
   border: dashed 5px ${props => props.color};
   border-color: ${props => props.color} ${props => props.color} transparent transparent;
   border-radius: 50%;
-  top: 51px;
   z-index: 1;
 
   @media (max-width: 320px) {
@@ -29,36 +29,28 @@ const LineToRight = styled.div`
 `;
 
 const LineStraight = styled.div`
-  position: relative;
-  left: 90px;
-  width: 150px;
-  height: 5px;
-  border-top: dashed 5px ${props => props.color};
-  top: 29px;
+  position: absolute;
+  top: 3.5rem;
+  left: 39%;
+  width: 110px;
+  height: 10px;
+  border-top: 5px dashed rgb(76, 144, 175);
+  background: #fff;
   z-index: 2;
 `;
+export { LineStraight };
 
 const LineToleft = styled.div`
-  /* display: none; */
   position: relative;
-  left: 34px;
-  right: 33px;
+  left: 3%;
   transform: rotate(-90deg);
-  width: 157px;
-  height: 147px;
+  width: 170px;
+  height: 170px;
   border: dashed 5px ${props => props.color};
-  border-right: none;
   border-color: ${props => props.color} ${props => props.color} transparent ${props => props.color};
   border-radius: 50% 50% 0 0;
-  top: 41px;
+  top: 61px;
   z-index: 3;
-  /* &:after{
-    content: '';
-    position: absolute;
-    width: 100px;
-    border-bottom: dashed 5px ${props => props.color};
-  } */
-  /* background-color: gainsboro; */
 
   @media (max-width: 320px) {
     left: -9px;
@@ -73,32 +65,26 @@ const Decoration = styled.img`
   right: ${props => props.right};
 `;
 
-const defineLines = (quantity) => {
-  let nextItemIsSingular = true;
-  let linesArray = []
-  // console.log('quantity:',quantity)
-  for(let i = 0; i < quantity; i++) {
-    if(nextItemIsSingular) {
-      // console.log("A")
-      nextItemIsSingular = false
-      linesArray.push("right")
-    } else {
-      if((i+1) % 3 === 0) {
-        // console.log("B")
-        nextItemIsSingular = true
-        linesArray.push("left")
-      }
-      else {
-        // console.log("C")
-        linesArray.push("straight")
-      }
-    }
-  }
-  // console.log('lA:',linesArray)
-  return linesArray;
-}
 const Way = ({ backgroundDecorations, linesQuantity, progress }) => {
   const [lines, setLines] = useState(undefined)
+  
+  const defineLines = (quantity) => {
+    let nextItemIsSingular = true;
+    let linesArray = []
+    
+    for(let i = 0; i < quantity; i++) {
+      if(nextItemIsSingular) {
+        nextItemIsSingular = false
+        linesArray.push("right")
+      } else {
+        if((i+1) % 3 === 0) {
+          nextItemIsSingular = true
+          linesArray.push("left")
+        }
+      }
+    }
+    return linesArray;
+  }
 
   useEffect(() => {
     const lines = defineLines(linesQuantity)
@@ -123,20 +109,32 @@ const Way = ({ backgroundDecorations, linesQuantity, progress }) => {
   }
 
   const setColor = (ind) => {
-    if(progress[ind].state === 'done') return '#4C90AF'
+    if(progress[ind]?.state === 'done') return '#4C90AF'
     else return 'silver'
   }
 
   return(
     <Container>
-      <Decoration src={backgroundDecorations.top}></Decoration>
-      <Decoration top={'488px'} left={'110px'} src={backgroundDecorations.center}></Decoration>
-      <Decoration bottom={'0'} right={0} src={backgroundDecorations.bottom}></Decoration>
+      <Decoration
+        src={backgroundDecorations.top}
+        alt=""
+      />
+      <Decoration
+        top={'488px'}
+        left={'110px'}
+        src={backgroundDecorations.center}
+        alt=""
+      />
+      <Decoration
+        bottom={'0'}
+        right={0}
+        src={backgroundDecorations.bottom}
+        alt=""
+      />
       {lines && lines.map((type, i) => {
         return setComponent(type, i)
       })}
     </Container>
-
   )
 }
 

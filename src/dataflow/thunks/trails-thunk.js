@@ -20,6 +20,7 @@ export const getTrailsThunk = () => async (dispatch) => {
 				'Authorization': `${idToken}`,
 			},
 		})
+
     dispatch(getTrails(response.data.Items));
   }
   catch (err) {

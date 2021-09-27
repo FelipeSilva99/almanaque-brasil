@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 //Component
 import Footer from '../../components/footer/footerMenu';
 import Map from './Map';
-import ProgressHeader from '../../components/progressHeader'
+import ProgressHeader from '../../components/progressHeader';
 
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';
@@ -42,6 +42,7 @@ export const Card = styled.button`
 `;
 
 export const Box = styled.div`
+  overflow: hidden;
   position: relative;
   width: 100%;
   min-height: 100vh;

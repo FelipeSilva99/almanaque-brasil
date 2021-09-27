@@ -6,10 +6,10 @@ import styled from 'styled-components';
 const Content = styled.div`
   padding-bottom: 2rem;
   display: flex;
+  align-self: start;
   align-items: center;
   flex-direction: row;
   cursor: pointer;
-  align-self: end;
 `;
 
 const Check = styled.button`
@@ -35,7 +35,7 @@ const Text = styled.p`
   color: #373737;
   
   >strong{
-    font-weight: bold;
+    font-weight: 800;
   }
 `;
 

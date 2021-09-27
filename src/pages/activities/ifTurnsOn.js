@@ -38,6 +38,7 @@ const Content = styled.div`
   @media (max-width: 320px) {
     overflow: auto;
     padding-top: .5rem;
+    height: ${props => props.isCorrectAnswer ? '100%' : '85%'} ;
   }
 `
 
@@ -47,10 +48,11 @@ const ContentBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
 
 const ContentInfo = styled.div`
-  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
   width: 100%;
   display: flex;
   justify-content: space-between;

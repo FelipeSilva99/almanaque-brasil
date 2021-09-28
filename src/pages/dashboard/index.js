@@ -115,6 +115,7 @@ const Dashboard = (props) => {
   return (
     <Container>
       { !props.modals.welcomeModal.wasShowed && <WelcomeModal showThunk={() => handleModalThunk} handleClose={handleCloseModal}/> }
+
       <Header
         initialLettersName={props.user?.name[0] + props.user?.name[1]}
         text={`Oi, ${props.user.name}`}

@@ -11,10 +11,10 @@ import checkIcon from '../../images/activity/check.svg';
 //Styles
 const ActivitiesCircle = styled.button`
   position: relative;
-  margin: 1.5rem 3rem .5rem 3rem;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  margin: 1.5rem 4rem .5rem;
   cursor: pointer;
   z-index: 30;
 `;
@@ -22,7 +22,7 @@ const ActivitiesCircle = styled.button`
 const Box = styled.div`
   text-align: center;
   height: 117px;
-  margin-bottom: 3rem;
+  margin-bottom: 3.8rem;
   z-index: 3;
 `;
   

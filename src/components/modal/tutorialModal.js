@@ -2,12 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 //Images
-import dialogBox from '../../images/dialogBox/dialogBox.svg';
 import iconElifas from '../../images/elifas/tip.svg';
 import close from '../../images/icons/close.svg';
 
 //Styled
-const ContainerTip = styled.div`
+const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -18,20 +17,16 @@ const ContainerTip = styled.div`
   justify-content: flex-end;
   align-items: center;
   background: #ababab;
+  z-index: 1;
 
   @media (min-width: 1024px) { align-items: center; }
 `;
 
-const ContentTip = styled.div`
+const Content = styled.div`
   position: relative;
   width: 100%;
   height: 93vh;
   max-width: 340px;
-`;
-
-const ImgDialogBox = styled.img`
-  width: 100%;
-  transform: scaleX(-1);
 `;
 
 const ContentInfo = styled.div`
@@ -69,19 +64,19 @@ const ContentInfo = styled.div`
   }
 `;
 
-const TipTitle = styled.h2`
+const Title = styled.h2`
   font-size: 1.1em;
   font-weight: 300;
 `;
 
-const TipSubtitle = styled.h1`
+const Subtitle = styled.h1`
   margin: .4rem 0 2rem;
   font-size: 1.25em;
   font-weight: 900;
   color: #373737;
 `;
 
-const ScrollTip = styled.ol`
+const Scroll = styled.ol`
   padding-left: 2.7rem;
   list-style: none;
   overflow-y: auto;
@@ -104,7 +99,7 @@ const ScrollTip = styled.ol`
 	}
 `;
 
-const TextTip = styled.li`
+const Text = styled.li`
   position: relative;
   margin-bottom: 1.9rem;
   line-height: 1.4;
@@ -127,7 +122,7 @@ const TextTip = styled.li`
   @media (max-width: 320px) { padding: ${props => props.padding && '1.5rem 0 .4rem 0 '}; }
 `;
 
-const ImgBento = styled.img`
+const ImgElifas = styled.img`
   position: absolute;
   right: -3%;
   bottom: 0;
@@ -140,10 +135,10 @@ const CloseBtn = styled.button`
   color: #ffd000;
 `;
 
-const tipsData = [
+const tutorialData = [
   {
     game: 'Se liga!',
-    tips: [
+    text: [
       'Observe as colunas de imagem e de texto.',
       'Identifique qual imagem corresponde à palavra da segunda coluna.',
       'Clique na imagem e na palavra correspondente.',
@@ -151,7 +146,7 @@ const tipsData = [
   },
   {
     game: 'Você sabia?',
-    tips: [
+    text: [
       'Leia o texto primeiro',
       'Clicando em responder você verá opções de resposta.',
       'Escolha a resposta que achar correta.',
@@ -159,7 +154,7 @@ const tipsData = [
   },
   {
     game: 'Coisas nossas',
-    tips: [
+    text: [
       'Leia o texto primeiro',
       'Clicando em responder você verá opções de resposta.',
       'Escolha a resposta que achar correta.',
@@ -167,15 +162,15 @@ const tipsData = [
   },
   {
     game: 'O que é o que é?',
-    tips: [
+    text: [
       'Leia a pergunta que aparece na tela.',
       'Ao clicar em responder aparecerá um teclado.',
       'Digite a resposta que achar correta.',
     ]
   },
   {
-    game: 'De quem são esses olhos?',
-    tips: [
+    game: 'De quem são estes olhos',
+    text: [
       'Tente reconhecer de quem são os olhos que estão em destaque.',
       'Clicando em responder, você verá opções de resposta.',
       'Escolha o nome da pessoa que corresponde aos olhos.',
@@ -183,7 +178,7 @@ const tipsData = [
   },
   {
     game: 'Palavra enigmática',
-    tips: [
+    text: [
       'Responda uma coluna por vez.',
       'Olhe a imagem e subtraia a sílaba indicada.',
       'Digite a sílaba que restou no espaço abaixo da imagem.',
@@ -191,34 +186,29 @@ const tipsData = [
   },
 ]
 
-// índex do game
-let i = 0
-
-function Tip({ text, handleModalTip }) {
+function Tutorial({ screen, handleCloseTutorial }) {
   return (
-    <ContainerTip>
-      <ContentTip>
-
-          <ContentInfo>
-            <TipTitle>Tutorial</TipTitle>
-            {tipsData
-              .filter((item, index) => index === i)
-              .map((data) => (
-                <>
-                  <TipSubtitle>{data.game}</TipSubtitle>
-                  <ScrollTip>
-                    {data.tips.map(tip => <TextTip>{tip}</TextTip>)}
-                  </ScrollTip>
-                </>
-              ))
-            }
-            <CloseBtn onClick={handleModalTip}>X</CloseBtn>
-          </ContentInfo>
-
-        <ImgBento src={iconElifas} />
-      </ContentTip>
-    </ContainerTip>
+    <Container>
+      <Content>
+        <ContentInfo>
+          <Title>Tutorial</Title>
+          {tutorialData
+            .filter((item) => item.game === screen)
+            .map((data, index) => (
+              <>
+                <Subtitle>{data.game}</Subtitle>
+                <Scroll>
+                  {data.text.map(item => <Text>{item}</Text>)}
+                </Scroll>
+              </>
+            ))
+          }
+          <CloseBtn onClick={handleCloseTutorial}>X</CloseBtn>
+        </ContentInfo>
+        <ImgElifas src={iconElifas} />
+      </Content>
+    </Container>
   )
 }
 
-export default Tip;
+export default Tutorial;

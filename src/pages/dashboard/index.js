@@ -128,10 +128,11 @@ const Dashboard = (props) => {
           <>
             <Card 
               backgroundImage={dashboardTrail}
-              backgroundColor={"#d5e2ff"}
+              backgroundColor={'#eaedeb'}
               marginRight
-              backgroundSize={'209px'}
-              backgroundPositionX={'217px'}
+              backgroundSize={'380px'}
+              backgroundPositionX={'100%'}
+              backgroundPositionY={'100%'}
               onClick={() => handleClick('trails')}
               ><Text>Mapa das<br/>trilhas</Text>
             </Card>

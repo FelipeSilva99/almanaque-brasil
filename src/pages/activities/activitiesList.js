@@ -7,18 +7,16 @@ import Header from '../../components/header';
 import ActivitieIcon from '../../components/trail/activitieIcon'
 import Way from '../../components/trail/way';
 import ActivitiesCompleted from '../../components/modal/activitiesCompletedModal';
-import TrailCompletedModal from '../../components/modal/trailCompletedModal';
 
 
 //Assets
-import { LineStraight } from '../../components/trail/way';
 import aquamarineStone from '../../images/stones/aquamarine2.svg'
 import aquamarine from '../../images/stones/aquamarine.svg'
 import church from '../../images/trails/church.svg'
 import houses from '../../images/trails/houses.svg'
 import trainStation from '../../images/trails/trainstation.svg'
 
-import { postActionsBook, deleteActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
+import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -30,10 +28,6 @@ const mapDispatchToProps = dispatch => ({
   postActionsBook: (info) => {
     dispatch(postActionsBook(info));
   },
-
-  deleteActionsBook: () => {
-    dispatch(deleteActionsBook());
-  }
 });
 
 // Styles
@@ -79,7 +73,7 @@ const ActivitiesRow = styled.div`
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
   const [activitiesProgress, setActivitiesProgress] = useState(undefined);
-  const [isModal, setIsModal] = useState(undefined);
+  const [isModalActivitiesCompleted, setIsModalActivitiesCompleted] = useState(undefined);
 
   const backgroundDecorations = {
     top: church,
@@ -113,14 +107,7 @@ const Activities = (props) => {
     const isLastActivity = lastActivityDone === idLastActivity;
 
     if(isLastActivity) {
-      setIsModal('activitiesCompleted');
-
-    } else {
-      const isFullTrails = activitiesProgress && activitiesProgress?.every(elem => elem.state ==='done')
-
-      if(isFullTrails) {
-        setIsModal('trailCompleted');
-      }
+      setIsModalActivitiesCompleted(true);
     }
 
     setActivities(allActivities);
@@ -136,29 +123,6 @@ const Activities = (props) => {
     });
   }
 
-  const handleCloseModalActivities = () => {
-    setIsModal('trailCompleted');
-  }
-
-  const handleCloseModal = () => {
-    setIsModal('');
-  }
-
-  const handleDeleteScore = () => {
-    props.deleteActionsBook();
-
-    // setTimeout(()=>{
-      // props.history.push('/activities')
-      props.history.push({
-        pathname: `/activities`,
-        state: { idActivitie: undefined}
-      });
-    // }
-    // }, 1000);
-
-    handleCloseModal();
-  }
-
   const renderActivities = () => {
     // logic for deciding whether to return one or two items in a row
     if (activitiesProgress === undefined) return
@@ -167,8 +131,6 @@ const Activities = (props) => {
     return activities.map((item, index, array) => {
       if (nextItemIsSingular) {
         nextItemIsSingular = false
-        console.log(activities)
-
         return (
           <ActivitiesRow key={index}>
             <ActivitieIcon
@@ -178,8 +140,6 @@ const Activities = (props) => {
               onClick={() => handlerNextActivitie(index)}
               history={props.history}
             >{index}</ActivitieIcon>
-
-            {index !== activities.length - 1 && <LineStraight/>}
           </ActivitiesRow>
         )
       } else {
@@ -199,8 +159,6 @@ const Activities = (props) => {
                 onClick={() => handlerNextActivitie(index)}
                 history={props}
               >{index}</ActivitieIcon>
-
-              <LineStraight/>
 
               <ActivitieIcon
                 activitieState={activitiesProgress[index + 1]?.state}
@@ -304,9 +262,7 @@ const Activities = (props) => {
 
       {renderStone()}
 
-      {isModal === 'activitiesCompleted' && <ActivitiesCompleted handleCloseModal={handleCloseModalActivities}/>}
-      {isModal === 'trailCompleted' && <TrailCompletedModal handleCloseModal={handleCloseModal} handleDeleteScore={handleDeleteScore} />}
-      {/* <TrailCompletedModal handleCloseModal={handleCloseModal} handleDeleteScore={handleDeleteScore} /> */}
+      {isModalActivitiesCompleted && <ActivitiesCompleted history={props.history}/>}
     </Container>
   );
 }

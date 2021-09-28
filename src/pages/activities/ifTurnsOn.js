@@ -8,6 +8,7 @@ import ContainerButton from '../../components/buttons/containerButton';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 import SplashScreen from './splashScreen';
 import ScoreScreen from '../../components/activities/scoreScreen';
+import Tutorial from '../../components/modal/tutorialModal';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -18,7 +19,6 @@ const Container = styled.div`
   height: 100vh;
   background-color: #f3f3f3;
   display: flex;
-  /* justify-content: space-between; */
   flex-direction: column;
   align-items: center;
 `
@@ -26,27 +26,34 @@ const Container = styled.div`
 const Content = styled.div`
   position: absolute;
   bottom: 0;
-  padding-top: 2rem;
   width: 100%;
+  height: 85%;
   background: ${props => !props.isCorrectAnswer && '#fff'};
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
-  
-  @media(min-width: 768px) {
-    padding-top: 6rem;
-    color: pink;
-  }
+
   @media (max-width: 320px) {
     overflow: auto;
+    padding-top: .5rem;
+    height: ${props => props.isCorrectAnswer ? '100%' : '85%'} ;
   }
 `
 
+const ContentBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
 const ContentInfo = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -79,6 +86,7 @@ const TextCorrectAnswer = styled.h1`
   font-size: .9375rem;
   color: #373737;
   font-weight: 900;
+  text-align: center;
 `
 
 const Box = styled.div`
@@ -119,6 +127,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
   const [isModalCorrectAnswer, setIsModalCorrectAnswer] = useState(false);
   const [isError, setIsError] = useState(undefined);
+  const [isTutorial, setIsTutorial] = useState(undefined);
 
   useEffect(() => {
     inMemoryItem === undefined
@@ -136,6 +145,9 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
     });
     setActivitie(useActivitie);
     setPairs(shuffle(newArrayOfActivities));
+    if(useActivitie.trailId === 0) {
+      setIsTutorial(true);
+    }
   }, [useActivitie]);
 
 
@@ -214,6 +226,10 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
   const handleContinue = () => {
     handleModalCorrectAnswer();
     setIsCorrectAnswer(true);
+  }
+
+  const handleCloseTutorial = () => {
+    setIsTutorial(false);
   }
 
   const checkBackgroundColor = (item, inMemoryItem) => {
@@ -396,8 +412,10 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
           />
         )}
         <Content isCorrectAnswer={isCorrectAnswer}>
-          {isCorrectAnswer && <TextCorrectAnswer>A resposta é:</TextCorrectAnswer>}
-          {renderScreen(pairs)}
+          <ContentBox>
+            {isCorrectAnswer && <TextCorrectAnswer>A resposta é:</TextCorrectAnswer>}
+            {renderScreen(pairs)}
+          </ContentBox>
           <ContainerButton
             color={isCorrectAnswer && '#fff'}
             background={isCorrectAnswer && '#399119'}
@@ -412,6 +430,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
         </Content>
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isModalCorrectAnswer && <ScoreScreen amountTrial={amountTrial} handleClick={handleContinue} />}
+        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
       </Container>
     )
   )

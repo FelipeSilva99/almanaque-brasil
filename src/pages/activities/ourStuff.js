@@ -9,6 +9,7 @@ import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 import ContentImageText from '../../components/activities/activitieDescription';
 import OptionsButtons from '../../components/activities/optionsButtons';
+import Tutorial from '../../components/modal/tutorialModal';
 
 //Images
 import logo from '../../images/logo/ourStuff.svg';
@@ -37,6 +38,7 @@ const OurStuff = ({ useActivitie, registerAction }) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [amountTrial, setAmountTrial] = useState(3);
+  const [isTutorial, setIsTutorial] = useState(undefined);
 
   useEffect(() => {
     let timer1 = setTimeout(() => setIsLoading(false), 2000);
@@ -48,6 +50,10 @@ const OurStuff = ({ useActivitie, registerAction }) => {
 
   useEffect(() => {
     setActivitie(useActivitie);
+
+    if(useActivitie.trailId === 0) {
+      setIsTutorial(true);
+    }
   }, [useActivitie]);
 
   useEffect(() => {
@@ -87,6 +93,10 @@ const OurStuff = ({ useActivitie, registerAction }) => {
       setAmountTrial(amountTrial - 1);
       setModalWrongAnswer(true);
     }
+  }
+
+  const handleCloseTutorial = () => {
+    setIsTutorial(false);
   }
 
   const showModalAnswer = () => {
@@ -140,6 +150,7 @@ const OurStuff = ({ useActivitie, registerAction }) => {
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
         {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
         {showAnswer && <CorrectAnswer answer={isAnswerCorrect()[0]} isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
+        {isTutorial && <Tutorial screen='Coisas nossas' handleCloseTutorial={handleCloseTutorial} /> }
       </Container>
     )
   );

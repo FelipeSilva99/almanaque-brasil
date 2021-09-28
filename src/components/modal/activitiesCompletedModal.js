@@ -96,7 +96,11 @@ const ImgBento = styled.img`
   width: 10rem;
 `;
 
-function TrailCompletedModal({ handleCloseModal }) {
+function activitiesCompletedModal({ history }) {
+  const handleClick = () => {
+    history.push('/trails');
+  }
+
 	return (
 		<Container>
 			<Content>
@@ -109,7 +113,7 @@ function TrailCompletedModal({ handleCloseModal }) {
             <Text>
               vamos continuar nessa jornada de conhecimento?
             </Text>
-          <Button handleClick={handleCloseModal} margin='0'>escolher outra trilha</Button>
+          <Button handleClick={handleClick} margin='0'>escolher outra trilha</Button>
 				</ContentInfo>
 				<ImgBento src={iconElifas} />
 			</Content>
@@ -117,4 +121,4 @@ function TrailCompletedModal({ handleCloseModal }) {
 	)
 }
 
-export default TrailCompletedModal;
+export default activitiesCompletedModal;

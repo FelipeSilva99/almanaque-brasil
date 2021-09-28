@@ -7,6 +7,7 @@ import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from '../../pages/activities/splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
+import Tutorial from '../../components/modal/tutorialModal';
 
 //Images
 import paleLeaves from '../../images/whatIsWhatIs/pale_leaves.svg';
@@ -161,6 +162,8 @@ const WhatIsWhatIs = ({ useActivitie, registerAction }) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [amountTrial, setAmountTrial] = useState(3);
+  const [isTutorial, setIsTutorial] = useState(undefined);
+
 
   const handleAnswerSize = () => {
     let answerSplit = [];
@@ -189,6 +192,9 @@ const WhatIsWhatIs = ({ useActivitie, registerAction }) => {
     setLetterOption(handleShuffleLetter());
     setAnswer(handleAnswerSize());
     setActivitive(useActivitie);
+    if(useActivitie.trailId === 0) {
+      setIsTutorial(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useActivitie]);
 
@@ -232,6 +238,10 @@ const WhatIsWhatIs = ({ useActivitie, registerAction }) => {
 
   const handleWrongAnswer = () => {
     setModalWrongAnswer(false);
+  }
+
+  const handleCloseTutorial = () => {
+    setIsTutorial(false);
   }
 
   const handleClick = (event) => {
@@ -392,6 +402,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction }) => {
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer answer={useActivitie.answers[0]} toScore amountTrial={amountTrial} idActivitie={activitie.id}/>}
         {showAnswer && <CorrectAnswer answer={useActivitie.answers[0]} amountTrial={amountTrial} idActivitie={activitie.id}/>}
+        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
       </Container>
     )
   );

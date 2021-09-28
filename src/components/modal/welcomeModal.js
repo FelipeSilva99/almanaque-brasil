@@ -74,7 +74,7 @@ const DialogText = styled.p`
 
 // `;
 
-const WelcomeModal = ({handleClose}) => {
+const WelcomeModal = ({handleClose, showThunk}) => {
   return(
     <>
       <Overlay />
@@ -85,7 +85,7 @@ const WelcomeModal = ({handleClose}) => {
             <br/><br/><br/>Sou o <strong>Elifas Andreato</strong> e serei o seu guia!
           </DialogText>
           <ButtonRow marginTop={'2rem'}>
-            <Button>Saiba mais sobre o Elifas</Button>
+            <Button handleClick={showThunk()}>Saiba mais sobre o Elifas</Button>
           </ButtonRow>
           <ButtonRow marginTop={"1rem"}>
             <CloseButton onClick={handleClose}>X</CloseButton>

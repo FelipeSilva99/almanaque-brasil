@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Footer from '../../components/footer/footerMenu';
 import Map from './Map';
 import ProgressHeader from '../../components/progressHeader';
+import TrailCompletedModal from '../../components/modal/trailCompletedModal';
 
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';
@@ -55,15 +56,22 @@ export const Row = styled.div`
 `;
 
 const Trails = (props) => {
+  const [isModalTrailCompleted, setIsModalTrailCompleted] = useState(undefined);
 
 	useEffect(() => {
 		props.getTrailsThunk();
+    console.log(props.trails);
+    // setIsModalTrailCompleted(true);
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
   const handleClick = (trail) => {
     props.history.push({pathname: '/activities'});
     props.selectedTrails(trail);
+  }
+
+  const handleCloseModal = () => {
+    setIsModalTrailCompleted(false);
   }
 
   const renderTrails = (trails) => {
@@ -90,6 +98,7 @@ const Trails = (props) => {
         ) 
       }
       <Footer screen='trails' />
+      {isModalTrailCompleted && <TrailCompletedModal handleCloseModal={handleCloseModal} /> }
     </Box>
   );
 }

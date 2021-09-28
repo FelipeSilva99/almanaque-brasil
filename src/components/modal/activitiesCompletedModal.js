@@ -96,8 +96,7 @@ const ImgBento = styled.img`
   width: 10rem;
 `;
 
-function TrailCompletedModal({ history }) {
-
+function activitiesCompletedModal({ history }) {
   const handleClick = () => {
     history.push('/trails');
   }
@@ -122,4 +121,4 @@ function TrailCompletedModal({ history }) {
 	)
 }
 
-export default TrailCompletedModal;
+export default activitiesCompletedModal;

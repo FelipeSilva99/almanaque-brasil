@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-//Component
-import Button from '../buttons/button';
-
 //Images
 import iconElifas from '../../images/elifas/tip.svg';
 
@@ -84,11 +81,16 @@ const Title = styled.h1`
 
 const Text = styled.p`
   position: relative;
-  padding-bottom: ${props => props.lastText ? '1.5rem' : '.9375rem'};
+  padding-bottom: .9375rem;
 	font-size: 1rem;
   line-height: 1.4;
   
   @media(max-width: 320px) {padding-bottom: 1rem}
+`;
+
+const Button = styled.button`
+  font-size: 1.25rem;
+  font-weight: 900;
 `;
 
 const ImgBento = styled.img`
@@ -98,18 +100,15 @@ const ImgBento = styled.img`
   width: 10rem;
 `;
 
-function TrailCompletedModal({ handleCloseModal, handleDeleteScore }) {
+function TrailCompletedModal({ handleCloseModal }) {
 	return (
 		<Container>
 			<Content>
 				<ContentInfo>
-					<Title>Você já concluiu essa trilha!</Title>
-					{/* <Scroll> */}
-						<Text>Tem certeza que quer jogar novamente? Se jogar irá manter sua pontuação.</Text>
-						<Text lastText>Para conseguir uma nova pontuação você precisará apagar a anterior antes de jogar.</Text>
-					{/* </Scroll> */}
-					<Button handleClick={handleCloseModal}>Jogar sem pontuar</Button>
-					<Button margin='1.5rem 0 1.25rem 0' handleClick={handleDeleteScore}>Apagar pontuação e jogar</Button>
+					<Title>Parabéns!</Title>
+          <Text>Você concluiu o aplicativo Almanaque Miguel Burnier. Agora você pode compartilhar todo esse conhecimento com seus amigos! </Text>
+          <Text>Você pode continuar jogando as atividades sem pontuar e caso queira uma nova pontuação, poderá reiniciar o mapa nas configurações </Text>
+					<Button margin='1.5rem 0 1.25rem 0' onClick={handleCloseModal}>x</Button>
 				</ContentInfo>
 				<ImgBento src={iconElifas} />
 			</Content>

@@ -23,7 +23,7 @@ const Container = styled.div`
 
 const Content = styled.div`
   margin-bottom: 1rem; 
-  width: 100vw;
+  width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -36,14 +36,12 @@ const Content = styled.div`
 
 const Puzzle = styled.div`
   display: flex;
-  justify-content: space-around;
-  width: calc(100vw - 4rem);
-  max-width: 435px;
-  min-width: 320px;
+  justify-content: space-between;
+  width: 85%;
 `;
 
 const Enigma = styled.div`
-  width: 100px;
+  width: 30%;
 `;
 
 const EnigmaBox = styled.div`
@@ -51,32 +49,32 @@ const EnigmaBox = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: ${props => props.firstBox && '245px'};
-  padding: ${props => props.secondBox && '.6875rem'};
+  padding: ${props => props.secondBox ? '.6875rem' : '1.5rem 0 2rem'};
   margin-top: ${props => props.secondBox && '10px'};
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: #FFD000;
 
-  input{
+  input {
     background-color: #F08800;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
+    padding-bottom: 5px;
     width: 100%;
     height: 35px;
-    padding: 1rem 0;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 900;
     text-align: center;
     color: #373737;
   }
 
-  input::placeholder{
-    font-size: .8rem;
-    font-weight: normal;
+  input::placeholder {
+    font-size: .75rem;
+    font-weight: 900;
+    color: #9b6319;
   }
 `;
 
 const EnigmaImage = styled.div`
-  background-color: #fff;
   background-image: url(${props => props.src});
   background-size: contain;
   background-position: center;
@@ -87,7 +85,7 @@ const EnigmaImage = styled.div`
 `;
 
 const Less = styled.div`
-  margin-top: 5vh;
+  margin: 1rem 0 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -101,14 +99,12 @@ const Less = styled.div`
 `;
 
 const Word = styled.div`
-  margin-bottom: 5vh;
-  margin-top: 5vh; 
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0% 10% 0% 10%;
   border-radius: 15px;
-  color: #fff;
+  color: #373737;
   font-size: 2rem;
   font-weight: 900;
   background-color: #F08800;

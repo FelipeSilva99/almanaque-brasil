@@ -33,7 +33,7 @@ const LineStraight = styled.div`
   left: 33%;
   width: 130px;
   height: 10px;
-  border-top: 5px dashed  ${props => props.color};
+  border-top: 5px dashed ${props => props.color};
   background: #fff;
   z-index: 5;
 `;

@@ -131,8 +131,6 @@ const Activities = (props) => {
     return activities.map((item, index, array) => {
       if (nextItemIsSingular) {
         nextItemIsSingular = false
-        console.log(activities)
-
         return (
           <ActivitiesRow key={index}>
             <ActivitieIcon

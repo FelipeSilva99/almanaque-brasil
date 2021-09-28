@@ -9,6 +9,7 @@ import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 import ContentImageText from '../../components/activities/activitieDescription';
 import OptionsButtons from '../../components/activities/optionsButtons';
+import Tutorial from '../../components/modal/tutorialModal';
 
 //Images
 import logo from '../../images/logo/whoseEyesAreThese.svg'
@@ -37,6 +38,7 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [amountTrial, setAmountTrial] = useState(3);
   const [isModalTip, setIsModalTip] = useState(undefined);
+  const [isTutorial, setIsTutorial] = useState(undefined);
 
   useEffect(() => {
     let timer1 = setTimeout(() => setIsLoading(false), 2000);
@@ -48,6 +50,9 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction }) => {
 
   useEffect(() => {
     setActivitie(useActivitie);
+    if(useActivitie.trailId === 0) {
+      setIsTutorial(true);
+    }
   }, [useActivitie]);
 
   useEffect(() => {
@@ -91,6 +96,10 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction }) => {
       setAmountTrial(amountTrial - 1);
       setModalWrongAnswer(true);
     }
+  }
+
+  const handleCloseTutorial = () => {
+    setIsTutorial(false);
   }
 
   const showModalAnswer = () => {
@@ -144,6 +153,7 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction }) => {
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
         {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore amountTrial={amountTrial} idActivitie={activitie.id}/>}
         {showAnswer && <CorrectAnswer answer={useActivitie.answers[3]} amountTrial={amountTrial} idActivitie={activitie.id}/>}
+        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
       </Container>
     )
   );

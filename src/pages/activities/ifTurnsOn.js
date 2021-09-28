@@ -8,6 +8,7 @@ import ContainerButton from '../../components/buttons/containerButton';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 import SplashScreen from './splashScreen';
 import ScoreScreen from '../../components/activities/scoreScreen';
+import Tutorial from '../../components/modal/tutorialModal';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -126,6 +127,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
   const [isModalCorrectAnswer, setIsModalCorrectAnswer] = useState(false);
   const [isError, setIsError] = useState(undefined);
+  const [isTutorial, setIsTutorial] = useState(undefined);
 
   useEffect(() => {
     inMemoryItem === undefined
@@ -143,6 +145,9 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
     });
     setActivitie(useActivitie);
     setPairs(shuffle(newArrayOfActivities));
+    if(useActivitie.trailId === 0) {
+      setIsTutorial(true);
+    }
   }, [useActivitie]);
 
 
@@ -221,6 +226,10 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
   const handleContinue = () => {
     handleModalCorrectAnswer();
     setIsCorrectAnswer(true);
+  }
+
+  const handleCloseTutorial = () => {
+    setIsTutorial(false);
   }
 
   const checkBackgroundColor = (item, inMemoryItem) => {
@@ -421,6 +430,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
         </Content>
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isModalCorrectAnswer && <ScoreScreen amountTrial={amountTrial} handleClick={handleContinue} />}
+        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
       </Container>
     )
   )

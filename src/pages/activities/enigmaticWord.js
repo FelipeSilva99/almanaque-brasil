@@ -7,6 +7,7 @@ import WrongAnswer from '../../components/activities/wrongAnswer';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from './splashScreen';
 import Button from '../../components/buttons/containerButton';
+import Tutorial from '../../components/modal/tutorialModal';
 
 //Images
 import logo from '../../images/logo/enigmaticWord.svg';
@@ -118,6 +119,7 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [showAnswer, setShowAnswer] = useState(false);
   const [isError, setIsError] = useState(undefined);
+  const [isTutorial, setIsTutorial] = useState(undefined);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000)
@@ -131,6 +133,10 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
         userInput: ""
       }
     }))
+
+    if(activitie.trailId === 0) {
+      setIsTutorial(true);
+    }
     
   }, [activitie]);
 
@@ -170,6 +176,10 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
     handleModalWrongAnswer();
     setAmountTrial(amountTrial -1)
   };
+
+  const handleCloseTutorial = () => {
+    setIsTutorial(false);
+  }
 
   const showModalAnswer = () => {
     handleModalWrongAnswer();
@@ -231,6 +241,7 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleModalWrongAnswer} handleShowAnswer={showModalAnswer}/>}
         {modalCorrectAnswer && <CorrectAnswer answer={activitie.answer} toScore amountTrial={amountTrial} idActivitie={activitie.id}/>}
         {showAnswer && <CorrectAnswer answer={activitie.answer} amountTrial={amountTrial} idActivitie={activitie.id}/>}
+        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
       </Container>
     )
   )

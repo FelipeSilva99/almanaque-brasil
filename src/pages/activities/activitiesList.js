@@ -10,7 +10,6 @@ import ActivitiesCompleted from '../../components/modal/activitiesCompletedModal
 
 
 //Assets
-import { LineStraight } from '../../components/trail/way';
 import aquamarineStone from '../../images/stones/aquamarine2.svg'
 import aquamarine from '../../images/stones/aquamarine.svg'
 import church from '../../images/trails/church.svg'
@@ -141,8 +140,6 @@ const Activities = (props) => {
               onClick={() => handlerNextActivitie(index)}
               history={props.history}
             >{index}</ActivitieIcon>
-
-            {index !== activities.length - 1 && <LineStraight/>}
           </ActivitiesRow>
         )
       } else {
@@ -162,8 +159,6 @@ const Activities = (props) => {
                 onClick={() => handlerNextActivitie(index)}
                 history={props}
               >{index}</ActivitieIcon>
-
-              <LineStraight/>
 
               <ActivitieIcon
                 activitieState={activitiesProgress[index + 1]?.state}

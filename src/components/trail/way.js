@@ -6,21 +6,19 @@ const Container = styled.div`
   position: absolute;
   max-width: 375px;
   width: 100vw;
-  /* min-height: 100%; */
   z-index: 1;
 `;
 
 const LineToRight = styled.div`
   position: relative;
-  top: 57px;
-  /* left: 52%; */
-  left: 50%;
-  transform: rotate(32deg);
-  width: 170px;
-  height: 160px;
+  top: 60px;
+  left: 48%;
+  width: 184px;
+  height: 170px;
+  transform: rotate(90deg);
   border: dashed 5px ${props => props.color};
-  border-color: ${props => props.color} ${props => props.color} transparent transparent;
-  border-radius: 50%;
+  border-color: ${props => props.color} ${props => props.color} transparent ${props => props.color};
+  border-radius: 50% 50% 0 0;
   z-index: 1;
 
   @media (max-width: 320px) {
@@ -30,28 +28,21 @@ const LineToRight = styled.div`
 `;
 
 const LineStraight = styled.div`
-  position: absolute;
-  top: 3.5rem;
-  /* left: 39%; */
-  width: 110px;
-  height: 10px;
-  border-top: 5px dashed rgb(76, 144, 175);
-  background: #fff;
-  z-index: 2;
-  left: 34%;
-`;
-export { LineStraight };
-
-const LineToleft = styled.div`
   position: relative;
-  left: 3%;
-  transform: rotate(-90deg);
-  width: 170px;
-  height: 170px;
-  border: dashed 5px ${props => props.color};
-  border-color: ${props => props.color} ${props => props.color} transparent ${props => props.color};
-  border-radius: 50% 50% 0 0;
   top: 61px;
+  left: 33%;
+  width: 130px;
+  height: 10px;
+  border-top: 5px dashed  ${props => props.color};
+  background: #fff;
+  z-index: 5;
+`;
+
+const LineToLeft = styled(LineToRight)`
+  top: 58px;
+  left: 4%;
+  margin-bottom: 5px;
+  transform: rotate(-90deg);
   z-index: 3;
 
   @media (max-width: 320px) {
@@ -78,6 +69,7 @@ const Way = ({ backgroundDecorations, linesQuantity, progress }) => {
       if(nextItemIsSingular) {
         nextItemIsSingular = false
         linesArray.push("right")
+        linesArray.push("straight")
       } else {
         if((i+1) % 3 === 0) {
           nextItemIsSingular = true
@@ -103,7 +95,7 @@ const Way = ({ backgroundDecorations, linesQuantity, progress }) => {
         return <LineStraight key={i} color={setColor(i)}/>
 
       case 'left':
-        return <LineToleft key={i} color={setColor(i)}/>
+        return <LineToLeft key={i} color={setColor(i)}/>
 
       default:
         return <LineToRight key={i} color={setColor(i)}/>
@@ -119,17 +111,21 @@ const Way = ({ backgroundDecorations, linesQuantity, progress }) => {
     <Container>
       <Decoration
         src={backgroundDecorations.top}
+        style={{ width: '12rem' }}
+        top={'20px'}
+        left={'-12%'}
         alt=""
       />
       <Decoration
-        top={'488px'}
-        left={'110px'}
+        top={'532px'}
+        left={'29%'}
         src={backgroundDecorations.center}
         alt=""
       />
       <Decoration
-        bottom={'0'}
-        right={0}
+        style={{ width: '12rem' }}
+        bottom={'-3.5rem'}
+        right={'-5%'}
         src={backgroundDecorations.bottom}
         alt=""
       />

@@ -107,15 +107,16 @@ const Dashboard = (props) => {
   }
 
   const handleModalThunk = () => {
-    const data = thunk[2];
+    const data = props.thunk[2];
+
     props.setModal({modal: 'welcomeModal', wasShowed: !props.modals.welcomeModal.wasShowed})
     setModalThunk({ isModal: !modalThunk.isModal, data: data });
+    setWelcomeModal(!showWelcomeModal)
   }
 
   return (
     <Container>
       { !props.modals.welcomeModal.wasShowed && <WelcomeModal showThunk={() => handleModalThunk} handleClose={handleCloseModal}/> }
-
       <Header
         initialLettersName={props.user?.name[0] + props.user?.name[1]}
         text={`Oi, ${props.user.name}`}
@@ -149,9 +150,9 @@ const Dashboard = (props) => {
             </Card>
           </>
         )}
-      {modalThunk?.isModal && <TrunkInfoScreen itemData={modalThunk?.data} onClick={handleModalThunk} />}
       {props.modals.welcomeModal.wasShowed && <ElifasSVG onClick={() => handleCloseModal()} src={elifas}/>}
       </Content>
+      {modalThunk?.isModal && <TrunkInfoScreen itemData={modalThunk?.data} onClick={handleModalThunk} />}
       <Footer  screen='dashboard'/>
     </Container>
   );

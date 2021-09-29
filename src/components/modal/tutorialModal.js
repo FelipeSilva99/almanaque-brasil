@@ -77,9 +77,9 @@ const Subtitle = styled.h1`
 `;
 
 const Scroll = styled.ol`
+  margin-bottom: .3rem;
   padding-left: 2.7rem;
   list-style: none;
-  overflow-y: auto;
   counter-reset: count;
 
   ::-webkit-scrollbar {
@@ -101,6 +101,8 @@ const Scroll = styled.ol`
 
 const Text = styled.li`
   position: relative;
+  display: flex;
+  align-items: center;
   margin-bottom: 1.9rem;
   line-height: 1.4;
   counter-increment: count;
@@ -112,7 +114,6 @@ const Text = styled.li`
   &:before {
     position: absolute;
     content: counter(count) "°";
-    top: 10%;
     left: -2.8rem;
     font-size: 2.1em;
     font-weight: 900;
@@ -130,9 +131,9 @@ const ImgElifas = styled.img`
 `;
 
 const CloseBtn = styled.button`
-  font-size: 1.1em;
-  font-weight: 900;
+  font: 900 1.2em 'Nunito';
   color: #ffd000;
+  transform: scale(1,.9);
 `;
 
 const tutorialData = [

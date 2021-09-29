@@ -37,9 +37,11 @@ const ButtonRow = styled.div`
 `;
 
 const CloseButton = styled.button`
-  border: 0;
-  background-color: transparent;
-  padding: 15px;
+  position: relative;
+  bottom: -0.75rem;
+  font-size: 1rem;
+  font-weight: 900;
+  color: #373737;
 `;
 
 const DialogBox = styled.div`
@@ -64,10 +66,23 @@ const DialogBox = styled.div`
     transform: translate(39%, -85%);
     /* transform: translateX(-50%); */
   }
+
+  @media (max-width: 375px) {
+    right: auto;
+  }
+  @media (max-width: 320px) {
+    width: 98%;
+  }
 `;
 
 const DialogText = styled.p`
   margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #000000;
+  
+  strong {
+    font-weight: 900;
+  }
 `;
 
 // const DivRedonda = styled.div`
@@ -80,10 +95,10 @@ const WelcomeModal = ({handleClose, showThunk}) => {
       <Overlay />
       <Container onClick={handleClose}>
         <DialogBox onClick={(ev) => ev.stopPropagation()}>
-          <DialogText>
-            Olá, seja <strong>bem-vindo(a)</strong> ao aplicativo Almanaque Miguel Burnier, vamos embarcar juntos nessa jornada de conhecimento e diversão?
-            <br/><br/><br/>Sou o <strong>Elifas Andreato</strong> e serei o seu guia!
-          </DialogText>
+          <>
+            <DialogText>Olá, seja <strong>bem-vindo(a)</strong> ao aplicativo Almanaque Miguel Burnier, vamos embarcar juntos nessa jornada de conhecimento e diversão?</DialogText>
+            <DialogText>Sou o <strong>Elifas Andreato</strong> e serei o seu guia!</DialogText>
+          </>
           <ButtonRow marginTop={'2rem'}>
             <Button handleClick={showThunk()}>Saiba mais sobre o Elifas</Button>
           </ButtonRow>

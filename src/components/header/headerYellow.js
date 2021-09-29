@@ -16,11 +16,17 @@ const Container = styled.header`
 `;
 
 const Circle = styled.div`
-  padding: 13px;
-  font-weight: bold;
-  border-radius: 50%;
   margin-right: 20px;
+  width: 33px;
+  height: 33px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 900;
+  border-radius: 50%;
   background-color: #ffffff;
+  text-transform: capitalize;
 `;
 
 const Text = styled.h1`
@@ -32,7 +38,7 @@ const Text = styled.h1`
 
 const Img = styled.img`
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: -30px;
   width: ${props => props.home ? '7rem' : '9rem'};
 `;

@@ -60,7 +60,6 @@ const Trails = (props) => {
 
 	useEffect(() => {
 		props.getTrailsThunk();
-    console.log(props.trails);
     // setIsModalTrailCompleted(true);
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

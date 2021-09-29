@@ -21,10 +21,10 @@ const LineToRight = styled.div`
   border-radius: 50% 50% 0 0;
   z-index: 1;
 
-  @media (max-width: 320px) {
+  /* @media (max-width: 320px) {
     transform: rotate(10deg);
     width: 10rem;
-  }
+  } */
 `;
 
 const LineStraight = styled.div`
@@ -45,9 +45,9 @@ const LineToLeft = styled(LineToRight)`
   transform: rotate(-90deg);
   z-index: 3;
 
-  @media (max-width: 320px) {
+  /* @media (max-width: 320px) {
     left: -9px;
-  }
+  } */
 `;
 
 const Decoration = styled.img`

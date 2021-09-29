@@ -50,7 +50,8 @@ const EnigmaBox = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: ${props => props.firstBox && '245px'};
-  padding: ${props => props.secondBox ? '.6875rem' : '1.5rem 0 2rem'};
+  /* padding: ${props => props.secondBox ? '.6875rem' : '1.5rem 0.5rem 2rem'}; */
+  padding: 1.5rem 0.5rem 2rem;
   margin-top: ${props => props.secondBox && '10px'};
   border-radius: 8px;
   background-color: #FFD000;
@@ -79,7 +80,7 @@ const EnigmaImage = styled.div`
   background-image: url(${props => props.src});
   background-size: contain;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; 
   width: 100%;
   height: 14vh;
   min-height: 90px;

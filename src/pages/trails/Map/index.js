@@ -56,26 +56,35 @@ const Map = ({ trails, goToActivitie }) => {
     trail.isActive ? goToActivitie(key) : alert(`Trilha ${trail.name} bloqueada`)
   }
 
+
   return (
     <AlignToCenter>
       <MapBackground>
-        {trails.map((trail, key) => (
-          <MapFragment 
-            key={key}
-            left={aliases[trail.name].position.left}
-            bottom={aliases[trail.name].position.bottom}
-            type="image/svg+xml"
-          >
-            <Stone
-              onClick={() => handleMapFragmentClick(trail, key)}
-              top={aliases[trail.name].stone.position.top}
-              right={aliases[trail.name].stone.position.right}
-              src={aliases[trail.name].stone.state.done} />
-            <img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} />
-          </MapFragment>
-        ))}
+        {trails.map((trail, key) => {
+          const useAliases = aliases[trail.name].stone;
+          const stone = useAliases.state;
+          const renderImg = trail.isActive ? stone.doing : stone.todo;
+
+          return (
+            <MapFragment
+              key={key}
+              left={aliases[trail.name].position.left}
+              bottom={aliases[trail.name].position.bottom}
+              type="image/svg+xml"
+            >
+              <Stone
+                onClick={() => handleMapFragmentClick(trail, key)}
+                top={aliases[trail.name].stone.position.top}
+                right={aliases[trail.name].stone.position.right}
+                src={renderImg}
+                alt={aliases[trail.name].name}
+              />
+              <img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} alt='mapa'/>
+            </MapFragment>
+          )
+        })}
         <Skeleton src={skeleton} />
-        
+
       </MapBackground>
     </AlignToCenter>
   );

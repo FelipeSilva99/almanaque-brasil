@@ -108,13 +108,10 @@ const Dashboard = (props) => {
 
   const handleModalThunk = () => {
     const data = props.thunk[2];
-    console.log('data',data);
-    console.log('dataqiuiiii');
 
     props.setModal({modal: 'welcomeModal', wasShowed: !props.modals.welcomeModal.wasShowed})
     setModalThunk({ isModal: !modalThunk.isModal, data: data });
     setWelcomeModal(!showWelcomeModal)
-
   }
 
   return (
@@ -153,9 +150,9 @@ const Dashboard = (props) => {
             </Card>
           </>
         )}
-      {modalThunk?.isModal && <TrunkInfoScreen itemData={modalThunk?.data} onClick={handleModalThunk} />}
       {props.modals.welcomeModal.wasShowed && <ElifasSVG onClick={() => handleCloseModal()} src={elifas}/>}
       </Content>
+      {modalThunk?.isModal && <TrunkInfoScreen itemData={modalThunk?.data} onClick={handleModalThunk} />}
       <Footer  screen='dashboard'/>
     </Container>
   );

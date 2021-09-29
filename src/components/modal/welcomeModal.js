@@ -79,7 +79,7 @@ const WelcomeModal = ({handleClose, showThunk}) => {
     <>
       <Overlay />
       <Container onClick={handleClose}>
-        <DialogBox>
+        <DialogBox onClick={(ev) => ev.stopPropagation()}>
           <DialogText>
             Olá, seja <strong>bem-vindo(a)</strong> ao aplicativo Almanaque Miguel Burnier, vamos embarcar juntos nessa jornada de conhecimento e diversão?
             <br/><br/><br/>Sou o <strong>Elifas Andreato</strong> e serei o seu guia!

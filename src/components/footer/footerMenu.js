@@ -36,7 +36,7 @@ const Container = styled.div`
   max-width: 425px;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-end;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
   background: #FFFFFF;
@@ -51,6 +51,7 @@ const Content = styled.button`
 const Text = styled.p`
   font-size: .75rem;
   font-weight: ${props => props.isSelected ? '900' : 'regular'};
+  padding-top: ${props => props.trunk && '.1rem'};
 `;
 
 const Footer = ({ screen }) => {
@@ -100,7 +101,7 @@ const Footer = ({ screen }) => {
           return (
             <Content onClick={() => handleRouter(item.router)}>
               <img src={isSelected ? item.imgSelected : item.img} alt={item.txt} />
-              <Text isSelected={isSelected}>{item.txt}</Text>
+              <Text isSelected={isSelected} trunk={item.txt ==='Baú'}>{item.txt}</Text>
             </Content>
           )
         })}

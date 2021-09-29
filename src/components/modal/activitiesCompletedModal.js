@@ -96,7 +96,7 @@ const ImgBento = styled.img`
   width: 10rem;
 `;
 
-function activitiesCompletedModal({ history }) {
+function ActivitiesCompletedModal({ history }) {
   const handleClick = () => {
     history.push('/trails');
   }
@@ -105,7 +105,7 @@ function activitiesCompletedModal({ history }) {
 		<Container>
 			<Content>
 				<ContentInfo>
-					<Title>Paranéns!</Title>
+					<Title>Parabéns!</Title>
           <Text>Você concluiu a trilha, e conquistou:</Text>
           <Title>
               <strong>100</strong> pts
@@ -121,4 +121,4 @@ function activitiesCompletedModal({ history }) {
 	)
 }
 
-export default activitiesCompletedModal;
+export default ActivitiesCompletedModal;

@@ -4,17 +4,16 @@ import styled from 'styled-components';
 
 //Components
 import Header from '../../components/header';
-import ActivitieIcon from '../../components/trail/activitieIcon'
+import ActivitieIcon from '../../components/trail/activitieIcon';
 import Way from '../../components/trail/way';
 import ActivitiesCompleted from '../../components/modal/activitiesCompletedModal';
 
-
 //Assets
-import aquamarineStone from '../../images/stones/aquamarine2.svg'
-import aquamarine from '../../images/stones/aquamarine.svg'
-import church from '../../images/trails/church.svg'
-import houses from '../../images/trails/houses.svg'
-import trainStation from '../../images/trails/trainstation.svg'
+import aguaMarinhaStone from '../../images/stones/aguaMarinha/aguaMarinhaLogo.svg';
+import aguaMarinha from '../../images/stones/aguaMarinha/aguaMarinha.svg';
+import church from '../../images/trails/church.svg';
+import houses from '../../images/trails/houses.svg';
+import trainStation from '../../images/trails/trainstation.svg';
 
 import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 
@@ -204,7 +203,7 @@ const Activities = (props) => {
         return (
           <Stone>
             <img
-              src={aquamarine}
+              src={aguaMarinha}
               alt={name}
               style={{ width: '15rem' }}
             />
@@ -224,7 +223,7 @@ const Activities = (props) => {
         return (
           <Stone padding='4rem 0 2rem 0'>
             <img
-              src={aquamarineStone}
+              src={aguaMarinhaStone}
               alt={name}
               style={{ width: '4rem' }}
             />

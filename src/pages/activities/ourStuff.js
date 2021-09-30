@@ -10,6 +10,7 @@ import WrongAnswer from '../../components/activities/wrongAnswer';
 import ContentImageText from '../../components/activities/activitieDescription';
 import OptionsButtons from '../../components/activities/optionsButtons';
 import Tutorial from '../../components/modal/tutorialModal';
+import { chancesAtActivity } from '../../utils/statistics'
 
 //Images
 import logo from '../../images/logo/ourStuff.svg';
@@ -29,7 +30,7 @@ const Container = styled.div`
   }
 `;
 
-const OurStuff = ({ useActivitie, registerAction }) => {
+const OurStuff = ({ useActivitie, registerAction, actionsBook }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
@@ -37,7 +38,7 @@ const OurStuff = ({ useActivitie, registerAction }) => {
   const [activitie, setActivitie] = useState(undefined);
   const [showAnswer, setShowAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [amountTrial, setAmountTrial] = useState(3);
+  const [chances, setChances] = useState(null);
   const [isTutorial, setIsTutorial] = useState(undefined);
 
   useEffect(() => {
@@ -71,7 +72,7 @@ const OurStuff = ({ useActivitie, registerAction }) => {
     }
 
     if (modalCorrectAnswer) {
-      const point = amountTrial === 3 ? 10 : amountTrial === 2 ? 8 : amountTrial === 1 ? 5 : 0;
+      const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
       
       registerAction({
         activityId: useActivitie.id,
@@ -82,7 +83,13 @@ const OurStuff = ({ useActivitie, registerAction }) => {
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modalCorrectAnswer, modalWrongAnswer])
+  }, [modalCorrectAnswer, modalWrongAnswer]);
+
+  useEffect(() => {
+    const { synced, pendingSync } = actionsBook;
+    const useChancesAtActivity = chancesAtActivity(useActivitie.id, [...synced, ...pendingSync]);
+    setChances(useChancesAtActivity);
+  }, [actionsBook]);
 
   const handleIsModalAnswerOption = () => {
     setIsModalAnswerOption(true);
@@ -97,7 +104,7 @@ const OurStuff = ({ useActivitie, registerAction }) => {
       setModalCorrectAnswer(true);
       setAnswer(answer)
     } else {
-      setAmountTrial(amountTrial - 1);
+      setChances(chances - 1);
       setModalWrongAnswer(true);
     }
   }
@@ -154,9 +161,9 @@ const OurStuff = ({ useActivitie, registerAction }) => {
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
-        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
-        {showAnswer && <CorrectAnswer answer={isAnswerCorrect()[0]} isTrunk idActivitie={activitie.chestContentId} amountTrial={amountTrial}/>}
+        {modalWrongAnswer && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
+        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} chances={chances}/>}
+        {showAnswer && <CorrectAnswer answer={isAnswerCorrect()[0]} isTrunk idActivitie={activitie.chestContentId} chances={chances}/>}
         {isTutorial && <Tutorial screen='Coisas nossas' handleCloseTutorial={handleCloseTutorial} /> }
       </Container>
     )

@@ -8,6 +8,7 @@ import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from '../../pages/activities/splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
 import Tutorial from '../../components/modal/tutorialModal';
+import { chancesAtActivity } from '../../utils/statistics';
 
 //Images
 import paleLeaves from '../../images/whatIsWhatIs/pale_leaves.svg';
@@ -151,7 +152,7 @@ const TextIndividualLetter = styled.p`
   }
 `;
 
-const WhatIsWhatIs = ({ useActivitie, registerAction }) => {
+const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
   const [answer, setAnswer] = useState([]);
   const [letterOption, setLetterOption] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState([]);
@@ -161,8 +162,15 @@ const WhatIsWhatIs = ({ useActivitie, registerAction }) => {
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [showAnswer, setShowAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [amountTrial, setAmountTrial] = useState(3);
+  const [chances, setChances] = useState(null);
   const [isTutorial, setIsTutorial] = useState(undefined);
+
+  useEffect(() => {
+    const { synced, pendingSync } = actionsBook;
+    const useChancesAtActivity = chancesAtActivity(activitie.id, [...synced, ...pendingSync]);
+    setChances(useChancesAtActivity);
+  }, [actionsBook]);
+
 
   const handleAnswerSize = () => {
     let answerSplit = [];
@@ -213,7 +221,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction }) => {
     }
 
     if (modalCorrectAnswer) {
-      const point = amountTrial === 3 ? 10 : amountTrial === 2 ? 8 : amountTrial === 1 ? 5 : 0;
+      const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
       
       registerAction({
         activityId: useActivitie.id,
@@ -265,7 +273,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction }) => {
       setLetterOption(handleShuffleLetter());
       setAnswer(handleAnswerSize());
       setModalWrongAnswer(true);
-      setAmountTrial(amountTrial - 1);
+      setChances(chances - 1);
     }
   };
 
@@ -407,9 +415,9 @@ const WhatIsWhatIs = ({ useActivitie, registerAction }) => {
           && !showAnswer)
           && renderScreen()
         }
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {modalCorrectAnswer && <CorrectAnswer answer={useActivitie.answers[0]} toScore amountTrial={amountTrial} idActivitie={activitie.id}/>}
-        {showAnswer && <CorrectAnswer answer={useActivitie.answers[0]} amountTrial={amountTrial} idActivitie={activitie.id}/>}
+        {modalWrongAnswer && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {modalCorrectAnswer && <CorrectAnswer answer={useActivitie.answers[0]} toScore chances={chances} idActivitie={activitie.id}/>}
+        {showAnswer && <CorrectAnswer answer={useActivitie.answers[0]} chances={chances} idActivitie={activitie.id}/>}
         {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
       </Container>
     )

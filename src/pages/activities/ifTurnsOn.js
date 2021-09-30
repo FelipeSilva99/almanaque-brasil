@@ -9,6 +9,7 @@ import WrongAnswer from '../../components/activities/wrongAnswer';
 import SplashScreen from './splashScreen';
 import ScoreScreen from '../../components/activities/scoreScreen';
 import Tutorial from '../../components/modal/tutorialModal';
+import { chancesAtActivity } from '../../utils/statistics';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -104,7 +105,7 @@ const Box = styled.div`
   }
 `;
 
-function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, handleActionBook }) {
+function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actionsBook }) {
   const colors = {
     green: "#00FFEA", orange: "#F29F32", blue: "#8EBEFF", yellow: "#FFD932"
   }
@@ -121,7 +122,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, handleA
   const [isModalTip, setIsModalTip] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
-  const [amountTrial, setAmountTrial] = useState(3);
+  const [chances, setChances] = useState(null);
   const [inMemoryItem, setInMemoryItem] = useState(undefined);
   const [hasItemInMemory, setHasItemInMemory] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
@@ -155,6 +156,12 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, handleA
   }, []);
 
   useEffect(() => {
+    const {synced, pendingSync} = actionsBook;
+    const useChancesAtActivity = chancesAtActivity(useActivitie.id, [...synced, ...pendingSync]);
+    setChances(useChancesAtActivity);
+  }, [actionsBook]);
+  
+  useEffect(() => {
     const timer = setTimeout(() => {
       if (!!useActivitie) setIsLoading(false)
     }, 2000);
@@ -178,7 +185,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, handleA
     }
     
     if (isModalCorrectAnswer) {
-      const point = amountTrial === 3 ? 10 : amountTrial === 2 ? 8 : amountTrial === 1 ? 5 : 0;
+      const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
       
       registerAction({
         activityId: useActivitie.id,
@@ -336,7 +343,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, handleA
       handleModalCorrectAnswer();
     } else {
       setModalWrongAnswer(true);
-      setAmountTrial(amountTrial - 1);
+      setChances(chances - 1);
     }
   }
 
@@ -437,8 +444,8 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, handleA
             {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}
           </ContainerButton>
         </Content>
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {isModalCorrectAnswer && <ScoreScreen amountTrial={amountTrial} handleClick={handleContinue} />}
+        {modalWrongAnswer && chances !== 0 && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {isModalCorrectAnswer && <ScoreScreen chances={chances} handleClick={handleContinue} />}
         {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )

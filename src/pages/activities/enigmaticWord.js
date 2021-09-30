@@ -8,6 +8,7 @@ import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from './splashScreen';
 import Button from '../../components/buttons/containerButton';
 import Tutorial from '../../components/modal/tutorialModal';
+import { chancesAtActivity } from '../../utils/statistics';
 
 //Images
 import logo from '../../images/logo/enigmaticWord.svg';
@@ -112,20 +113,15 @@ const Word = styled.div`
   background-color: #F08800;
 `;
 
-function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
+function EnigmaticWord({ activitie, registerAction, actionsBook }) {
   const [isLoading, setIsLoading] = useState(true)
   const [enigmas, setEnigmas] = useState(undefined)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
-  const [amountTrial, setAmountTrial] = useState(3);
+  const [chances, setChances] = useState(null);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [showAnswer, setShowAnswer] = useState(false);
   const [isError, setIsError] = useState(undefined);
   const [isTutorial, setIsTutorial] = useState(undefined);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000)
-    return () => clearTimeout(timer)
-  }, []);
 
   useEffect(() => {
     setEnigmas(Object.values(activitie.enigmas).map(item => {
@@ -135,20 +131,20 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
       }
     }))
 
-    if(activitie.trailId === 0) {
+    if (activitie.trailId === 0) {
       setIsTutorial(true);
     }
-    
+
   }, [activitie]);
 
   useEffect(() => {
-    if(activitie.trailId === 0) {
+    if (activitie.trailId === 0) {
       setIsTutorial(true);
     }
   }, []);
 
   useEffect(() => {
-    if(modalWrongAnswer) {
+    if (modalWrongAnswer) {
       registerAction({
         activityId: activitie.id,
         trailId: activitie.trailId,
@@ -159,9 +155,9 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
       })
     }
 
-    if(modalCorrectAnswer) {
-      const point = amountTrial === 3 ? 10 : amountTrial === 2 ? 8 : amountTrial === 1 ? 5 : 0;
-      
+    if (modalCorrectAnswer) {
+      const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
+
       registerAction({
         activityId: activitie.id,
         trailId: activitie.trailId,
@@ -171,8 +167,14 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
         books: false,
       })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modalCorrectAnswer, modalWrongAnswer])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modalCorrectAnswer, modalWrongAnswer]);
+
+  useEffect(() => {
+    const { synced, pendingSync } = actionsBook;
+    const useChancesAtActivity = chancesAtActivity(activitie.id, [...synced, ...pendingSync]);
+    setChances(useChancesAtActivity);
+  }, [actionsBook]);
 
   const handleValue = (e, i) => {
     const newEnigmas = enigmas
@@ -187,7 +189,7 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
 
   const handleWrongAnswer = () => {
     handleModalWrongAnswer();
-    setAmountTrial(amountTrial -1)
+    setChances(chances - 1)
   };
 
   const handleCloseTutorial = () => {
@@ -203,7 +205,7 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
     let userAnswer = "";
     const isError = enigmas.map(item => item.userInput).filter(i => !i).length > 0;
 
-    if(isError) {
+    if (isError) {
       setIsError(true);
     } else {
       // eslint-disable-next-line array-callback-return
@@ -211,7 +213,7 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
         userAnswer = `${userAnswer}${item.userInput}`
       })
       userAnswer = userAnswer.toLowerCase();
-      if(userAnswer === activitie.answer.answer) setModalCorrectAnswer(true);
+      if (userAnswer === activitie.answer.answer) setModalCorrectAnswer(true);
       else handleWrongAnswer()
     }
   };
@@ -251,10 +253,10 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
           handleClick={checkAnswer}
         >responder
         </Button>
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleModalWrongAnswer} handleShowAnswer={showModalAnswer}/>}
-        {modalCorrectAnswer && <CorrectAnswer answer={activitie.answer} toScore amountTrial={amountTrial} idActivitie={activitie.id}/>}
-        {showAnswer && <CorrectAnswer answer={activitie.answer} amountTrial={amountTrial} idActivitie={activitie.id}/>}
-        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
+        {modalWrongAnswer && <WrongAnswer chances={chances} handleClick={handleModalWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {modalCorrectAnswer && <CorrectAnswer answer={activitie.answer} toScore chances={chances} idActivitie={activitie.id} />}
+        {showAnswer && <CorrectAnswer answer={activitie.answer} chances={chances} idActivitie={activitie.id} />}
+        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )
   )

@@ -8,6 +8,9 @@ import Footer from '../../components/footer/footerMenu';
 import WelcomeModal from '../../components/modal/welcomeModal';
 import TrunkInfoScreen from '../../components/thunk/trunkInfoScreen';
 
+//Utils
+import { chancesAtActivity } from '../../utils/statistics';
+
 //Image
 import home from '../../images/icons/menu/selectedHome.svg';
 import elifas from '../../images/elifas.svg';
@@ -17,12 +20,14 @@ import thunk from '../../images/icons/menu/selectedThunk.svg';
 //Redux
 import { getDataThunk } from '../../dataflow/thunks/thunk-thunks';
 import { setModal } from '../../dataflow/modules/modals-module';
+import { ConsoleLogger } from '@aws-amplify/core';
 
 const mapStateToProps = state => ({
   trails: state.trails.data,
   user: state.login.user,
   modals: state.modals,
   thunk: state.thunk.data,
+  actionsBook: state.actionsBook
 });
 
 const mapDispatchToProps = dispatch => ({

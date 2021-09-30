@@ -20,7 +20,6 @@ import thunk from '../../images/icons/menu/selectedThunk.svg';
 //Redux
 import { getDataThunk } from '../../dataflow/thunks/thunk-thunks';
 import { setModal } from '../../dataflow/modules/modals-module';
-import { ConsoleLogger } from '@aws-amplify/core';
 
 const mapStateToProps = state => ({
   trails: state.trails.data,

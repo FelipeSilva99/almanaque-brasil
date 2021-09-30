@@ -1,4 +1,4 @@
-export function chancesAtActivity(activitieId=id, actionsBook) {
+export function chancesAtActivity(activitieId, actionsBook) {
   let chances = 3
 
   // percorrer actions book e encontrar atividades com o id

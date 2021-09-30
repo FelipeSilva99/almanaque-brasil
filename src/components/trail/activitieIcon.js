@@ -14,9 +14,13 @@ const ActivitiesCircle = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 1.5rem 4rem .5rem;
+  margin: 1.5rem 3.6rem .5rem;
   cursor: pointer;
   z-index: 30;
+
+  @media (max-width: 350px) {
+    margin: 1.5rem 2.5rem .5rem;
+  }
 `;
 
 const Box = styled.div`

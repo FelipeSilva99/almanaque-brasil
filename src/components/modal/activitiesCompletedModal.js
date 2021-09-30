@@ -26,25 +26,26 @@ const Container = styled.div`
 const Content = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 93vh;
   max-width: 380px;
 	display: flex;
-	align-items: center;
+	justify-content: center;
 
   @media(max-width: 375px) {padding-top: 2rem; align-items: flex-start;}
   @media(min-width: 1024px) {height: 80vh;}
 `;
 
 const ContentInfo = styled.div`
-  position: relative;
+  position: absolute;
+  top: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin: 0 auto;
-  padding: 1.5rem 1.5rem 3rem;
-  width: 96%;
+  padding: 1.8rem 1rem 3.5rem;
+  width: 91%;
   filter: drop-shadow(1px 4px 3px #999);
-  border-radius: 30px;
+  border-radius: 22px;
   background: #fff;
 
   img {
@@ -54,8 +55,8 @@ const ContentInfo = styled.div`
   &:after {
     position: absolute;
     content: '';
-    left: 51%;
-    bottom: -9%;
+    left: 52%;
+    bottom: -12%;
     display: block;
     width: 50px;
     height: 70px;
@@ -69,6 +70,9 @@ const ContentInfo = styled.div`
 `;
 
 const Title = styled.h1`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.5em;
   font-weight: 900;
 	line-height: 1em;
@@ -76,15 +80,17 @@ const Title = styled.h1`
 	text-align: center;
 
   strong {
+    margin-right: 5px;
+    letter-spacing: 2px;
     font-size: 2.5rem;
     font-weight: 900;
   }
 `;
 
 const Text = styled.p`
-  padding: 1.5rem 0;
+  padding: 1.4rem 0 1.8rem;
 	font-size: 1rem;
-  line-height: 1.4;
+  line-height: 1.2;
 
   @media (max-width: 320px) { padding: ${props => props.padding && '1.5rem 0 .4rem 0 '}; }
 `;
@@ -106,7 +112,7 @@ function ActivitiesCompletedModal({ history }) {
 			<Content>
 				<ContentInfo>
 					<Title>Parabéns!</Title>
-          <Text>Você concluiu a trilha, e conquistou:</Text>
+          <Text>Você concluiu a trilha, e conquistou :</Text>
           <Title>
               <strong>100</strong> pts
             </Title>

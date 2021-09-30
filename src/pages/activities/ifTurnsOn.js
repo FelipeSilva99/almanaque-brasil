@@ -9,6 +9,7 @@ import WrongAnswer from '../../components/activities/wrongAnswer';
 import SplashScreen from './splashScreen';
 import ScoreScreen from '../../components/activities/scoreScreen';
 import Tutorial from '../../components/modal/tutorialModal';
+import { chancesAtActivity } from '../../utils/statistics';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -104,7 +105,7 @@ const Box = styled.div`
   }
 `;
 
-function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
+function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actionsBook }) {
   const colors = {
     green: "#00FFEA", orange: "#F29F32", blue: "#8EBEFF", yellow: "#FFD932"
   }
@@ -121,7 +122,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
   const [isModalTip, setIsModalTip] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
-  const [amountTrial, setAmountTrial] = useState(3);
+  const [chances, setChances] = useState(null);
   const [inMemoryItem, setInMemoryItem] = useState(undefined);
   const [hasItemInMemory, setHasItemInMemory] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
@@ -145,12 +146,21 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
     });
     setActivitie(useActivitie);
     setPairs(shuffle(newArrayOfActivities));
-    if(useActivitie.trailId === 0) {
+  }, [useActivitie]);
+  
+  
+  useEffect(() => {
+    if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [useActivitie]);
+  }, []);
 
-
+  useEffect(() => {
+    const {synced, pendingSync} = actionsBook;
+    const useChancesAtActivity = chancesAtActivity(useActivitie.id, [...synced, ...pendingSync]);
+    setChances(useChancesAtActivity);
+  }, [actionsBook]);
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!!useActivitie) setIsLoading(false)
@@ -168,20 +178,26 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
         success: false,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: 0,
+        books: false,
       })
     }
-
+    
     if (isModalCorrectAnswer) {
+      const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
+      
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
         success: true,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: point,
+        books: false,
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isModalCorrectAnswer, modalWrongAnswer])
+  }, [isModalCorrectAnswer, modalWrongAnswer]);
 
   const handleClick = (item) => {
     const itemIndex = isSelected(item)
@@ -327,7 +343,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
       handleModalCorrectAnswer();
     } else {
       setModalWrongAnswer(true);
-      setAmountTrial(amountTrial - 1);
+      setChances(chances - 1);
     }
   }
 
@@ -428,9 +444,9 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
             {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}
           </ContainerButton>
         </Content>
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {isModalCorrectAnswer && <ScoreScreen amountTrial={amountTrial} handleClick={handleContinue} />}
-        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
+        {modalWrongAnswer && chances !== 0 && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {isModalCorrectAnswer && <ScoreScreen chances={chances} handleClick={handleContinue} />}
+        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )
   )

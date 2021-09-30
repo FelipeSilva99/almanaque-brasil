@@ -141,7 +141,9 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
         success: true,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: 10,
+        books: true,
       })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PrivateRoute from './PrivateRoute'
+import UnauthenticatedRoute from './UnauthenticatedRoute';
 
 // Onboarding
 import Home from '../pages/onboarding/login/home';
@@ -35,11 +36,11 @@ const Routes = (props) => {
 	return (
 		<BrowserRouter>
 			<Switch>
-				<Route exact path='/' component={Home} />
-				<Route exact path='/createAccount' component={CreateAccount} />
-				<Route exact path='/accountCreated' component={AccountCreated} />
-				<Route exact path='/login' component={Login} />
-				<Route exact path='/resetPassword' component={ResetPassword} />
+				<UnauthenticatedRoute exact path='/' component={Home} />
+				<UnauthenticatedRoute exact path='/createAccount' component={CreateAccount} />
+				<UnauthenticatedRoute exact path='/accountCreated' component={AccountCreated} />
+				<UnauthenticatedRoute exact path='/login' component={Login} />
+				<UnauthenticatedRoute exact path='/resetPassword' component={ResetPassword} />
 				<PrivateRoute exact path='/dashboard' component={Dashboard} />
 				<PrivateRoute exact path='/trails' component={Trails} />
 				<PrivateRoute exact path='/activities/:trailId' component={Activities} />

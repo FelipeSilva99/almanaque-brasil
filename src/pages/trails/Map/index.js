@@ -12,10 +12,13 @@ const AlignToCenter = styled.div`
   overflow: auto;
   position: absolute;
   background-color: #ebeeec;
-  bottom: 39px;
+  bottom: 20px;
   display: flex;
   justify-content: center;
   width: 100%;
+  z-index: 0;
+
+  @media (max-width: 360px) { height: 88%; }
 `;
 
 const MapBackground = styled.div`
@@ -30,11 +33,7 @@ const MapFragment = styled.div`
   left: ${props => props.left};
   bottom: ${props => props.bottom};
   z-index: 1;
-  p{
-    position: absolute;
-    color: red;
-    z-index: 3;
-  }
+  /* width: 100%; */
   overflow: auto;
 `;
 

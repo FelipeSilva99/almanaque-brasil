@@ -50,10 +50,13 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction }) => {
 
   useEffect(() => {
     setActivitie(useActivitie);
-    if(useActivitie.trailId === 0) {
+  }, [useActivitie]);
+
+  useEffect(() => {
+    if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [useActivitie]);
+  }, []);
 
   useEffect(() => {
     if(modalWrongAnswer) {
@@ -61,16 +64,22 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction }) => {
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
         success: false,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: 0,
+        books: false,
       })
     }
 
     if(modalCorrectAnswer) {
+      const point = amountTrial === 3 ? 10 : amountTrial === 2 ? 8 : amountTrial === 1 ? 5 : 0;
+
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
         success: true,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: point,
+        books: false,
       })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

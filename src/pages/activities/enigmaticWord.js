@@ -142,21 +142,33 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
   }, [activitie]);
 
   useEffect(() => {
+    if(activitie.trailId === 0) {
+      setIsTutorial(true);
+    }
+  }, []);
+
+  useEffect(() => {
     if(modalWrongAnswer) {
       registerAction({
         activityId: activitie.id,
         trailId: activitie.trailId,
         success: false,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: 0,
+        books: false,
       })
     }
 
     if(modalCorrectAnswer) {
+      const point = amountTrial === 3 ? 10 : amountTrial === 2 ? 8 : amountTrial === 1 ? 5 : 0;
+      
       registerAction({
         activityId: activitie.id,
         trailId: activitie.trailId,
         success: true,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: point,
+        books: false,
       })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

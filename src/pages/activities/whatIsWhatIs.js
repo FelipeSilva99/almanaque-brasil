@@ -164,7 +164,6 @@ const WhatIsWhatIs = ({ useActivitie, registerAction }) => {
   const [amountTrial, setAmountTrial] = useState(3);
   const [isTutorial, setIsTutorial] = useState(undefined);
 
-
   const handleAnswerSize = () => {
     let answerSplit = [];
     useActivitie?.answers[0]?.answer.split('').forEach((a, i) => {
@@ -192,11 +191,14 @@ const WhatIsWhatIs = ({ useActivitie, registerAction }) => {
     setLetterOption(handleShuffleLetter());
     setAnswer(handleAnswerSize());
     setActivitive(useActivitie);
-    if(useActivitie.trailId === 0) {
-      setIsTutorial(true);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useActivitie]);
+
+  useEffect(() => {
+    if (useActivitie.trailId === 0) {
+      setIsTutorial(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (modalWrongAnswer) {
@@ -204,16 +206,22 @@ const WhatIsWhatIs = ({ useActivitie, registerAction }) => {
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
         success: false,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: 0,
+        books: false,
       })
     }
 
     if (modalCorrectAnswer) {
+      const point = amountTrial === 3 ? 10 : amountTrial === 2 ? 8 : amountTrial === 1 ? 5 : 0;
+      
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
         success: true,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: point,
+        books: false,
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

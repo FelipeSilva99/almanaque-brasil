@@ -104,7 +104,7 @@ const Box = styled.div`
   }
 `;
 
-function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
+function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, handleActionBook }) {
   const colors = {
     green: "#00FFEA", orange: "#F29F32", blue: "#8EBEFF", yellow: "#FFD932"
   }
@@ -145,11 +145,14 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
     });
     setActivitie(useActivitie);
     setPairs(shuffle(newArrayOfActivities));
-    if(useActivitie.trailId === 0) {
+  }, [useActivitie]);
+  
+  
+  useEffect(() => {
+    if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [useActivitie]);
-
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -168,20 +171,26 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
         success: false,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: 0,
+        books: false,
       })
     }
-
+    
     if (isModalCorrectAnswer) {
+      const point = amountTrial === 3 ? 10 : amountTrial === 2 ? 8 : amountTrial === 1 ? 5 : 0;
+      
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
         success: true,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: point,
+        books: false,
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isModalCorrectAnswer, modalWrongAnswer])
+  }, [isModalCorrectAnswer, modalWrongAnswer]);
 
   const handleClick = (item) => {
     const itemIndex = isSelected(item)
@@ -430,7 +439,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction }) {
         </Content>
         {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isModalCorrectAnswer && <ScoreScreen amountTrial={amountTrial} handleClick={handleContinue} />}
-        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
+        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )
   )

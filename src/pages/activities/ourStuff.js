@@ -50,11 +50,13 @@ const OurStuff = ({ useActivitie, registerAction }) => {
 
   useEffect(() => {
     setActivitie(useActivitie);
+  }, [useActivitie]);
 
-    if(useActivitie.trailId === 0) {
+  useEffect(() => {
+    if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [useActivitie]);
+  }, []);
 
   useEffect(() => {
     if (modalWrongAnswer) {
@@ -62,16 +64,21 @@ const OurStuff = ({ useActivitie, registerAction }) => {
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
         success: false,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: 0,
+        books: false,
       })
     }
 
     if (modalCorrectAnswer) {
+      const point = amountTrial === 3 ? 10 : amountTrial === 2 ? 8 : amountTrial === 1 ? 5 : 0;
+      
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
         success: true,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: point,
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

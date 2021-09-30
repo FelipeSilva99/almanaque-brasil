@@ -51,10 +51,14 @@ const DidYouKnow = (props) => {
   useEffect(() => {
     const { useActivitie } = props;
     setActivitie(useActivitie);
+  }, [props.useActivitie]);
+
+  useEffect(() => {
+    const { useActivitie } = props;
     if(useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [props.useActivitie]);
+  }, []);
 
   useEffect(() => {
     if (modalWrongAnswer) {
@@ -62,16 +66,22 @@ const DidYouKnow = (props) => {
         activityId: props.useActivitie.id,
         trailId: props.useActivitie.trailId,
         success: false,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: 0,
+        books: false,
       })
     }
 
     if (modalCorrectAnswer) {
+      const point = amountTrial === 3 ? 10 : amountTrial === 2 ? 8 : amountTrial === 1 ? 5 : 0;
+
       props.registerAction({
         activityId: props.useActivitie.id,
         trailId: props.useActivitie.trailId,
         success: true,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: point,
+        books: false,
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

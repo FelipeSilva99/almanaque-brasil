@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -5,7 +6,6 @@ import styled from 'styled-components';
 import trophiesIcon from '../../images/icons/progressHeader/trophies.svg'
 import booksIcon from '../../images/icons/progressHeader/books.svg'
 import trailsIcon from '../../images/icons/progressHeader/trails.svg'
-
 
 const Row = styled.div`
   display: flex;
@@ -21,7 +21,6 @@ const Square = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* padding: 10px; */
   width: 40px;
   height: 43px;
   border-radius: 4px;
@@ -38,7 +37,8 @@ const Item = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* min-height: 43px; */
+  
+  @media (max-width: 320px) { width: 30%; }
 `;
 
 const ValueBox = styled.div`
@@ -53,23 +53,21 @@ const ValueBox = styled.div`
   background-color: #fff;
 `;
 
-export default ({ points=0, trails=0, books=0 }) => {
+export default ({ points = 0, trails = 0, books = 0 }) => {
   const items = [
-    { value: points, icon: trophiesIcon}, 
+    { value: points, icon: trophiesIcon },
     { value: trails, icon: trailsIcon },
     { value: books, icon: booksIcon }
   ]
 
-  return(
-    // <Container>
-      <Row>
-        {items.map(item => {
-          return <Item>
-            <Square><img src={item.icon} alt="icon" /></Square>
-            <ValueBox>{item.value}</ValueBox>
-          </Item>
-        })}
-      </Row>
-    // </Container> */
+  return (
+    <Row>
+      {items.map(item => {
+        return <Item>
+          <Square><img src={item.icon} alt="icon" /></Square>
+          <ValueBox>{item.value}</ValueBox>
+        </Item>
+      })}
+    </Row>
   );
 }

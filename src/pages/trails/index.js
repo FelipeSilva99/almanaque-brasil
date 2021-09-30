@@ -50,6 +50,11 @@ export const Box = styled.div`
   background-color: #f3f3f3;
 `;
 
+const ContentMap = styled.div`
+  height: 80%;
+  background-color: pink;
+`;
+
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
@@ -90,10 +95,10 @@ const Trails = (props) => {
       <ProgressHeader />
       {
         trails && (
-          <>
+          <ContentMap>
             {/* {renderTrails(trails)} */}
             <Map trails={trails} goToActivitie={handleClick}></Map>
-          </>
+          </ContentMap>
         ) 
       }
       <Footer screen='trails' />

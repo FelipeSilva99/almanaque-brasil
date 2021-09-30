@@ -40,7 +40,7 @@ const Container = styled.div`
 const Stone = styled.div`
   display: flex;
   justify-content: center;
-  padding: ${props => props.padding || '4rem 0 6rem 0'};
+  padding: ${props => props.padding || '4rem 0 5rem'};
   div{
     width: 2rem;
     height: 2rem;
@@ -57,6 +57,7 @@ const Trail = styled.div`
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+  
   h1 {
     padding-top: 5rem;
   }
@@ -205,7 +206,7 @@ const Activities = (props) => {
             <img
               src={aguaMarinha}
               alt={name}
-              style={{ width: '15rem' }}
+              style={{ width: '12rem' }}
             />
           </Stone>
         );

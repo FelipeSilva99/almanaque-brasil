@@ -1,3 +1,4 @@
+// Percorre o actions book e retorna a quantidade de chances restantes para determinada atividade.
 export function chancesAtActivity(activitieId, actionsBook) {
   let chances = 3
 
@@ -15,3 +16,27 @@ export function chancesAtActivity(activitieId, actionsBook) {
 
   return chances - attempts.length
 }
+
+
+// Percorre o actions book e retorna a pontuação da trilha passada por parâmetro. Caso não seja passado
+// nenhuma trilha por parâmetro, a função irá retorna a pontuação total de todas as trilhas.
+// getPointsAtTrail(trailId): number
+export function getPointsAtTrail({ trailId, actionsBook }) {
+  let totalPoints = 0
+  let filteredActions = []
+  if(trailId) {
+    filteredActions = actionsBook.filter(action => action.activityId === trailId)
+  } else filteredActions = actionsBook
+
+  filteredActions.map(action => totalPoints = totalPoints+action.score)
+
+  return totalPoints
+}
+
+// Percorre o actions book e retorna um array com o id das trilhas que já foram concluídas.
+// getFinalizedTrails(): array<trailsId>
+
+// Percorre o actions book e retorna a quantidade de livros adquiridos na tilha passada por parâmetro.
+// getBookBadgesAtTrail(trailId): number
+
+

@@ -36,7 +36,18 @@ export function getPointsAtTrail({ trailId, actionsBook }) {
 // Percorre o actions book e retorna um array com o id das trilhas que já foram concluídas.
 // getFinalizedTrails(): array<trailsId>
 
-// Percorre o actions book e retorna a quantidade de livros adquiridos na tilha passada por parâmetro.
+// Percorre o actions book e retorna a quantidade de livros adquiridos na tilha passada por parâmetro. Caso não seja passado
+// nenhuma trilha por parâmetro, a função irá retorna a quantidade total de todas as trilhas.
 // getBookBadgesAtTrail(trailId): number
+export function getBookBadges({trailId, actionsBook}) {
+  let bookBadges = 0
+  let filteredActions = []
+  if(trailId) {
+    filteredActions = actionsBook.filter(action => action.activityId === trailId)
+  } else filteredActions = actionsBook
 
+  filteredActions.map(action => action.books && (bookBadges=bookBadges+1))
+
+  return bookBadges
+}
 

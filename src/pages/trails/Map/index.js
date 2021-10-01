@@ -12,42 +12,61 @@ const AlignToCenter = styled.div`
   overflow: auto;
   position: absolute;
   background-color: #ebeeec;
-  bottom: 20px;
+  bottom: 22px;
   display: flex;
   justify-content: center;
   width: 100%;
   z-index: 0;
 
-  @media (max-width: 360px) { height: 88%; }
+  @media (max-width: 360px) { bottom: 5px; }
+
+  @media (max-height: 630px) {
+    bottom: -2.2rem;
+  }
 `;
 
 const MapBackground = styled.div`
   position: relative;
-  width: 413px;
+  width: 100%;
   min-height: 430px;
   height: 100vh;
+  transform: scale(1,.975);
+
+  @media (max-width: 400px) {
+    left: -1.5rem;
+  }
+
+  @media (max-width: 360px) {
+    left: -2rem;
+    transform: scale(.9,.95);
+  }
+
+  @media (max-height: 630px) {
+    transform: scale(.8,.8);
+  }
 `;
 
 const MapFragment = styled.div`
   position: absolute;
   left: ${props => props.left};
   bottom: ${props => props.bottom};
+  transform: scale(1.05);
   z-index: 1;
-  /* width: 100%; */
-  overflow: auto;
 `;
 
 const Stone = styled.img`
   position: absolute;
-  right: -20px;
   top: ${props => props.top};
   right: ${props => props.right};
+  transform: scale(1.22);
+  z-index: 1;
 `;
 
 const Skeleton = styled.img`
   position: absolute;
-  bottom: 0;
-
+  bottom: 6px;
+  width: 427px;
+  z-index: 2;
 `;
 
 const Map = ({ trails, goToActivitie }) => {

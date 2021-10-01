@@ -54,11 +54,11 @@ import turmalinaStoneBlocked from '../../../images/stones/turmalina/turmalinaBlo
 
 const trailsMap = {
   "Água-Marinha": {
-    "position": {bottom: "434px", left: "108px"},
+    "position": {bottom: "453px", left: "113px"},
     "img": aguaMarinhaMap,
     "name": 'agua-marinha',
     "stone": {
-      position: {top: "38px", right: "72px"},
+      position: {top: "55px", right: "75px"},
       state: {
         "todo": aguaMarinhaStoneBlocked,
         "doing": aguaMarinhaStoneDoing,
@@ -68,11 +68,11 @@ const trailsMap = {
   },
 
   "Diamante": {
-    "position": {bottom: "266px", left: "0px"},
+    "position": {bottom: "282px", left: "2px"},
     "img": diamanteMap,
     "name": 'diamante',
     "stone": {
-      position: {top: "38px", right: "53px"},
+      position: {top: "36px", right: "63px"},
       state: {
         "todo": diamanteStoneBlocked,
         "doing": diamanteStoneDoing,
@@ -82,11 +82,11 @@ const trailsMap = {
   },
 
   "Ametista": {
-    "position": {bottom: "0px", left: "0px"},
+    "position": {bottom: "3px", left: "2px"},
     "img": ametistaMap,
     "name": 'ametista',
     "stone": {
-      position: {top: "38px", right: "66px"},
+      position: {top: "36px", right: "70px"},
       state: {
         "todo": ametistaStoneBlocked,
         "doing": ametistaStoneDoing,
@@ -96,11 +96,11 @@ const trailsMap = {
   },
 
   "Turmalina": {
-    "position": {bottom: "328px", left: "218px"},
+    "position": {bottom: "345px", left: "227px"},
     "img": turmalinaMap,
     "name": 'turmalina',
     "stone": {
-      position: {top: "52px", right: "12px"},
+      position: {top: "64px", right: "28px"},
       state: {
         "todo": turmalinaStoneBlocked,
         "doing": turmalinaStoneDoing,
@@ -110,11 +110,11 @@ const trailsMap = {
   },
 
   "Prata": {
-    "position": {bottom: "100px", left: "0px"},
+    "position": {bottom: "111px", left: "2px"},
     "img": prataMap,
     "name": 'prata',
     "stone": {
-      position: {top: "38px", right: "35px"},
+      position: {top: "49px", right: "46px"},
       state: {
         "todo": prataStoneBlocked,
         "doing": prataStoneDoing,
@@ -124,11 +124,11 @@ const trailsMap = {
   },
 
   "Ouro": {
-    "position": {bottom: "118px", left: "135px"},
+    "position": {bottom: "130px", left: "140px"},
     "img": ouroMap,
     "name": 'ouro',
     "stone": {
-      position: {top: "53px", right: "47px"},
+      position: {top: "62px", right: "55px"},
       state: {
         "todo": ouroStoneBlocked,
         "doing": ouroStoneDoing,
@@ -138,11 +138,11 @@ const trailsMap = {
   },
 
   "Esmeralda": {
-    "position": {bottom: "265px", left: "157px"},
+    "position": {bottom: "280px", left: "166px"},
     "img": esmeraldaMap,
     "name": 'esmeralda',
     "stone": {
-      position: {top: "38px", right: "75px"},
+      position: {top: "41px", right: "104px"},
       state: {
         "todo": esmeraldaStoneBlocked,
         "doing": esmeraldaStoneDoing,
@@ -152,11 +152,11 @@ const trailsMap = {
   },
 
   "Safira": {
-    "position": {bottom: "96px", left: "282px"},
+    "position": {bottom: "107px", left: "291px"},
     "img": safiraMap,
     "name": 'safira',
     "stone": {
-      position: {top: "81px", right: "12px"},
+      position: {top: "92px", right: "28px"},
       state: {
         "todo": safiraStoneBlocked,
         "doing": safiraStoneDoing,
@@ -166,11 +166,11 @@ const trailsMap = {
   },
 
   "Alexandrita": {
-    "position": {bottom: "0", left: "135px"},
+    "position": {bottom: "3px", left: "143px"},
     "img": alexandritaMap,
     "name": 'alexandrita',
     "stone": {
-      position: {top: "38px", right: "101px"},
+      position: {top: "48px", right: "123px"},
       state: {
         "todo": alexandritaStoneBlocked,
         "doing": alexandritaStoneDoing,
@@ -180,11 +180,11 @@ const trailsMap = {
   },
 
   "Topázio": {
-    "position": {bottom: "394px", left: "0px"},
+    "position": {bottom: "411px", left: "5px"},
     "img": topazioMap,
     "name": 'topazio',
     "stone": {
-      position: {top: "38px", right: "76px"},
+      position: {top: "58px", right: "80px"},
       state: {
         "todo": topazioStoneBlocked,
         "doing": topazioStoneDoing,

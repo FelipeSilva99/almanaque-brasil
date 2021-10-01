@@ -9,13 +9,13 @@ const AlignToCenter = styled.div`
   &::-webkit-scrollbar {
     display: none;               /* width of the entire scrollbar */
   }
-  overflow: auto;
   position: absolute;
   background-color: #ebeeec;
   bottom: 20px;
   display: flex;
   justify-content: center;
   width: 100%;
+  overflow: hidden;
   z-index: 0;
 
   @media (max-width: 360px) { bottom: 5px; }

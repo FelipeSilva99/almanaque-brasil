@@ -58,7 +58,7 @@ const ActivitieIcon = ({item, children, activitieState, onClick, history }) => {
 
   const handleClick = () => {
     return activitieState === 'bloqued' ? undefined : onClick
-  }
+  };
 
   //Alterar quando tiver a imagem
   const renderImageBloqued = () => {
@@ -76,7 +76,7 @@ const ActivitieIcon = ({item, children, activitieState, onClick, history }) => {
       <ActivitiesCircle onClick={handleClick()} history={history}>
         { activitieState === 'bloqued' ? <img src={renderImageBloqued()} alt={item?.name} /> : <img src={renderImageVisualized()} alt={item?.name}/> }
         <Text color={() => setColor()}>{children + 1}</Text>
-        {(activitieState === 'done' && <Check src={checkIcon} alt='check' />) || (activitieState === 'err' && <Check src={checkErr} alt='check'/>)}
+        {(activitieState === 'right' && <Check src={checkIcon} alt='check' />) || (activitieState === 'wrong' && <Check src={checkErr} alt='check'/>)}
       </ActivitiesCircle>
       <BoxName><p>{item?.name}</p></BoxName>
     </Box>

@@ -170,7 +170,6 @@ const CorrectAnswer = (props) => {
 
   const goActivities = () => {
     const idActivitie = props.idActivitie && props.idActivitie;
-console.log('idActivitiens correct anwer', idActivitie);
 
     history.push({
       pathname: '/activities',
@@ -179,13 +178,13 @@ console.log('idActivitiens correct anwer', idActivitie);
   }
 
   const renderModal = () => {
-    const { amountTrial, answer, isTrunk, idActivitie } = props;
+    const { chances, answer, isTrunk, idActivitie } = props;
 
     switch (actualModal) {
       case modals.toScore:
         return (
           <ScoreScreen
-            amountTrial={amountTrial}
+            chances={chances}
             handleClick={() => handleContinue()}
           />
         );

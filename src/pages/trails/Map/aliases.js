@@ -54,11 +54,11 @@ import turmalinaStoneBlocked from '../../../images/stones/turmalina/turmalinaBlo
 
 const trailsMap = {
   "Água-Marinha": {
-    "position": {bottom: "453px", left: "113px"},
+    "position": {bottom: "457px", left: "115px"},
     "img": aguaMarinhaMap,
     "name": 'agua-marinha',
     "stone": {
-      position: {top: "55px", right: "75px"},
+      position: {top: "56px", right: "77px"},
       state: {
         "todo": aguaMarinhaStoneBlocked,
         "doing": aguaMarinhaStoneDoing,
@@ -68,11 +68,11 @@ const trailsMap = {
   },
 
   "Diamante": {
-    "position": {bottom: "282px", left: "2px"},
+    "position": {bottom: "283px", left: "3px"},
     "img": diamanteMap,
     "name": 'diamante',
     "stone": {
-      position: {top: "36px", right: "63px"},
+      position: {top: "35px", right: "64px"},
       state: {
         "todo": diamanteStoneBlocked,
         "doing": diamanteStoneDoing,
@@ -82,11 +82,11 @@ const trailsMap = {
   },
 
   "Ametista": {
-    "position": {bottom: "3px", left: "2px"},
+    "position": {bottom: "3px", left: "3px"},
     "img": ametistaMap,
     "name": 'ametista',
     "stone": {
-      position: {top: "36px", right: "70px"},
+      position: {top: "33px", right: "71px"},
       state: {
         "todo": ametistaStoneBlocked,
         "doing": ametistaStoneDoing,
@@ -96,11 +96,11 @@ const trailsMap = {
   },
 
   "Turmalina": {
-    "position": {bottom: "345px", left: "227px"},
+    "position": {bottom: "347px", left: "227px"},
     "img": turmalinaMap,
     "name": 'turmalina',
     "stone": {
-      position: {top: "64px", right: "28px"},
+      position: {top: "63px", right: "28px"},
       state: {
         "todo": turmalinaStoneBlocked,
         "doing": turmalinaStoneDoing,
@@ -114,7 +114,7 @@ const trailsMap = {
     "img": prataMap,
     "name": 'prata',
     "stone": {
-      position: {top: "49px", right: "46px"},
+      position: {top: "47px", right: "46px"},
       state: {
         "todo": prataStoneBlocked,
         "doing": prataStoneDoing,
@@ -124,11 +124,11 @@ const trailsMap = {
   },
 
   "Ouro": {
-    "position": {bottom: "130px", left: "140px"},
+    "position": {bottom: "130px", left: "141px"},
     "img": ouroMap,
     "name": 'ouro',
     "stone": {
-      position: {top: "62px", right: "55px"},
+      position: {top: "61px", right: "56px"},
       state: {
         "todo": ouroStoneBlocked,
         "doing": ouroStoneDoing,
@@ -138,11 +138,11 @@ const trailsMap = {
   },
 
   "Esmeralda": {
-    "position": {bottom: "280px", left: "166px"},
+    "position": {bottom: "281px", left: "166px"},
     "img": esmeraldaMap,
     "name": 'esmeralda',
     "stone": {
-      position: {top: "41px", right: "104px"},
+      position: {top: "39px", right: "105px"},
       state: {
         "todo": esmeraldaStoneBlocked,
         "doing": esmeraldaStoneDoing,
@@ -156,7 +156,7 @@ const trailsMap = {
     "img": safiraMap,
     "name": 'safira',
     "stone": {
-      position: {top: "92px", right: "28px"},
+      position: {top: "90px", right: "28px"},
       state: {
         "todo": safiraStoneBlocked,
         "doing": safiraStoneDoing,
@@ -170,7 +170,7 @@ const trailsMap = {
     "img": alexandritaMap,
     "name": 'alexandrita',
     "stone": {
-      position: {top: "48px", right: "123px"},
+      position: {top: "46px", right: "123px"},
       state: {
         "todo": alexandritaStoneBlocked,
         "doing": alexandritaStoneDoing,
@@ -180,11 +180,11 @@ const trailsMap = {
   },
 
   "Topázio": {
-    "position": {bottom: "411px", left: "5px"},
+    "position": {bottom: "414px", left: "3px"},
     "img": topazioMap,
     "name": 'topazio',
     "stone": {
-      position: {top: "58px", right: "80px"},
+      position: {top: "59px", right: "78px"},
       state: {
         "todo": topazioStoneBlocked,
         "doing": topazioStoneDoing,

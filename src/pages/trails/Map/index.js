@@ -12,7 +12,7 @@ const AlignToCenter = styled.div`
   overflow: auto;
   position: absolute;
   background-color: #ebeeec;
-  bottom: 22px;
+  bottom: 20px;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -50,7 +50,7 @@ const MapFragment = styled.div`
   position: absolute;
   left: ${props => props.left};
   bottom: ${props => props.bottom};
-  transform: scale(1.05);
+  transform: scale(1.03,1.028);
   z-index: 1;
 `;
 
@@ -58,7 +58,7 @@ const Stone = styled.img`
   position: absolute;
   top: ${props => props.top};
   right: ${props => props.right};
-  transform: scale(1.22);
+  transform: scale(1.22,1.25);
   z-index: 1;
 `;
 
@@ -66,7 +66,7 @@ const Skeleton = styled.img`
   position: absolute;
   bottom: 6px;
   width: 427px;
-  z-index: 2;
+  z-index: -1;
 `;
 
 const Map = ({ trails, goToActivitie }) => {

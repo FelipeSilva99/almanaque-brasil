@@ -37,10 +37,11 @@ const Container = styled.div`
   min-height: 100vh;
   background: #F3F3F3;
   position: relative;
+  overflow: hidden;
 `;
 
 const Content = styled.div`
-  padding: 2.125rem 1rem 0;
+  padding: 4rem 1rem 0;
 `;
 
 const Text = styled.h1`
@@ -58,6 +59,7 @@ const Card = styled.button`
   max-width: ${props => props.maxWidth};
   border-radius: 16px;
   padding: 16px;
+  box-shadow: 0 3px 10px #ccc;
   background-color: ${props => props.backgroundColor};
   background-image: url(${props => props.backgroundImage});
   background-size: ${props => props.backgroundSize};
@@ -66,8 +68,10 @@ const Card = styled.button`
   background-repeat: no-repeat;
   text-align: left;
   font-size: 1rem;
-  &:hover{
-    box-shadow: 0 6px 10px rgba(0,0,0,0.25), 0 1px 10px rgba(0,0,0,0.22);
+  transition: .3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 6px 10px rgba(0,0,0,0.20), 0 1px 10px rgba(0,0,0,0.10);
   }
 
   @media (max-width: 320px) {
@@ -80,8 +84,9 @@ const Card = styled.button`
 
 const ElifasSVG = styled.img`
   position: absolute;
-  right: 0px;
-  bottom: 2.875rem;
+  right: -1rem;
+  bottom: 3rem;
+  width: 12rem;
 `;
 
 
@@ -140,11 +145,11 @@ const Dashboard = (props) => {
 
             <Card
               backgroundColor={"#f4de9b"}
-              maxWidth={'220px'}
+              maxWidth={'200px'}
               backgroundImage={thunk}
-              backgroundSize={'175px'}
+              backgroundSize={'160px'}
               backgroundPositionX={'70px'}
-              backgroundPositionY={'28px'}
+              backgroundPositionY={'45px'}
               onClick={() => handleClick('trunk')}
               ><Text>Baú</Text>
             </Card>

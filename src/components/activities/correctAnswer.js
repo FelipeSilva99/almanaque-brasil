@@ -179,7 +179,6 @@ const CorrectAnswer = (props) => {
 
   const renderModal = () => {
     const { chances, answer, isTrunk, idActivitie } = props;
-
     switch (actualModal) {
       case modals.toScore:
         return (

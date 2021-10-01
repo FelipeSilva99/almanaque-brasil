@@ -64,10 +64,11 @@ const Config = (props) => {
     }
   }
 
-  const handleResetProgress = async () => {
+  const handleResetProgress = () => {
     props.deleteActionsBook();
-
-    history.push('/activities');
+    setTimeout(() => {
+      history.push('/activities');
+    }, 2000);
   }
 
   return (

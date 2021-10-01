@@ -89,7 +89,7 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
 
   useEffect(() => {
     const { synced, pendingSync } = actionsBook;
-    const useChancesAtActivity = chancesAtActivity(activitie.id, [...synced, ...pendingSync]);
+    let useChancesAtActivity = chancesAtActivity(useActivitie.id, [...synced, ...pendingSync]);
     setChances(useChancesAtActivity);
   }, [actionsBook]);
 

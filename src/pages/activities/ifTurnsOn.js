@@ -153,11 +153,12 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, []);
+  }, [useActivitie]);
 
   useEffect(() => {
     const {synced, pendingSync} = actionsBook;
     const useChancesAtActivity = chancesAtActivity(useActivitie.id, [...synced, ...pendingSync]);
+    
     setChances(useChancesAtActivity);
   }, [actionsBook]);
   
@@ -444,7 +445,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
             {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}
           </ContainerButton>
         </Content>
-        {modalWrongAnswer && chances !== 0 && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {modalWrongAnswer && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isModalCorrectAnswer && <ScoreScreen chances={chances} handleClick={handleContinue} />}
         {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>

@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 //Assets
-import LogoOrigin from '../../images/logo/originOfExpression.svg'
-import LogoEureka from '../../images/logo/eureka.svg'
-import oneBook from '../../images/books/one-book.svg'
-import twoBooks from '../../images/books/two-books.svg'
-import threeBooks from '../../images/books/three-books.svg'
+import LogoOrigin from '../../images/logo/originOfExpression.svg';
+import LogoEureka from '../../images/logo/eureka.svg';
+import oneBook from '../../images/books/one-book.svg';
+import twoBooks from '../../images/books/two-books.svg';
+import threeBooks from '../../images/books/three-books.svg';
 
 //Components
 import Button from '../../components/buttons/button';
+import { chancesAtActivity } from '../../utils/statistics';
 
 // Styles
 const Container = styled.div`
@@ -125,18 +126,28 @@ const ScoreDiv = styled.div`
   }
 `;
 
-const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, registerAction }) => {
+const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, registerAction, actionsBook }) => {
+  const [acquiredKnowledge, setAcquiredKnowledge] = useState(null);
   const screens = {
     info: "info",
     knowledge: "knowledge",
     score: "score"
   }
 
+  useEffect(() => {
+    const { synced, pendingSync } = actionsBook;
+    const useChancesAtActivity = chancesAtActivity(useActivitie.id, [...synced, ...pendingSync]);
+
+    if (useChancesAtActivity === 3) return
+
+    setAcquiredKnowledge(true);
+  }, [actionsBook]);
+
   const [currentScreen, setCurrentScreen] = useState(screens.info);
   const image = useActivitie.imageBase64;
 
   useEffect(() => {
-    if(currentScreen === screens.score) {
+    if (currentScreen === screens.score) {
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
@@ -146,18 +157,26 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
         books: true,
       })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentScreen])
 
   var book = "";
 
-  if(useActivitie.sequence < 3)
+  if (useActivitie.sequence < 3)
     book = oneBook
-  else if(useActivitie.sequence < 6)
+  else if (useActivitie.sequence < 6)
     book = twoBooks
   else
     book = threeBooks
-    
+
+  const handleCurrentScreen = (modal) => {
+    if (acquiredKnowledge) {
+      setCurrentScreen(handleNextQuestion);
+      return
+    }
+    setCurrentScreen(modal)
+  }
+
   const renderScreen = () => {
     switch (currentScreen) {
       case screens.knowledge:
@@ -183,9 +202,9 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
             </Button>
           </Content>
         );
-        
+
       case screens.score:
-        return(
+        return (
           <Content justifyContent={"space-between"}>
             <ScoreDiv>
               <p>Você também ganhou:</p>
@@ -227,9 +246,9 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
               height='39px'
               background='#ffd000'
               boxShadow='0 7px 0 #f08800'
-              handleClick={() => setCurrentScreen(screens.knowledge)}
+              handleClick={() => handleCurrentScreen(screens.knowledge)}
             >
-              Continuar
+              {acquiredKnowledge ? 'Continuar Trilha' : 'Continuar'}
             </Button>
           </Content>
         );

@@ -86,7 +86,7 @@ const Activities = (props) => {
 
     let canBeDone = true;
 
-    const activitiesStates = activities.map((activitie, ind, array) => {
+    const activitiesStates = activities.map((activitie) => {
       const isDoneActivitie = isDone(activitie.id);
       // const background = setBackgroundColor(activitie)
       const activitieState = isDoneActivitie ? isDoneActivitie : defineState(canBeDone && !isDoneActivitie)
@@ -129,6 +129,7 @@ const Activities = (props) => {
     let nextItemIsSingular = true;
 
     return activities.map((item, index, array) => {
+      {console.log({activitiesProgress})}
       if (nextItemIsSingular) {
         nextItemIsSingular = false
         return (
@@ -182,16 +183,16 @@ const Activities = (props) => {
     const filteredActions = actionsBook.filter((action) => {
       return action.activityId === activityId
     })
-    
-    let isActivityError = filteredActions.length === 3 && filteredActions.filter(item => !item.success);
 
-    if (isActivityError.length === 3) return 'err'
+    let isActivityError = filteredActions.length >= 3 && filteredActions.filter(item => !item.success);
+
+    if (isActivityError.length >= 3) return 'wrong'
     else if (filteredActions.length > 0) {
       const checkIfIsDone = filteredActions.findIndex((action) => {
         return action.success === true
       });
 
-      return checkIfIsDone === -1 ? false : 'done'
+      return checkIfIsDone === -1 ? false : 'right'
     } else return false
   }
 

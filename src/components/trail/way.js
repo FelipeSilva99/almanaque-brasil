@@ -112,7 +112,7 @@ const Way = ({ backgroundDecorations, linesQuantity, progress }) => {
   }
 
   const setColor = (ind) => {
-    if(progress[ind]?.state === 'done') return '#4C90AF'
+    if(progress[ind]?.state === 'right' || progress[ind]?.state === 'wrong') return '#4C90AF'
     else return 'silver'
   }
 

@@ -167,10 +167,9 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
 
   useEffect(() => {
     const { synced, pendingSync } = actionsBook;
-    const useChancesAtActivity = chancesAtActivity(activitie.id, [...synced, ...pendingSync]);
-    setChances(useChancesAtActivity);
+    const useChancesActivity = chancesAtActivity(useActivitie.id, [...synced, ...pendingSync]);
+    setChances(useChancesActivity);
   }, [actionsBook]);
-
 
   const handleAnswerSize = () => {
     let answerSplit = [];

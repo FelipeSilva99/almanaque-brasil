@@ -78,7 +78,7 @@ const ButtonBox = styled.div`
 `;
 
 
-const ScoreScreen = ({ amountTrial, handleClick }) => {
+const ScoreScreen = ({ chances, handleClick }) => {
   const HorseShoe = styled.img`
     position: absolute;
     right: ${props => (props.img === 'wave' && '-149px') || (props.img === 'cactus' && '-130px') || (props.img === 'hardShell' && '-40px')};
@@ -86,9 +86,9 @@ const ScoreScreen = ({ amountTrial, handleClick }) => {
     z-index: -1;
   `;
 
-  const pointsImg = (amountTrial === 3 && hardShell) || (amountTrial === 2 && wave) || (amountTrial === 1 && cactus);
-  const score = (amountTrial === 3 && 10) || (amountTrial === 2 && 8) || (amountTrial === 1 && 5);
-  const imgName = (amountTrial === 3 && 'hardShell') || (amountTrial === 2 && 'wave') || (amountTrial === 1 && 'cactus');
+  const pointsImg = (chances === 3 && hardShell) || (chances === 2 && wave) || (chances === 1 && cactus);
+  const score = (chances === 3 && 10) || (chances === 2 && 8) || (chances === 1 && 5);
+  const imgName = (chances === 3 && 'hardShell') || (chances === 2 && 'wave') || (chances === 1 && 'cactus');
 
   return (
     <Container>

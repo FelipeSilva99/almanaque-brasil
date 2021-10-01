@@ -7,6 +7,7 @@ import iconBloqued from '../../images/activity/iconBloqued.svg';
 import iconBookBloqued from '../../images/activity/iconBookBloqued.svg';
 import iconBookVisualized from '../../images/activity/iconBookVisualized.svg';
 import checkIcon from '../../images/activity/check.svg';
+import checkErr from '../../images/activity/checkErr.svg';
 
 //Styles
 const ActivitiesCircle = styled.button`
@@ -72,10 +73,10 @@ const ActivitieIcon = ({item, children, activitieState, onClick, history }) => {
 
   return (
     <Box>
-      <ActivitiesCircle type={item?.type} onClick={handleClick()} history={history}>
+      <ActivitiesCircle onClick={handleClick()} history={history}>
         { activitieState === 'bloqued' ? <img src={renderImageBloqued()} alt={item?.name} /> : <img src={renderImageVisualized()} alt={item?.name}/> }
         <Text color={() => setColor()}>{children + 1}</Text>
-        {activitieState === 'done' && <Check src={checkIcon}/>}
+        {(activitieState === 'done' && <Check src={checkIcon} alt='check' />) || (activitieState === 'err' && <Check src={checkErr} alt='check'/>)}
       </ActivitiesCircle>
       <BoxName><p>{item?.name}</p></BoxName>
     </Box>

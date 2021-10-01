@@ -176,6 +176,13 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
     setChances(useChancesAtActivity);
   }, [actionsBook]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!!activitie) setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [activitie]);
+
   const handleValue = (e, i) => {
     const newEnigmas = enigmas
     enigmas[i].userInput = e.target.value;

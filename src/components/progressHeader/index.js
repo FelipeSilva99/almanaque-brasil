@@ -7,7 +7,7 @@ import trophiesIcon from '../../images/icons/progressHeader/trophies.svg'
 import booksIcon from '../../images/icons/progressHeader/books.svg'
 import trailsIcon from '../../images/icons/progressHeader/trails.svg'
 
-import { getPointsAtTrail } from '../../utils/statistics'
+import { getPointsAtTrail, getBookBadges } from '../../utils/statistics'
 
 const Row = styled.div`
   display: flex;
@@ -57,10 +57,11 @@ const ValueBox = styled.div`
 
 export default ({ points = 0, trails = 0, books = 0, actionsBook }) => {
   const score = getPointsAtTrail({ actionsBook: actionsBook })
+  const bookBadges = getBookBadges({ actionsBook: actionsBook })
   const items = [
     { value: score, icon: trophiesIcon },
     { value: trails, icon: trailsIcon },
-    { value: books, icon: booksIcon }
+    { value: bookBadges, icon: booksIcon }
   ]
 
   return (

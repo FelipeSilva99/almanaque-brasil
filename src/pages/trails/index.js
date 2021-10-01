@@ -14,6 +14,7 @@ import { getTrailsThunk } from '../../dataflow/thunks/trails-thunk';
 
 const mapStateToProps = state => ({
   trails: state.trails.data,
+  actionsBook: state.actionsBook
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -92,7 +93,7 @@ const Trails = (props) => {
 
   return (
     <Box>
-      <ProgressHeader />
+      <ProgressHeader actionsBook={[...props.actionsBook.synced, ...props.actionsBook.pendingSync]}/>
       {
         trails && (
           <ContentMap>

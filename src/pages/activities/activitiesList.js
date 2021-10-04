@@ -81,9 +81,7 @@ const Activities = (props) => {
     bottom: trainStation
   }
 
-  useEffect(() => {
-    if (activities === null) return
-
+  const handleAactivitiesStates = () => {
     let canBeDone = true;
 
     const activitiesStates = activities.map((activitie) => {
@@ -93,6 +91,27 @@ const Activities = (props) => {
       if (!isDoneActivitie) canBeDone = false
       return { id: activitie.id, state: activitieState }
     });
+
+    return activitiesStates;
+  }
+
+  useEffect(() => {
+    if (activities === null) return
+
+    let canBeDone = true;
+
+    let newListActivities = [];
+
+    const activitiesStates = activities.map((activitie) => {
+      const isDoneActivitie = isDone(activitie.id);
+      // const background = setBackgroundColor(activitie)
+      const activitieState = isDoneActivitie ? isDoneActivitie : defineState(canBeDone && !isDoneActivitie)
+      if (!isDoneActivitie) canBeDone = false;
+      newListActivities.push({...activitie, state: activitieState});
+      return { id: activitie.id, state: activitieState }
+    });
+
+    console.log(newListActivities);
 
     setActivitiesProgress(activitiesStates);
 

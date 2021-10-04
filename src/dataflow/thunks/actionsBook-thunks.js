@@ -56,21 +56,21 @@ export const deleteActionsBook = () => async (dispatch) => {
   const idToken = auth.signInUserSession.idToken.jwtToken;
 
   try {
-    // const response = await axios({
-    //   method: 'delete',
-    //   url: process.env.REACT_APP_ACTIONS_BOOK_ENDPOINT,
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': `${idToken}`,
-    //   },
-    // });
-    // if (response.status === 200) {
-    //   dispatch(clearActionsBook());
-    //   console.log('Progresso reiniciado com sucesso.')
-    // } else {
-    //   console.log('Não foi possível reiniciar o progresso. \n', response);
-    // }
-    dispatch(clearActionsBook());
+    const response = await axios({
+      method: 'delete',
+      url: process.env.REACT_APP_ACTIONS_BOOK_ENDPOINT,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${idToken}`,
+      },
+    });
+    if (response.status === 200) {
+      dispatch(clearActionsBook());
+      console.log('Progresso reiniciado com sucesso.')
+    } else {
+      console.log('Não foi possível reiniciar o progresso. \n', response);
+    }
+    // dispatch(clearActionsBook());
   }
   catch (err) {
     console.log('err', err);

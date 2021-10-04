@@ -10,6 +10,7 @@ import SplashScreen from './splashScreen';
 import ScoreScreen from '../../components/activities/scoreScreen';
 import Tutorial from '../../components/modal/tutorialModal';
 import { chancesAtActivity } from '../../utils/statistics';
+import Layout from './layout';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -123,6 +124,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
   const [isLoading, setIsLoading] = useState(true)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [chances, setChances] = useState(null);
+  const [isDone, setIsDone] = useState(undefined);
   const [inMemoryItem, setInMemoryItem] = useState(undefined);
   const [hasItemInMemory, setHasItemInMemory] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(undefined);
@@ -147,21 +149,29 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
     setActivitie(useActivitie);
     setPairs(shuffle(newArrayOfActivities));
   }, [useActivitie]);
-  
-  
+
+
   useEffect(() => {
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [useActivitie]);
+  }, []);
+
+  const handleChancesAtActivity = () => {
+    const { synced, pendingSync } = actionsBook;
+    const useChancesAtActivity = chancesAtActivity(useActivitie.id, [...synced, ...pendingSync]);
+
+    if (useChancesAtActivity === 0) {
+      setIsDone(true);
+      return
+    }
+    setChances(useChancesAtActivity);
+  }
 
   useEffect(() => {
-    const {synced, pendingSync} = actionsBook;
-    const useChancesAtActivity = chancesAtActivity(useActivitie.id, [...synced, ...pendingSync]);
-    
-    setChances(useChancesAtActivity);
+    handleChancesAtActivity();
   }, [actionsBook]);
-  
+
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!!useActivitie) setIsLoading(false)
@@ -174,28 +184,30 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
   }
 
   useEffect(() => {
-    if (modalWrongAnswer) {
-      registerAction({
-        activityId: useActivitie.id,
-        trailId: useActivitie.trailId,
-        success: false,
-        timestamp: Date.now(),
-        score: 0,
-        books: false,
-      })
-    }
-    
-    if (isModalCorrectAnswer) {
-      const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
-      
-      registerAction({
-        activityId: useActivitie.id,
-        trailId: useActivitie.trailId,
-        success: true,
-        timestamp: Date.now(),
-        score: point,
-        books: false,
-      })
+    if (!handleChancesAtActivity) {
+      if (modalWrongAnswer) {
+        registerAction({
+          activityId: useActivitie.id,
+          trailId: useActivitie.trailId,
+          success: false,
+          timestamp: Date.now(),
+          score: 0,
+          books: false,
+        })
+      }
+
+      if (isModalCorrectAnswer) {
+        const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
+
+        registerAction({
+          activityId: useActivitie.id,
+          trailId: useActivitie.trailId,
+          success: true,
+          timestamp: Date.now(),
+          score: point,
+          books: false,
+        })
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalCorrectAnswer, modalWrongAnswer]);
@@ -451,6 +463,28 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
       </Container>
     )
   )
+
+  // return (
+  //   <Layout>
+  //     <Content isCorrectAnswer={isCorrectAnswer}>
+  //       <ContentBox>
+  //         {isCorrectAnswer && <TextCorrectAnswer>A resposta é:</TextCorrectAnswer>}
+  //         {renderScreen(pairs)}
+  //       </ContentBox>
+  //       <ContainerButton
+  //         color={isCorrectAnswer && '#fff'}
+  //         background={isCorrectAnswer && '#399119'}
+  //         boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
+  //         noBorder={!isCorrectAnswer}
+  //         isCorrectAnswer={isCorrectAnswer}
+  //         isError={isError && 'Você precisa selecionar todos os items'}
+  //         handleClick={handleSubmit}
+  //       >
+  //         {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}
+  //       </ContainerButton>
+  //     </Content>
+  //   </Layout>
+  // )
 }
 
 export default IfTurnsOn;

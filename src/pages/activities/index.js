@@ -95,7 +95,7 @@ const Activities = (props) => {
         return <DidYouKnow registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook}/>
 
       case "se-liga":
-        return <IfTurnsOn registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook}/>
+        return <IfTurnsOn registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook} />
 
       case "palavra-enigmatica":
         return <EnigmaticWord registerAction={registerAction} activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook}/>

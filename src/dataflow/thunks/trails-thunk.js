@@ -6,7 +6,8 @@ import {
   getTrails,
 } from '../modules/trails-module';
 
-export const getTrailsThunk = () => async (dispatch) => {
+export const getTrailsThunk = () => async (dispatch, getState) => {
+  const { actionsBook } = getState()
 
   const auth = await Auth.currentAuthenticatedUser()
   const idToken = auth.signInUserSession.idToken.jwtToken;
@@ -20,6 +21,18 @@ export const getTrailsThunk = () => async (dispatch) => {
 				'Authorization': `${idToken}`,
 			},
 		})
+
+
+    let trails = response.data.Items
+
+    for(let i = 0; i<trails.length; i++) {
+      for(let j = 0; j<trails[i].activities.length; j ++) {
+        trails[i].activities[j] = {
+          ...trails[i].activities[j],
+          "status": "lasqueira" 
+        }
+      }
+    }
 
     dispatch(getTrails(response.data.Items));
   }

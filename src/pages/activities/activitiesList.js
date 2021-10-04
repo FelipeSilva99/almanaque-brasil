@@ -107,7 +107,7 @@ const Activities = (props) => {
       // const background = setBackgroundColor(activitie)
       const activitieState = isDoneActivitie ? isDoneActivitie : defineState(canBeDone && !isDoneActivitie)
       if (!isDoneActivitie) canBeDone = false;
-      newListActivities.push({...activitie, state: activitieState});
+      // newListActivities.push({...activitie, state: activitieState});
       return { id: activitie.id, state: activitieState }
     });
 

@@ -57,6 +57,7 @@ export const getTrailsThunk = () => async (dispatch, getState) => {
       return activitieState
     };
 
+    
     for(let i = 0; i<trails.length; i++) {
       for(let j = 0; j<trails[i].activities.length; j ++) {
         trails[i].activities[j] = {

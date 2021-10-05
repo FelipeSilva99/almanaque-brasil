@@ -86,13 +86,18 @@ const Activities = (props) => {
 
     let canBeDone = true;
 
+    let newListActivities = [];
+
     const activitiesStates = activities.map((activitie) => {
       const isDoneActivitie = isDone(activitie.id);
       // const background = setBackgroundColor(activitie)
       const activitieState = isDoneActivitie ? isDoneActivitie : defineState(canBeDone && !isDoneActivitie)
-      if (!isDoneActivitie) canBeDone = false
+      if (!isDoneActivitie) canBeDone = false;
+      // newListActivities.push({...activitie, state: activitieState});
       return { id: activitie.id, state: activitieState }
     });
+
+    console.log(newListActivities);
 
     setActivitiesProgress(activitiesStates);
 

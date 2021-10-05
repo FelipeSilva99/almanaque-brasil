@@ -76,7 +76,7 @@ const Trunk = (props) => {
 
   useEffect(() => {
     setData(props?.thunk);
-  }, []);
+  }, [props?.thunk]);
 
   const handleModal = (item) => {
     setIsModal({ isModal: !modal.isModal, item: item });

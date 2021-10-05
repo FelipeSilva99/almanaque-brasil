@@ -169,7 +169,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
     const { synced, pendingSync } = actionsBook;
     const useChancesActivity = chancesAtActivity(useActivitie.id, [...synced, ...pendingSync]);
     setChances(useChancesActivity);
-  }, [actionsBook]);
+  }, [actionsBook, useActivitie.id]);
 
   const handleAnswerSize = () => {
     let answerSplit = [];
@@ -205,7 +205,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, []);
+  }, [useActivitie.trailId]);
 
   useEffect(() => {
     if (modalWrongAnswer) {

@@ -65,10 +65,11 @@ const Trails = (props) => {
   const [isModalTrailCompleted, setIsModalTrailCompleted] = useState(undefined);
 
 	useEffect(() => {
+    console.log('peguei as atividades');
 		props.getTrailsThunk();
     // setIsModalTrailCompleted(true);
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	});
 
   const handleClick = (trail) => {
     props.history.push({pathname: '/activities'});
@@ -79,15 +80,15 @@ const Trails = (props) => {
     setIsModalTrailCompleted(false);
   }
 
-  const renderTrails = (trails) => {
-    return trails.map((trail, key) => {
-      return (
-        <Card key={key} onClick={() => handleClick(trail.id)}>
-          <h2>{`Trilha ${trail.id}`}</h2>
-        </Card>
-      )
-    })
-  }
+  // const renderTrails = (trails) => {
+  //   return trails.map((trail, key) => {
+  //     return (
+  //       <Card key={key} onClick={() => handleClick(trail.id)}>
+  //         <h2>{`Trilha ${trail.id}`}</h2>
+  //       </Card>
+  //     )
+  //   })
+  // }
 
   const trails = props?.trails;
 

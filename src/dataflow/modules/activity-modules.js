@@ -1,31 +1,31 @@
-// Action Type
-const SELECTED_ACTIVITY = 'almanaque/trails/SELECTED_ACTIVITY';
+// // Action Type
+// const SELECTED_ACTIVITY = 'almanaque/trails/SELECTED_ACTIVITY';
 
-// Store
-const initialState = {
-    activity: [],
-};
+// // Store
+// const initialState = {
+//   activity: [],
+// };
 
-// Reducer
-export default function foo(state = initialState, action) {
-  switch (action.type) {
+// // Reducer
+// export default function foo(state = initialState, action) {
+//   switch (action.type) {
       
-    case SELECTED_ACTIVITY: {
-      return Object.assign({}, state, {
-        activity: action.info,
-      });
-    }
+//     case SELECTED_ACTIVITY: {
+//       return Object.assign({}, state, {
+//         activity: action.info,
+//       });
+//     }
 
-    default:
-      return state;
-  }
-}
+//     default:
+//       return state;
+//   }
+// }
 
 
-// Actions
-export const selectedTrails = (info) => {
-  return {
-    type: SELECTED_ACTIVITY,
-    info,
-  }
-};
+// // Actions
+// export const selectedTrails = (info) => {
+//   return {
+//     type: SELECTED_ACTIVITY,
+//     info,
+//   }
+// };

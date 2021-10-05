@@ -9,7 +9,6 @@ import WrongAnswer from '../../components/activities/wrongAnswer';
 import SplashScreen from './splashScreen';
 import ScoreScreen from '../../components/activities/scoreScreen';
 import Tutorial from '../../components/modal/tutorialModal';
-import { chancesAtActivity } from '../../utils/statistics';
 
 //Images
 import logo from '../../images/logo/ifTurnsOn.svg';
@@ -147,21 +146,14 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
     setActivitie(useActivitie);
     setPairs(shuffle(newArrayOfActivities));
   }, [useActivitie]);
-  
-  
+
+
   useEffect(() => {
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [useActivitie]);
+  }, [useActivitie.trailId]);
 
-  useEffect(() => {
-    const {synced, pendingSync} = actionsBook;
-    const useChancesAtActivity = chancesAtActivity(useActivitie.id, [...synced, ...pendingSync]);
-    
-    setChances(useChancesAtActivity);
-  }, [actionsBook]);
-  
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!!useActivitie) setIsLoading(false)
@@ -174,29 +166,31 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
   }
 
   useEffect(() => {
-    if (modalWrongAnswer) {
-      registerAction({
-        activityId: useActivitie.id,
-        trailId: useActivitie.trailId,
-        success: false,
-        timestamp: Date.now(),
-        score: 0,
-        books: false,
-      })
-    }
-    
-    if (isModalCorrectAnswer) {
-      const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
-      
-      registerAction({
-        activityId: useActivitie.id,
-        trailId: useActivitie.trailId,
-        success: true,
-        timestamp: Date.now(),
-        score: point,
-        books: false,
-      })
-    }
+    // if () {
+      if (modalWrongAnswer) {
+        registerAction({
+          activityId: useActivitie.id,
+          trailId: useActivitie.trailId,
+          success: false,
+          timestamp: Date.now(),
+          score: 0,
+          books: false,
+        })
+      }
+
+      if (isModalCorrectAnswer) {
+        const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
+
+        registerAction({
+          activityId: useActivitie.id,
+          trailId: useActivitie.trailId,
+          success: true,
+          timestamp: Date.now(),
+          score: point,
+          books: false,
+        })
+      }
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalCorrectAnswer, modalWrongAnswer]);
 

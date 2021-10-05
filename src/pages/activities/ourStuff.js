@@ -57,7 +57,7 @@ const OurStuff = ({ useActivitie, registerAction, actionsBook }) => {
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, []);
+  }, [useActivitie.trailId]);
 
   useEffect(() => {
     if (modalWrongAnswer) {
@@ -89,7 +89,7 @@ const OurStuff = ({ useActivitie, registerAction, actionsBook }) => {
     const { synced, pendingSync } = actionsBook;
     const useChancesAtActivity = chancesAtActivity(useActivitie.id, [...synced, ...pendingSync]);
     setChances(useChancesAtActivity);
-  }, [actionsBook]);
+  }, [actionsBook, useActivitie.id]);
 
   const handleIsModalAnswerOption = () => {
     setIsModalAnswerOption(true);

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -52,7 +53,7 @@ const DidYouKnow = (props) => {
   useEffect(() => {
     const { useActivitie } = props;
     setActivitie(useActivitie);
-  }, [props.useActivitie]);
+  }, [props, props.useActivitie]);
 
   useEffect(() => {
     const { useActivitie } = props;
@@ -92,7 +93,7 @@ const DidYouKnow = (props) => {
     const {synced, pendingSync} = props.actionsBook;
     const useChancesAtActivity = chancesAtActivity(props.useActivitie.id, [...synced, ...pendingSync]);
     setChances(useChancesAtActivity);
-  }, [props.actionsBook]);
+  }, [props.actionsBook, props.useActivitie]);
 
   const handleIsModalAnswerOption = () => {
     setIsModalAnswerOption(true);

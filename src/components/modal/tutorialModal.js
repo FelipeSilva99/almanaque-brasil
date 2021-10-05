@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 //Images
 import iconElifas from '../../images/elifas/tip.svg';
-import close from '../../images/icons/close.svg';
 
 //Styled
 const Container = styled.div`

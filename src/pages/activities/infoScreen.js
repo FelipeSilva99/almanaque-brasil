@@ -141,7 +141,7 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
     if (useChancesAtActivity === 3) return
 
     setAcquiredKnowledge(true);
-  }, [actionsBook]);
+  }, [actionsBook, useActivitie.id]);
 
   const [currentScreen, setCurrentScreen] = useState(screens.info);
   const image = useActivitie.imageBase64;

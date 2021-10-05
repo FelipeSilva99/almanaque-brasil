@@ -80,15 +80,15 @@ const Trails = (props) => {
     setIsModalTrailCompleted(false);
   }
 
-  const renderTrails = (trails) => {
-    return trails.map((trail, key) => {
-      return (
-        <Card key={key} onClick={() => handleClick(trail.id)}>
-          <h2>{`Trilha ${trail.id}`}</h2>
-        </Card>
-      )
-    })
-  }
+  // const renderTrails = (trails) => {
+  //   return trails.map((trail, key) => {
+  //     return (
+  //       <Card key={key} onClick={() => handleClick(trail.id)}>
+  //         <h2>{`Trilha ${trail.id}`}</h2>
+  //       </Card>
+  //     )
+  //   })
+  // }
 
   const trails = props?.trails;
 

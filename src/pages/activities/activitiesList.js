@@ -81,20 +81,6 @@ const Activities = (props) => {
     bottom: trainStation
   }
 
-  const handleAactivitiesStates = () => {
-    let canBeDone = true;
-
-    const activitiesStates = activities.map((activitie) => {
-      const isDoneActivitie = isDone(activitie.id);
-      // const background = setBackgroundColor(activitie)
-      const activitieState = isDoneActivitie ? isDoneActivitie : defineState(canBeDone && !isDoneActivitie)
-      if (!isDoneActivitie) canBeDone = false
-      return { id: activitie.id, state: activitieState }
-    });
-
-    return activitiesStates;
-  }
-
   useEffect(() => {
     if (activities === null) return
 

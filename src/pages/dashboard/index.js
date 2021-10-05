@@ -8,9 +8,6 @@ import Footer from '../../components/footer/footerMenu';
 import WelcomeModal from '../../components/modal/welcomeModal';
 import TrunkInfoScreen from '../../components/thunk/trunkInfoScreen';
 
-//Utils
-import { chancesAtActivity } from '../../utils/statistics';
-
 //Image
 import home from '../../images/icons/menu/selectedHome.svg';
 import elifas from '../../images/elifas.svg';

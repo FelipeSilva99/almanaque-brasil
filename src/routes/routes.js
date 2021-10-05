@@ -1,6 +1,6 @@
 // Libs
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PrivateRoute from './PrivateRoute'
 import UnauthenticatedRoute from './UnauthenticatedRoute';

@@ -141,7 +141,7 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
     if (activitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, []);
+  }, [activitie.trailId]);
 
   useEffect(() => {
     if (modalWrongAnswer) {
@@ -174,7 +174,7 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
     const { synced, pendingSync } = actionsBook;
     const useChancesAtActivity = chancesAtActivity(activitie.id, [...synced, ...pendingSync]);
     setChances(useChancesAtActivity);
-  }, [actionsBook]);
+  }, [actionsBook, activitie.id]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

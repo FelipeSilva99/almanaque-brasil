@@ -57,7 +57,7 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, []);
+  }, [useActivitie.trailId]);
 
   useEffect(() => {
     if(modalWrongAnswer) {
@@ -91,7 +91,7 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
     const { synced, pendingSync } = actionsBook;
     let useChancesAtActivity = chancesAtActivity(useActivitie.id, [...synced, ...pendingSync]);
     setChances(useChancesAtActivity);
-  }, [actionsBook]);
+  }, [actionsBook, useActivitie.id]);
 
   const handleModalTip = () => {
     setIsModalTip(!isModalTip)

@@ -7,7 +7,7 @@ import Footer from '../../components/footer/footerMenu';
 import Map from './Map';
 import ProgressHeader from '../../components/progressHeader';
 import TrailCompletedModal from '../../components/modal/trailCompletedModal';
-import { trailState } from '../../utils/trails';
+import { trailState } from '../../utils/trail';
 
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';

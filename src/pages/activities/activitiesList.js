@@ -86,7 +86,7 @@ const Activities = (props) => {
 
     let canBeDone = true;
 
-    let newListActivities = [];
+    // let newListActivities = [];
 
     const activitiesStates = activities.map((activitie) => {
       const isDoneActivitie = isDone(activitie.id);

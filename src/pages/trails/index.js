@@ -71,11 +71,17 @@ const Trails = (props) => {
     const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync];
     let trailsState = props.trails.map(trail => trailState(trail.id, listActionsBook, trail));
     let qtdTrailComplete = trailsState.filter(item => item.state === 'done').length;
-    console.log('trailsState', qtdTrailComplete);
-    console.log('trails', props.trails);
 
     setTrailsState(trailsState);
     setQtdTrailComplete(qtdTrailComplete);
+
+    const isAppFinished = trailsState.every(trail => trail.status === 'done')
+
+    if (isAppFinished) {
+      setIsModalTrailCompleted(true)
+    } else {
+      setIsModalTrailCompleted(false)
+    }
 
 	}, [props.actionsBook, props.trails]);
 

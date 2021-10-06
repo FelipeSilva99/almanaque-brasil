@@ -97,8 +97,6 @@ const Activities = (props) => {
       return { id: activitie.id, state: activitieState }
     });
 
-    console.log(newListActivities);
-
     setActivitiesProgress(activitiesStates);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -69,20 +70,18 @@ const Skeleton = styled.img`
   z-index: -1;
 `;
 
-const Map = ({ trails, goToActivitie }) => {
+const Map = ({ trails, trailsState, goToActivitie }) => {
   const handleMapFragmentClick = (trail, key) => {
     trail.isActive ? goToActivitie(key) : alert(`Trilha ${trail.name} bloqueada`)
   }
-
 
   return (
     <AlignToCenter>
       <MapBackground>
         {trails.map((trail, key) => {
-          const useAliases = aliases[trail.name].stone;
-          const stone = useAliases.state;
-          const renderImg = trail.isActive ? stone.doing : stone.todo;
-
+          const aliasesName = aliases[trail.name];
+          const useTrailsState = trailsState?.filter(item => item?.trailId === trail?.id && item?.state)[0]?.state || 'todo';
+          
           return (
             <MapFragment
               key={key}
@@ -92,12 +91,12 @@ const Map = ({ trails, goToActivitie }) => {
             >
               <Stone
                 onClick={() => handleMapFragmentClick(trail, key)}
-                top={aliases[trail.name].stone.position.top}
-                right={aliases[trail.name].stone.position.right}
-                src={renderImg}
-                alt={aliases[trail.name].name}
+                top={aliasesName.stone.position.top}
+                right={aliasesName.stone.position.right}
+                src={aliasesName.stone.state.[useTrailsState]}
+                alt={aliasesName.name}
               />
-              <img onClick={() => handleMapFragmentClick(trail, key)} src={aliases[trail.name].img} alt='mapa'/>
+              <img onClick={() => handleMapFragmentClick(trail, key)} src={aliasesName.img} alt='mapa'/>
             </MapFragment>
           )
         })}

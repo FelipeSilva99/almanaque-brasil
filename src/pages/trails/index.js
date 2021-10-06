@@ -68,12 +68,12 @@ const Trails = (props) => {
   
   useEffect(() => {
     const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync]
-    console.log('trailState');
-    props.trails.map(trail => trailState(trail.id, listActionsBook))
+    let trailsState = props.trails.map(trail => trailState(trail.id, listActionsBook))
+    console.log({trailsState});
     // trailState(props.trails, props.actionsBook)
     // setIsModalTrailCompleted(true);
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	});
+	}, [] );
 
 	useEffect(() => {
     console.log('peguei as atividades');

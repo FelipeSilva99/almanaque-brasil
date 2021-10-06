@@ -118,7 +118,8 @@ const DidYouKnow = (props) => {
   }
 
   const showModalAnswer = () => {
-    const useAnswers = activitie.answers.filter(item => item.isCorrect);
+    const useAnswers = activitie.answers.filter(item => item.isCorrect)[0];
+    console.log(useAnswers);
     setModalWrongAnswer(false);
     setModalCorrectAnswer(false);
     setShowAnswer({isModal: true, answer: useAnswers});
@@ -161,6 +162,7 @@ const DidYouKnow = (props) => {
           && !showAnswer.isModal)
           && renderScreen()
         }
+        {console.log({showAnswer})}
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={activitie.errorMessages} />}
         {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} chances={chances} />}

@@ -147,7 +147,7 @@ const ALink = styled(Link)`
   justify-content: center;
 `;
 
-function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) {
+function WrongAnswer({ chances, isDoneActivitie, handleClick, handleShowAnswer, errorMessages }) {
   const [hasChances, setHasChance] = useState(true);
   const [isFirstMistake, setIsFirstMistake] = useState(true);
 
@@ -230,7 +230,12 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
           backgroundPosition={setBackgroundImg().position}
           backgroundSize={setBackgroundImg().size}
         >
-          {renderText(isFirstMistake, errorMessages)}
+        {console.log('isDoneActivitie', isDoneActivitie)}
+          {/* {renderText(isFirstMistake, errorMessages)} */}
+          {isDoneActivitie 
+            ? renderMsgError()
+            : renderText(isFirstMistake, errorMessages)
+          }
         </DialogBox>
         <ImgDialogBox src={dialogBox} alt='DialogBox' />
       </ContentDialogBox>

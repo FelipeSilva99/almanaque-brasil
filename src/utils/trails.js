@@ -1,7 +1,7 @@
-let canBeDone = true;
 function countActions(actions, action) {
   return actions.reduce((a, v) => (v === action ? a + 1 : a), 0)
 }
+
 export function trailState(trailId, actionsBook) {
   let trailsCompleted = 0;
 

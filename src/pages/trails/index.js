@@ -64,23 +64,17 @@ export const Row = styled.div`
 
 const Trails = (props) => {
   const [isModalTrailCompleted, setIsModalTrailCompleted] = useState(undefined);
+  const [trailsState, setTrailsState] = useState([]);
 
-  
   useEffect(() => {
     const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync]
-    let trailsState = props.trails.map(trail => trailState(trail.id, listActionsBook))
-    console.log({trailsState});
-    // trailState(props.trails, props.actionsBook)
-    // setIsModalTrailCompleted(true);
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [] );
+    let trailsState = props.trails.map(trail => trailState(trail.id, listActionsBook, trail))
+    setTrailsState(trailsState);
+	}, [props.actionsBook, props.trails]);
 
 	useEffect(() => {
-    console.log('peguei as atividades');
 		props.getTrailsThunk();
-    // setIsModalTrailCompleted(true);
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [props]);
 
   const handleClick = (trail) => {
     props.history.push({pathname: '/activities'});
@@ -102,7 +96,6 @@ const Trails = (props) => {
   // }
 
   const trails = props?.trails;
-
   return (
     <Box>
       <ProgressHeader actionsBook={[...props.actionsBook.synced, ...props.actionsBook.pendingSync]}/>
@@ -110,7 +103,7 @@ const Trails = (props) => {
         trails && (
           <ContentMap>
             {/* {renderTrails(trails)} */}
-            <Map trails={trails} goToActivitie={handleClick}></Map>
+            <Map trails={trails} trailsState={trailsState} goToActivitie={handleClick}></Map>
           </ContentMap>
         ) 
       }

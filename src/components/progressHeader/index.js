@@ -55,12 +55,13 @@ const ValueBox = styled.div`
   background-color: #fff;
 `;
 
-export default ({ points = 0, trails = 0, books = 0, actionsBook }) => {
-  const score = getPointsAtTrail({ actionsBook: actionsBook })
-  const bookBadges = getBookBadges({ actionsBook: actionsBook })
+export default ({ points = 0, trails, books = 0, actionsBook }) => {
+  const score = getPointsAtTrail({ actionsBook: actionsBook });
+  const trailComplete = trails || 0;
+  const bookBadges = getBookBadges({ actionsBook: actionsBook });
   const items = [
     { value: score, icon: trophiesIcon },
-    { value: trails, icon: trailsIcon },
+    { value: trailComplete, icon: trailsIcon },
     { value: bookBadges, icon: booksIcon }
   ]
 

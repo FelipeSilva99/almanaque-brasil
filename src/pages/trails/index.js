@@ -65,11 +65,18 @@ export const Row = styled.div`
 const Trails = (props) => {
   const [isModalTrailCompleted, setIsModalTrailCompleted] = useState(undefined);
   const [trailsState, setTrailsState] = useState([]);
+  const [qtdTrailComplete, setQtdTrailComplete] = useState(0);
 
   useEffect(() => {
-    const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync]
-    let trailsState = props.trails.map(trail => trailState(trail.id, listActionsBook, trail))
+    const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync];
+    let trailsState = props.trails.map(trail => trailState(trail.id, listActionsBook, trail));
+    let qtdTrailComplete = trailsState.filter(item => item.state === 'done').length;
+    console.log('trailsState', qtdTrailComplete);
+    console.log('trails', props.trails);
+
     setTrailsState(trailsState);
+    setQtdTrailComplete(qtdTrailComplete);
+
 	}, [props.actionsBook, props.trails]);
 
 	useEffect(() => {
@@ -98,7 +105,10 @@ const Trails = (props) => {
   const trails = props?.trails;
   return (
     <Box>
-      <ProgressHeader actionsBook={[...props.actionsBook.synced, ...props.actionsBook.pendingSync]}/>
+      <ProgressHeader
+        trails={qtdTrailComplete}
+        actionsBook={[...props.actionsBook.synced, ...props.actionsBook.pendingSync]}
+      />
       {
         trails && (
           <ContentMap>

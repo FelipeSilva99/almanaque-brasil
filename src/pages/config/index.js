@@ -67,7 +67,7 @@ const Config = (props) => {
   const handleResetProgress = () => {
     props.deleteActionsBook();
     setTimeout(() => {
-      history.push('/activities');
+      history.push('/dashboard');
     }, 2000);
   }
 

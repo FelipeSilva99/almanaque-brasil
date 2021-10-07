@@ -39,6 +39,7 @@ export default function main(state = initialState, action) {
       }
 
     case CLEAR:
+      // console.log('[CLEAR]:', initialState)
       return initialState
 
     default:

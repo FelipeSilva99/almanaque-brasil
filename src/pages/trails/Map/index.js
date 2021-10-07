@@ -61,6 +61,7 @@ const Stone = styled.img`
   right: ${props => props.right};
   transform: scale(1.22,1.25);
   z-index: 1;
+  cursor: pointer;
 `;
 
 const Skeleton = styled.img`

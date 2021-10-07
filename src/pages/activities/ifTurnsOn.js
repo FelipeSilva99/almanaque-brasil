@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { shuffle } from '../../utils'
+
+//Utils
+import { chancesAtActivity } from '../../utils/statistics';
+import { allowScore } from '../../utils/activity';
+import { shuffle } from '../../utils';
 
 // Component
 import Header from '../../components/header';
 import ContainerButton from '../../components/buttons/containerButton';
 import WrongAnswer from '../../components/activities/wrongAnswer';
+import WrongAnswerWithoutScore from '../../components/activities/wrongAnswerWithoutScore';
 import SplashScreen from './splashScreen';
 import ScoreScreen from '../../components/activities/scoreScreen';
 import Tutorial from '../../components/modal/tutorialModal';
@@ -128,12 +133,13 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
   const [isModalCorrectAnswer, setIsModalCorrectAnswer] = useState(false);
   const [isError, setIsError] = useState(undefined);
   const [isTutorial, setIsTutorial] = useState(undefined);
+  const [isModalWithoutScore, setIsModalWithoutScore] = useState(undefined);
 
   useEffect(() => {
     inMemoryItem === undefined
       ? setHasItemInMemory(false)
       : setHasItemInMemory(true)
-  }, [inMemoryItem])
+  }, [inMemoryItem]);
 
   useEffect(() => {
     const newArrayOfActivities = useActivitie?.pairs.map((pair, i) => {
@@ -152,7 +158,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [useActivitie.trailId]);
+  }, [useActivitie]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -161,36 +167,57 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
     return () => clearTimeout(timer);
   }, [useActivitie]);
 
+  useEffect(() => {
+    const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
+    const useChancesAtActivity = chancesAtActivity(useActivitie.id, listActionsBook);
+    setChances(useChancesAtActivity);
+  }, [actionsBook, useActivitie.id]);
+
+  // const activityWasDone = () => {
+  //   const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
+  //   const useDoneActivitie = isDone(useActivitie.id, listActionsBook);
+
+  //   if(useDoneActivitie === 'right' || useDoneActivitie === 'wrong') {
+  //     console.log('atividade já foi feita')
+  //     setIsDoneActivitie(true);
+  //   } 
+  // }
+
+  // useEffect(() => {
+  //   activityWasDone();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [useActivitie]);
+
   const handleModalTip = () => {
     setIsModalTip(!isModalTip)
-  }
+  };
 
   useEffect(() => {
-    // if () {
-      if (modalWrongAnswer) {
-        registerAction({
-          activityId: useActivitie.id,
-          trailId: useActivitie.trailId,
-          success: false,
-          timestamp: Date.now(),
-          score: 0,
-          books: false,
-        })
-      }
+    // if(isDoneActivitie) {
+    if (modalWrongAnswer) {
+      registerAction({
+        activityId: useActivitie.id,
+        trailId: useActivitie.trailId,
+        success: false,
+        timestamp: Date.now(),
+        score: 0,
+        books: false,
+      })
+    }
 
-      if (isModalCorrectAnswer) {
-        const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
+    if (isModalCorrectAnswer) {
+      const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
 
-        registerAction({
-          activityId: useActivitie.id,
-          trailId: useActivitie.trailId,
-          success: true,
-          timestamp: Date.now(),
-          score: point,
-          books: false,
-        })
-      }
-    // }
+      registerAction({
+        activityId: useActivitie.id,
+        trailId: useActivitie.trailId,
+        success: true,
+        timestamp: Date.now(),
+        score: point,
+        books: false,
+      })
+    }
+    // } 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalCorrectAnswer, modalWrongAnswer]);
 
@@ -326,6 +353,8 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
 
   const handleSubmit = () => {
     const isError = pairs.filter(item => item.backgroundColor === "#fff").length > 0;
+    const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
+    const useAllowScore = allowScore(useActivitie.trailId, useActivitie.id, listActionsBook);
 
     if (selectedItems.length < pairs.length || isError) {
       setIsError(true);
@@ -333,24 +362,39 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
     }
     if (isCorrectAnswer) {
       handlerNextActivitie(activitie.id);
-    } else if (isCorrect()) {
-      handleCorrectAnswer();
-      handleModalCorrectAnswer();
+    }
+    if (useAllowScore) {
+      //pode pontuar
+       if (isCorrect()) {
+        handleCorrectAnswer();
+        handleModalCorrectAnswer();
+      } else {
+        setModalWrongAnswer(true);
+        setChances(chances - 1);
+      }
     } else {
-      setModalWrongAnswer(true);
-      setChances(chances - 1);
+      console.log('não pode pontuar');
+      if (isCorrect()) {
+        console.log('não pode pontuar, resposta correta');
+        setIsCorrectAnswer(true);
+        setIsModalWithoutScore(true);
+      } else {
+        console.log('não pode pontuar, resposta errada');
+        setIsModalWithoutScore(false);
+      }
     }
   }
 
-
   const handleWrongAnswer = () => {
     setModalWrongAnswer(false);
+    setIsModalWithoutScore(undefined);
   }
 
   const showModalAnswer = () => {
     setModalWrongAnswer(false);
     setIsCorrectAnswer(true);
-    handleCorrectAnswer()
+    handleCorrectAnswer();
+    setIsModalWithoutScore(undefined);
   }
 
   const setBackgroundColor = (item, color) => {
@@ -439,8 +483,9 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
             {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}
           </ContainerButton>
         </Content>
-        {modalWrongAnswer && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {isModalCorrectAnswer && <ScoreScreen chances={chances} handleClick={handleContinue} />}
+        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {isModalCorrectAnswer && isModalWithoutScore === undefined && <ScoreScreen chances={chances} handleClick={handleContinue} />}
+        {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )

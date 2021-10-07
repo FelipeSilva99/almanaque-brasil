@@ -26,7 +26,7 @@ export const getTrailsThunk = () => async (dispatch, getState) => {
     let canBeDone = true;
 
     function isDone(activityId) {
-      const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync]
+      const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
       if (actionsBook === undefined) return
 
       const filteredActions = listActionsBook.filter((action) => {

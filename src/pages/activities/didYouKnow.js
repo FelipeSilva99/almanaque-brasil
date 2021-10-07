@@ -8,10 +8,14 @@ import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
+import WrongAnswerWithoutScore from '../../components/activities/wrongAnswerWithoutScore';
 import ContentImageText from '../../components/activities/activitieDescription';
 import OptionsButtons from '../../components/activities/optionsButtons';
 import Tutorial from '../../components/modal/tutorialModal';
-import {chancesAtActivity} from '../../utils/statistics';
+
+//Utils
+import { allowScore } from '../../utils/activity';
+import { chancesAtActivity } from '../../utils/statistics';
 
 //Images
 import logo from '../../images/logo/didYouKnow.svg';
@@ -36,8 +40,9 @@ const DidYouKnow = (props) => {
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
-  const [activitie, setActivitie] = useState(undefined)
-  const [showAnswer, setShowAnswer] = useState({isModal: undefined, answer: undefined});
+  const [isModalWithoutScore, setIsModalWithoutScore] = useState(undefined);
+  const [activitie, setActivitie] = useState(undefined);
+  const [showAnswer, setShowAnswer] = useState({ isModal: undefined, answer: undefined });
   const [isLoading, setIsLoading] = useState(true);
   const [chances, setChances] = useState(null);
   const [isTutorial, setIsTutorial] = useState(undefined);
@@ -57,7 +62,7 @@ const DidYouKnow = (props) => {
 
   useEffect(() => {
     const { useActivitie } = props;
-    if(useActivitie.trailId === 0) {
+    if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
   }, []);
@@ -90,10 +95,11 @@ const DidYouKnow = (props) => {
   }, [modalCorrectAnswer, modalWrongAnswer])
 
   useEffect(() => {
-    const {synced, pendingSync} = props.actionsBook;
+    const { synced, pendingSync } = props.actionsBook;
     const useChancesAtActivity = chancesAtActivity(props.useActivitie.id, [...synced, ...pendingSync]);
     setChances(useChancesAtActivity);
   }, [props.actionsBook, props.useActivitie]);
+
 
   const handleIsModalAnswerOption = () => {
     setIsModalAnswerOption(true);
@@ -101,15 +107,34 @@ const DidYouKnow = (props) => {
 
   const handleWrongAnswer = () => {
     setModalWrongAnswer(false);
+    setIsModalWithoutScore(undefined);
+  }
+
+  const handleWithoutScore = () => {
+    setIsModalWithoutScore(undefined);
   }
 
   const handleCheckAnswer = (answer) => {
-    if (answer.isCorrect) {
-      setModalCorrectAnswer(true);
-      setAnswer(answer)
+    const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync];
+    const useAllowScore = allowScore(activitie.trailId, activitie.id, listActionsBook);
+    if (useAllowScore) {
+      if (answer.isCorrect) {
+        setModalCorrectAnswer(true);
+        setAnswer(answer);
+        console.log('aqui acertou');
+      } else {
+        setChances(chances - 1);
+        setModalWrongAnswer(true);
+        console.log('aqui ñ pontua');
+      }
     } else {
-      setChances(chances - 1);
-      setModalWrongAnswer(true);
+      if(answer.isCorrect) {
+        showModalAnswer();
+        setIsModalWithoutScore(true);
+      } else {
+        setIsModalWithoutScore(false);
+        console.log('aqui nao pontua errado');
+      }
     }
   }
 
@@ -119,10 +144,10 @@ const DidYouKnow = (props) => {
 
   const showModalAnswer = () => {
     const useAnswers = activitie.answers.filter(item => item.isCorrect)[0];
-    console.log(useAnswers);
+
     setModalWrongAnswer(false);
     setModalCorrectAnswer(false);
-    setShowAnswer({isModal: true, answer: useAnswers});
+    setShowAnswer({ isModal: true, answer: useAnswers });
   }
 
   const renderScreen = () => {
@@ -162,12 +187,13 @@ const DidYouKnow = (props) => {
           && !showAnswer.isModal)
           && renderScreen()
         }
-        {console.log({showAnswer})}
+        {console.log({ showAnswer })}
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={activitie.errorMessages} />}
-        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} chances={chances} />}
-        {showAnswer.isModal && <CorrectAnswer answer={showAnswer.answer} isTrunk idActivitie={activitie.chestContentId} chances={chances} />}
-        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
+        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={activitie.errorMessages} />}
+        {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWithoutScore} handleShowAnswer={showModalAnswer} />}
+        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore  isTrunk idActivitie={activitie.chestContentId} chances={chances} />}
+        {showAnswer.isModal && <CorrectAnswer answer={showAnswer.answer} noScore={isModalWithoutScore === true} isTrunk idActivitie={activitie.chestContentId} chances={chances} />}
+        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )
   );

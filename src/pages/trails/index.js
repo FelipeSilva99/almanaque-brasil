@@ -75,6 +75,14 @@ const Trails = (props) => {
     setTrailsState(trailsState);
     setQtdTrailComplete(qtdTrailComplete);
 
+    const isAppFinished = trailsState.every(trail => trail.status === 'done')
+
+    if (isAppFinished) {
+      setIsModalTrailCompleted(true)
+    } else {
+      setIsModalTrailCompleted(false)
+    }
+
 	}, [props.actionsBook, props.trails]);
 
 	useEffect(() => {

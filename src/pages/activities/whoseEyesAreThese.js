@@ -60,7 +60,7 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
   }, [useActivitie.trailId]);
 
   useEffect(() => {
-    if(modalWrongAnswer) {
+    if (modalWrongAnswer) {
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
@@ -71,7 +71,7 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
       })
     }
 
-    if(modalCorrectAnswer) {
+    if (modalCorrectAnswer) {
       const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
 
       registerAction({
@@ -83,7 +83,7 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
         books: false,
       })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalCorrectAnswer, modalWrongAnswer]);
 
 
@@ -156,7 +156,7 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
       />
     )
   }
-
+  const getCorrectAnswer = (answers) => answers.filter(answer => answer.isCorrect === true)[0];
   return (
     isLoading ? <SplashScreen activitieLogo={logo} /> : (
       <Container>
@@ -167,10 +167,10 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
-        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore chances={chances} idActivitie={activitie.id}/>}
-        {showAnswer && <CorrectAnswer answer={useActivitie.answers[3]} chances={chances} idActivitie={activitie.id}/>}
-        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
+        {modalWrongAnswer && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages} />}
+        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore chances={chances} idActivitie={activitie.id} />}
+        {showAnswer && <CorrectAnswer answer={getCorrectAnswer(useActivitie.answers)} chances={chances} idActivitie={activitie.id} />}
+        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )
   );

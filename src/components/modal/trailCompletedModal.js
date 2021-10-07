@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 //Images
-import iconElifas from '../../images/elifas/tip.svg';
+import iconElifas from '../../images/elifas/ok.svg';
 
 //Styled
 const Container = styled.div`
@@ -15,22 +15,24 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background: #70707095;
+  background: #4446;
 	z-index: 3;
   @media (min-width: 1024px) { align-items: center; }
 `;
 
 const Content = styled.div`
   position: relative;
+  padding-top: 3rem;
+  max-width: 380px;
   width: 100%;
   height: 100%;
-  max-width: 380px;
 	display: flex;
-	align-items: center;
+	align-items: start;
 
-  @media(max-width: 375px) {padding-top: 1rem; align-items: flex-start;}
-  @media(min-width: 1024px) {height: 80vh;}
-  @media(min-width: 1440px) {height: 60vh;}
+  @media (min-height: 700px) {
+    padding-top: 0;
+    align-items: center;
+  }
 `;
 
 const ContentInfo = styled.div`
@@ -40,10 +42,10 @@ const ContentInfo = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
-  padding: 1.5rem 1.5rem 1rem;
-  width: 90%;
-  filter: drop-shadow(1px 4px 3px #999);
-  border-radius: 30px;
+  padding: 1.5rem 1rem 1rem;
+  width: 91%;
+  filter: drop-shadow(1px 4px 3px #444);
+  border-radius: 22px;
   background: #fff;
 
   img {
@@ -54,7 +56,7 @@ const ContentInfo = styled.div`
     position: absolute;
     content: '';
     left: 51%;
-    bottom: -9%;
+    bottom: -11%;
     display: block;
     width: 50px;
     height: 70px;
@@ -66,12 +68,14 @@ const ContentInfo = styled.div`
     z-index: -1;
   }
 
-  @media(max-width: 320px) {width: 95%; padding: 1rem}
-
+  @media (max-width: 320px) {
+    padding: 1rem
+    width: 95%;
+  }
 `;
 
 const Title = styled.h1`
-  padding-bottom: 1rem;
+  padding-bottom: 1.2rem;
   font-size: 1.5em;
   font-weight: 900;
 	line-height: 1em;
@@ -81,23 +85,24 @@ const Title = styled.h1`
 
 const Text = styled.p`
   position: relative;
-  padding-bottom: .9375rem;
-	font-size: 1rem;
-  line-height: 1.4;
+  padding-bottom: 1.2rem;
+  letter-spacing: .1px;
+  line-height: 1.2;
+  font-size: 1em;
   
-  @media(max-width: 320px) {padding-bottom: 1rem}
+  @media (max-width: 320px) { padding-bottom: 1rem }
 `;
 
 const Button = styled.button`
-  font-size: 1.25rem;
-  font-weight: 900;
+  font-size: 1.5rem;
+  font-weight: 800;
 `;
 
 const ImgBento = styled.img`
   position: absolute;
-  right: -3%;
+  right: -1%;
   bottom: 0;
-  width: 10rem;
+  width: 12rem;
 `;
 
 function TrailCompletedModal({ handleCloseModal }) {

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 //Utils
 import { chancesAtActivity } from '../../utils/statistics';
-import { isDone, allowScore } from '../../utils/activity';
+import { allowScore } from '../../utils/activity';
 import { shuffle } from '../../utils';
 
 // Component
@@ -191,8 +191,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
   const handleModalTip = () => {
     setIsModalTip(!isModalTip)
   };
-
-
 
   useEffect(() => {
     // if(isDoneActivitie) {

@@ -80,6 +80,7 @@ const OurStuff = ({ useActivitie, registerAction, actionsBook }) => {
         success: true,
         timestamp: Date.now(),
         score: point,
+        books: false,
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

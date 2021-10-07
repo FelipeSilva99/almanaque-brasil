@@ -27,7 +27,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setModal: (modal) => {dispatch(setModal(modal))},
+  setModal: (modal) => { dispatch(setModal(modal)) },
   getDataThunk: () => {
     dispatch(getDataThunk());
   },
@@ -97,9 +97,9 @@ const Dashboard = (props) => {
   const [showWelcomeModal, setWelcomeModal] = useState(true);
 
   useEffect(() => {
-		props.getDataThunk();
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+    props.getDataThunk();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleClick = (route) => {
     props.history.push({ pathname: `/${route}` });
@@ -109,31 +109,33 @@ const Dashboard = (props) => {
 
   const handleCloseModal = () => {
     setWelcomeModal(!showWelcomeModal)
-    props.setModal({modal: 'welcomeModal', wasShowed: true})
+    props.setModal({ modal: 'welcomeModal', wasShowed: true })
   }
 
   const handleModalThunk = () => {
-    const data = props.thunk[2];
+    const data = props.thunk.filter(
+      (content) =>
+        content.title === process.env.REACT_APP_WELCOME_MODAL_TRUNK_CONTENT_TITLE)[0];
 
-    props.setModal({modal: 'welcomeModal', wasShowed: !props.modals.welcomeModal.wasShowed})
+    props.setModal({ modal: 'welcomeModal', wasShowed: !props.modals.welcomeModal.wasShowed })
     setModalThunk({ isModal: !modalThunk.isModal, data: data });
     setWelcomeModal(!showWelcomeModal)
   }
 
   return (
     <Container>
-      { !props.modals.welcomeModal.wasShowed && <WelcomeModal showThunk={() => handleModalThunk} handleClose={handleCloseModal}/> }
+      {!props.modals.welcomeModal.wasShowed && <WelcomeModal showThunk={() => handleModalThunk} handleClose={handleCloseModal} />}
       <Header
         initialLettersName={props.user?.name[0] + props.user?.name[1]}
         text={`Oi, ${props.user.name}`}
         icon={home}
-        />
+      />
 
-       <Content>
+      <Content>
         <Text paddingBottom>Qual atividade você quer fazer?</Text>
         {trails && (
           <>
-            <Card 
+            <Card
               backgroundImage={dashboardTrail}
               backgroundColor={'#eaedeb'}
               marginRight
@@ -141,7 +143,7 @@ const Dashboard = (props) => {
               backgroundPositionX={'100%'}
               backgroundPositionY={'100%'}
               onClick={() => handleClick('trails')}
-              ><Text>Mapa das<br/>trilhas</Text>
+            ><Text>Mapa das<br />trilhas</Text>
             </Card>
 
             <Card
@@ -152,14 +154,14 @@ const Dashboard = (props) => {
               backgroundPositionX={'70px'}
               backgroundPositionY={'45px'}
               onClick={() => handleClick('trunk')}
-              ><Text>Baú</Text>
+            ><Text>Baú</Text>
             </Card>
           </>
         )}
-      {props.modals.welcomeModal.wasShowed && <ElifasSVG onClick={() => handleCloseModal()} src={elifas}/>}
+        {props.modals.welcomeModal.wasShowed && <ElifasSVG onClick={() => handleCloseModal()} src={elifas} />}
       </Content>
       {modalThunk?.isModal && <TrunkInfoScreen itemData={modalThunk?.data} onClick={handleModalThunk} />}
-      <Footer  screen='dashboard'/>
+      <Footer screen='dashboard' />
     </Container>
   );
 }

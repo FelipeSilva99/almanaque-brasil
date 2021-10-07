@@ -1,5 +1,5 @@
 // Libs
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {
   Link,
@@ -8,8 +8,6 @@ import {
 // Assets
 import iconElifas from '../../images/elifas/tip.svg';
 import leaf from '../../images/whatIsWhatIs/pale_leaves.svg';
-import flags from '../../images/icons/flags.svg';
-import starrySky from '../../images/icons/starrySky.svg';
 import dialogBox from '../../images/dialogBox/dialogBoxMedium.svg';
 
 // Components
@@ -147,79 +145,16 @@ const ALink = styled(Link)`
   justify-content: center;
 `;
 
-function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) {
-  const [hasChances, setHasChance] = useState(true);
-  const [isFirstMistake, setIsFirstMistake] = useState(true);
-
-  useEffect(() => {
-    if (chances < 2) setIsFirstMistake(false)
-    if (chances <= 0) setHasChance(false)
-  }, [chances]);
-
+function WrongAnswerWithoutScore({ handleClick, handleShowAnswer }) {
   const renderMsgError = () => (
-    <>
+    <MsgError>
       <h1>Opa, você errou!</h1>
       <h1>Vamos tentar novamente?</h1>
-    </>
+    </MsgError>
   );
 
-  const renderText = (firstMistake) => {
-    if (firstMistake) {
-      switch (!!errorMessages?.length) {
-        case true:
-          return (
-            <MsgError>
-              {renderMsgError()}
-              <p>Você tem mais {chances} chances de marcar<br />pontos. Se liga na dica:</p>
-              <ErrorTip>{errorMessages[0]}</ErrorTip>
-            </MsgError>
-          );
-
-        default:
-          return (
-            <MsgError>
-              {renderMsgError()}
-              <p>Você tem mais {chances} chances de marcar<br />pontos.</p>
-            </MsgError>
-          );
-      }
-    } else {
-      if (hasChances) {
-        switch (!!errorMessages?.length) {
-          case true:
-            return (
-              <MsgError>
-                {renderMsgError()}
-                <p>Você tem mais 1 chance de marcar<br />pontos. Se liga em outra dica:</p>
-                <ErrorTip>{errorMessages[1]}</ErrorTip>
-              </MsgError>
-            );
-
-          default:
-            return (
-              <MsgError>
-                {renderMsgError()}
-                <p>Você tem mais 1 chance de marcar<br />pontos.</p>
-              </MsgError>
-            );
-        }
-      } else {
-        return (
-          <MsgError>
-            <h1>Esta foi a sua<br />última chance!</h1>
-            <p>Gostaria de saber a resposta?</p>
-          </MsgError>
-        );
-      }
-    }
-  }
-
   const setBackgroundImg = () => {
-    switch (chances) {
-      case 2: return { img: leaf, position: "-305px -296px", size: "500px" }
-      case 1: return { img: flags, position: "", size: "" }
-      default: return { img: starrySky, position: "184px  -90px", size: "" }
-    }
+    return { img: leaf, position: "-305px -296px", size: "500px" }
   }
 
   const renderDialogBox = () => (
@@ -230,7 +165,8 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
           backgroundPosition={setBackgroundImg().position}
           backgroundSize={setBackgroundImg().size}
         >
-          {renderText(isFirstMistake, errorMessages)}
+          {/* {renderText(isFirstMistake, errorMessages)} */}
+         {renderMsgError()}
         </DialogBox>
         <ImgDialogBox src={dialogBox} alt='DialogBox' />
       </ContentDialogBox>
@@ -240,32 +176,20 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
 
   const renderButton = () => (
     <>
-      {hasChances ? (
-        <Button
-          margin={"0 0 20px 0"}
-          background={"#ff3d4a"}
-          color={"#FFFFFF"}
-          boxShadow={"#e61a28 0px 7px 0px"}
-          handleClick={handleClick}
-        >Tente Novamente</Button>
-      ) : (
-        <Button
-          handleClick={handleShowAnswer}
-          margin={"0 0 20px 0"}
-          background={"#399119"}
-          color={"#FFFFFF"}
-          boxShadow={"#245812 0px 7px 0px"}
-        >Saber a resposta</Button>
-      )
-
-      }
-      <ALink to="/activities" >
-        <Button
-          margin={"0 0 20px 0"}
-          background={"rgb(252, 208, 41)"}
-          boxShadow={"rgb(238 137 47) 0px 7px 0px"}
-        >Voltar a Trilha</Button>
-      </ALink>
+      <Button
+        margin={"0 0 20px 0"}
+        background={"#ff3d4a"}
+        color={"#FFFFFF"}
+        boxShadow={"#e61a28 0px 7px 0px"}
+        handleClick={handleClick}
+      >Tente Novamente</Button>
+      <Button
+        handleClick={handleShowAnswer}
+        margin={"0 0 20px 0"}
+        background={"#399119"}
+        color={"#FFFFFF"}
+        boxShadow={"#245812 0px 7px 0px"}
+      >Saber a resposta</Button>
     </>
   );
 
@@ -281,4 +205,4 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
   )
 }
 
-export default WrongAnswer;
+export default WrongAnswerWithoutScore;

@@ -10,6 +10,7 @@ import { shuffle } from '../../utils';
 import Header from '../../components/header';
 import ContainerButton from '../../components/buttons/containerButton';
 import WrongAnswer from '../../components/activities/wrongAnswer';
+import WrongAnswerWithoutScore from '../../components/activities/wrongAnswerWithoutScore';
 import SplashScreen from './splashScreen';
 import ScoreScreen from '../../components/activities/scoreScreen';
 import Tutorial from '../../components/modal/tutorialModal';
@@ -132,9 +133,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
   const [isModalCorrectAnswer, setIsModalCorrectAnswer] = useState(false);
   const [isError, setIsError] = useState(undefined);
   const [isTutorial, setIsTutorial] = useState(undefined);
-  const [isAllowScore, setIsAllowScore] = useState(undefined);
-  const [isBatatinha, setIsBatatinha] = useState(undefined);
-
+  const [isModalWithoutScore, setIsModalWithoutScore] = useState(undefined);
 
   useEffect(() => {
     inMemoryItem === undefined
@@ -159,7 +158,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [useActivitie.trailId]);
+  }, [useActivitie]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -363,11 +362,12 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
       setIsError(true);
       return;
     }
+    if (isCorrectAnswer) {
+      handlerNextActivitie(activitie.id);
+    }
     if (useAllowScore) {
       //pode pontuar
-      if (isCorrectAnswer) {
-        handlerNextActivitie(activitie.id);
-      } else if (isCorrect()) {
+       if (isCorrect()) {
         handleCorrectAnswer();
         handleModalCorrectAnswer();
       } else {
@@ -379,23 +379,24 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
       if (isCorrect()) {
         console.log('não pode pontuar, resposta correta');
         setIsCorrectAnswer(true);
-        setIsBatatinha(true);
+        setIsModalWithoutScore(true);
       } else {
         console.log('não pode pontuar, resposta errada');
-        setIsBatatinha(false);
+        setIsModalWithoutScore(false);
       }
     }
   }
 
-
   const handleWrongAnswer = () => {
     setModalWrongAnswer(false);
+    setIsModalWithoutScore(undefined);
   }
 
   const showModalAnswer = () => {
     setModalWrongAnswer(false);
     setIsCorrectAnswer(true);
-    handleCorrectAnswer()
+    handleCorrectAnswer();
+    setIsModalWithoutScore(undefined);
   }
 
   const setBackgroundColor = (item, color) => {
@@ -484,10 +485,9 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
             {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}
           </ContainerButton>
         </Content>
-        {modalWrongAnswer && isBatatinha === undefined && <WrongAnswer chances={chances} naoMostraChance={isBatatinha === false} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {isModalCorrectAnswer && isBatatinha === undefined && <ScoreScreen chances={chances} handleClick={handleContinue} />}
-        {/* {isBatatinha === true  && <p>'modal acertou sem pontuar'</p> } */}
-        {isBatatinha === false  && <p>'modal errou sem pontuar'</p> }
+        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {isModalCorrectAnswer && isModalWithoutScore === undefined && <ScoreScreen chances={chances} handleClick={handleContinue} />}
+        {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )

@@ -102,7 +102,7 @@ const ImgBento = styled.img`
   width: 10rem;
 `;
 
-function ActivitiesCompletedModal({ history }) {
+function ActivitiesCompletedModal({ history, score }) {
   const handleClick = () => {
     history.push('/trails');
   }
@@ -114,11 +114,11 @@ function ActivitiesCompletedModal({ history }) {
 					<Title>Parabéns!</Title>
           <Text>Você concluiu a trilha, e conquistou :</Text>
           <Title>
-              <strong>100</strong> pts
-            </Title>
-            <Text>
-              vamos continuar nessa jornada de conhecimento?
-            </Text>
+            <strong>{score}</strong> pts
+          </Title>
+          <Text>
+            vamos continuar nessa jornada de conhecimento?
+          </Text>
           <Button handleClick={handleClick} margin='0'>escolher outra trilha</Button>
 				</ContentInfo>
 				<ImgBento src={iconElifas} />

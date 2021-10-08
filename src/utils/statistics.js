@@ -28,7 +28,7 @@ export function getPointsAtTrail({ trailId, actionsBook }) {
     filteredActions = actionsBook.filter(action => action.activityId === trailId)
   } else filteredActions = actionsBook
 
-  filteredActions.map(action => totalPoints = totalPoints+action.score)
+  filteredActions.map(action => totalPoints = totalPoints + action.score)
 
   return totalPoints
 }

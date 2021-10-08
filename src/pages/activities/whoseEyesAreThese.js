@@ -7,9 +7,13 @@ import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from './splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
+import WrongAnswerWithoutScore from '../../components/activities/wrongAnswerWithoutScore';
 import ContentImageText from '../../components/activities/activitieDescription';
 import OptionsButtons from '../../components/activities/optionsButtons';
 import Tutorial from '../../components/modal/tutorialModal';
+
+//Utils
+import { allowScore } from '../../utils/activity';
 import { chancesAtActivity } from '../../utils/statistics';
 
 //Images
@@ -36,6 +40,7 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
   const [activitie, setActivitie] = useState(undefined);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [isModalWithoutScore, setIsModalWithoutScore] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [chances, setChances] = useState(null);
   const [isModalTip, setIsModalTip] = useState(undefined);
@@ -103,15 +108,29 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
 
   const handleWrongAnswer = () => {
     setModalWrongAnswer(false);
+    setIsModalWithoutScore(undefined);
   }
 
-  const handleCheckAnswer = (answer) => {
-    if (answer.isCorrect) {
-      setModalCorrectAnswer(true);
-      setAnswer(answer)
+  const handleSubmit = (answer) => {
+    const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
+    const useAllowScore = allowScore(activitie.trailId, activitie.id, listActionsBook);
+    let isCorrectAnser = answer.isCorrect;
+
+    if (useAllowScore) {
+      if (answer.isCorrect) {
+        setModalCorrectAnswer(true);
+        setAnswer(answer)
+      } else {
+        setChances(chances - 1);
+        setModalWrongAnswer(true);
+      }
     } else {
-      setChances(chances - 1);
-      setModalWrongAnswer(true);
+      if (isCorrectAnser) {
+        setShowAnswer(true);
+        setIsModalWithoutScore(true);
+      } else {
+        setIsModalWithoutScore(false);
+      }
     }
   }
 
@@ -152,7 +171,7 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
     return (
       <OptionsButtons
         options={activitie.answers}
-        handleCheckAnswer={handleCheckAnswer}
+        handleCheckAnswer={handleSubmit}
       />
     )
   }
@@ -167,9 +186,10 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages} />}
+        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages} />}
+        {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore chances={chances} idActivitie={activitie.id} />}
-        {showAnswer && <CorrectAnswer answer={getCorrectAnswer(useActivitie.answers)} chances={chances} idActivitie={activitie.id} />}
+        {showAnswer && <CorrectAnswer answer={getCorrectAnswer(useActivitie.answers)} chances={chances} noScore={isModalWithoutScore === true} idActivitie={activitie.id} />}
         {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )

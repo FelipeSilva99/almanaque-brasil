@@ -16,6 +16,7 @@ import houses from '../../images/trails/houses.svg';
 import trainStation from '../../images/trails/trainstation.svg';
 
 import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
+import { getPointsAtTrail } from '../../utils/statistics';
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -71,6 +72,7 @@ const ActivitiesRow = styled.div`
 `;
 
 const Activities = (props) => {
+  const [score, setScore] = useState(0)
   const [activities, setActivities] = useState(null);
   const [activitiesProgress, setActivitiesProgress] = useState(undefined);
   const [isModalActivitiesCompleted, setIsModalActivitiesCompleted] = useState(undefined);
@@ -116,6 +118,28 @@ const Activities = (props) => {
     setActivities(allActivities);
   }, [props.selectedTrails, props.activities.data, props.history?.location?.state?.idActivitie, activitiesProgress]);
 
+  useEffect(() => {
+    const { synced } = props.actionsBook;
+    // const score = getPointsAtTrail({ actionsBook: synced });
+    // setScore(score)
+
+    if (synced.length > 0) {
+      let successActions = synced.filter(action => action.success === true);
+    
+      const lastAction = synced.length - 1;
+      let trailId = synced[lastAction]?.trailId;
+
+      const points = successActions
+      .filter(action => action.trailId === trailId)
+      .map(action => action.score);
+
+      const score = points.reduce((prev, cur) => prev + cur);
+      setScore(score)
+      } else {
+        console.log("no actions yet")
+      }
+    }, [props.actionsBook, isModalActivitiesCompleted]);
+  
   useEffect(() => {
     props.postActionsBook(props.actionsBook)
   }, [props]);
@@ -268,7 +292,7 @@ const Activities = (props) => {
 
       {renderStone()}
 
-      {isModalActivitiesCompleted && <ActivitiesCompleted history={props.history}/>}
+      {isModalActivitiesCompleted && <ActivitiesCompleted score={score} history={props.history}/>}
     </Container>
   );
 }

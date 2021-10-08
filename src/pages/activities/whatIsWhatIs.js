@@ -7,7 +7,11 @@ import Button from '../../components/buttons/containerButton';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from '../../pages/activities/splashScreen';
 import WrongAnswer from '../../components/activities/wrongAnswer';
+import WrongAnswerWithoutScore from '../../components/activities/wrongAnswerWithoutScore';
 import Tutorial from '../../components/modal/tutorialModal';
+
+//Utils
+import { allowScore } from '../../utils/activity';
 import { chancesAtActivity } from '../../utils/statistics';
 
 //Images
@@ -160,6 +164,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
   const [isModalAnswer, setIsModalAnswer] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
+  const [isModalWithoutScore, setIsModalWithoutScore] = useState(undefined);
   const [showAnswer, setShowAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [chances, setChances] = useState(null);
@@ -205,7 +210,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [useActivitie.trailId]);
+  }, [useActivitie]);
 
   useEffect(() => {
     if (modalWrongAnswer) {
@@ -253,27 +258,42 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
 
   const handleWrongAnswer = () => {
     setModalWrongAnswer(false);
+    setIsModalWithoutScore(undefined);
   }
 
   const handleCloseTutorial = () => {
     setIsTutorial(false);
   }
 
-  const handleClick = (event) => {
+  const handleSubmit = (event) => {
     event.stopPropagation();
     const correctAnser = useActivitie?.answers[0].answer;
     const selectedAnswer = answer.map(item => (item)).join("");
-
-    if (selectedAnswer === correctAnser) {
-      setModalCorrectAnswer(true)
-      handleClenAnswer();
+    const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
+    const useAllowScore = allowScore(activitie.trailId, activitie.id, listActionsBook);
+    const isCorrectAnser = selectedAnswer === correctAnser;
+    
+    if (useAllowScore) {
+      if (isCorrectAnser) {
+        setModalCorrectAnswer(true)
+        handleClenAnswer();
+      } else {
+        setSelectedLetter([]);
+        setLetterOption(handleShuffleLetter());
+        setAnswer(handleAnswerSize());
+        setModalWrongAnswer(true);
+        setChances(chances - 1);
+      }
     } else {
-      setSelectedLetter([]);
-      setLetterOption(handleShuffleLetter());
-      setAnswer(handleAnswerSize());
-      setModalWrongAnswer(true);
-      setChances(chances - 1);
+      if(isCorrectAnser) {
+        setShowAnswer(true);
+        setIsModalWithoutScore(true);
+      } else {
+        setIsModalWithoutScore(false);
+        console.log('aqui nao pontua errado');
+      }
     }
+      
   };
 
   const choosingAlphabetLetters = (quantity) => {
@@ -381,7 +401,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
         </ContentAnswer>
       </BoxAnswer>
       <Button
-        handleClick={handleClick}
+        handleClick={handleSubmit}
       >
         Confirmar Resposta
       </Button>
@@ -414,9 +434,11 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
           && !showAnswer)
           && renderScreen()
         }
-        {modalWrongAnswer && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {console.log('conferir resposta certa', useActivitie.answers[0])}
+        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer answer={useActivitie.answers[0]} toScore chances={chances} idActivitie={activitie.id}/>}
-        {showAnswer && <CorrectAnswer answer={useActivitie.answers[0]} chances={chances} idActivitie={activitie.id}/>}
+        {showAnswer && <CorrectAnswer answer={useActivitie.answers[0]} chances={chances} noScore={isModalWithoutScore === true} idActivitie={activitie.id}/>}
         {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
       </Container>
     )

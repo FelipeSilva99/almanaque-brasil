@@ -146,7 +146,7 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
     if (activitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [activitie.trailId]);
+  }, [activitie]);
 
   useEffect(() => {
     if (modalWrongAnswer) {
@@ -217,13 +217,16 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
     setIsModalWithoutScore(undefined);
   }
 
-  const checkAnswer = () => {
+  const handleSubmit = () => {
     let userAnswer = "";
     const isError = enigmas.map(item => item.userInput).filter(i => !i).length > 0;
+    const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
+    const useAllowScore = allowScore(activitie.trailId, activitie.id, listActionsBook);
 
     if (isError) {
       setIsError(true);
-    } else {
+    } 
+    if(useAllowScore) {
       const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
       const useAllowScore = allowScore(activitie.trailId, activitie.id, listActionsBook);
       if (useAllowScore) {
@@ -236,6 +239,16 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
 
       }
       // eslint-disable-next-line array-callback-return
+    } else {
+      enigmas.map(item => {
+        userAnswer = `${userAnswer}${item.userInput}`
+      })
+      userAnswer = userAnswer.toLowerCase();
+      if (userAnswer === activitie.answer.answer) {
+        setIsModalWithoutScore(true);
+        showModalAnswer();
+      } 
+      else setIsModalWithoutScore(false);
     }
   };
 
@@ -271,11 +284,11 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
         </Content>
         <Button
           isError={isError && 'Você precisa digitar em todos os campos'}
-          handleClick={checkAnswer}
+          handleClick={handleSubmit}
         >responder
         </Button>
         {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleModalWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWithoutScore} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer answer={activitie.answer} toScore chances={chances} idActivitie={activitie.id} />}
         {showAnswer && <CorrectAnswer answer={activitie.answer} chances={chances} noScore={isModalWithoutScore === true} idActivitie={activitie.id} />}
         {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}

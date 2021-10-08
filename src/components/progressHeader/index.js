@@ -67,8 +67,8 @@ export default ({ points = 0, trails, books = 0, actionsBook }) => {
 
   return (
     <Row>
-      {items.map(item => {
-        return <Item>
+      {items.map((item, i) => {
+        return <Item key={i}>
           <Square><img src={item.icon} alt="icon" /></Square>
           <ValueBox>{item.value}</ValueBox>
         </Item>

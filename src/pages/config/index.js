@@ -64,11 +64,17 @@ const Config = (props) => {
     }
   }
 
-  const handleResetProgress = () => {
-    props.deleteActionsBook();
-    setTimeout(() => {
-      history.push('/dashboard');
-    }, 2000);
+  async function handleResetProgress() {
+    try {
+      props.deleteActionsBook()
+      await Auth.signOut();
+      props.clearModalsState();
+      localStorage.clear();
+      history.push('/');
+      props.signOut();
+    } catch (error) {
+      console.log('error signout: ', error);
+    }
   }
 
   return (

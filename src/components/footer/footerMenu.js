@@ -99,7 +99,7 @@ const Footer = ({ screen }) => {
         {options.map((item, i) => {
           const isSelected = (isModalConfig && item.router === 'config') || (!isModalConfig && screen === item.router);
           return (
-            <Content onClick={() => handleRouter(item.router)}>
+            <Content onClick={() => handleRouter(item.router)} key={i}>
               <img src={isSelected ? item.imgSelected : item.img} alt={item.txt} />
               <Text isSelected={isSelected} trunk={item.txt ==='Baú'}>{item.txt}</Text>
             </Content>

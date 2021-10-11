@@ -56,13 +56,6 @@ const DidYouKnow = (props) => {
     };
   }, []);
 
-
-  // Seta a pontuação do usuário
-  useEffect(() => {
-    const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
-    setScore(point)
-  }, [])
-
   useEffect(() => {
     const { useActivitie } = props;
     setActivitie(useActivitie);
@@ -89,7 +82,7 @@ const DidYouKnow = (props) => {
 
     if (modalCorrectAnswer) {
       const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
-
+      setScore(point)
       props.registerAction({
         activityId: props.useActivitie.id,
         trailId: props.useActivitie.trailId,

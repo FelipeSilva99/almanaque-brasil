@@ -74,7 +74,7 @@ const Skeleton = styled.img`
 
 const Map = ({ trails, trailsState, goToActivitie }) => {
   const handleMapFragmentClick = (trail, key) => {
-    trail.isActive ? goToActivitie(key) : alert(`Trilha ${trail.name} bloqueada`)
+    trail.isActive ? goToActivitie(trail, key) : alert(`Trilha ${trail.name} bloqueada`)
   }
 
   return (

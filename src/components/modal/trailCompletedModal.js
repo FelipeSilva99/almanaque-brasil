@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+//Component
+import Button from '../buttons/button';
+
 //Images
-import iconElifas from '../../images/elifas/ok.svg';
+import iconElifas from '../../images/elifas/tip.svg';
+import close from '../../images/icons/close.svg';
 
 //Styled
 const Container = styled.div`
@@ -10,29 +14,25 @@ const Container = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background: #4446;
-	z-index: 3;
+  background: #ababab45;
+  z-index: 3;
+
   @media (min-width: 1024px) { align-items: center; }
 `;
 
 const Content = styled.div`
   position: relative;
-  padding-top: 3rem;
-  max-width: 380px;
-  width: 100%;
-  height: 100%;
-	display: flex;
-	align-items: start;
+  width: 94%;
+  height: 93vh;
+  max-width: 340px;
 
-  @media (min-height: 700px) {
-    padding-top: 0;
-    align-items: center;
-  }
+  @media (max-width: 320px) { height: 99vh; }
+  @media (min-width: 768px) { height: 64vh; }
 `;
 
 const ContentInfo = styled.div`
@@ -41,11 +41,12 @@ const ContentInfo = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 1rem;
-  width: 91%;
-  filter: drop-shadow(1px 4px 3px #444);
-  border-radius: 22px;
+  /* margin: 0 auto; */
+  padding: 1.6rem 1rem 2.5rem;
+  /* width: 96%; */
+  letter-spacing: 1px;
+  filter: drop-shadow(1px 4px 3px #999);
+  border-radius: 30px;
   background: #fff;
 
   img {
@@ -56,7 +57,7 @@ const ContentInfo = styled.div`
     position: absolute;
     content: '';
     left: 51%;
-    bottom: -11%;
+    bottom: -12%;
     display: block;
     width: 50px;
     height: 70px;
@@ -67,16 +68,11 @@ const ContentInfo = styled.div`
     transform: rotate(5deg);
     z-index: -1;
   }
-
-  @media (max-width: 320px) {
-    padding: 1rem
-    width: 95%;
-  }
 `;
 
-const Title = styled.h1`
-  padding-bottom: 1.2rem;
-  font-size: 1.5em;
+const Title = styled.h2`
+  padding-bottom: 1rem;
+  font-size: 1.5rem;
   font-weight: 900;
 	line-height: 1em;
   color: #373737;
@@ -84,41 +80,40 @@ const Title = styled.h1`
 `;
 
 const Text = styled.p`
-  position: relative;
-  padding-bottom: 1.2rem;
-  letter-spacing: .1px;
-  line-height: 1.2;
-  font-size: 1em;
-  
-  @media (max-width: 320px) { padding-bottom: 1rem }
+  margin-bottom: ${props => props.lastText ? '2.5rem' : '1rem'};
+  font-size: 1rem;
+  color: #373737;
+
+  @media (max-width: 320px) { margin-bottom: 1rem; }
 `;
 
-const Button = styled.button`
-  font-size: 1.5rem;
-  font-weight: 800;
-`;
-
-const ImgBento = styled.img`
+const ImgElifas = styled.img`
   position: absolute;
-  right: -1%;
+  right: -3%;
   bottom: 0;
-  width: 12rem;
+  width: 10rem;
 `;
 
-function TrailCompletedModal({ handleCloseModal }) {
-	return (
-		<Container>
-			<Content>
-				<ContentInfo>
-					<Title>Parabéns!</Title>
-          <Text>Você concluiu o aplicativo Almanaque Miguel Burnier. Agora você pode compartilhar todo esse conhecimento com seus amigos! </Text>
-          <Text>Você pode continuar jogando as atividades sem pontuar e caso queira uma nova pontuação, poderá reiniciar o mapa nas configurações </Text>
-					<Button margin='1.5rem 0 1.25rem 0' onClick={handleCloseModal}>x</Button>
-				</ContentInfo>
-				<ImgBento src={iconElifas} />
-			</Content>
-		</Container>
-	)
+const IconClose = styled.img`
+  position: relative;
+  top: 1.5rem;
+`;
+
+function TrailCompletedModal({ handleClickModal, handleCloseModal }) {
+  return (
+    <Container>
+      <Content>
+        <ContentInfo>
+          <Title>Você já concluiu essa trilha!</Title>
+          <Text>Tem certeza que quer jogar novamente ?</Text>
+          <Text lastText> Você pode continuar jogando as atividades sem pontuar e caso queira uma nova pontuação, poderá reiniciar o mapa nas configurações.</Text>
+          <Button handleClick={handleClickModal} margin='0'>Jogar sem pontuar</Button>
+          <IconClose src={close} alt={"fechar"} onClick={handleCloseModal} />
+        </ContentInfo>
+        <ImgElifas src={iconElifas} />
+      </Content>
+    </Container>
+  )
 }
 
 export default TrailCompletedModal;

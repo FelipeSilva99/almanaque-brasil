@@ -15,6 +15,7 @@ import church from '../../images/trails/church.svg';
 import houses from '../../images/trails/houses.svg';
 import trainStation from '../../images/trails/trainstation.svg';
 
+//Redux
 import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 
 const mapStateToProps = state => ({
@@ -310,8 +311,8 @@ const Activities = (props) => {
       </Trail>
 
       {renderStone()}
-
       {isModalActivitiesCompleted && <ActivitiesCompleted score={score} history={props.history}/>}
+      
     </Container>
   );
 }

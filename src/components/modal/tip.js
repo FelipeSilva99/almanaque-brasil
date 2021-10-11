@@ -2,9 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 //Images
-import dialogBox from '../../images/dialogBox/dialogBox.svg';
 import iconElifas from '../../images/elifas/tip.svg';
-import close from '../../images/icons/close.svg';
 
 //Styled
 const ContainerTip = styled.div`
@@ -12,51 +10,65 @@ const ContainerTip = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 1;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   justify-content: flex-end;
   align-items: center;
+  width: 100%;
+  height: 100vh;
+  background: #70707095;
+  z-index: 1;
+
   @media (min-width: 1024px) { align-items: center; }
 `;
 
 const ContentTip = styled.div`
-  /* margin: auto; */
+  position: relative;
+  margin-top: 3rem;
   width: 100%;
-  max-width: 340px;
+  height: 93vh;
 `;
 
 const ContentInfoTip = styled.div`
-  position: relative;
-  top: 1.5rem;
   display: flex;
   justify-content: center;
-`;
-
-const ImgDialogBox = styled.img`
-  width: 100%;
-  transform: scaleX(-1);
+  min-height: 60%;
 `;
 
 const ContentInfo = styled.div`
-  position: absolute;
-  margin-top: 2rem;
-  max-width: 260px;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  img {
-    cursor: pointer;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 1rem;
+  width: 90%;
+  filter: drop-shadow(1px 4px 3px #999);
+  border-radius: 30px;
+  background: #fff;
+
+  &:after {
+    position: absolute;
+    content: '';
+    left: 43%;
+    bottom: -10%;
+    display: block;
+    width: 50px;
+    height: 70px;
+    border: 0px solid;
+    background-color: transparent;
+    border-bottom-left-radius: 100%;
+    box-shadow: -34px -34px 0px 30px #fff;
+    transform: rotate(5deg);
+    z-index: -1;
   }
 `;
 
 const ScrollTip = styled.div`
+  margin-bottom: .3rem;
   overflow-y: auto;
-  height: 14rem;
+
   ::-webkit-scrollbar {
 		width: 4px;
 		height: 10px;
@@ -75,16 +87,26 @@ const ScrollTip = styled.div`
 `;
 
 const TextTip = styled.p`
-  padding-bottom: .8rem;
-  color: #373737F2;
-  line-height: 1.2rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  line-height: 1.4;
+
   @media (max-width: 320px) { padding: ${props => props.padding && '1.5rem 0 .4rem 0 '}; }
 `;
 
 const ImgBento = styled.img`
-  position: relative;
-  right: -55%;
-  bottom: -10px
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 11rem;
+`;
+
+const CloseBtn = styled.button`
+  font: 900 1.2em 'Nunito';
+  color: #ffd000;
+  transform: scale(1,.9);
 `;
 
 function Tip({ text, handleModalTip }) {
@@ -92,12 +114,11 @@ function Tip({ text, handleModalTip }) {
     <ContainerTip>
       <ContentTip>
         <ContentInfoTip>
-          <ImgDialogBox src={dialogBox} />
           <ContentInfo>
             <ScrollTip>
               {text?.map(item => <TextTip>{item}</TextTip>)}
             </ScrollTip>
-            <img src={close} alt={"fechar"} onClick={handleModalTip} />
+          <CloseBtn onClick={handleModalTip}>X</CloseBtn>
           </ContentInfo>
         </ContentInfoTip>
         <ImgBento src={iconElifas} />

@@ -147,7 +147,7 @@ const tutorialData = [
   {
     game: 'Você sabia?',
     text: [
-      'Leia o texto primeiro',
+      'Leia o texto primeiro.',
       'Clicando em responder você verá opções de resposta.',
       'Escolha a resposta que achar correta.',
     ]
@@ -155,7 +155,7 @@ const tutorialData = [
   {
     game: 'Coisas nossas',
     text: [
-      'Leia o texto primeiro',
+      'Leia o texto primeiro.',
       'Clicando em responder você verá opções de resposta.',
       'Escolha a resposta que achar correta.',
     ]

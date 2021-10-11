@@ -45,6 +45,7 @@ const OurStuff = ({ useActivitie, registerAction, actionsBook }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [chances, setChances] = useState(null);
   const [isTutorial, setIsTutorial] = useState(undefined);
+  const [score, setScore] = useState(undefined)
 
   useEffect(() => {
     let timer1 = setTimeout(() => setIsLoading(false), 2000);
@@ -78,7 +79,7 @@ const OurStuff = ({ useActivitie, registerAction, actionsBook }) => {
 
     if (modalCorrectAnswer) {
       const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
-      
+      setScore(point)
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
@@ -186,8 +187,8 @@ const OurStuff = ({ useActivitie, registerAction, actionsBook }) => {
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages}/>}
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWithoutScore} handleShowAnswer={showModalAnswer} />}
-        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} chances={chances}/>}
-        {showAnswer && <CorrectAnswer answer={isAnswerCorrect()[0]} noScore={isModalWithoutScore === true} isTrunk idActivitie={activitie.chestContentId} chances={chances}/>}
+        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} score={score}/>}
+        {showAnswer && <CorrectAnswer answer={isAnswerCorrect()[0]} noScore={isModalWithoutScore === true} isTrunk idActivitie={activitie.chestContentId} score={score}/>}
         {isTutorial && <Tutorial screen='Coisas nossas' handleCloseTutorial={handleCloseTutorial} /> }
       </Container>
     )

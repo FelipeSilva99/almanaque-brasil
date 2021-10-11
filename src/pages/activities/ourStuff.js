@@ -127,7 +127,6 @@ const OurStuff = ({ useActivitie, registerAction, actionsBook }) => {
           setIsModalWithoutScore(true);
         } else {
           setIsModalWithoutScore(false);
-          console.log('aqui nao pontua errado');
         }
       }
   }

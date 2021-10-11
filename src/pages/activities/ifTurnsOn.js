@@ -178,7 +178,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
   //   const useDoneActivitie = isDone(useActivitie.id, listActionsBook);
 
   //   if(useDoneActivitie === 'right' || useDoneActivitie === 'wrong') {
-  //     console.log('atividade já foi feita')
   //     setIsDoneActivitie(true);
   //   } 
   // }

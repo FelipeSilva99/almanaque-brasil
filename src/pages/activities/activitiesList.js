@@ -129,11 +129,13 @@ const Activities = (props) => {
       const lastAction = synced.length - 1;
       let trailId = synced[lastAction]?.trailId;
 
-      const points = successActions
+      const points = successActions && successActions
       .filter(action => action.trailId === trailId)
       .map(action => action.score);
 
-      const score = points.reduce((prev, cur) => prev + cur);
+      console.log('successActions', successActions);
+
+      const score = points.length > 0 && points.reduce((prev, cur) => prev + cur);
       setScore(score)
       } else {
         console.log("no actions yet")

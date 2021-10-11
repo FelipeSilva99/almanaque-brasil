@@ -290,7 +290,6 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
         setIsModalWithoutScore(true);
       } else {
         setIsModalWithoutScore(false);
-        console.log('aqui nao pontua errado');
       }
     }
       
@@ -434,7 +433,6 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
           && !showAnswer)
           && renderScreen()
         }
-        {console.log('conferir resposta certa', useActivitie.answers[0])}
         {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer answer={useActivitie.answers[0]} toScore chances={chances} idActivitie={activitie.id}/>}

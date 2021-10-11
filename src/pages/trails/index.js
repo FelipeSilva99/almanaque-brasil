@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import Footer from '../../components/footer/footerMenu';
 import Map from './Map';
 import ProgressHeader from '../../components/progressHeader';
-import TrailCompletedModal from '../../components/modal/trailCompletedModal';
+import TrailCompleted from '../../components/modal/trailCompletedModal';
+import AppCompletedModal from '../../components/modal/appCompletedModal';
 import { trailState } from '../../utils/trail';
 
 //Redux
@@ -63,7 +64,8 @@ export const Row = styled.div`
 `;
 
 const Trails = (props) => {
-  const [isModalTrailCompleted, setIsModalTrailCompleted] = useState(undefined);
+  const [isModalAppCompleted, setIsModalAppCompleted] = useState(undefined);
+  const [isModalTrailCompleted, setIsModalTrailCompleted] = useState({isModal: undefined, trailId: null});
   const [trailsState, setTrailsState] = useState([]);
   const [qtdTrailComplete, setQtdTrailComplete] = useState(0);
 
@@ -78,9 +80,9 @@ const Trails = (props) => {
     const isAppFinished = trailsState.every(trail => trail.status === 'done')
 
     if (isAppFinished) {
-      setIsModalTrailCompleted(true)
+      setIsModalAppCompleted(true)
     } else {
-      setIsModalTrailCompleted(false)
+      setIsModalAppCompleted(false)
     }
 
 	}, [props.actionsBook, props.trails]);
@@ -89,13 +91,32 @@ const Trails = (props) => {
 		props.getTrailsThunk();
 	}, []);
 
-  const handleClick = (trail) => {
+  const handleActivities = (trail) => {
     props.history.push({pathname: '/activities'});
     props.selectedTrails(trail);
   }
 
+  const handleCloseModalCompleteTrail = () => {
+    setIsModalTrailCompleted({isModal: false});
+  }
+
+  const handleClickModal = () => {
+    handleCloseModalCompleteTrail();
+    handleActivities(isModalTrailCompleted.trailId);
+  }
+
+  const handleClick = (trailId, key) => {
+    const isTrailComplete = trailsState.filter(i => i.trailId === trailId.id);
+
+    if(isTrailComplete[0].state === 'done') {
+      setIsModalTrailCompleted({isModal: true, trailId: key});
+    } else {
+      handleActivities(key);
+    }
+  }
+
   const handleCloseModal = () => {
-    setIsModalTrailCompleted(false);
+    setIsModalAppCompleted(false);
   }
 
   // const renderTrails = (trails) => {
@@ -124,7 +145,9 @@ const Trails = (props) => {
         ) 
       }
       <Footer screen='trails' />
-      {isModalTrailCompleted && <TrailCompletedModal handleCloseModal={handleCloseModal} /> }
+
+      {isModalTrailCompleted.isModal && <TrailCompleted handleClickModal={handleClickModal} handleCloseModal={handleCloseModalCompleteTrail}/>}
+      {isModalAppCompleted && <AppCompletedModal handleCloseModal={handleCloseModal} /> }
     </Box>
   );
 }

@@ -15,6 +15,7 @@ import church from '../../images/trails/church.svg';
 import houses from '../../images/trails/houses.svg';
 import trainStation from '../../images/trails/trainstation.svg';
 
+//Redux
 import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 import { getPointsAtTrail } from '../../utils/statistics';
 
@@ -132,8 +133,6 @@ const Activities = (props) => {
       const points = successActions && successActions
       .filter(action => action.trailId === trailId)
       .map(action => action.score);
-
-      console.log('successActions', successActions);
 
       const score = points.length > 0 && points.reduce((prev, cur) => prev + cur);
       setScore(score)
@@ -293,8 +292,8 @@ const Activities = (props) => {
       </Trail>
 
       {renderStone()}
-
       {isModalActivitiesCompleted && <ActivitiesCompleted score={score} history={props.history}/>}
+      
     </Container>
   );
 }

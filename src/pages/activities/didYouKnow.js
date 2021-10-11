@@ -46,6 +46,7 @@ const DidYouKnow = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [chances, setChances] = useState(null);
   const [isTutorial, setIsTutorial] = useState(undefined);
+  const [score, setScore] = useState(undefined)
 
   useEffect(() => {
     let timer1 = setTimeout(() => setIsLoading(false), 2000);
@@ -54,6 +55,13 @@ const DidYouKnow = (props) => {
       clearTimeout(timer1);
     };
   }, []);
+
+
+  // Seta a pontuação do usuário
+  useEffect(() => {
+    const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
+    setScore(point)
+  }, [])
 
   useEffect(() => {
     const { useActivitie } = props;
@@ -149,6 +157,7 @@ const DidYouKnow = (props) => {
 
   const renderScreen = () => {
     return (
+      console.log(`score: ${score}, chances: ${chances}`),
       <>
         <Header title={activitie?.name} />
         <ContentImageText
@@ -187,8 +196,8 @@ const DidYouKnow = (props) => {
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={activitie.errorMessages} />}
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWithoutScore} handleShowAnswer={showModalAnswer} />}
-        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore  isTrunk idActivitie={activitie.chestContentId} chances={chances} />}
-        {showAnswer.isModal && <CorrectAnswer answer={showAnswer.answer} noScore={isModalWithoutScore === true} isTrunk idActivitie={activitie.chestContentId} chances={chances} />}
+        {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore  isTrunk idActivitie={activitie.chestContentId} score={score} />}
+        {showAnswer.isModal && <CorrectAnswer answer={showAnswer.answer} noScore={isModalWithoutScore === true} isTrunk idActivitie={activitie.chestContentId} score={score} />}
         {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )

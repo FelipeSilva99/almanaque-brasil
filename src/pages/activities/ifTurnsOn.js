@@ -134,6 +134,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
   const [isError, setIsError] = useState(undefined);
   const [isTutorial, setIsTutorial] = useState(undefined);
   const [isModalWithoutScore, setIsModalWithoutScore] = useState(undefined);
+  const [score, setScore] = useState(undefined)
 
   useEffect(() => {
     inMemoryItem === undefined
@@ -152,6 +153,12 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
     setActivitie(useActivitie);
     setPairs(shuffle(newArrayOfActivities));
   }, [useActivitie]);
+
+  // Seta a pontuação do usuário
+  // useEffect(() => {
+  //   const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
+  //   setScore(point)
+  // }, [])
 
 
   useEffect(() => {
@@ -206,7 +213,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
 
     if (isModalCorrectAnswer) {
       const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
-
+      setScore(point)
       registerAction({
         activityId: useActivitie.id,
         trailId: useActivitie.trailId,
@@ -483,7 +490,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
           </ContainerButton>
         </Content>
         {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {isModalCorrectAnswer && isModalWithoutScore === undefined && <ScoreScreen chances={chances} handleClick={handleContinue} />}
+        {isModalCorrectAnswer && isModalWithoutScore === undefined && <ScoreScreen score={score} handleClick={handleContinue} />}
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>

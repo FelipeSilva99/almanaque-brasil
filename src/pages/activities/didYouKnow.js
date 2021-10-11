@@ -121,11 +121,9 @@ const DidYouKnow = (props) => {
       if (answer.isCorrect) {
         setModalCorrectAnswer(true);
         setAnswer(answer);
-        console.log('aqui acertou');
       } else {
         setChances(chances - 1);
         setModalWrongAnswer(true);
-        console.log('aqui ñ pontua');
       }
     } else {
       if(answer.isCorrect) {
@@ -133,7 +131,6 @@ const DidYouKnow = (props) => {
         setIsModalWithoutScore(true);
       } else {
         setIsModalWithoutScore(false);
-        console.log('aqui nao pontua errado');
       }
     }
   }
@@ -187,7 +184,6 @@ const DidYouKnow = (props) => {
           && !showAnswer.isModal)
           && renderScreen()
         }
-        {console.log({ showAnswer })}
         {isModalAnswerOption && renderAnswerOption()}
         {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={activitie.errorMessages} />}
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWithoutScore} handleShowAnswer={showModalAnswer} />}

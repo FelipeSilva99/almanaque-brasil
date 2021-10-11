@@ -59,6 +59,7 @@ const Stone = styled.img`
   position: absolute;
   top: ${props => props.top};
   right: ${props => props.right};
+  width: 5.25rem;
   transform: scale(1.22,1.25);
   z-index: 1;
   cursor: pointer;

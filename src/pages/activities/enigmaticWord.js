@@ -127,6 +127,7 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
   const [showAnswer, setShowAnswer] = useState(false);
   const [isError, setIsError] = useState(undefined);
   const [isTutorial, setIsTutorial] = useState(undefined);
+  const [score, setScore] = useState(undefined)
 
   useEffect(() => {
     setEnigmas(Object.values(activitie.enigmas).map(item => {
@@ -162,7 +163,7 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
 
     if (modalCorrectAnswer) {
       const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
-
+      setScore(point)
       registerAction({
         activityId: activitie.id,
         trailId: activitie.trailId,
@@ -289,8 +290,8 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
         </Button>
         {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleModalWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWithoutScore} handleShowAnswer={showModalAnswer} />}
-        {modalCorrectAnswer && <CorrectAnswer answer={activitie.answer} toScore chances={chances} idActivitie={activitie.id} />}
-        {showAnswer && <CorrectAnswer answer={activitie.answer} chances={chances} noScore={isModalWithoutScore === true} idActivitie={activitie.id} />}
+        {modalCorrectAnswer && <CorrectAnswer answer={activitie.answer} toScore score={score} idActivitie={activitie.id} />}
+        {showAnswer && <CorrectAnswer answer={activitie.answer} score={score} noScore={isModalWithoutScore === true} idActivitie={activitie.id} />}
         {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )

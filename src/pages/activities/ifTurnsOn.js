@@ -154,13 +154,6 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
     setPairs(shuffle(newArrayOfActivities));
   }, [useActivitie]);
 
-  // Seta a pontuação do usuário
-  // useEffect(() => {
-  //   const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
-  //   setScore(point)
-  // }, [])
-
-
   useEffect(() => {
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);

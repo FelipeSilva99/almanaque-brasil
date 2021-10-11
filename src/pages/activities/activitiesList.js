@@ -16,7 +16,6 @@ import houses from '../../images/trails/houses.svg';
 import trainStation from '../../images/trails/trainstation.svg';
 
 import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
-import { getPointsAtTrail } from '../../utils/statistics';
 
 const mapStateToProps = state => ({
   activities: state.trails,
@@ -119,28 +118,46 @@ const Activities = (props) => {
   }, [props.selectedTrails, props.activities.data, props.history?.location?.state?.idActivitie, activitiesProgress]);
 
   useEffect(() => {
-    const { synced } = props.actionsBook;
-    // const score = getPointsAtTrail({ actionsBook: synced });
-    // setScore(score)
+    const { pendingSync, synced } = props.actionsBook;
+    let pendingScore;
+    let syncedScore;
 
-    if (synced.length > 0) {
-      let successActions = synced.filter(action => action.success === true);
-    
-      const lastAction = synced.length - 1;
-      let trailId = synced[lastAction]?.trailId;
+    if (pendingSync.length > 0) {
+      let pendingList = pendingSync.filter(action => action.success === true);
+      let trailId = synced[pendingSync.length - 1]?.trailId;
 
-      const points = successActions && successActions
+      const points = pendingList
       .filter(action => action.trailId === trailId)
       .map(action => action.score);
 
-      console.log('successActions', successActions);
-
-      const score = points.length > 0 && points.reduce((prev, cur) => prev + cur);
-      setScore(score)
+      if (points.length > 1) {
+        pendingScore = points.reduce((prev, cur) => prev + cur);
       } else {
-        console.log("no actions yet")
+        pendingScore = +points.join("");
       }
-    }, [props.actionsBook, isModalActivitiesCompleted]);
+    } else {
+      console.log("no pendingSync actions");
+    }
+    
+    if (synced.length > 0) {
+      const syncedList = synced.filter(action => action.success === true);
+      const trailId = synced[synced.length - 1]?.trailId;
+
+      const points = syncedList
+      .filter(action => action.trailId === trailId)
+      .map(action => action.score);
+
+      syncedScore = points.reduce((prev, cur) => prev + cur);
+    } else {
+      console.log("no synced actions");
+    }
+    
+    if (pendingScore > 0) {
+      setScore(pendingScore + syncedScore);
+    } else {
+      setScore(syncedScore);
+    }
+  }, [props.actionsBook]);
   
   useEffect(() => {
     props.postActionsBook(props.actionsBook)

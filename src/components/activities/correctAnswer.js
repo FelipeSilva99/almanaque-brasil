@@ -190,7 +190,7 @@ const CorrectAnswer = (props) => {
       case modals.toScore:
         return (
           <ScoreScreen
-            chances={chances}
+            score={props.score}
             handleClick={() => handleContinue()}
           />
         );

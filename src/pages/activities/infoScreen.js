@@ -237,7 +237,7 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
               <Img src={`data:image/jpeg;base64,${image}`} alt={`image${useActivitie.question}`} />
             </BoxImg>
             <Title>
-              {useActivitie.question}.
+              {useActivitie.question}
             </Title>
             <Subtitle>
               {useActivitie.answers.map(i => i.answer)}

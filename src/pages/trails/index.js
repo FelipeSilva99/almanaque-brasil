@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 import Footer from '../../components/footer/footerMenu';
 import Map from './Map';
 import ProgressHeader from '../../components/progressHeader';
-import TrailCompletedModal from '../../components/modal/trailCompletedModal';
+import TrailCompleted from '../../components/modal/trailCompletedModal';
+import AppCompletedModal from '../../components/modal/appCompletedModal';
+import { trailState } from '../../utils/trail';
 
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';
@@ -14,6 +16,7 @@ import { getTrailsThunk } from '../../dataflow/thunks/trails-thunk';
 
 const mapStateToProps = state => ({
   trails: state.trails.data,
+  actionsBook: state.actionsBook
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -50,54 +53,101 @@ export const Box = styled.div`
   background-color: #f3f3f3;
 `;
 
+const ContentMap = styled.div`
+  height: 80%;
+  background-color: pink;
+`;
+
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
 `;
 
 const Trails = (props) => {
-  const [isModalTrailCompleted, setIsModalTrailCompleted] = useState(undefined);
+  const [isModalAppCompleted, setIsModalAppCompleted] = useState(undefined);
+  const [isModalTrailCompleted, setIsModalTrailCompleted] = useState({isModal: undefined, trailId: null});
+  const [trailsState, setTrailsState] = useState([]);
+  const [qtdTrailComplete, setQtdTrailComplete] = useState(0);
+
+  useEffect(() => {
+    const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync];
+    let trailsState = props.trails.map(trail => trailState(trail.id, listActionsBook, trail));
+    let qtdTrailComplete = trailsState.filter(item => item.state === 'done').length;
+
+    setTrailsState(trailsState);
+    setQtdTrailComplete(qtdTrailComplete);
+
+    const isAppFinished = trailsState.every(trail => trail.status === 'done')
+
+    if (isAppFinished) {
+      setIsModalAppCompleted(true)
+    } else {
+      setIsModalAppCompleted(false)
+    }
+
+	}, [props.actionsBook, props.trails]);
 
 	useEffect(() => {
 		props.getTrailsThunk();
-    // setIsModalTrailCompleted(true);
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-  const handleClick = (trail) => {
+  const handleActivities = (trail) => {
     props.history.push({pathname: '/activities'});
     props.selectedTrails(trail);
   }
 
-  const handleCloseModal = () => {
-    setIsModalTrailCompleted(false);
+  const handleCloseModalCompleteTrail = () => {
+    setIsModalTrailCompleted({isModal: false});
   }
 
-  const renderTrails = (trails) => {
-    return trails.map((trail, key) => {
-      return (
-        <Card key={key} onClick={() => handleClick(trail.id)}>
-          <h2>{`Trilha ${trail.id}`}</h2>
-        </Card>
-      )
-    })
+  const handleClickModal = () => {
+    handleCloseModalCompleteTrail();
+    handleActivities(isModalTrailCompleted.trailId);
   }
+
+  const handleClick = (trailId, key) => {
+    const isTrailComplete = trailsState.filter(i => i.trailId === trailId.id);
+
+    if(isTrailComplete[0].state === 'done') {
+      setIsModalTrailCompleted({isModal: true, trailId: key});
+    } else {
+      handleActivities(key);
+    }
+  }
+
+  const handleCloseModal = () => {
+    setIsModalAppCompleted(false);
+  }
+
+  // const renderTrails = (trails) => {
+  //   return trails.map((trail, key) => {
+  //     return (
+  //       <Card key={key} onClick={() => handleClick(trail.id)}>
+  //         <h2>{`Trilha ${trail.id}`}</h2>
+  //       </Card>
+  //     )
+  //   })
+  // }
 
   const trails = props?.trails;
-
   return (
     <Box>
-      <ProgressHeader />
+      <ProgressHeader
+        trails={qtdTrailComplete}
+        actionsBook={[...props.actionsBook.synced, ...props.actionsBook.pendingSync]}
+      />
       {
         trails && (
-          <>
+          <ContentMap>
             {/* {renderTrails(trails)} */}
-            <Map trails={trails} goToActivitie={handleClick}></Map>
-          </>
+            <Map trails={trails} trailsState={trailsState} goToActivitie={handleClick}></Map>
+          </ContentMap>
         ) 
       }
       <Footer screen='trails' />
-      {isModalTrailCompleted && <TrailCompletedModal handleCloseModal={handleCloseModal} /> }
+
+      {isModalTrailCompleted.isModal && <TrailCompleted handleClickModal={handleClickModal} handleCloseModal={handleCloseModalCompleteTrail}/>}
+      {isModalAppCompleted && <AppCompletedModal handleCloseModal={handleCloseModal} /> }
     </Box>
   );
 }

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import ScoreScreen from '../activities/scoreScreen';
 import Button from '../buttons/button';
 import TrunkInfoScreen from '../thunk/trunkInfoScreen';
+import NoScore from '../activities/noScore';
 
 //Redux
 const mapStateToProps = state => ({
@@ -141,19 +142,25 @@ const CorrectAnswer = (props) => {
 
   const modals = {
     toScore: "toScore",
-    answerDescription: "answerDescription"
+    answerDescription: "answerDescription",
+    noScore: "noScore"
   }
 
   useEffect(() => {
     props.toScore
       ? setActualModal(modals.toScore)
-      : setActualModal(modals.answerDescription)
+      : props.noScore
+        ? setActualModal(modals.noScore)
+        : setActualModal(modals.answerDescription)
 
   }, [props.toScore, modals.answerDescription, modals.toScore, props.idActivitie]);
 
   const handleContinue = () => {
     switch (actualModal) {
       case modals.toScore:
+        return setActualModal(modals.answerDescription);
+
+      case modals.noScore:
         return setActualModal(modals.answerDescription);
 
       default:
@@ -170,22 +177,20 @@ const CorrectAnswer = (props) => {
 
   const goActivities = () => {
     const idActivitie = props.idActivitie && props.idActivitie;
-console.log('idActivitiens correct anwer', idActivitie);
 
     history.push({
       pathname: '/activities',
-      state: {idActivitie: idActivitie},
+      state: { idActivitie: idActivitie },
     });
   }
 
   const renderModal = () => {
-    const { amountTrial, answer, isTrunk, idActivitie } = props;
-
+    const { chances, answer, isTrunk, idActivitie } = props;
     switch (actualModal) {
       case modals.toScore:
         return (
           <ScoreScreen
-            amountTrial={amountTrial}
+            score={props.score}
             handleClick={() => handleContinue()}
           />
         );
@@ -218,6 +223,12 @@ console.log('idActivitiens correct anwer', idActivitie);
               >Continuar trilha</Button>
             </ButtonBox>
           </MessageBox>
+        );
+      case modals.noScore:
+        return (
+          <NoScore
+            handleClick={handleContinue}
+          />
         );
 
       default:

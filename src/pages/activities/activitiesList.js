@@ -15,6 +15,7 @@ import church from '../../images/trails/church.svg';
 import houses from '../../images/trails/houses.svg';
 import trainStation from '../../images/trails/trainstation.svg';
 
+//Redux
 import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 
 const mapStateToProps = state => ({
@@ -40,7 +41,7 @@ const Container = styled.div`
 const Stone = styled.div`
   display: flex;
   justify-content: center;
-  padding: ${props => props.padding || '4rem 0 6rem 0'};
+  padding: ${props => props.padding || '4rem 0 5rem'};
   div{
     width: 2rem;
     height: 2rem;
@@ -57,6 +58,7 @@ const Trail = styled.div`
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+  
   h1 {
     padding-top: 5rem;
   }
@@ -70,6 +72,7 @@ const ActivitiesRow = styled.div`
 `;
 
 const Activities = (props) => {
+  const [score, setScore] = useState(0)
   const [activities, setActivities] = useState(null);
   const [activitiesProgress, setActivitiesProgress] = useState(undefined);
   const [isModalActivitiesCompleted, setIsModalActivitiesCompleted] = useState(undefined);
@@ -85,11 +88,14 @@ const Activities = (props) => {
 
     let canBeDone = true;
 
-    const activitiesStates = activities.map((activitie, ind, array) => {
-      const isDoneActivitie = isDone(activitie.id)
+    // let newListActivities = [];
+
+    const activitiesStates = activities.map((activitie) => {
+      const isDoneActivitie = isDone(activitie.id);
       // const background = setBackgroundColor(activitie)
-      const activitieState = isDoneActivitie ? "done" : defineState(canBeDone && !isDoneActivitie)
-      if (!isDoneActivitie) canBeDone = false
+      const activitieState = isDoneActivitie ? isDoneActivitie : defineState(canBeDone && !isDoneActivitie)
+      if (!isDoneActivitie) canBeDone = false;
+      // newListActivities.push({...activitie, state: activitieState});
       return { id: activitie.id, state: activitieState }
     });
 
@@ -112,6 +118,48 @@ const Activities = (props) => {
     setActivities(allActivities);
   }, [props.selectedTrails, props.activities.data, props.history?.location?.state?.idActivitie, activitiesProgress]);
 
+  useEffect(() => {
+    const { pendingSync, synced } = props.actionsBook;
+    let pendingScore;
+    let syncedScore;
+
+    if (pendingSync.length > 0) {
+      let pendingList = pendingSync.filter(action => action.success === true);
+      let trailId = synced[pendingSync.length - 1]?.trailId;
+
+      const points = pendingList
+      .filter(action => action.trailId === trailId)
+      .map(action => action.score);
+
+      if (points.length > 1) {
+        pendingScore = points.reduce((prev, cur) => prev + cur);
+      } else {
+        pendingScore = +points.join("");
+      }
+    } else {
+      console.log("no pendingSync actions");
+    }
+    
+    if (synced.length > 0) {
+      const syncedList = synced.filter(action => action.success === true);
+      const trailId = synced[synced.length - 1]?.trailId;
+
+      const points = syncedList
+      .filter(action => action.trailId === trailId)
+      .map(action => action.score);
+
+      syncedScore = points.reduce((prev, cur) => prev + cur);
+    } else {
+      console.log("no synced actions");
+    }
+    
+    if (pendingScore > 0) {
+      setScore(pendingScore + syncedScore);
+    } else {
+      setScore(syncedScore);
+    }
+  }, [props.actionsBook]);
+  
   useEffect(() => {
     props.postActionsBook(props.actionsBook)
   }, [props]);
@@ -182,12 +230,15 @@ const Activities = (props) => {
       return action.activityId === activityId
     })
 
-    if (filteredActions.length >= 3) return true
+    let isActivityError = filteredActions.length >= 3 && filteredActions.filter(item => !item.success);
+
+    if (isActivityError.length >= 3) return 'wrong'
     else if (filteredActions.length > 0) {
       const checkIfIsDone = filteredActions.findIndex((action) => {
         return action.success === true
-      })
-      return checkIfIsDone === -1 ? false : true
+      });
+
+      return checkIfIsDone === -1 ? false : 'right'
     } else return false
   }
 
@@ -205,7 +256,7 @@ const Activities = (props) => {
             <img
               src={aguaMarinha}
               alt={name}
-              style={{ width: '15rem' }}
+              style={{ width: '12rem' }}
             />
           </Stone>
         );
@@ -260,8 +311,8 @@ const Activities = (props) => {
       </Trail>
 
       {renderStone()}
-
-      {isModalActivitiesCompleted && <ActivitiesCompleted history={props.history}/>}
+      {isModalActivitiesCompleted && <ActivitiesCompleted score={score} history={props.history}/>}
+      
     </Container>
   );
 }

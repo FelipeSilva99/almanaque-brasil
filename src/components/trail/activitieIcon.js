@@ -7,6 +7,7 @@ import iconBloqued from '../../images/activity/iconBloqued.svg';
 import iconBookBloqued from '../../images/activity/iconBookBloqued.svg';
 import iconBookVisualized from '../../images/activity/iconBookVisualized.svg';
 import checkIcon from '../../images/activity/check.svg';
+import checkErr from '../../images/activity/checkErr.svg';
 
 //Styles
 const ActivitiesCircle = styled.button`
@@ -14,9 +15,13 @@ const ActivitiesCircle = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 1.5rem 4rem .5rem;
+  margin: 1.5rem 3.6rem .5rem;
   cursor: pointer;
   z-index: 30;
+
+  @media (max-width: 350px) {
+    margin: 1.5rem 2.5rem .5rem;
+  }
 `;
 
 const Box = styled.div`
@@ -53,7 +58,7 @@ const ActivitieIcon = ({item, children, activitieState, onClick, history }) => {
 
   const handleClick = () => {
     return activitieState === 'bloqued' ? undefined : onClick
-  }
+  };
 
   //Alterar quando tiver a imagem
   const renderImageBloqued = () => {
@@ -68,10 +73,10 @@ const ActivitieIcon = ({item, children, activitieState, onClick, history }) => {
 
   return (
     <Box>
-      <ActivitiesCircle type={item?.type} onClick={handleClick()} history={history}>
+      <ActivitiesCircle onClick={handleClick()} history={history}>
         { activitieState === 'bloqued' ? <img src={renderImageBloqued()} alt={item?.name} /> : <img src={renderImageVisualized()} alt={item?.name}/> }
         <Text color={() => setColor()}>{children + 1}</Text>
-        {activitieState === 'done' && <Check src={checkIcon}/>}
+        {(activitieState === 'right' && <Check src={checkIcon} alt='check' />) || (activitieState === 'wrong' && <Check src={checkErr} alt='check'/>)}
       </ActivitiesCircle>
       <BoxName><p>{item?.name}</p></BoxName>
     </Box>

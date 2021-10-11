@@ -70,6 +70,7 @@ export const deleteActionsBook = () => async (dispatch) => {
     } else {
       console.log('Não foi possível reiniciar o progresso. \n', response);
     }
+    // dispatch(clearActionsBook());
   }
   catch (err) {
     console.log('err', err);

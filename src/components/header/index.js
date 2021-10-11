@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
 
 //Component
-import ModalTip from '../../components/modal/tip';
+import ModalTip from '../modal/tip';
 
 //Images
 import iconBack from '../../images/icons/arrow.svg';
@@ -13,6 +13,7 @@ import selectedTip from '../../images/icons/selectedTip.svg';
 // Styles
 const Container = styled.header`
   width: 100%;
+  max-width: 425px;
   position: ${props => props.trunkScreen ? 'fixed' : 'relative'};
   padding: ${props => (props.trunkScreen && '1.5rem 1rem 1.5rem 0') || (!props.noPadding && '1rem')};
   background: transparent;

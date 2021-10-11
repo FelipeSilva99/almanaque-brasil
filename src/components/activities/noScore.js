@@ -5,9 +5,7 @@ import styled from 'styled-components'
 import Button from '../buttons/button';
 
 //Images
-import cactus from '../../images/icons/punctuation/cactus.svg';
 import hardShell from '../../images/icons/punctuation/hardShell.svg';
-import wave from '../../images/icons/punctuation/wave.svg';
 
 const Container = styled.div`
   display: flex;
@@ -46,19 +44,6 @@ const ContentTitle = styled.div`
   }
 `;
 
-const ScoreText = styled.p`
-  position: relative;
-  bottom: 8vh;
-  font-size: 2.1875rem;
-  font-weight: 900;
-  color: #373737;
-  strong{
-    font-size: 8.3125rem;
-    font-weight: 900;
-    color: #399119;
-  }
-`;
-
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -77,26 +62,20 @@ const ButtonBox = styled.div`
   }
 `;
 
+const HorseShoe = styled.img`
+  position: absolute;
+  right: -40px;
+  bottom: -10px;
+  z-index: -1;
+`;
 
-const ScoreScreen = ({ handleClick, score }) => {
-  const HorseShoe = styled.img`
-    position: absolute;
-    right: ${props => (props.img === 'wave' && '-149px') || (props.img === 'cactus' && '-130px') || (props.img === 'hardShell' && '-40px')};
-    bottom: ${props => (props.img === 'wave' && '-195px') || (props.img === 'cactus' && '-65px') || (props.img === 'hardShell' && '-10px')};
-    z-index: -1;
-  `;
-
-  const pointsImg = (score === 10 && hardShell) || (score === 8 && wave) || (score === 5 && cactus);
-  const imgName = (score === 10 && 'hardShell') || (score === 8 && 'wave') || (score === 5 && 'cactus');
-
+const NoScore = ({ handleClick }) => {
   return (
-    console.log(`Score: ${score}`),
     <Container>
       <ContentTitle>
         <h1>Parabéns!</h1>
-        <p>Você acertou e ganhou:</p>
+        <p>Você acertou! Para pontuar reinicie a trilha nas configurações</p>
       </ContentTitle>
-      <ScoreText><strong>{score}</strong> pts</ScoreText>
       <ButtonBox backgroundColor={'transparent'}>
         <Button
           handleClick={handleClick}
@@ -106,9 +85,9 @@ const ScoreScreen = ({ handleClick, score }) => {
           boxShadow={"#245812 0px 7px 0px"}
         >Continuar</Button>
       </ButtonBox>
-      <HorseShoe src={pointsImg} alt={imgName} img={imgName} />
+      <HorseShoe src={hardShell} alt='hard Shell' />
     </Container>
   )
 }
 
-export default ScoreScreen;
+export default NoScore;

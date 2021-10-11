@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-//Component
-import Button from '../buttons/button';
-
 //Images
-import iconElifas from '../../images/elifas/tip.svg';
+import iconElifas from '../../images/elifas/ok.svg';
 
 //Styled
 const Container = styled.div`
@@ -13,38 +10,41 @@ const Container = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background: #70707095;
+  background: #4446;
 	z-index: 3;
   @media (min-width: 1024px) { align-items: center; }
 `;
 
 const Content = styled.div`
   position: relative;
-  width: 100%;
-  height: 93vh;
+  padding-top: 3rem;
   max-width: 380px;
+  width: 100%;
+  height: 100%;
 	display: flex;
-	justify-content: center;
+	align-items: start;
 
-  @media(max-width: 375px) {padding-top: 2rem; align-items: flex-start;}
-  @media(min-width: 1024px) {height: 80vh;}
+  @media (min-height: 700px) {
+    padding-top: 0;
+    align-items: center;
+  }
 `;
 
 const ContentInfo = styled.div`
-  position: absolute;
-  top: 0;
+  position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   margin: 0 auto;
-  padding: 1.8rem 1rem 3.5rem;
+  padding: 1.5rem 1rem 1rem;
   width: 91%;
-  filter: drop-shadow(1px 4px 3px #999);
+  filter: drop-shadow(1px 4px 3px #444);
   border-radius: 22px;
   background: #fff;
 
@@ -55,8 +55,8 @@ const ContentInfo = styled.div`
   &:after {
     position: absolute;
     content: '';
-    left: 52%;
-    bottom: -12%;
+    left: 51%;
+    bottom: -11%;
     display: block;
     width: 50px;
     height: 70px;
@@ -67,59 +67,53 @@ const ContentInfo = styled.div`
     transform: rotate(5deg);
     z-index: -1;
   }
+
+  @media (max-width: 320px) {
+    padding: 1rem;
+    width: 95%;
+  }
 `;
 
 const Title = styled.h1`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding-bottom: 1.2rem;
   font-size: 1.5em;
   font-weight: 900;
 	line-height: 1em;
   color: #373737;
 	text-align: center;
-
-  strong {
-    margin-right: 5px;
-    letter-spacing: 2px;
-    font-size: 2.5rem;
-    font-weight: 900;
-  }
 `;
 
 const Text = styled.p`
-  padding: 1.4rem 0 1.8rem;
-	font-size: 1rem;
+  position: relative;
+  padding-bottom: 1.2rem;
+  letter-spacing: .1px;
   line-height: 1.2;
+  font-size: 1em;
+  
+  @media (max-width: 320px) { padding-bottom: 1rem }
+`;
 
-  @media (max-width: 320px) { padding: ${props => props.padding && '1.5rem 0 .4rem 0 '}; }
+const Button = styled.button`
+  font-size: 1.5rem;
+  font-weight: 800;
 `;
 
 const ImgBento = styled.img`
   position: absolute;
-  right: -3%;
+  right: -1%;
   bottom: 0;
-  width: 10rem;
+  width: 12rem;
 `;
 
-function ActivitiesCompletedModal({ history, score }) {
-  const handleClick = () => {
-    history.push('/trails');
-  }
-
+function AppCompletedModal({ handleCloseModal }) {
 	return (
 		<Container>
 			<Content>
 				<ContentInfo>
 					<Title>Parabéns!</Title>
-          <Text>Você concluiu a trilha, e conquistou :</Text>
-          <Title>
-            <strong>{score}</strong> pts
-          </Title>
-          <Text>
-            vamos continuar nessa jornada de conhecimento?
-          </Text>
-          <Button handleClick={handleClick} margin='0'>escolher outra trilha</Button>
+          <Text>Você concluiu o aplicativo Almanaque Miguel Burnier. Agora você pode compartilhar todo esse conhecimento com seus amigos! </Text>
+          <Text>Você pode continuar jogando as atividades sem pontuar e caso queira uma nova pontuação, poderá reiniciar o mapa nas configurações </Text>
+					<Button margin='1.5rem 0 1.25rem 0' onClick={handleCloseModal}>x</Button>
 				</ContentInfo>
 				<ImgBento src={iconElifas} />
 			</Content>
@@ -127,4 +121,4 @@ function ActivitiesCompletedModal({ history, score }) {
 	)
 }
 
-export default ActivitiesCompletedModal;
+export default AppCompletedModal;

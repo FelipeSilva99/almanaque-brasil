@@ -9,7 +9,7 @@ import Button from '../../../components/buttons/button';
 
 // Styles
 const Container = styled.div`
-  padding: 1rem;
+  padding: .9rem;
   width: 100%;
   height: 100vh;
   background: #F3F3F3;
@@ -21,7 +21,6 @@ const Content = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  text-align: center;
 `;
 
 const Title = styled.h1`
@@ -32,17 +31,54 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const Text = styled.p`
-  padding-bottom: 1rem;
-  width: 20rem;
-  font-size: 1rem;
-  color: #373737;
-  text-align: center;
-`;
-
 const Error = styled.p`
   font-size: .85rem;
   color: #FF3333;
+`;
+
+const Tutorial = styled.ol`
+  margin-bottom: 1rem;
+  list-style: none;
+  counter-reset: count;
+
+  ::-webkit-scrollbar {
+		width: 4px;
+		height: 10px;
+	}
+	::-webkit-scrollbar-track {
+		background: transparent;
+		border-radius: 20px;
+	}
+	::-webkit-scrollbar-thumb {
+		background: #ccc;
+		border-radius: 13px;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #ccc;
+	}
+`;
+
+const Step = styled.li`
+  margin-bottom: 1.1rem;
+  line-height: 1.4;
+  counter-increment: count;
+
+  &:before {
+    content: counter(count) "- ";
+    font-size: 1.1em;
+    font-weight: 900;
+    color: #373737;
+  }
+
+  @media (max-width: 320px) { padding: ${props => props.padding && '1.5rem 0 .4rem 0 '}; }
+`;
+
+const Text = styled.p`
+  span {
+    font-size: 1em;
+    font-weight: 900;
+    color: #373737;
+  }
 `;
 
 const AccountCreated = () => {
@@ -77,8 +113,17 @@ const AccountCreated = () => {
       <Header noBack title='Confirmar criação da conta' />
       <Content>
         <Title>Quase finalizado!</Title>
-        <Text>Verifique o e-mail que enviamos para o seu e-mail cadastrado.</Text>
-        <Button margin='1rem' handleClick={goHome}>continuar para o login</Button>
+        <Tutorial>
+          <Step>Você receberá um e-mail, clique em: confirmar e-mail.</Step>
+          <Step>Depois de confirmar, retorne ao aplicativo.</Step>
+          <Step>Clique em: continuar para o login.</Step>
+          <Text>
+            <span>Obs: </span>
+            Caso não tenha recebido o e-mail, clique em: reenviar.
+          </Text>
+        </Tutorial>
+        
+        <Button margin='1rem' background='#ffd000' boxShadow='0 6.5px 0 #f08800' handleClick={goHome}>continuar para o login</Button>
         <Button margin='0' background='transparent' boxShadow='nobe' handleClick={resendConfirmationCode}>reenviar</Button>
         {isError && <Error>{isError.msg ? isError.msg : 'Erro ao reenviar'}</Error>}
       </Content>

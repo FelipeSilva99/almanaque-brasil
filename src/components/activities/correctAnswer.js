@@ -175,15 +175,6 @@ const CorrectAnswer = (props) => {
     setIsModalThunk({ isModal: !isModalThunk.isModal, data: data });
   }
 
-  const goActivities = () => {
-    const idActivitie = props.idActivitie && props.idActivitie;
-
-    history.push({
-      pathname: '/activities',
-      state: { idActivitie: idActivitie },
-    });
-  }
-
   const renderModal = () => {
     const { chances, answer, isTrunk, idActivitie } = props;
     switch (actualModal) {
@@ -219,7 +210,7 @@ const CorrectAnswer = (props) => {
                 margin={"0 0 20px 0"}
                 background={"#399119"}
                 boxShadow={"#245812 0px 7px 0px"}
-                handleClick={goActivities}
+                handleClick={() => history.goBack()}
               >Continuar trilha</Button>
             </ButtonBox>
           </MessageBox>

@@ -59,18 +59,7 @@ const Activities = (props) => {
   }, [trailId]);
   
   const handlerNextActivitie = (idActivitie) => {
-    const hasIdActivitie = idActivitie && idActivitie;
-
-    if (hasNextActivitie) {
-      props.history.push({
-        pathname: `/activities`,
-        state: {idActivitie: hasIdActivitie},
-      });
-    }
-  }
-
-  const hasNextActivitie = () => {
-    return true
+    props.history.goBack()
   }
 
   const renderActivitie = (currentActivitie, registerAction) => {
@@ -95,7 +84,7 @@ const Activities = (props) => {
         return <DidYouKnow registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook}/>
 
       case "se-liga":
-        return <IfTurnsOn registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook} />
+        return <IfTurnsOn registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={() => props.history.goBack()} actionsBook={props.actionsBook} />
 
       case "palavra-enigmatica":
         return <EnigmaticWord registerAction={registerAction} activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook}/>

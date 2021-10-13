@@ -19,7 +19,7 @@ const Circle = styled.div`
   margin-right: 20px;
   width: 33px;
   height: 33px;
-  display: flex;
+  display: ${props => props.isVisible ? 'none' : 'flex'};
   justify-content: center;
   align-items: center;
   font-size: 0.75rem;
@@ -43,10 +43,10 @@ const Img = styled.img`
   width: ${props => props.home ? '7rem' : '9rem'};
 `;
 
-const Header = ({ text, icon, home, initialLettersName }) => {
+const Header = ({ text, icon, home, initialLettersName, isVisible }) => {
   return (
     <Container>
-      <Circle>{initialLettersName}</Circle>
+      <Circle isVisible={isVisible}>{initialLettersName}</Circle>
       <Text home={home}>{text}</Text>
       {icon && <Img src={icon} alt={text} home={home} />}
     </Container>

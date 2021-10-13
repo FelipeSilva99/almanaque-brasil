@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
@@ -9,6 +9,15 @@ import { signOut } from '../../dataflow/modules/signIn-modules';
 import { clearActionsBook } from '../../dataflow/modules/actionsBook-modules';
 import { deleteActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 import { clearModalsState } from '../../dataflow/modules/modals-module';
+
+//Components
+import Header from '../../components/header/headerYellow';
+import Footer from '../../components/footer/footerMenu';
+import Button from '../../components/buttons/containerButton';
+
+//Image
+import iconThunk from '../../images/icons/settings.svg';
+import arrow from '../../images/icons/arrow.svg';
 
 const mapDispatchToProps = dispatch => ({
   signOut: () => {
@@ -30,23 +39,50 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const Container = styled.div`
-  position: fixed;
-  bottom: 60px;
-  left: 51vw;
-  width: 10rem;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  background: #fff;
-  text-align: end;
-  z-index: 3;
+  background: #F3F3F3;
+  min-height: 100vh;
+  overflow-x: hidden; 
 `;
 
-const Button = styled.button`
+const BoxConfig = styled.div`
   width: 100%;
-  height: 100%;
-  font-size: 1rem;
-  font-weight: 900;
-  color: #373737;
+  padding: 0 32px;
+`;
+
+const Item = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 44px;
+`;
+
+const UpSide = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Title = styled.h3`
+`;
+
+const IconArrow = styled.img`
+  transform: ${props => props.isOpen && 'rotate(90deg)'};
+`;
+
+const BottomSide = styled.div`
+  width: 100%;
+  display: ${props => props.isCheck ? 'flex' : 'none'};
+
+  > div {
+    width: 40%;
+    padding: 0;
+    height: auto;
+    
+    button {
+      height: 2rem;
+    }
+  }
 `;
 
 const Config = (props) => {
@@ -77,10 +113,40 @@ const Config = (props) => {
     }
   }
 
+  const [check, setCheck] = useState(false);
+  const openSettings = () => setCheck(!check)
+
   return (
     <Container>
-      <Button onClick={handleResetProgress}>Reset</Button>
-      <Button onClick={handleSignOut}>Sair</Button>
+      <Header isVisible text='Configurações' icon={iconThunk} />
+      <BoxConfig>
+        <Item>
+          <UpSide>
+            <Title>Reiniciar mapa das trilhas</Title>
+            <IconArrow
+              src={arrow}
+              alt='Seta'
+              isOpen={check}
+              onClick={openSettings}
+            />
+          </UpSide>
+          <BottomSide isCheck={check}>
+            <Button
+              background="red"
+              color="white"
+              handleClick={handleResetProgress}
+            >
+              Confirmar
+            </Button>
+          </BottomSide>
+        </Item>
+        <Button
+          handleClick={handleSignOut}
+        >
+          Sair do aplicativo
+        </Button>
+      </BoxConfig>
+      <Footer screen='config' />
     </Container>
   );
 }

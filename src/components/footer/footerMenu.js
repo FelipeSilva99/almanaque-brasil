@@ -56,7 +56,7 @@ const Text = styled.p`
 
 const Footer = ({ screen }) => {
   const history = useHistory();
-  const [isModalConfig, setIsModalConfig] = useState(undefined);
+  //const [isModalConfig, setIsModalConfig] = useState(undefined);
   const [options] = useState([
     {
       img: home,
@@ -84,28 +84,28 @@ const Footer = ({ screen }) => {
     },
   ]);
 
-  const handleRouter = (router) => {
-    if (router === 'config') {
+  const handleRouter = (router, i) => {
+    /* if (router === 'config') {
       setIsModalConfig(!isModalConfig);
-    } else {
+    } else { */
       history.push(`/${router}`);
-      setIsModalConfig(false);
-    }
+      /* setIsModalConfig(false);
+    } */
   }
   
   return (
     <Alingment>
       <Container>
         {options.map((item, i) => {
-          const isSelected = (isModalConfig && item.router === 'config') || (!isModalConfig && screen === item.router);
+          const isSelected = screen === item.router; 
           return (
-            <Content onClick={() => handleRouter(item.router)} key={i}>
+            <Content onClick={() => handleRouter(item.router, i)} key={i}>
               <img src={isSelected ? item.imgSelected : item.img} alt={item.txt} />
               <Text isSelected={isSelected} trunk={item.txt ==='Baú'}>{item.txt}</Text>
             </Content>
           )
         })}
-        {isModalConfig && <Config />}
+        {/* {isModalConfig && <Config />} */}
       </Container>
     </Alingment>
   );

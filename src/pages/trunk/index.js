@@ -45,7 +45,7 @@ const IconModal = styled.img`
 `;
 
 const ContentText = styled.div`
-  padding-bottom: .5rem;
+  padding-bottom: 1rem;
   display: flex;
   align-items: center;
 `;

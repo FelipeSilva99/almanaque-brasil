@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 //Redux
 import { signOut } from '../../dataflow/modules/signIn-modules';
@@ -86,7 +86,12 @@ const Config = (props) => {
 
   const data = [{
     title: 'Tutorial',
-    content: <p>teste</p>
+    content:
+      <Link to="config/tutorial">
+        <Button>
+          Menu de tutorial
+        </Button>
+      </Link>
   },
   {
     title: 'Reiniciar mapa das trilhas',

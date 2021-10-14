@@ -42,9 +42,9 @@ const ContentInfo = styled.div`
   align-items: center;
   justify-content: space-between;
   /* margin: 0 auto; */
-  padding: 1.6rem 1rem 2.5rem;
+  padding: 1.5rem 1rem 0;
   /* width: 96%; */
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
   filter: drop-shadow(1px 4px 3px #999);
   border-radius: 30px;
   background: #fff;
@@ -77,9 +77,11 @@ const Title = styled.h2`
 `;
 
 const Text = styled.p`
-  margin-bottom: ${props => props.lastText ? '2.5rem' : '1rem'};
+  padding-top: 1rem;
+  align-self: normal;
   font-size: 1rem;
   color: #373737;
+  max-width: 294px;
 
   @media (max-width: 320px) { margin-bottom: 1rem; }
 `;
@@ -91,9 +93,11 @@ const ImgElifas = styled.img`
   width: 10rem;
 `;
 
-const IconClose = styled.img`
-  position: relative;
-  top: 1.5rem;
+const IconClose = styled.span`
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #373737;
+  padding: .813rem 0;
 `;
 
 function ResetMapAlert({ handleResetProgress, handleCloseModal }) {
@@ -104,8 +108,8 @@ function ResetMapAlert({ handleResetProgress, handleCloseModal }) {
           <Title>Atenção!</Title>
           <Text>Tem certeza que quer reiniciar seu mapa?</Text>
           <Text>Ao fazer isso você irá apagar tudo que fez até o momento. Você iniciará tudo de novo.</Text>
-          <Button handleClick={handleResetProgress} margin='0'>reiniciar</Button>
-          <IconClose src={close} alt={"fechar"} onClick={handleCloseModal} />
+          <Button handleClick={handleResetProgress} margin='.5rem'>reiniciar</Button>
+          <IconClose src={close} alt={"fechar"} onClick={handleCloseModal}> x </IconClose>
         </ContentInfo>
         <ImgElifas src={iconElifas} />
       </Content>

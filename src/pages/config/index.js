@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 //Redux
 import { signOut } from '../../dataflow/modules/signIn-modules';
@@ -87,6 +87,8 @@ const Config = (props) => {
   const openSettings = (router) => {
     if(router === 'openModalResetMap') {
       handleModalResetMap();
+    } else if (router === 'config/tutorial') {
+      history.push(`/${router}`);
     } else {
       alert(router);
       // history.push(`/${router}`);
@@ -95,7 +97,7 @@ const Config = (props) => {
 
   const data = [{
     title: 'Tutorial',
-    router: 'tutorial',
+    router: 'config/tutorial',
   },
   {
     title: 'Reiniciar mapa das trilhas',

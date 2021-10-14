@@ -117,7 +117,7 @@ const Word = styled.div`
   background-color: #F08800;
 `;
 
-function EnigmaticWord({ activitie, registerAction, actionsBook }) {
+function EnigmaticWord({ activitie, registerAction, actionsBook, handlerNextActivitie }) {
   const [isLoading, setIsLoading] = useState(true)
   const [enigmas, setEnigmas] = useState(undefined)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
@@ -288,7 +288,7 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
           handleClick={handleSubmit}
         >responder
         </Button>
-        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleModalWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer goBack={handlerNextActivitie} chances={chances} handleClick={handleModalWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWithoutScore} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer answer={activitie.answer} toScore score={score} idActivitie={activitie.id} />}
         {showAnswer && <CorrectAnswer answer={activitie.answer} score={score} noScore={isModalWithoutScore === true} idActivitie={activitie.id} />}

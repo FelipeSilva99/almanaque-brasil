@@ -16,7 +16,8 @@ import Trails from '../pages/trails';
 import Activities from '../pages/activities';
 import ActivitiesList from '../pages/activities/activitiesList';
 import Trunk from '../pages/trunk';
-import Config from '../pages/config'
+import Config from '../pages/config';
+import Tutorial from '../pages/tutorial';
 import Dashboard from '../pages/dashboard';
 
 // import PrivateRoute from './PrivateRoute';
@@ -48,6 +49,7 @@ const Routes = (props) => {
 				<PrivateRoute exact path='/activities' component={ActivitiesList} />
 				<PrivateRoute exact path='/trunk' component={Trunk} props={props} />
 				<PrivateRoute exact path='/config' component={Config} />
+				<PrivateRoute exact path='/config/tutorial' component={Tutorial} />
 			</Switch>
 		</BrowserRouter>
 	)

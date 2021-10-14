@@ -13,11 +13,11 @@ import { clearModalsState } from '../../dataflow/modules/modals-module';
 //Components
 import Header from '../../components/header/headerYellow';
 import Footer from '../../components/footer/footerMenu';
-import Button from '../../components/buttons/containerButton';
+import Button from '../../components/buttons/button';
+import Item from './item'
 
 //Image
 import iconThunk from '../../images/icons/settings.svg';
-import arrow from '../../images/icons/arrow.svg';
 
 const mapDispatchToProps = dispatch => ({
   signOut: () => {
@@ -49,42 +49,6 @@ const BoxConfig = styled.div`
   padding: 0 32px;
 `;
 
-const Item = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 44px;
-`;
-
-const UpSide = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Title = styled.h3`
-`;
-
-const IconArrow = styled.img`
-  transform: ${props => props.isOpen && 'rotate(90deg)'};
-`;
-
-const BottomSide = styled.div`
-  width: 100%;
-  display: ${props => props.isCheck ? 'flex' : 'none'};
-
-  > div {
-    width: 40%;
-    padding: 0;
-    height: auto;
-    
-    button {
-      height: 2rem;
-    }
-  }
-`;
-
 const Config = (props) => {
   const history = useHistory();
 
@@ -113,8 +77,36 @@ const Config = (props) => {
     }
   }
 
-  const [check, setCheck] = useState(false);
-  const openSettings = () => setCheck(!check)
+  const [check, setCheck] = useState(null);
+  const openSettings = (index) => {
+    if (index === check) {
+      setCheck(null)
+    } else setCheck(index)
+  }
+
+  const data = [{
+    title: 'Tutorial',
+    content: <p>teste</p>
+  },
+  {
+    title: 'Reiniciar mapa das trilhas',
+    content:
+      <Button
+        background="red"
+        color="white"
+        handleClick={handleResetProgress}
+      >
+        Confirmar
+      </Button>
+  },
+  {
+    title: 'Termos de uso e privacidade',
+    content: <p>teste</p>
+  },
+  {
+    title: 'Agradecimentos',
+    content: <p>teste</p>
+  },]
 
   return (
     <Container>
@@ -126,29 +118,19 @@ const Config = (props) => {
         right="-38px"
       />
       <BoxConfig>
-        <Item>
-          <UpSide>
-            <Title>Reiniciar mapa das trilhas</Title>
-            <IconArrow
-              src={arrow}
-              alt='Seta'
-              isOpen={check}
-              onClick={openSettings}
-            />
-          </UpSide>
-          <BottomSide isCheck={check}>
-            <Button
-              background="red"
-              color="white"
-              handleClick={handleResetProgress}
-            >
-              Confirmar
-            </Button>
-          </BottomSide>
-        </Item>
-        <Button
-          handleClick={handleSignOut}
-        >
+        {data.map((i, index) => (
+          <Item
+            key={index}
+            title={i.title}
+            handleClick={() => openSettings(index)}
+            isOpen={check === index}
+            isCheck={check === index}
+          >
+            {i.content}
+          </Item>
+        ))}
+
+        <Button handleClick={handleSignOut} >
           Sair do aplicativo
         </Button>
       </BoxConfig>

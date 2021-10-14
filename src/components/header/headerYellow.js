@@ -38,17 +38,25 @@ const Text = styled.h1`
 
 const Img = styled.img`
   position: absolute;
-  bottom: 0;
-  right: -30px;
+  bottom: ${props => props.bottom || '0'};
+  right: ${props => props.right || '-30px'};
   width: ${props => props.home ? '7rem' : '9rem'};
 `;
 
-const Header = ({ text, icon, home, initialLettersName, isVisible }) => {
+const Header = ({ text, icon, home, initialLettersName, isVisible, bottom, right }) => {
   return (
     <Container>
       <Circle isVisible={isVisible}>{initialLettersName}</Circle>
       <Text home={home}>{text}</Text>
-      {icon && <Img src={icon} alt={text} home={home} />}
+      {icon &&
+        <Img
+          src={icon}
+          alt={text}
+          home={home}
+          bottom={bottom}
+          right={right}
+        />
+      }
     </Container>
   );
 }

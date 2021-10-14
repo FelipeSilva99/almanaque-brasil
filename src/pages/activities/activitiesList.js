@@ -156,7 +156,11 @@ const Activities = (props) => {
       .filter(action => action.trailId === trailId)
       .map(action => action.score);
 
-      syncedScore = points.length > 0 && points.reduce((prev, cur) => prev + cur);
+      if (points.length > 1) {
+        syncedScore = points.reduce((prev, cur) => prev + cur);
+      } else {
+        syncedScore = +points.join("");
+      }
     } else {
       console.log("no synced actions");
     }

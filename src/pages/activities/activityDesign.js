@@ -11,44 +11,43 @@ import alexandritaBloqued from '../../images/activity/stones/alexandrita/alexand
 
 import ametista from '../../images/activity/stones/ametista/ametista.svg';
 import ametistaLogo from '../../images/activity/stones/ametista/ametistaLogo.svg';
-// import ametistaVisualized from '../../images/activity/stones/ametista/ametistaVisualized.svg';
-// import ametistaBloqued from '../../images/activity/stones/ametista/ametistaBloqued.svg';
+import ametistaVisualized from '../../images/activity/stones/ametista/ametistaVisualized.svg';
+import ametistaBloqued from '../../images/activity/stones/ametista/ametistaBloqued.svg';
 
 import diamante from '../../images/activity/stones/diamante/diamante.svg';
 import diamanteLogo from '../../images/activity/stones/diamante/diamanteLogo.svg';
 import diamanteVisualized from '../../images/activity/stones/diamante/diamanteVisualized.svg';
-import diamanteBloqued from '../../images/activity/stones/diamante/diamanteVisualized.svg';
+// import diamanteBloqued from '../../images/activity/stones/diamante/diamanteVisualized.svg';
 
 import esmeralda from '../../images/activity/stones/esmeralda/esmeralda.svg';
 import esmeraldaLogo from '../../images/activity/stones/esmeralda/esmeraldaLogo.svg';
 // import esmeraldaVisualized from '../../images/activity/stones/esmeralda/esmeraldaVisualized.svg';
-// import esmeraldaBloqued from '../../images/activity/stones/esmeralda/esmeraldaBloqued.svg';
+import esmeraldaBloqued from '../../images/activity/stones/esmeralda/esmeraldaBloqued.svg';
 
 import ouro from '../../images/activity/stones/ouro/ouro.svg';
 import ouroLogo from '../../images/activity/stones/ouro/ouroLogo.svg';
 // import ouroVisualized from '../../images/activity/stones/ouro/ouroVisualized.svg';
-// import ouroBloqued from '../../images/activity/stones/ouro/ouroBloqued.svg';
+import ouroBloqued from '../../images/activity/stones/ouro/ouroBloqued.svg';
 
 import prata from '../../images/activity/stones/prata/prata.svg';
 import prataLogo from '../../images/activity/stones/prata/prataLogo.svg';
 // import prataVisualized from '../../images/activity/stones/prata/prataVisualized.svg';
-// import prataBloqued from '../../images/activity/stones/prata/prataBloqued.svg';
+import prataBloqued from '../../images/activity/stones/prata/prataBloqued.svg';
 
 import safira from '../../images/activity/stones/safira/safira.svg';
 import safiraLogo from '../../images/activity/stones/safira/safiraLogo.svg';
 // import safiraVisualized from '../../images/activity/stones/safira/safiraVisualized.svg';
-// import safiraBloqued from '../../images/activity/stones/safira/safiraBloqued.svg';
+import safiraBloqued from '../../images/activity/stones/safira/safiraBloqued.svg';
 
 import topazio from '../../images/activity/stones/topazio/topazio.svg';
 import topazioLogo from '../../images/activity/stones/topazio/topazioLogo.svg';
 import topazioVisualized from '../../images/activity/stones/topazio/topazioVisualized.svg';
-import topazioBloqued from '../../images/activity/stones/topazio/topazioBloqued.svg';
+// import topazioBloqued from '../../images/activity/stones/topazio/topazioBloqued.svg';
 
 import turmalina from '../../images/activity/stones/turmalina/turmalina.svg';
 import turmalinaLogo from '../../images/activity/stones/turmalina/turmalinaLogo.svg';
-import turmalinaVisualized from '../../images/activity/stones/turmalina/turmalinaVisualized.svg';
+// import turmalinaVisualized from '../../images/activity/stones/turmalina/turmalinaVisualized.svg';
 import turmalinaBloqued from '../../images/activity/stones/turmalina/turmalinaBloqued.svg';
-
 
 // Assets houses
 import churchBlack from '../../images/activity/houses/black/church.svg';
@@ -110,7 +109,7 @@ const activityDesign = {
     "stone": {
       "stone": diamante,
       "logo": diamanteLogo,
-      "bloqued": diamanteBloqued,
+      "bloqued": aguaMarinhaBloqued,
       "visualized": diamanteVisualized,
     },
     "houses": {
@@ -126,8 +125,8 @@ const activityDesign = {
     "stone": {
       "logo": ametista,
       "stone": ametistaLogo,
-      "bloqued": aguaMarinhaBloqued,
-      "visualized": aguaMarinhaVisualized,
+      "bloqued": ametistaBloqued,
+      "visualized": ametistaVisualized,
     },
     "houses": {
       church: churchPurple,
@@ -143,7 +142,7 @@ const activityDesign = {
       "stone": turmalina,
       "logo": turmalinaLogo,
       "bloqued": turmalinaBloqued,
-      "visualized": turmalinaVisualized,
+      "visualized": aguaMarinhaVisualized,
     },
     "houses": {
       church: churchBlack,
@@ -158,7 +157,7 @@ const activityDesign = {
     "stone": {
       "stone": prata,
       "logo": prataLogo,
-      "bloqued": aguaMarinhaBloqued,
+      "bloqued": prataBloqued,
       "visualized": aguaMarinhaVisualized,
     },
     "houses": {
@@ -174,7 +173,7 @@ const activityDesign = {
     "stone": {
       "stone": ouro,
       "logo": ouroLogo,
-      "bloqued": aguaMarinhaBloqued,
+      "bloqued": ouroBloqued,
       "visualized": aguaMarinhaVisualized,
     },
     "houses": {
@@ -190,7 +189,7 @@ const activityDesign = {
     "stone": {
       "stone": esmeralda,
       "logo": esmeraldaLogo,
-      "bloqued": aguaMarinhaBloqued,
+      "bloqued": esmeraldaBloqued,
       "visualized": aguaMarinhaVisualized,
     },
     "houses": {
@@ -206,7 +205,7 @@ const activityDesign = {
     "stone": {
       "stone": safira,
       "logo": safiraLogo,
-      "bloqued": aguaMarinhaBloqued,
+      "bloqued": safiraBloqued,
       "visualized": aguaMarinhaVisualized,
     },
     "houses": {
@@ -222,7 +221,7 @@ const activityDesign = {
     "stone": {
       "stone": alexandrita,
       "logo": alexandritaLogo,
-      "bloqued": aguaMarinhaBloqued,
+      "bloqued": alexandritaBloqued,
       "visualized": aguaMarinhaVisualized,
     },
     "houses": {
@@ -238,7 +237,7 @@ const activityDesign = {
     "stone": {
       "stone": topazio,
       "logo": topazioLogo,
-      "bloqued": topazioBloqued,
+      "bloqued": aguaMarinhaBloqued,
       "visualized": topazioVisualized,
     },
     "houses": {

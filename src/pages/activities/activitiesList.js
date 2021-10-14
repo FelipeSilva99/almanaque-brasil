@@ -86,10 +86,6 @@ const Activities = (props) => {
   const activityName = activityDesign && activityDesign[currentActivity];
 
   const backgroundDecorations = {
-    // top: church,
-    // center: houses,
-    // bottom: trainStation
-
     top: activityName?.houses?.church,
     center: activityName?.houses?.houses,
     bottom: activityName?.houses?.trainStation

@@ -7,13 +7,14 @@ import Header from '../../components/header';
 import ActivitieIcon from '../../components/trail/activitieIcon';
 import Way from '../../components/trail/way';
 import ActivitiesCompleted from '../../components/modal/activitiesCompletedModal';
+import activityDesign from './activityDesign';
 
 //Assets
-import aguaMarinhaStone from '../../images/stones/aguaMarinha/aguaMarinhaLogo.svg';
-import aguaMarinha from '../../images/stones/aguaMarinha/aguaMarinha.svg';
-import church from '../../images/trails/church.svg';
-import houses from '../../images/trails/houses.svg';
-import trainStation from '../../images/trails/trainstation.svg';
+import aguaMarinhaStone from '../../images/activity/stones/aguaMarinha/aguaMarinhaLogo.svg';
+import aguaMarinha from '../../images/activity/stones/aguaMarinha/aguaMarinha.svg';
+import church from '../../images/activity/houses/blue/church.svg';
+import houses from '../../images/activity/houses/blue/houses.svg';
+import trainStation from '../../images/activity/houses/blue/trainstation.svg';
 
 //Redux
 import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
@@ -42,11 +43,15 @@ const Stone = styled.div`
   display: flex;
   justify-content: center;
   padding: ${props => props.padding || '4rem 0 5rem'};
-  div{
+  
+  img {
+    width: ${props => props.width};
+
+  }
+  /* div{
     width: 2rem;
     height: 2rem;
-    background: red;
-    }
+    } */
 `;
 
 const Trail = styled.div`
@@ -74,13 +79,16 @@ const ActivitiesRow = styled.div`
 const Activities = (props) => {
   const [score, setScore] = useState(0)
   const [activities, setActivities] = useState(null);
+  const [currentActivity, setCurrentActivity] = useState(null);
   const [activitiesProgress, setActivitiesProgress] = useState(undefined);
   const [isModalActivitiesCompleted, setIsModalActivitiesCompleted] = useState(undefined);
 
+  const activityName = activityDesign && activityDesign[currentActivity];
+
   const backgroundDecorations = {
-    top: church,
-    center: houses,
-    bottom: trainStation
+    top: activityName?.houses?.church,
+    center: activityName?.houses?.houses,
+    bottom: activityName?.houses?.trainStation
   }
 
   useEffect(() => {
@@ -132,7 +140,7 @@ const Activities = (props) => {
       .map(action => action.score);
 
       if (points.length > 1) {
-        pendingScore = points.reduce((prev, cur) => prev + cur);
+        pendingScore = points.length > 0 && points.reduce((prev, cur) => prev + cur);
       } else {
         pendingScore = +points.join("");
       }
@@ -168,6 +176,12 @@ const Activities = (props) => {
     props.postActionsBook(props.actionsBook)
   }, [props]);
 
+  useEffect(() => {
+    const useCurrentActivity = props.activities.data[props.selectedTrails].name;
+
+    setCurrentActivity(useCurrentActivity);
+  }, [props]);
+
   const handlerNextActivitie = (index) => {
     props.history.push({
       pathname: `/activities/${index + 1}`,
@@ -190,6 +204,8 @@ const Activities = (props) => {
               itemValue={index}
               onClick={() => handlerNextActivitie(index)}
               history={props.history}
+              iconBloqued={activityName?.stone?.bloqued}
+              iconVisualized={activityName?.stone?.visualized}
             >{index}</ActivitieIcon>
           </ActivitiesRow>
         )
@@ -209,6 +225,8 @@ const Activities = (props) => {
                 lineTo={'straight'}
                 onClick={() => handlerNextActivitie(index)}
                 history={props}
+                iconBloqued={activityName?.stone?.bloqued}
+                iconVisualized={activityName?.stone?.visualized}
               >{index}</ActivitieIcon>
 
               <ActivitieIcon
@@ -218,6 +236,8 @@ const Activities = (props) => {
                 lineTo={'left'}
                 onClick={() => handlerNextActivitie(index + 1)}
                 history={props}
+                iconBloqued={activityName?.stone?.bloqued}
+                iconVisualized={activityName?.stone?.visualized}
               >{index + 1}</ActivitieIcon>
             </ActivitiesRow>
           )
@@ -251,60 +271,41 @@ const Activities = (props) => {
     else return "bloqued"
   }
 
-  const renderLogoStone = () => {
-    const name = props.activities.data[props.selectedTrails].name;
-    switch (name) {
-      case 'Água-Marinha':
-        return (
-          <Stone>
-            <img
-              src={aguaMarinha}
-              alt={name}
-              style={{ width: '12rem' }}
-            />
-          </Stone>
-        );
+  const renderStone = () =>  (
+    <Stone width='12rem'>
+      <img
+        src={activityName?.stone.stone}
+        alt={activityName?.name}
+      />
+    </Stone>
+  )
 
-      default:
-        return
-    }
-  }
+  const renderLogoStone = () => (
+    <Stone padding='4rem 0 2rem 0' width='4rem'>
+      <img
+        src={activityName?.stone.logo}
+        alt={activityName?.name}
+      />
+    </Stone>
 
-  const renderStone = () => {
-    const name = props.activities.data[props.selectedTrails].name;
-
-    switch (name) {
-      case 'Água-Marinha':
-        return (
-          <Stone padding='4rem 0 2rem 0'>
-            <img
-              src={aguaMarinhaStone}
-              alt={name}
-              style={{ width: '4rem' }}
-            />
-          </Stone>
-        );
-
-      default:
-        return
-    }
-  }
+  )
 
   return (
     <Container>
       <Header
-        title={props.activities.data[props.selectedTrails].name}
+        title={activityName?.name}
         goBack={() => { props.history.push('/trails') }}
       />
 
-      {renderLogoStone()}
+      {renderStone()}
 
       <Trail>
-        {activities && 
+        {activities && activityName &&
           <Way
             progress={activitiesProgress}
             backgroundDecorations={backgroundDecorations}
             linesQuantity={activities.length - 1}
+            lineColor={activityName?.color}
           />
         }
         {
@@ -314,7 +315,7 @@ const Activities = (props) => {
         }
       </Trail>
 
-      {renderStone()}
+      {renderLogoStone()}
       {isModalActivitiesCompleted && <ActivitiesCompleted score={score} history={props.history}/>}
       
     </Container>

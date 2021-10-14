@@ -109,7 +109,7 @@ const Box = styled.div`
   }
 `;
 
-function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actionsBook }) {
+function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actionsBook,  }) {
   const colors = {
     green: "#00FFEA", orange: "#F29F32", blue: "#8EBEFF", yellow: "#FFD932"
   }
@@ -482,7 +482,7 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
             {isCorrectAnswer ? 'continuar trilha' : 'conferir resposta'}
           </ContainerButton>
         </Content>
-        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer goBack={handlerNextActivitie} chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isModalCorrectAnswer && isModalWithoutScore === undefined && <ScoreScreen score={score} handleClick={handleContinue} />}
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}

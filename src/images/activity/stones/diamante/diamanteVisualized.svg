@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="66.696" height="66.696" viewBox="0 0 66.696 66.696">
+  <defs>
+    <linearGradient id="linear-gradient" x1="99.075" y1="121.596" x2="99.075" y2="121.567" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#96ddfc"/>
+      <stop offset="1" stop-color="#96ddfc"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="99.077" y1="158.571" x2="99.077" y2="158.534" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Diamante" transform="translate(-146.432 -366.334)">
+    <g id="Grupo_1903" data-name="Grupo 1903" transform="translate(-757.773 -6444.001)">
+      <path id="Elipse_30-4-23" data-name="Elipse 30-4-23" d="M-7307.966-5446.138a31.683,31.683,0,0,1,31.683,31.683,31.683,31.683,0,0,1-31.683,31.683,31.683,31.683,0,0,1-31.683-31.683A31.683,31.683,0,0,1-7307.966-5446.138Z" transform="translate(8245.285 12258.139)" fill="#f4de9b" stroke="#ed7100" stroke-width="2.332"/>
+      <g id="Grupo_1367" data-name="Grupo 1367" transform="translate(8245.285 12258.139)" opacity="0.63">
+        <path id="Caminho_2180" data-name="Caminho 2180" d="M-7312.918-5423.688l23.328-4.9,14.215,9.7-17.184,33.108h0l-29.474-23.316Z" fill="url(#linear-gradient)"/>
+        <path id="Caminho_2181" data-name="Caminho 2181" d="M-7311.081-5411.389l5.4-13.816,8.773-1.841,10.586,10.462Z" fill="#fff" opacity="0.5" style="mix-blend-mode: normal;isolation: isolate"/>
+        <path id="Caminho_2182" data-name="Caminho 2182" d="M-7288.676-5428.775l-10.027,14.788h0l-14.728-9.593Z" fill="#fff" opacity="0.5" style="mix-blend-mode: normal;isolation: isolate"/>
+        <path id="Caminho_2183" data-name="Caminho 2183" d="M-7322.053-5409.165l29.474,23.316,17.183-33.107Z" fill="url(#linear-gradient-2)"/>
+        <path id="Caminho_2184" data-name="Caminho 2184" d="M-7286.326-5416.584l-6.231,30.809h0l-18.524-25.614Z" fill="#fff" opacity="0.5" style="mix-blend-mode: normal;isolation: isolate"/>
+        <path id="Caminho_1801" data-name="Caminho 1801" d="M-7307.682-5404.833a.177.177,0,0,1,.034-.052l.383-.331.236-.2.021-.02a.1.1,0,0,0,.034-.052l.069-.221,0-.01.1-.313h0l.081-.259a.1.1,0,0,1,.043-.059.1.1,0,0,1,.091-.019.084.084,0,0,1,.052.034l.394.461.155.179a.094.094,0,0,0,.052.034l.086.027.72.217a.111.111,0,0,1,.074.135.107.107,0,0,1-.034.054l-.106.092-.242.211-.235.2h0l-.047.04a.1.1,0,0,0-.034.053l-.058.184-.1.312-.09.31a.111.111,0,0,1-.136.07.124.124,0,0,1-.053-.031l-.547-.638a.109.109,0,0,0-.052-.034l-.805-.244A.122.122,0,0,1-7307.682-5404.833Z" fill="#fff"/>
+        <path id="Caminho_1801-2" data-name="Caminho 1801-2" d="M-7313-5408.627a.513.513,0,0,1,.088-.136l.991-.844.606-.517.055-.051a.26.26,0,0,0,.089-.135l.179-.57,0-.025.245-.8,0-.012.21-.672a.264.264,0,0,1,.112-.149.258.258,0,0,1,.243-.038.229.229,0,0,1,.135.088l1.016,1.188.4.463a.258.258,0,0,0,.135.088l.223.07,1.858.559a.289.289,0,0,1,.19.349.262.262,0,0,1-.088.137l-.287.241-.626.546-.607.518-.012,0-.121.106a.258.258,0,0,0-.088.135l-.152.474-.247.805-.234.8a.283.283,0,0,1-.351.179.306.306,0,0,1-.133-.078l-1.412-1.651a.256.256,0,0,0-.135-.088l-2.08-.627A.307.307,0,0,1-7313-5408.627Z" fill="#fff"/>
+      </g>
+      <path id="Elipse_30-4-2-2" data-name="Elipse 30-4-2-2" d="M-7307.732-5446.138a31.683,31.683,0,0,1,31.683,31.683,31.683,31.683,0,0,1-31.683,31.683,31.683,31.683,0,0,1-31.683-31.683A31.683,31.683,0,0,1-7307.732-5446.138Z" transform="translate(8245.285 12258.139)" fill="none" stroke="#ffc400" stroke-width="3.33"/>
+    </g>
+  </g>
+</svg>

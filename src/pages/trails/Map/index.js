@@ -87,8 +87,8 @@ const Map = ({ trails, trailsState, goToActivitie }) => {
           return (
             <MapFragment
               key={key}
-              left={aliases[trail.name].position.left}
-              bottom={aliases[trail.name].position.bottom}
+              left={aliasesName.position.left}
+              bottom={aliasesName.position.bottom}
               type="image/svg+xml"
             >
               <Stone

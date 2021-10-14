@@ -10,45 +10,45 @@ import safiraMap from '../../../images/trails/map/safira.svg'
 import topazioMap from '../../../images/trails/map/topazio.svg'
 import turmalinaMap from '../../../images/trails/map/turmalina.svg'
 
-import aguaMarinhaStoneDone from '../../../images/stones/aguaMarinha/aguaMarinha.svg';
-import aguaMarinhaStoneDoing from '../../../images/stones/aguaMarinha/aguaMarinhaDoing.svg';
-import aguaMarinhaStoneBlocked from '../../../images/stones/aguaMarinha/aguaMarinhaBlocked.svg';
+import aguaMarinhaStoneDone from '../../../images/activity/stones/aguaMarinha/aguaMarinha.svg';
+import aguaMarinhaStoneDoing from '../../../images/activity/stones/aguaMarinha/aguaMarinhaDoing.svg';
+import aguaMarinhaStoneBlocked from '../../../images/activity/stones/aguaMarinha/aguaMarinhaBlocked.svg';
 
-import alexandritaStoneDone from '../../../images/stones/alexandrita/alexandrita.svg';
-import alexandritaStoneDoing from '../../../images/stones/alexandrita/alexandritaDoing.svg';
-import alexandritaStoneBlocked from '../../../images/stones/alexandrita/alexandritaBlocked.svg';
+import alexandritaStoneDone from '../../../images/activity/stones/alexandrita/alexandrita.svg';
+import alexandritaStoneDoing from '../../../images/activity/stones/alexandrita/alexandritaDoing.svg';
+import alexandritaStoneBlocked from '../../../images/activity/stones/alexandrita/alexandritaBlocked.svg';
 
-import ametistaStoneDone from '../../../images/stones/ametista/ametista.svg';
-import ametistaStoneDoing from '../../../images/stones/ametista/ametistaDoing.svg';
-import ametistaStoneBlocked from '../../../images/stones/ametista/ametistaBlocked.svg';
+import ametistaStoneDone from '../../../images/activity/stones/ametista/ametista.svg';
+import ametistaStoneDoing from '../../../images/activity/stones/ametista/ametistaDoing.svg';
+import ametistaStoneBlocked from '../../../images/activity/stones/ametista/ametistaBlocked.svg';
 
-import diamanteStoneDone from '../../../images/stones/diamante/diamante.svg';
-import diamanteStoneDoing from '../../../images/stones/diamante/diamanteDoing.svg';
-import diamanteStoneBlocked from '../../../images/stones/diamante/diamanteBlocked.svg';
+import diamanteStoneDone from '../../../images/activity/stones/diamante/diamante.svg';
+import diamanteStoneDoing from '../../../images/activity/stones/diamante/diamanteDoing.svg';
+import diamanteStoneBlocked from '../../../images/activity/stones/diamante/diamanteBlocked.svg';
 
-import esmeraldaStoneDone from '../../../images/stones/esmeralda/esmeralda.svg';
-import esmeraldaStoneDoing from '../../../images/stones/esmeralda/esmeraldaDoing.svg';
-import esmeraldaStoneBlocked from '../../../images/stones/esmeralda/esmeraldaBlocked.svg';
+import esmeraldaStoneDone from '../../../images/activity/stones/esmeralda/esmeralda.svg';
+import esmeraldaStoneDoing from '../../../images/activity/stones/esmeralda/esmeraldaDoing.svg';
+import esmeraldaStoneBlocked from '../../../images/activity/stones/esmeralda/esmeraldaBlocked.svg';
 
-import ouroStoneDone from '../../../images/stones/ouro/ouro.svg';
-import ouroStoneDoing from '../../../images/stones/ouro/ouroDoing.svg';
-import ouroStoneBlocked from '../../../images/stones/ouro/ouroBlocked.svg';
+import ouroStoneDone from '../../../images/activity/stones/ouro/ouro.svg';
+import ouroStoneDoing from '../../../images/activity/stones/ouro/ouroDoing.svg';
+import ouroStoneBlocked from '../../../images/activity/stones/ouro/ouroBlocked.svg';
 
-import prataStoneDone from '../../../images/stones/prata/prata.svg';
-import prataStoneDoing from '../../../images/stones/prata/prataDoing.svg';
-import prataStoneBlocked from '../../../images/stones/prata/prataBlocked.svg';
+import prataStoneDone from '../../../images/activity/stones/prata/prata.svg';
+import prataStoneDoing from '../../../images/activity/stones/prata/prataDoing.svg';
+import prataStoneBlocked from '../../../images/activity/stones/prata/prataBlocked.svg';
 
-import safiraStoneDone from '../../../images/stones/safira/safira.svg';
-import safiraStoneDoing from '../../../images/stones/safira/safiraDoing.svg';
-import safiraStoneBlocked from '../../../images/stones/safira/safiraBlocked.svg';
+import safiraStoneDone from '../../../images/activity/stones/safira/safira.svg';
+import safiraStoneDoing from '../../../images/activity/stones/safira/safiraDoing.svg';
+import safiraStoneBlocked from '../../../images/activity/stones/safira/safiraBlocked.svg';
 
-import topazioStoneDone from '../../../images/stones/topazio/topazio.svg';
-import topazioStoneDoing from '../../../images/stones/topazio/topazioDoing.svg';
-import topazioStoneBlocked from '../../../images/stones/topazio/topazioBlocked.svg';
+import topazioStoneDone from '../../../images/activity/stones/topazio/topazio.svg';
+import topazioStoneDoing from '../../../images/activity/stones/topazio/topazioDoing.svg';
+import topazioStoneBlocked from '../../../images/activity/stones/topazio/topazioBlocked.svg';
 
-import turmalinaStoneDone from '../../../images/stones/turmalina/turmalina.svg';
-import turmalinaStoneDoing from '../../../images/stones/turmalina/turmalinaDoing.svg';
-import turmalinaStoneBlocked from '../../../images/stones/turmalina/turmalinaBlocked.svg';
+import turmalinaStoneDone from '../../../images/activity/stones/turmalina/turmalina.svg';
+import turmalinaStoneDoing from '../../../images/activity/stones/turmalina/turmalinaDoing.svg';
+import turmalinaStoneBlocked from '../../../images/activity/stones/turmalina/turmalinaBlocked.svg';
 
 
 

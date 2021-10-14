@@ -147,7 +147,7 @@ const ALink = styled(Link)`
   justify-content: center;
 `;
 
-function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) {
+function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages, goBack }) {
   const [hasChances, setHasChance] = useState(true);
   const [isFirstMistake, setIsFirstMistake] = useState(true);
 
@@ -259,13 +259,14 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
       )
 
       }
-      <ALink to="/activities" >
+      {/* <ALink to="/activities" > */}
         <Button
           margin={"0 0 20px 0"}
           background={"rgb(252, 208, 41)"}
           boxShadow={"rgb(238 137 47) 0px 7px 0px"}
+          handleClick={goBack}
         >Voltar a Trilha</Button>
-      </ALink>
+      {/* </ALink> */}
     </>
   );
 

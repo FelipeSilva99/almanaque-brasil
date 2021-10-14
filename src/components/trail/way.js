@@ -67,7 +67,7 @@ const HouseImg = styled(Decoration)`
   }
 `;
 
-const Way = ({ backgroundDecorations, linesQuantity, progress }) => {
+const Way = ({ backgroundDecorations, linesQuantity, progress, lineColor }) => {
   const [lines, setLines] = useState(undefined)
   
   const defineLines = (quantity) => {
@@ -112,7 +112,7 @@ const Way = ({ backgroundDecorations, linesQuantity, progress }) => {
   }
 
   const setColor = (ind) => {
-    if(progress[ind]?.state === 'right' || progress[ind]?.state === 'wrong') return '#4C90AF'
+    if(progress[ind]?.state === 'right' || progress[ind]?.state === 'wrong') return lineColor
     else return 'silver'
   }
 

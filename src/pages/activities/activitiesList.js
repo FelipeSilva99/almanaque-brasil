@@ -86,9 +86,13 @@ const Activities = (props) => {
   const activityName = activityDesign && activityDesign[currentActivity];
 
   const backgroundDecorations = {
-    top: church,
-    center: houses,
-    bottom: trainStation
+    // top: church,
+    // center: houses,
+    // bottom: trainStation
+
+    top: activityName?.houses?.church,
+    center: activityName?.houses?.houses,
+    bottom: activityName?.houses?.trainStation
   }
 
   useEffect(() => {
@@ -140,7 +144,7 @@ const Activities = (props) => {
       .map(action => action.score);
 
       if (points.length > 1) {
-        pendingScore = points.reduce((prev, cur) => prev + cur);
+        pendingScore = points.length > 0 && points.reduce((prev, cur) => prev + cur);
       } else {
         pendingScore = +points.join("");
       }
@@ -156,7 +160,7 @@ const Activities = (props) => {
       .filter(action => action.trailId === trailId)
       .map(action => action.score);
 
-      syncedScore = points.reduce((prev, cur) => prev + cur);
+      syncedScore = points.length > 0 && points.reduce((prev, cur) => prev + cur);
     } else {
       console.log("no synced actions");
     }
@@ -296,11 +300,12 @@ const Activities = (props) => {
       {renderStone()}
 
       <Trail>
-        {activities && 
+        {activities && activityName &&
           <Way
             progress={activitiesProgress}
             backgroundDecorations={backgroundDecorations}
             linesQuantity={activities.length - 1}
+            lineColor={activityName?.color}
           />
         }
         {

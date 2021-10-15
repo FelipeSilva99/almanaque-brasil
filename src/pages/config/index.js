@@ -14,7 +14,8 @@ import { clearModalsState } from '../../dataflow/modules/modals-module';
 import Header from '../../components/header/headerYellow';
 import Footer from '../../components/footer/footerMenu';
 import Button from '../../components/buttons/button';
-import Item from './item'
+import Item from './item';
+import ModalResetMapAlert from '../../components/modal/resetMapAlert';
 
 //Image
 import iconThunk from '../../images/icons/settings.svg';
@@ -51,6 +52,7 @@ const BoxConfig = styled.div`
 
 const Config = (props) => {
   const history = useHistory();
+  const [isModalResetMap, setIsModalResetMap] = useState(undefined);
 
   async function handleSignOut() {
     try {
@@ -62,6 +64,10 @@ const Config = (props) => {
     } catch (error) {
       console.log('error signout: ', error);
     }
+  }
+
+  const handleModalResetMap = () => {
+    setIsModalResetMap(!isModalResetMap);
   }
 
   async function handleResetProgress() {
@@ -77,35 +83,32 @@ const Config = (props) => {
     }
   }
 
-  const [check, setCheck] = useState(null);
-  const openSettings = (index) => {
-    if (index === check) {
-      setCheck(null)
-    } else setCheck(index)
+  const openSettings = (router) => {
+    if(router === 'openModalResetMap') {
+      handleModalResetMap();
+    } else if (router === 'config/tutorial') {
+      history.push(`/${router}`);
+    } else {
+      alert(router);
+      // history.push(`/${router}`);
+    }
   }
 
   const data = [{
     title: 'Tutorial',
-    content: <p>teste</p>
+    router: 'config/tutorial',
   },
   {
     title: 'Reiniciar mapa das trilhas',
-    content:
-      <Button
-        background="#fcd029"
-        color="#373737"
-        handleClick={handleResetProgress}
-      >
-        Confirmar
-      </Button>
+    router: 'openModalResetMap',
   },
   {
     title: 'Termos de uso e privacidade',
-    content: <p>teste</p>
+    router: 'termos-de-uso-e-privacidade',
   },
   {
     title: 'Agradecimentos',
-    content: <p>teste</p>
+    router: 'agradecimentos',
   },]
 
   return (
@@ -122,18 +125,15 @@ const Config = (props) => {
           <Item
             key={index}
             title={i.title}
-            handleClick={() => openSettings(index)}
-            isOpen={check === index}
-            isCheck={check === index}
-          >
-            {i.content}
-          </Item>
+            handleClick={() => openSettings(i.router)}
+          />
         ))}
 
         <Button handleClick={handleSignOut} >
           Sair do aplicativo
         </Button>
       </BoxConfig>
+      {isModalResetMap && <ModalResetMapAlert handleResetProgress={handleResetProgress} handleCloseModal={handleModalResetMap}/>}
       <Footer screen='config' />
     </Container>
   );

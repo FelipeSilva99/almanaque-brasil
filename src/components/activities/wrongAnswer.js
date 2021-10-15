@@ -1,9 +1,6 @@
 // Libs
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import {
-  Link,
-} from "react-router-dom";
 
 // Assets
 import iconElifas from '../../images/elifas/tip.svg';
@@ -141,12 +138,6 @@ const ButtonsBox = styled.div`
   }
 `;
 
-const ALink = styled(Link)`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-`;
-
 function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages, goBack }) {
   const [hasChances, setHasChance] = useState(true);
   const [isFirstMistake, setIsFirstMistake] = useState(true);
@@ -259,14 +250,14 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages, go
       )
 
       }
-      {/* <ALink to="/activities" > */}
-        <Button
-          margin={"0 0 20px 0"}
-          background={"rgb(252, 208, 41)"}
-          boxShadow={"rgb(238 137 47) 0px 7px 0px"}
-          handleClick={goBack}
-        >Voltar a Trilha</Button>
-      {/* </ALink> */}
+      <Button
+        margin={"0 0 20px 0"}
+        background={"rgb(252, 208, 41)"}
+        boxShadow={"rgb(238 137 47) 0px 7px 0px"}
+        handleClick={goBack}
+      >
+        Voltar a Trilha
+      </Button>
     </>
   );
 

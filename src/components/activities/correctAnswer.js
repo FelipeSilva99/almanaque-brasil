@@ -150,7 +150,7 @@ const CorrectAnswer = (props) => {
         ? setActualModal(modals.noScore)
         : setActualModal(modals.answerDescription)
 
-  }, [props.toScore, modals.answerDescription, modals.toScore, props.idActivitie]);
+  }, [props.toScore, modals.answerDescription, props.idActivitie, props.noScore, modals.toScore, modals.noScore]);
 
   const handleContinue = () => {
     switch (actualModal) {
@@ -173,7 +173,7 @@ const CorrectAnswer = (props) => {
   }
 
   const renderModal = () => {
-    const { chances, answer, isTrunk, idActivitie } = props;
+    const { answer, isTrunk, idActivitie } = props;
     switch (actualModal) {
       case modals.toScore:
         return (

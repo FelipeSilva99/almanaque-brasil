@@ -23,21 +23,13 @@ const Title = styled.h3`
 
 const IconArrow = styled.img`
   transform: ${props => props.isOpen && 'rotate(90deg)'};
+  cursor: pointer;
 `;
 
-const Item = ({
-  title,
-  handleClick,
-  isOpen,
-}) => (
+const Item = ({ title }) => (
   <Container>
-      <Title>{title}</Title>
-      <IconArrow
-        src={arrow}
-        alt='Seta'
-        isOpen={isOpen}
-        onClick={handleClick}
-      />
+    <Title>{title}</Title>
+    <IconArrow src={arrow} alt='Seta' />
   </Container>
 )
 

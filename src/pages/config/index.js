@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 //Redux
 import { signOut } from '../../dataflow/modules/signIn-modules';
@@ -52,7 +52,6 @@ const BoxConfig = styled.div`
 
 const Config = (props) => {
   const history = useHistory();
-  const [check, setCheck] = useState(null);
   const [isModalResetMap, setIsModalResetMap] = useState(undefined);
 
   async function handleSignOut() {
@@ -127,8 +126,6 @@ const Config = (props) => {
             key={index}
             title={i.title}
             handleClick={() => openSettings(i.router)}
-            isOpen={check === index}
-            isCheck={check === index}
           />
         ))}
 

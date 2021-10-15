@@ -89,7 +89,7 @@ const Trails = (props) => {
 
 	useEffect(() => {
 		props.getTrailsThunk();
-	}, []);
+	}, [props]);
 
   const handleActivities = (trail) => {
     props.history.push({pathname: '/activities'});

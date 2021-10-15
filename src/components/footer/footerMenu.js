@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
 
-//Component
-import Config from '../../pages/config';
-
 //Images
 import home from '../../images/icons/menu/home.svg';
 import selectedHome from '../../images/icons/menu/selectedHome.svg';
@@ -56,7 +53,6 @@ const Text = styled.p`
 
 const Footer = ({ screen }) => {
   const history = useHistory();
-  //const [isModalConfig, setIsModalConfig] = useState(undefined);
   const [options] = useState([
     {
       img: home,
@@ -85,12 +81,7 @@ const Footer = ({ screen }) => {
   ]);
 
   const handleRouter = (router, i) => {
-    /* if (router === 'config') {
-      setIsModalConfig(!isModalConfig);
-    } else { */
-      history.push(`/${router}`);
-      /* setIsModalConfig(false);
-    } */
+    history.push(`/${router}`);
   }
   
   return (
@@ -105,7 +96,6 @@ const Footer = ({ screen }) => {
             </Content>
           )
         })}
-        {/* {isModalConfig && <Config />} */}
       </Container>
     </Alingment>
   );

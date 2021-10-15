@@ -32,6 +32,7 @@ const Content = styled.div`
 `;
 
 const ContentBox = styled.div`
+  padding-bottom: 50px;
   width: 100%;
   flex: 1;
   display: flex;

@@ -12,8 +12,8 @@ const Container = styled.div`
   padding: .875rem 1rem;
   margin-bottom: 16px;
   background: #FFF;
-  box-shadow: 0px 3px 6px #00000029;
   border-radius: 16px;
+  box-shadow: 0px 3px 6px #00000029;
 `;
 
 const Title = styled.h3`

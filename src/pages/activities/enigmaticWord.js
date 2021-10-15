@@ -1,4 +1,3 @@
-/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -220,10 +219,15 @@ function EnigmaticWord({ activitie, registerAction, actionsBook, handlerNextActi
   }
 
   const handleSubmit = () => {
-    let userAnswer = "";
     const isError = enigmas.map(item => item.userInput).filter(i => !i).length > 0;
     const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
     const useAllowScore = allowScore(activitie.trailId, activitie.id, listActionsBook);
+    const useCorrectAnswer = activitie.answer.answer.toLowerCase();
+    let userAnswer = "";
+    enigmas.map(item => {
+      userAnswer = `${userAnswer}${item.userInput}`
+    })
+    userAnswer = userAnswer.toLowerCase();
 
     if (isError) {
       setIsError(true);
@@ -232,21 +236,13 @@ function EnigmaticWord({ activitie, registerAction, actionsBook, handlerNextActi
       const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
       const useAllowScore = allowScore(activitie.trailId, activitie.id, listActionsBook);
       if (useAllowScore) {
-        enigmas.map((item) => {
-            userAnswer = `${userAnswer}${item.userInput}`;
-          })
         userAnswer = userAnswer.toLowerCase();
-        if (userAnswer === activitie.answer.answer) setModalCorrectAnswer(true);
+        if (userAnswer === useCorrectAnswer) setModalCorrectAnswer(true);
         else handleWrongAnswer()
 
       }
-      // eslint-disable-next-line array-callback-return
     } else {
-      enigmas.map(item => {
-        userAnswer = `${userAnswer}${item.userInput}`
-      })
-      userAnswer = userAnswer.toLowerCase();
-      if (userAnswer === activitie.answer.answer) {
+      if (userAnswer === useCorrectAnswer) {
         setIsModalWithoutScore(true);
         showModalAnswer();
       } 
@@ -260,7 +256,6 @@ function EnigmaticWord({ activitie, registerAction, actionsBook, handlerNextActi
         <Header title={activitie?.name} />
         <Content>
           <Puzzle>
-            {/* {JSON.stringify(activitie?.enigmas)} */}
             {enigmas && enigmas.map((enigma, i) => {
               return (
                 <Enigma key={i}>

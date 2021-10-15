@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import tutorialData from './tutorialData';
+
 //Images
 import iconElifas from '../../images/elifas/tip.svg';
 
@@ -33,7 +35,6 @@ const ContentInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   margin: 0 auto;
   padding: 1.5rem 1.5rem 1rem;
   width: 96%;
@@ -61,6 +62,12 @@ const ContentInfo = styled.div`
     transform: rotate(5deg);
     z-index: -1;
   }
+`;
+
+const TutorialBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Title = styled.h2`
@@ -135,57 +142,6 @@ const CloseBtn = styled.button`
   transform: scale(1,.9);
 `;
 
-const tutorialData = [
-  {
-    game: 'Se liga!',
-    text: [
-      'Observe as colunas de imagem e de texto.',
-      'Identifique qual imagem corresponde à palavra da segunda coluna.',
-      'Clique na imagem e na palavra correspondente.',
-    ]
-  },
-  {
-    game: 'Você sabia?',
-    text: [
-      'Leia o texto primeiro.',
-      'Clicando em responder você verá opções de resposta.',
-      'Escolha a resposta que achar correta.',
-    ]
-  },
-  {
-    game: 'Coisas nossas',
-    text: [
-      'Leia o texto primeiro.',
-      'Clicando em responder você verá opções de resposta.',
-      'Escolha a resposta que achar correta.',
-    ]
-  },
-  {
-    game: 'O que é o que é?',
-    text: [
-      'Leia a pergunta que aparece na tela.',
-      'Ao clicar em responder aparecerá um teclado.',
-      'Digite a resposta que achar correta.',
-    ]
-  },
-  {
-    game: 'De quem são estes olhos',
-    text: [
-      'Tente reconhecer de quem são os olhos que estão em destaque.',
-      'Clicando em responder, você verá opções de resposta.',
-      'Escolha o nome da pessoa que corresponde aos olhos.',
-    ]
-  },
-  {
-    game: 'Palavra enigmática',
-    text: [
-      'Responda uma coluna por vez.',
-      'Olhe a imagem e subtraia a sílaba indicada.',
-      'Digite a sílaba que restou no espaço abaixo da imagem.',
-    ]
-  },
-]
-
 function Tutorial({ screen, handleCloseTutorial }) {
   return (
     <Container>
@@ -193,14 +149,14 @@ function Tutorial({ screen, handleCloseTutorial }) {
         <ContentInfo>
           <Title>Tutorial</Title>
           {tutorialData
-            .filter((item) => item.game === screen)
-            .map((data, index) => (
-              <>
+            .filter(item => item.game.toLowerCase() === screen.toString().toLowerCase())
+            .map((data, i) => (
+              <TutorialBox key={i}>
                 <Subtitle>{data.game}</Subtitle>
                 <Scroll>
                   {data.text.map(item => <Text>{item}</Text>)}
                 </Scroll>
-              </>
+              </TutorialBox>
             ))
           }
           <CloseBtn onClick={handleCloseTutorial}>X</CloseBtn>

@@ -46,7 +46,7 @@ const Container = styled.div`
 
 const BoxConfig = styled.div`
   width: 100%;
-  padding: 0 32px;
+  padding: 15px 32px;
 `;
 
 const Config = (props) => {
@@ -92,8 +92,8 @@ const Config = (props) => {
     title: 'Reiniciar mapa das trilhas',
     content:
       <Button
-        background="red"
-        color="white"
+        background="#fcd029"
+        color="#373737"
         handleClick={handleResetProgress}
       >
         Confirmar

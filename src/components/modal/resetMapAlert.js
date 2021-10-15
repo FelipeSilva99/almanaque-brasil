@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import Button from '../buttons/button';
 
 //Images
-import iconElifas from '../../images/elifas/tip.svg';
-import close from '../../images/icons/close.svg';
+import iconElifas from '../../images/elifas/ok.svg';
 
 //Styled
 const Container = styled.div`
@@ -14,39 +13,43 @@ const Container = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background: #ababab45;
-  z-index: 3;
-
+  background: #4446;
+	z-index: 3;
+  
   @media (min-width: 1024px) { align-items: center; }
 `;
 
 const Content = styled.div`
   position: relative;
-  width: 94%;
-  height: 93vh;
-  max-width: 340px;
+  padding-top: 3rem;
+  max-width: 380px;
+  width: 100%;
+  height: 100%;
+	display: flex;
+	align-items: start;
 
-  @media (max-width: 320px) { height: 99vh; }
-  @media (min-width: 768px) { height: 64vh; }
+  @media (min-height: 700px) {
+    padding-top: 0;
+    align-items: center;
+  }
 `;
 
 const ContentInfo = styled.div`
   position: relative;
+  top: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  /* margin: 0 auto; */
+  margin: 0 auto;
   padding: 1.5rem 1rem 0;
-  /* width: 96%; */
-  /* letter-spacing: 1px; */
-  filter: drop-shadow(1px 4px 3px #999);
-  border-radius: 30px;
+  width: 91%;
+  border-radius: 22px;
   background: #fff;
 
   img {
@@ -57,7 +60,7 @@ const ContentInfo = styled.div`
     position: absolute;
     content: '';
     left: 51%;
-    bottom: -12%;
+    bottom: -11%;
     display: block;
     width: 50px;
     height: 70px;
@@ -68,12 +71,18 @@ const ContentInfo = styled.div`
     transform: rotate(5deg);
     z-index: -1;
   }
+
+  @media (max-width: 320px) {
+    padding: 1rem 1rem 0;
+    width: 95%;
+  }
 `;
 
-const Title = styled.h2`
+const Title = styled.h1`
   font-size: 1.5rem;
   font-weight: 900;
   color: #FB6C76;
+	text-align: center;
 `;
 
 const Text = styled.p`
@@ -81,23 +90,22 @@ const Text = styled.p`
   align-self: normal;
   font-size: 1rem;
   color: #373737;
-  max-width: 294px;
-
-  @media (max-width: 320px) { margin-bottom: 1rem; }
+  max-width: 297px;
 `;
 
-const ImgElifas = styled.img`
-  position: absolute;
-  right: -3%;
-  bottom: 0;
-  width: 10rem;
-`;
-
-const IconClose = styled.span`
+const IconClose = styled.button`
   font-size: 1.25rem;
   font-weight: 800;
   color: #373737;
   padding: .813rem 0;
+  z-index: 4;
+`;
+
+const ImgBento = styled.img`
+  position: absolute;
+  right: -1%;
+  bottom: 0;
+  width: 12rem;
 `;
 
 function ResetMapAlert({ handleResetProgress, handleCloseModal }) {
@@ -109,9 +117,9 @@ function ResetMapAlert({ handleResetProgress, handleCloseModal }) {
           <Text>Tem certeza que quer reiniciar seu mapa?</Text>
           <Text>Ao fazer isso você irá apagar tudo que fez até o momento. Você iniciará tudo de novo.</Text>
           <Button handleClick={handleResetProgress} margin='.5rem'>reiniciar</Button>
-          <IconClose src={close} alt={"fechar"} onClick={handleCloseModal}> x </IconClose>
+          <IconClose onClick={handleCloseModal}>x</IconClose>
         </ContentInfo>
-        <ImgElifas src={iconElifas} />
+        <ImgBento src={iconElifas} />
       </Content>
     </Container>
   )

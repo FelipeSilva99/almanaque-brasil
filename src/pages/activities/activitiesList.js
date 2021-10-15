@@ -41,10 +41,6 @@ const Stone = styled.div`
     width: ${props => props.width};
 
   }
-  /* div{
-    width: 2rem;
-    height: 2rem;
-    } */
 `;
 
 const Trail = styled.div`
@@ -89,21 +85,16 @@ const Activities = (props) => {
 
     let canBeDone = true;
 
-    // let newListActivities = [];
-
     const activitiesStates = activities.map((activitie) => {
       const isDoneActivitie = isDone(activitie.id);
-      // const background = setBackgroundColor(activitie)
       const activitieState = isDoneActivitie ? isDoneActivitie : defineState(canBeDone && !isDoneActivitie)
       if (!isDoneActivitie) canBeDone = false;
-      // newListActivities.push({...activitie, state: activitieState});
       return { id: activitie.id, state: activitieState }
     });
 
     setActivitiesProgress(activitiesStates);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activities]);
+  }, [activities, isDone]);
 
   useEffect(() => {
     const trail = props.selectedTrails;
@@ -239,6 +230,7 @@ const Activities = (props) => {
     })
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function isDone(activityId) {
     const actionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync]
     if (actionsBook === undefined) return

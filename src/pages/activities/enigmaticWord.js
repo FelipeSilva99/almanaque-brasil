@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -231,9 +232,9 @@ function EnigmaticWord({ activitie, registerAction, actionsBook, handlerNextActi
       const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
       const useAllowScore = allowScore(activitie.trailId, activitie.id, listActionsBook);
       if (useAllowScore) {
-        enigmas.map(item => {
-          userAnswer = `${userAnswer}${item.userInput}`
-        })
+        enigmas.map((item) => {
+            userAnswer = `${userAnswer}${item.userInput}`;
+          })
         userAnswer = userAnswer.toLowerCase();
         if (userAnswer === activitie.answer.answer) setModalCorrectAnswer(true);
         else handleWrongAnswer()

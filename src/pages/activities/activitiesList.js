@@ -9,13 +9,6 @@ import Way from '../../components/trail/way';
 import ActivitiesCompleted from '../../components/modal/activitiesCompletedModal';
 import activityDesign from './activityDesign';
 
-//Assets
-import aguaMarinhaStone from '../../images/activity/stones/aguaMarinha/aguaMarinhaLogo.svg';
-import aguaMarinha from '../../images/activity/stones/aguaMarinha/aguaMarinha.svg';
-import church from '../../images/activity/houses/blue/church.svg';
-import houses from '../../images/activity/houses/blue/houses.svg';
-import trainStation from '../../images/activity/houses/blue/trainstation.svg';
-
 //Redux
 import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 

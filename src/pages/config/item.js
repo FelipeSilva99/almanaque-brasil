@@ -9,7 +9,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 19px 16px;
+  padding: .875rem 1rem;
   margin-bottom: 16px;
   background: #FFF;
   box-shadow: 0px 3px 6px #00000029;
@@ -23,21 +23,13 @@ const Title = styled.h3`
 
 const IconArrow = styled.img`
   transform: ${props => props.isOpen && 'rotate(90deg)'};
+  cursor: pointer;
 `;
 
-const Item = ({
-  title,
-  handleClick,
-  isOpen,
-}) => (
+const Item = ({ title }) => (
   <Container>
-      <Title>{title}</Title>
-      <IconArrow
-        src={arrow}
-        alt='Seta'
-        isOpen={isOpen}
-        onClick={handleClick}
-      />
+    <Title>{title}</Title>
+    <IconArrow src={arrow} alt='Seta' />
   </Container>
 )
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 // Styles
 const Content = styled.button`
+  padding-top: 5px;
   margin: ${props => props.margin || 'auto'};
 	width: 100%;
 	height: ${props => props.height || '2.375rem'};
@@ -11,7 +12,7 @@ const Content = styled.button`
 	justify-content: center;
 	align-items: center;
 	background: ${props => props.background || '#fcd029'};
-	border-radius: 20px;
+  border-radius: 17px;
 	box-shadow: ${props => props.boxShadow || '0 7px 0 #ee892f'};
   
   :disabled {

@@ -12,7 +12,6 @@ const initialState = {
 export default function foo(state = initialState, action) {
   switch (action.type) {
     case SAVE_THUNK: {
-      console.log()
       return Object.assign({}, state, {
         ...state,
         data: action.thunk

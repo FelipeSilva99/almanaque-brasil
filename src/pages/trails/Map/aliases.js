@@ -10,55 +10,55 @@ import safiraMap from '../../../images/trails/map/safira.svg'
 import topazioMap from '../../../images/trails/map/topazio.svg'
 import turmalinaMap from '../../../images/trails/map/turmalina.svg'
 
-import aguaMarinhaStoneDone from '../../../images/stones/aguaMarinha/aguaMarinha.svg';
-import aguaMarinhaStoneDoing from '../../../images/stones/aguaMarinha/aguaMarinhaDoing.svg';
-import aguaMarinhaStoneBlocked from '../../../images/stones/aguaMarinha/aguaMarinhaBlocked.svg';
+import aguaMarinhaStoneDone from '../../../images/activity/stones/aguaMarinha/aguaMarinha.svg';
+import aguaMarinhaStoneDoing from '../../../images/activity/stones/aguaMarinha/aguaMarinhaDoing.svg';
+import aguaMarinhaStoneBlocked from '../../../images/activity/stones/aguaMarinha/aguaMarinhaBlocked.svg';
 
-import alexandritaStoneDone from '../../../images/stones/alexandrita/alexandrita.svg';
-import alexandritaStoneDoing from '../../../images/stones/alexandrita/alexandritaDoing.svg';
-import alexandritaStoneBlocked from '../../../images/stones/alexandrita/alexandritaBlocked.svg';
+import alexandritaStoneDone from '../../../images/activity/stones/alexandrita/alexandrita.svg';
+import alexandritaStoneDoing from '../../../images/activity/stones/alexandrita/alexandritaDoing.svg';
+import alexandritaStoneBlocked from '../../../images/activity/stones/alexandrita/alexandritaBlocked.svg';
 
-import ametistaStoneDone from '../../../images/stones/ametista/ametista.svg';
-import ametistaStoneDoing from '../../../images/stones/ametista/ametistaDoing.svg';
-import ametistaStoneBlocked from '../../../images/stones/ametista/ametistaBlocked.svg';
+import ametistaStoneDone from '../../../images/activity/stones/ametista/ametista.svg';
+import ametistaStoneDoing from '../../../images/activity/stones/ametista/ametistaDoing.svg';
+import ametistaStoneBlocked from '../../../images/activity/stones/ametista/ametistaBlocked.svg';
 
-import diamanteStoneDone from '../../../images/stones/diamante/diamante.svg';
-import diamanteStoneDoing from '../../../images/stones/diamante/diamanteDoing.svg';
-import diamanteStoneBlocked from '../../../images/stones/diamante/diamanteBlocked.svg';
+import diamanteStoneDone from '../../../images/activity/stones/diamante/diamante.svg';
+import diamanteStoneDoing from '../../../images/activity/stones/diamante/diamanteDoing.svg';
+import diamanteStoneBlocked from '../../../images/activity/stones/diamante/diamanteBlocked.svg';
 
-import esmeraldaStoneDone from '../../../images/stones/esmeralda/esmeralda.svg';
-import esmeraldaStoneDoing from '../../../images/stones/esmeralda/esmeraldaDoing.svg';
-import esmeraldaStoneBlocked from '../../../images/stones/esmeralda/esmeraldaBlocked.svg';
+import esmeraldaStoneDone from '../../../images/activity/stones/esmeralda/esmeralda.svg';
+import esmeraldaStoneDoing from '../../../images/activity/stones/esmeralda/esmeraldaDoing.svg';
+import esmeraldaStoneBlocked from '../../../images/activity/stones/esmeralda/esmeraldaBlocked.svg';
 
-import ouroStoneDone from '../../../images/stones/ouro/ouro.svg';
-import ouroStoneDoing from '../../../images/stones/ouro/ouroDoing.svg';
-import ouroStoneBlocked from '../../../images/stones/ouro/ouroBlocked.svg';
+import ouroStoneDone from '../../../images/activity/stones/ouro/ouro.svg';
+import ouroStoneDoing from '../../../images/activity/stones/ouro/ouroDoing.svg';
+import ouroStoneBlocked from '../../../images/activity/stones/ouro/ouroBlocked.svg';
 
-import prataStoneDone from '../../../images/stones/prata/prata.svg';
-import prataStoneDoing from '../../../images/stones/prata/prataDoing.svg';
-import prataStoneBlocked from '../../../images/stones/prata/prataBlocked.svg';
+import prataStoneDone from '../../../images/activity/stones/prata/prata.svg';
+import prataStoneDoing from '../../../images/activity/stones/prata/prataDoing.svg';
+import prataStoneBlocked from '../../../images/activity/stones/prata/prataBlocked.svg';
 
-import safiraStoneDone from '../../../images/stones/safira/safira.svg';
-import safiraStoneDoing from '../../../images/stones/safira/safiraDoing.svg';
-import safiraStoneBlocked from '../../../images/stones/safira/safiraBlocked.svg';
+import safiraStoneDone from '../../../images/activity/stones/safira/safira.svg';
+import safiraStoneDoing from '../../../images/activity/stones/safira/safiraDoing.svg';
+import safiraStoneBlocked from '../../../images/activity/stones/safira/safiraBlocked.svg';
 
-import topazioStoneDone from '../../../images/stones/topazio/topazio.svg';
-import topazioStoneDoing from '../../../images/stones/topazio/topazioDoing.svg';
-import topazioStoneBlocked from '../../../images/stones/topazio/topazioBlocked.svg';
+import topazioStoneDone from '../../../images/activity/stones/topazio/topazio.svg';
+import topazioStoneDoing from '../../../images/activity/stones/topazio/topazioDoing.svg';
+import topazioStoneBlocked from '../../../images/activity/stones/topazio/topazioBlocked.svg';
 
-import turmalinaStoneDone from '../../../images/stones/turmalina/turmalina.svg';
-import turmalinaStoneDoing from '../../../images/stones/turmalina/turmalinaDoing.svg';
-import turmalinaStoneBlocked from '../../../images/stones/turmalina/turmalinaBlocked.svg';
+import turmalinaStoneDone from '../../../images/activity/stones/turmalina/turmalina.svg';
+import turmalinaStoneDoing from '../../../images/activity/stones/turmalina/turmalinaDoing.svg';
+import turmalinaStoneBlocked from '../../../images/activity/stones/turmalina/turmalinaBlocked.svg';
 
 
 
 const trailsMap = {
   "Água-Marinha": {
-    "position": {bottom: "434px", left: "108px"},
+    "position": {bottom: "457px", left: "115px"},
     "img": aguaMarinhaMap,
     "name": 'agua-marinha',
     "stone": {
-      position: {top: "38px", right: "72px"},
+      position: {top: "56px", right: "77px"},
       state: {
         "todo": aguaMarinhaStoneBlocked,
         "doing": aguaMarinhaStoneDoing,
@@ -68,11 +68,11 @@ const trailsMap = {
   },
 
   "Diamante": {
-    "position": {bottom: "266px", left: "0px"},
+    "position": {bottom: "283px", left: "3px"},
     "img": diamanteMap,
     "name": 'diamante',
     "stone": {
-      position: {top: "38px", right: "53px"},
+      position: {top: "35px", right: "64px"},
       state: {
         "todo": diamanteStoneBlocked,
         "doing": diamanteStoneDoing,
@@ -82,11 +82,11 @@ const trailsMap = {
   },
 
   "Ametista": {
-    "position": {bottom: "0px", left: "0px"},
+    "position": {bottom: "3px", left: "3px"},
     "img": ametistaMap,
     "name": 'ametista',
     "stone": {
-      position: {top: "38px", right: "66px"},
+      position: {top: "33px", right: "71px"},
       state: {
         "todo": ametistaStoneBlocked,
         "doing": ametistaStoneDoing,
@@ -96,11 +96,11 @@ const trailsMap = {
   },
 
   "Turmalina": {
-    "position": {bottom: "328px", left: "218px"},
+    "position": {bottom: "347px", left: "227px"},
     "img": turmalinaMap,
     "name": 'turmalina',
     "stone": {
-      position: {top: "52px", right: "12px"},
+      position: {top: "63px", right: "28px"},
       state: {
         "todo": turmalinaStoneBlocked,
         "doing": turmalinaStoneDoing,
@@ -110,11 +110,11 @@ const trailsMap = {
   },
 
   "Prata": {
-    "position": {bottom: "100px", left: "0px"},
+    "position": {bottom: "111px", left: "2px"},
     "img": prataMap,
     "name": 'prata',
     "stone": {
-      position: {top: "38px", right: "35px"},
+      position: {top: "47px", right: "46px"},
       state: {
         "todo": prataStoneBlocked,
         "doing": prataStoneDoing,
@@ -124,11 +124,11 @@ const trailsMap = {
   },
 
   "Ouro": {
-    "position": {bottom: "118px", left: "135px"},
+    "position": {bottom: "130px", left: "141px"},
     "img": ouroMap,
     "name": 'ouro',
     "stone": {
-      position: {top: "53px", right: "47px"},
+      position: {top: "61px", right: "56px"},
       state: {
         "todo": ouroStoneBlocked,
         "doing": ouroStoneDoing,
@@ -138,11 +138,11 @@ const trailsMap = {
   },
 
   "Esmeralda": {
-    "position": {bottom: "265px", left: "157px"},
+    "position": {bottom: "281px", left: "166px"},
     "img": esmeraldaMap,
     "name": 'esmeralda',
     "stone": {
-      position: {top: "38px", right: "75px"},
+      position: {top: "39px", right: "105px"},
       state: {
         "todo": esmeraldaStoneBlocked,
         "doing": esmeraldaStoneDoing,
@@ -152,11 +152,11 @@ const trailsMap = {
   },
 
   "Safira": {
-    "position": {bottom: "96px", left: "282px"},
+    "position": {bottom: "107px", left: "291px"},
     "img": safiraMap,
     "name": 'safira',
     "stone": {
-      position: {top: "81px", right: "12px"},
+      position: {top: "90px", right: "28px"},
       state: {
         "todo": safiraStoneBlocked,
         "doing": safiraStoneDoing,
@@ -166,11 +166,11 @@ const trailsMap = {
   },
 
   "Alexandrita": {
-    "position": {bottom: "0", left: "135px"},
+    "position": {bottom: "3px", left: "143px"},
     "img": alexandritaMap,
     "name": 'alexandrita',
     "stone": {
-      position: {top: "38px", right: "101px"},
+      position: {top: "46px", right: "123px"},
       state: {
         "todo": alexandritaStoneBlocked,
         "doing": alexandritaStoneDoing,
@@ -180,11 +180,11 @@ const trailsMap = {
   },
 
   "Topázio": {
-    "position": {bottom: "394px", left: "0px"},
+    "position": {bottom: "414px", left: "3px"},
     "img": topazioMap,
     "name": 'topazio',
     "stone": {
-      position: {top: "38px", right: "76px"},
+      position: {top: "59px", right: "78px"},
       state: {
         "todo": topazioStoneBlocked,
         "doing": topazioStoneDoing,

@@ -4,10 +4,15 @@ import styled from 'styled-components';
 // Component
 import Header from '../../components/header';
 import WrongAnswer from '../../components/activities/wrongAnswer';
+import WrongAnswerWithoutScore from '../../components/activities/wrongAnswerWithoutScore';
 import CorrectAnswer from '../../components/activities/correctAnswer';
 import SplashScreen from './splashScreen';
 import Button from '../../components/buttons/containerButton';
 import Tutorial from '../../components/modal/tutorialModal';
+
+//Utils
+import { allowScore } from '../../utils/activity';
+import { chancesAtActivity } from '../../utils/statistics';
 
 //Images
 import logo from '../../images/logo/enigmaticWord.svg';
@@ -112,20 +117,17 @@ const Word = styled.div`
   background-color: #F08800;
 `;
 
-function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
+function EnigmaticWord({ activitie, registerAction, actionsBook, handlerNextActivitie }) {
   const [isLoading, setIsLoading] = useState(true)
   const [enigmas, setEnigmas] = useState(undefined)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
-  const [amountTrial, setAmountTrial] = useState(3);
+  const [isModalWithoutScore, setIsModalWithoutScore] = useState(undefined);
+  const [chances, setChances] = useState(null);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [showAnswer, setShowAnswer] = useState(false);
   const [isError, setIsError] = useState(undefined);
   const [isTutorial, setIsTutorial] = useState(undefined);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000)
-    return () => clearTimeout(timer)
-  }, []);
+  const [score, setScore] = useState(undefined)
 
   useEffect(() => {
     setEnigmas(Object.values(activitie.enigmas).map(item => {
@@ -135,32 +137,57 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
       }
     }))
 
-    if(activitie.trailId === 0) {
+    if (activitie.trailId === 0) {
       setIsTutorial(true);
     }
-    
+
   }, [activitie]);
 
   useEffect(() => {
-    if(modalWrongAnswer) {
+    if (activitie.trailId === 0) {
+      setIsTutorial(true);
+    }
+  }, [activitie]);
+
+  useEffect(() => {
+    if (modalWrongAnswer) {
       registerAction({
         activityId: activitie.id,
         trailId: activitie.trailId,
         success: false,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: 0,
+        books: false,
       })
     }
 
-    if(modalCorrectAnswer) {
+    if (modalCorrectAnswer) {
+      const point = chances === 3 ? 10 : chances === 2 ? 8 : chances === 1 ? 5 : 0;
+      setScore(point)
       registerAction({
         activityId: activitie.id,
         trailId: activitie.trailId,
         success: true,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        score: point,
+        books: false,
       })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modalCorrectAnswer, modalWrongAnswer])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modalCorrectAnswer, modalWrongAnswer]);
+
+  useEffect(() => {
+    const { synced, pendingSync } = actionsBook;
+    const useChancesAtActivity = chancesAtActivity(activitie.id, [...synced, ...pendingSync]);
+    setChances(useChancesAtActivity);
+  }, [actionsBook, activitie.id]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!!activitie) setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [activitie]);
 
   const handleValue = (e, i) => {
     const newEnigmas = enigmas
@@ -175,7 +202,7 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
 
   const handleWrongAnswer = () => {
     handleModalWrongAnswer();
-    setAmountTrial(amountTrial -1)
+    setChances(chances - 1)
   };
 
   const handleCloseTutorial = () => {
@@ -187,20 +214,42 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
     setShowAnswer(true);
   };
 
-  const checkAnswer = () => {
+  const handleWithoutScore = () => {
+    setIsModalWithoutScore(undefined);
+  }
+
+  const handleSubmit = () => {
     let userAnswer = "";
     const isError = enigmas.map(item => item.userInput).filter(i => !i).length > 0;
+    const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
+    const useAllowScore = allowScore(activitie.trailId, activitie.id, listActionsBook);
 
-    if(isError) {
+    if (isError) {
       setIsError(true);
-    } else {
+    } 
+    if(useAllowScore) {
+      const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
+      const useAllowScore = allowScore(activitie.trailId, activitie.id, listActionsBook);
+      if (useAllowScore) {
+        enigmas.map(item => {
+          userAnswer = `${userAnswer}${item.userInput}`
+        })
+        userAnswer = userAnswer.toLowerCase();
+        if (userAnswer === activitie.answer.answer) setModalCorrectAnswer(true);
+        else handleWrongAnswer()
+
+      }
       // eslint-disable-next-line array-callback-return
+    } else {
       enigmas.map(item => {
         userAnswer = `${userAnswer}${item.userInput}`
       })
       userAnswer = userAnswer.toLowerCase();
-      if(userAnswer === activitie.answer.answer) setModalCorrectAnswer(true);
-      else handleWrongAnswer()
+      if (userAnswer === activitie.answer.answer) {
+        setIsModalWithoutScore(true);
+        showModalAnswer();
+      } 
+      else setIsModalWithoutScore(false);
     }
   };
 
@@ -236,13 +285,14 @@ function EnigmaticWord({ activitie, registerAction, isLastActivity }) {
         </Content>
         <Button
           isError={isError && 'Você precisa digitar em todos os campos'}
-          handleClick={checkAnswer}
+          handleClick={handleSubmit}
         >responder
         </Button>
-        {modalWrongAnswer && <WrongAnswer chances={amountTrial} handleClick={handleModalWrongAnswer} handleShowAnswer={showModalAnswer}/>}
-        {modalCorrectAnswer && <CorrectAnswer answer={activitie.answer} toScore amountTrial={amountTrial} idActivitie={activitie.id}/>}
-        {showAnswer && <CorrectAnswer answer={activitie.answer} amountTrial={amountTrial} idActivitie={activitie.id}/>}
-        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
+        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer goBack={handlerNextActivitie} chances={chances} handleClick={handleModalWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWithoutScore} handleShowAnswer={showModalAnswer} />}
+        {modalCorrectAnswer && <CorrectAnswer answer={activitie.answer} toScore score={score} idActivitie={activitie.id} />}
+        {showAnswer && <CorrectAnswer answer={activitie.answer} score={score} noScore={isModalWithoutScore === true} idActivitie={activitie.id} />}
+        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )
   )

@@ -78,7 +78,7 @@ const ButtonBox = styled.div`
 `;
 
 
-const ScoreScreen = ({ amountTrial, handleClick }) => {
+const ScoreScreen = ({ handleClick, score }) => {
   const HorseShoe = styled.img`
     position: absolute;
     right: ${props => (props.img === 'wave' && '-149px') || (props.img === 'cactus' && '-130px') || (props.img === 'hardShell' && '-40px')};
@@ -86,11 +86,11 @@ const ScoreScreen = ({ amountTrial, handleClick }) => {
     z-index: -1;
   `;
 
-  const pointsImg = (amountTrial === 3 && hardShell) || (amountTrial === 2 && wave) || (amountTrial === 1 && cactus);
-  const score = (amountTrial === 3 && 10) || (amountTrial === 2 && 8) || (amountTrial === 1 && 5);
-  const imgName = (amountTrial === 3 && 'hardShell') || (amountTrial === 2 && 'wave') || (amountTrial === 1 && 'cactus');
+  const pointsImg = (score === 10 && hardShell) || (score === 8 && wave) || (score === 5 && cactus);
+  const imgName = (score === 10 && 'hardShell') || (score === 8 && 'wave') || (score === 5 && 'cactus');
 
   return (
+    console.log(`Score: ${score}`),
     <Container>
       <ContentTitle>
         <h1>Parabéns!</h1>

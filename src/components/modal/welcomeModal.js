@@ -7,7 +7,6 @@ const Container = styled.div`
   position: absolute;
   width: 100%;
   height: 100vh;
-  /* background-color: transparent; */
   background-color: ${props => props.backgroundColor};
   opacity: ${props => props.opacity};
   z-index: 3;
@@ -31,52 +30,54 @@ const ElifasSVG = styled.img`
 const ButtonRow = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: ${props => props.marginTop};
+  flex-direction: column;
+  margin-top: 3rem;
+  padding: 0 1rem;
 `;
 
 const CloseButton = styled.button`
-  position: relative;
-  bottom: -0.75rem;
-  font-size: 1rem;
-  font-weight: 900;
-  color: #373737;
+  margin-top: 2rem;
+  color: #ffd000;
+  font: 900 1.2em 'Nunito';
+  transform: scale(1,.9);
 `;
 
 const DialogBox = styled.div`
-  position: absolute;
-  width: 350px;
-  right: 50px;
-  bottom: 237px;
-  padding: 25px 15px 25px 15px;
+  position: relative;
+  top: 3rem;
+  margin: 0 auto;
+  width: 91%;
+  padding: 2rem .9rem 1rem;
   border-radius: 20px;
   background-color: #fff;
   z-index: 3;
 
-  ::before{
-    content: "";
+  &:after {
     position: absolute;
-    width: 200px;
-    height: 300px;
-    border-radius: 50%;
-    border-left: 61px solid #fff;
+    content: '';
+    left: 51%;
+    bottom: -11%;
+    display: block;
+    width: 50px;
+    height: 70px;
+    border: 0px solid;
+    background-color: transparent;
+    border-bottom-left-radius: 100%;
+    box-shadow: -34px -34px 0px 30px #fff;
+    transform: rotate(5deg);
     z-index: -1;
-    top: 100%;
-    transform: translate(39%, -85%);
-    /* transform: translateX(-50%); */
   }
 
   @media (max-width: 375px) {
     right: auto;
   }
   @media (max-width: 320px) {
-    width: 98%;
+    width: 95%;
   }
 `;
 
 const DialogText = styled.p`
-  margin-bottom: 1rem;
+  margin-bottom: 1.4rem;
   font-size: 1rem;
   color: #000000;
   
@@ -84,10 +85,6 @@ const DialogText = styled.p`
     font-weight: 900;
   }
 `;
-
-// const DivRedonda = styled.div`
-
-// `;
 
 const WelcomeModal = ({handleClose, showThunk}) => {
   return(
@@ -99,10 +96,8 @@ const WelcomeModal = ({handleClose, showThunk}) => {
             <DialogText>Olá, seja <strong>bem-vindo(a)</strong> ao aplicativo Almanaque Miguel Burnier, vamos embarcar juntos nessa jornada de conhecimento e diversão?</DialogText>
             <DialogText>Sou o <strong>Elifas Andreato</strong> e serei o seu guia!</DialogText>
           </>
-          <ButtonRow marginTop={'2rem'}>
+          <ButtonRow>
             <Button handleClick={showThunk()}>Saiba mais sobre o Elifas</Button>
-          </ButtonRow>
-          <ButtonRow marginTop={"1rem"}>
             <CloseButton onClick={handleClose}>X</CloseButton>
           </ButtonRow>
         </DialogBox>

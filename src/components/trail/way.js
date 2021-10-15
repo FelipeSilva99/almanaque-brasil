@@ -12,7 +12,8 @@ const Container = styled.div`
 const LineToRight = styled.div`
   position: relative;
   top: 60px;
-  left: 48%;
+  // left: 48%;
+  right: -47%;
   width: 184px;
   height: 170px;
   transform: rotate(90deg);
@@ -21,10 +22,9 @@ const LineToRight = styled.div`
   border-radius: 50% 50% 0 0;
   z-index: 1;
 
-  /* @media (max-width: 320px) {
-    transform: rotate(10deg);
-    width: 10rem;
-  } */
+  @media (max-width: 350px) {
+    right: -39%;
+  }
 `;
 
 const LineStraight = styled.div`
@@ -45,9 +45,9 @@ const LineToLeft = styled(LineToRight)`
   transform: rotate(-90deg);
   z-index: 3;
 
-  /* @media (max-width: 320px) {
-    left: -9px;
-  } */
+  @media (max-width: 350px) {
+    left: 6%;
+  }
 `;
 
 const Decoration = styled.img`
@@ -58,7 +58,16 @@ const Decoration = styled.img`
   right: ${props => props.right};
 `;
 
-const Way = ({ backgroundDecorations, linesQuantity, progress }) => {
+const HouseImg = styled(Decoration)`
+  width: 12rem;
+
+  @media (max-width: 425px) {
+    width: 11rem;
+    right: 0;
+  }
+`;
+
+const Way = ({ backgroundDecorations, linesQuantity, progress, lineColor }) => {
   const [lines, setLines] = useState(undefined)
   
   const defineLines = (quantity) => {
@@ -103,29 +112,28 @@ const Way = ({ backgroundDecorations, linesQuantity, progress }) => {
   }
 
   const setColor = (ind) => {
-    if(progress[ind]?.state === 'done') return '#4C90AF'
+    if(progress[ind]?.state === 'right' || progress[ind]?.state === 'wrong') return lineColor
     else return 'silver'
   }
 
   return(
     <Container>
       <Decoration
+        top={'58px'}
+        left={'-7%'}
         src={backgroundDecorations.top}
-        style={{ width: '12rem' }}
-        top={'20px'}
-        left={'-12%'}
         alt=""
       />
       <Decoration
         top={'532px'}
-        left={'29%'}
+        left={'28%'}
+        style={{ width: '10rem' }}
         src={backgroundDecorations.center}
         alt=""
       />
-      <Decoration
-        style={{ width: '12rem' }}
-        bottom={'-3.5rem'}
+      <HouseImg
         right={'-5%'}
+        bottom={'-3.5rem'}
         src={backgroundDecorations.bottom}
         alt=""
       />

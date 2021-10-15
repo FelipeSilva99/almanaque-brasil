@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
@@ -9,6 +9,15 @@ import { signOut } from '../../dataflow/modules/signIn-modules';
 import { clearActionsBook } from '../../dataflow/modules/actionsBook-modules';
 import { deleteActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 import { clearModalsState } from '../../dataflow/modules/modals-module';
+
+//Components
+import Header from '../../components/header/headerYellow';
+import Footer from '../../components/footer/footerMenu';
+import Button from '../../components/buttons/button';
+import Item from './item'
+
+//Image
+import iconThunk from '../../images/icons/settings.svg';
 
 const mapDispatchToProps = dispatch => ({
   signOut: () => {
@@ -30,23 +39,14 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const Container = styled.div`
-  position: fixed;
-  bottom: 60px;
-  left: 51vw;
-  width: 10rem;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  background: #fff;
-  text-align: end;
-  z-index: 3;
+  background: #F3F3F3;
+  min-height: 100vh;
+  overflow-x: hidden; 
 `;
 
-const Button = styled.button`
+const BoxConfig = styled.div`
   width: 100%;
-  height: 100%;
-  font-size: 1rem;
-  font-weight: 900;
-  color: #373737;
+  padding: 15px 32px;
 `;
 
 const Config = (props) => {
@@ -64,16 +64,77 @@ const Config = (props) => {
     }
   }
 
-  const handleResetProgress = async () => {
-    props.deleteActionsBook();
-
-    history.push('/activities');
+  async function handleResetProgress() {
+    try {
+      props.deleteActionsBook()
+      await Auth.signOut();
+      props.clearModalsState();
+      localStorage.clear();
+      history.push('/');
+      props.signOut();
+    } catch (error) {
+      console.log('error signout: ', error);
+    }
   }
+
+  const [check, setCheck] = useState(null);
+  const openSettings = (index) => {
+    if (index === check) {
+      setCheck(null)
+    } else setCheck(index)
+  }
+
+  const data = [{
+    title: 'Tutorial',
+    content: <p>teste</p>
+  },
+  {
+    title: 'Reiniciar mapa das trilhas',
+    content:
+      <Button
+        background="#fcd029"
+        color="#373737"
+        handleClick={handleResetProgress}
+      >
+        Confirmar
+      </Button>
+  },
+  {
+    title: 'Termos de uso e privacidade',
+    content: <p>teste</p>
+  },
+  {
+    title: 'Agradecimentos',
+    content: <p>teste</p>
+  },]
 
   return (
     <Container>
-      <Button onClick={handleResetProgress}>Reset</Button>
-      <Button onClick={handleSignOut}>Sair</Button>
+      <Header
+        isVisible
+        text='Configurações'
+        icon={iconThunk}
+        bottom="-42px"
+        right="-38px"
+      />
+      <BoxConfig>
+        {data.map((i, index) => (
+          <Item
+            key={index}
+            title={i.title}
+            handleClick={() => openSettings(index)}
+            isOpen={check === index}
+            isCheck={check === index}
+          >
+            {i.content}
+          </Item>
+        ))}
+
+        <Button handleClick={handleSignOut} >
+          Sair do aplicativo
+        </Button>
+      </BoxConfig>
+      <Footer screen='config' />
     </Container>
   );
 }

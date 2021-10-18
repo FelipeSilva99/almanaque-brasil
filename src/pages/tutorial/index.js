@@ -35,7 +35,7 @@ export default function Tutorial() {
         {modal !== false && 
           <TutorialModal
             screen={game}
-            handleCloseTutorial={handleCloseTutorial} 
+            handleCloseTutorial={handleCloseTutorial}
           />
         }
       </S.Content>

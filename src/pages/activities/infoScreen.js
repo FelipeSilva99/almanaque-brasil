@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useHistory } from "react-router-dom";
 
 //Assets
 import LogoOrigin from '../../images/logo/originOfExpression.svg';
@@ -127,12 +128,15 @@ const ScoreDiv = styled.div`
 `;
 
 const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, registerAction, actionsBook }) => {
+  const history = useHistory();
   const [acquiredKnowledge, setAcquiredKnowledge] = useState(null);
   const screens = {
     info: "info",
     knowledge: "knowledge",
     score: "score"
   }
+  const [currentScreen, setCurrentScreen] = useState(screens.info);
+  const image = useActivitie.imageBase64;
 
   useEffect(() => {
     const { synced, pendingSync } = actionsBook;
@@ -142,9 +146,6 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
 
     setAcquiredKnowledge(true);
   }, [actionsBook, useActivitie.id]);
-
-  const [currentScreen, setCurrentScreen] = useState(screens.info);
-  const image = useActivitie.imageBase64;
 
   useEffect(() => {
     if (currentScreen === screens.score) {
@@ -169,9 +170,13 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
   else
     book = threeBooks
 
+  const handleGoBack = () => {
+    history.goBack();
+  }
+
   const handleCurrentScreen = (modal) => {
     if (acquiredKnowledge) {
-      setCurrentScreen(handleNextQuestion);
+      handleGoBack();
       return
     }
     setCurrentScreen(modal)
@@ -215,7 +220,7 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
               background='#399119'
               color={'#fff'}
               boxShadow='#245812 0px 7px 0px'
-              handleClick={() => setCurrentScreen(handleNextQuestion)}
+              handleClick={handleGoBack}
             >
               Continuar Trilha
             </Button>

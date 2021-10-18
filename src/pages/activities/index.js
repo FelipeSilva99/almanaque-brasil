@@ -81,13 +81,13 @@ const Activities = (props) => {
         return <InfoScreen registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} eureka actionsBook={props.actionsBook}/>
       
       case "voce-sabia":
-        return <DidYouKnow registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook}/>
+        return <DidYouKnow history={props.history} registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook}/>
 
       case "se-liga":
         return <IfTurnsOn registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook} />
 
       case "palavra-enigmatica":
-        return <EnigmaticWord registerAction={registerAction} activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook}/>
+        return <EnigmaticWord history={props.history}  registerAction={registerAction} activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook}/>
 
       default:
         return <h1>{currentActivitie.question}</h1>;

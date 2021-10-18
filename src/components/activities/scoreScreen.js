@@ -90,7 +90,6 @@ const ScoreScreen = ({ handleClick, score }) => {
   const imgName = (score === 10 && 'hardShell') || (score === 8 && 'wave') || (score === 5 && 'cactus');
 
   return (
-    console.log(`Score: ${score}`),
     <Container>
       <ContentTitle>
         <h1>Parabéns!</h1>

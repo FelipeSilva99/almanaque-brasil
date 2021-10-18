@@ -117,7 +117,7 @@ const Word = styled.div`
   background-color: #F08800;
 `;
 
-function EnigmaticWord({ activitie, registerAction, actionsBook, handlerNextActivitie }) {
+function EnigmaticWord({ activitie, registerAction, actionsBook, handlerNextActivitie, history }) {
   const [isLoading, setIsLoading] = useState(true)
   const [enigmas, setEnigmas] = useState(undefined)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);

@@ -14,7 +14,7 @@ import LoginReducer from './dataflow/modules/signIn-modules';
 import ActionsBookReducer from './dataflow/modules/actionsBook-modules';
 import ThunkReducer from './dataflow/modules/thunk-module';
 import ModalsReducer from './dataflow/modules/modals-module';
-
+import ActivityReducer from './dataflow/modules/activity-module';
 
 const reducers = combineReducers({
   trails: TrailsReducer,
@@ -22,6 +22,7 @@ const reducers = combineReducers({
   modals: ModalsReducer,             
   actionsBook: ActionsBookReducer,
   thunk: ThunkReducer,
+  activity: ActivityReducer,
 });
 
 const persistConfig = {

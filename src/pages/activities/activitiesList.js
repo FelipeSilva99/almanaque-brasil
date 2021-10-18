@@ -94,7 +94,7 @@ const Activities = (props) => {
 
     setActivitiesProgress(activitiesStates);
 
-  }, [activities, isDone]);
+  }, [activities]);
 
   useEffect(() => {
     const trail = props.selectedTrails;
@@ -110,49 +110,76 @@ const Activities = (props) => {
     setActivities(allActivities);
   }, [props.selectedTrails, props.activities.data, props.history?.location?.state?.idActivitie, activitiesProgress]);
 
+  // useEffect(() => {
+  //   const { pendingSync, synced } = props.actionsBook;
+  //   let pendingScore;
+  //   let syncedScore;
+
+  //   if (pendingSync.length > 0) {
+  //     let pendingList = pendingSync.filter(action => action.success === true);
+  //     let trailId = synced[pendingSync.length - 1]?.trailId;
+
+  //     const points = pendingList
+  //     .filter(action => action.trailId === trailId)
+  //     .map(action => action.score);
+
+  //     if (points.length > 1) {
+  //       pendingScore = points.length > 0 && points.reduce((prev, cur) => prev + cur);
+  //     } else {
+  //       pendingScore = +points.join("");
+  //     }
+  //   } else {
+  //     console.log("no pendingSync actions");
+  //   }
+    
+  //   if (synced.length > 0) {
+  //     const syncedList = synced.filter(action => action.success === true);
+  //     const trailId = synced[synced.length - 1]?.trailId;
+
+  //     const points = syncedList
+  //     .filter(action => action.trailId === trailId)
+  //     .map(action => action.score);
+
+  //     if (points.length > 1) {
+  //       syncedScore = points.reduce((prev, cur) => prev + cur);
+  //     } else {
+  //       syncedScore = +points.join("");
+  //     }
+  //   } else {
+  //     console.log("no synced actions");
+  //   }
+    
+  //   if (pendingScore > 0) {
+  //     setScore(pendingScore + syncedScore);
+  //   } else {
+  //     setScore(syncedScore);
+  //   }
+  // }, [props.actionsBook]);
+
   useEffect(() => {
-    const { pendingSync, synced } = props.actionsBook;
-    let pendingScore;
-    let syncedScore;
-
-    if (pendingSync.length > 0) {
-      let pendingList = pendingSync.filter(action => action.success === true);
-      let trailId = synced[pendingSync.length - 1]?.trailId;
-
-      const points = pendingList
-      .filter(action => action.trailId === trailId)
-      .map(action => action.score);
-
-      if (points.length > 1) {
-        pendingScore = points.length > 0 && points.reduce((prev, cur) => prev + cur);
-      } else {
-        pendingScore = +points.join("");
-      }
-    } else {
-      console.log("no pendingSync actions");
-    }
+    const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync];
     
-    if (synced.length > 0) {
-      const syncedList = synced.filter(action => action.success === true);
-      const trailId = synced[synced.length - 1]?.trailId;
+    let totalScore;
 
-      const points = syncedList
-      .filter(action => action.trailId === trailId)
-      .map(action => action.score);
-
-      if (points.length > 1) {
-        syncedScore = points.reduce((prev, cur) => prev + cur);
+      if (listActionsBook.length > 0) {
+        let pendingList = listActionsBook.filter(action => action.success === true);
+        let trailId = listActionsBook[listActionsBook.length - 1]?.trailId;
+  
+        const points = pendingList
+        .filter(action => action.trailId === trailId)
+        .map(action => action.score);
+  
+        if (points.length > 1) {
+          totalScore = points.length > 0 && points.reduce((prev, cur) => prev + cur);
+        } else {
+          totalScore = +points.join("");
+        }
       } else {
-        syncedScore = +points.join("");
+        console.log("no pendingSync actions");
       }
-    } else {
-      console.log("no synced actions");
-    }
-    
-    if (pendingScore > 0) {
-      setScore(pendingScore + syncedScore);
-    } else {
-      setScore(syncedScore);
+
+    if (totalScore > 0) {
+      setScore(totalScore);
     }
   }, [props.actionsBook]);
   

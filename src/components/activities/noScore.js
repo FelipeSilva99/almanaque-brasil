@@ -30,6 +30,8 @@ const Container = styled.div`
 const ContentTitle = styled.div`
   margin: 10vh 0 18vh 0;
   text-align: center;
+  max-width: 425px;
+  
   h1{
     font-weight: 800;
     font-size: 2.6875rem;

@@ -150,7 +150,6 @@ const DidYouKnow = (props) => {
 
   const renderScreen = () => {
     return (
-      console.log(`score: ${score}, chances: ${chances}`),
       <>
         <Header title={activitie?.name} />
         <ContentImageText

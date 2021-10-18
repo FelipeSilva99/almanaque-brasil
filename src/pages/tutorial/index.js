@@ -23,7 +23,9 @@ export default function Tutorial() {
 
   return (
     <S.Container>
-      <Header />
+      <Header
+        title='Tutorial'
+      />
       <S.Content>
         {tutorialData.map((item, i) => (
           <Item

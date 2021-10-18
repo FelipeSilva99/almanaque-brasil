@@ -23,7 +23,9 @@ export default function Tutorial() {
 
   return (
     <S.Container>
-      <Header />
+      <Header
+        title='Tutorial'
+      />
       <S.Content>
         {tutorialData.map((item, i) => (
           <Item
@@ -35,7 +37,7 @@ export default function Tutorial() {
         {modal !== false && 
           <TutorialModal
             screen={game}
-            handleCloseTutorial={handleCloseTutorial} 
+            handleCloseTutorial={handleCloseTutorial}
           />
         }
       </S.Content>

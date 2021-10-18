@@ -17,11 +17,11 @@ import ametistaBloqued from '../../images/activity/stones/ametista/ametistaBloqu
 import diamante from '../../images/activity/stones/diamante/diamante.svg';
 import diamanteLogo from '../../images/activity/stones/diamante/diamanteLogo.svg';
 import diamanteVisualized from '../../images/activity/stones/diamante/diamanteVisualized.svg';
-// import diamanteBloqued from '../../images/activity/stones/diamante/diamanteVisualized.svg';
+import diamanteBloqued from '../../images/activity/stones/diamante/diamanteVisualized.svg';
 
 import esmeralda from '../../images/activity/stones/esmeralda/esmeralda.svg';
 import esmeraldaLogo from '../../images/activity/stones/esmeralda/esmeraldaLogo.svg';
-// import esmeraldaVisualized from '../../images/activity/stones/esmeralda/esmeraldaVisualized.svg';
+import esmeraldaVisualized from '../../images/activity/stones/esmeralda/esmeraldaVisualized.svg';
 import esmeraldaBloqued from '../../images/activity/stones/esmeralda/esmeraldaBloqued.svg';
 
 import ouro from '../../images/activity/stones/ouro/ouro.svg';
@@ -42,7 +42,7 @@ import safiraBloqued from '../../images/activity/stones/safira/safiraBloqued.svg
 import topazio from '../../images/activity/stones/topazio/topazio.svg';
 import topazioLogo from '../../images/activity/stones/topazio/topazioLogo.svg';
 import topazioVisualized from '../../images/activity/stones/topazio/topazioVisualized.svg';
-// import topazioBloqued from '../../images/activity/stones/topazio/topazioBloqued.svg';
+import topazioBloqued from '../../images/activity/stones/topazio/topazioBloqued.svg';
 
 import turmalina from '../../images/activity/stones/turmalina/turmalina.svg';
 import turmalinaLogo from '../../images/activity/stones/turmalina/turmalinaLogo.svg';
@@ -109,7 +109,7 @@ const activityDesign = {
     "stone": {
       "stone": diamante,
       "logo": diamanteLogo,
-      "bloqued": aguaMarinhaBloqued,
+      "bloqued": diamanteBloqued,
       "visualized": diamanteVisualized,
     },
     "houses": {
@@ -190,7 +190,7 @@ const activityDesign = {
       "stone": esmeralda,
       "logo": esmeraldaLogo,
       "bloqued": esmeraldaBloqued,
-      "visualized": aguaMarinhaVisualized,
+      "visualized": esmeraldaVisualized,
     },
     "houses": {
       church: churchGreen,
@@ -237,7 +237,7 @@ const activityDesign = {
     "stone": {
       "stone": topazio,
       "logo": topazioLogo,
-      "bloqued": aguaMarinhaBloqued,
+      "bloqued": topazioBloqued,
       "visualized": topazioVisualized,
     },
     "houses": {

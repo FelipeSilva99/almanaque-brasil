@@ -107,7 +107,7 @@ const Activities = (props) => {
     const allActivities = props.activities.data[trail].activities;
    
     setActivities(allActivities);
-  }, [props.selectedTrails, props.activities.data, props.history.location.state.idActivitie, activitiesProgress, props.selectedActivity]);
+  }, [props.selectedTrails, props.activities.data]);
 
   useEffect(() => {
     const lastActivitiesProgress = activitiesProgress && activitiesProgress[activitiesProgress.length - 1];

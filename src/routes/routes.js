@@ -18,6 +18,7 @@ import ActivitiesList from '../pages/activities/activitiesList';
 import Trunk from '../pages/trunk';
 import Config from '../pages/config';
 import Tutorial from '../pages/tutorial';
+import Terms from '../pages/termsOfUse';
 import Dashboard from '../pages/dashboard';
 import {
 	getTrailsThunk,

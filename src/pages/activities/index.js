@@ -57,48 +57,33 @@ const Activities = (props) => {
 
     setCurrentActivitie(convertIdToNumber);
   }, [trailId]);
-  
-  const handlerNextActivitie = (idActivitie) => {
-    const hasIdActivitie = idActivitie && idActivitie;
-
-    if (hasNextActivitie) {
-      props.history.push({
-        pathname: `/activities`,
-        state: {idActivitie: hasIdActivitie},
-      });
-    }
-  }
-
-  const hasNextActivitie = () => {
-    return true
-  }
 
   const renderActivitie = (currentActivitie, registerAction) => {
     // Renderizar component de acordo com o tipo de ativivdade
     switch (currentActivitie.type) {
       case "de-quem-sao-estes-olhos":
-        return <WhoseEyesAreThese registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} actionsBook={props.actionsBook}/>
+        return <WhoseEyesAreThese registerAction={registerAction} useActivitie={currentActivitie} actionsBook={props.actionsBook}/>
 
       case "o-que-e-o-que-e":
-        return <WhatIsWhatIs registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} actionsBook={props.actionsBook}/>
+        return <WhatIsWhatIs registerAction={registerAction} useActivitie={currentActivitie} actionsBook={props.actionsBook}/>
 
       case "coisas-nossas":
-        return <OurStuff registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} actionsBook={props.actionsBook}/>;
+        return <OurStuff registerAction={registerAction} useActivitie={currentActivitie} actionsBook={props.actionsBook}/>;
       
       case "origem-da-expressao":
-        return <InfoScreen registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} isShowLogo actionsBook={props.actionsBook}/>
+        return <InfoScreen registerAction={registerAction} useActivitie={currentActivitie} isShowLogo actionsBook={props.actionsBook}/>
 
       case "eureka":
-        return <InfoScreen registerAction={registerAction} useActivitie={currentActivitie} handleNextQuestion={handlerNextActivitie} eureka actionsBook={props.actionsBook}/>
+        return <InfoScreen registerAction={registerAction} useActivitie={currentActivitie} eureka actionsBook={props.actionsBook}/>
       
       case "voce-sabia":
-        return <DidYouKnow registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook}/>
+        return <DidYouKnow history={props.history} registerAction={registerAction} useActivitie={currentActivitie} actionsBook={props.actionsBook}/>
 
       case "se-liga":
-        return <IfTurnsOn registerAction={registerAction} useActivitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook} />
+        return <IfTurnsOn registerAction={registerAction} useActivitie={currentActivitie} actionsBook={props.actionsBook} history={props.history} />
 
       case "palavra-enigmatica":
-        return <EnigmaticWord registerAction={registerAction} activitie={currentActivitie} handlerNextActivitie={handlerNextActivitie} actionsBook={props.actionsBook}/>
+        return <EnigmaticWord history={props.history} registerAction={registerAction} activitie={currentActivitie} actionsBook={props.actionsBook}/>
 
       default:
         return <h1>{currentActivitie.question}</h1>;

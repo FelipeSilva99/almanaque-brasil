@@ -32,6 +32,7 @@ const ContentTitle = styled.div`
   margin: 1.5rem 0;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 `;
 
 const Title = styled.h1`
@@ -42,10 +43,11 @@ const Title = styled.h1`
 
 const IconModal = styled.img`
   transform: ${props => props.isOpen && 'rotate(90deg)'};
+  transition: .2s ease;
 `;
 
 const ContentText = styled.div`
-  padding-bottom: .5rem;
+  padding-bottom: 1rem;
   display: flex;
   align-items: center;
 `;
@@ -95,22 +97,22 @@ const Trunk = (props) => {
 
     return (
       <>
-        <ContentTitle>
+        <ContentTitle onClick={() => handleModal(title)}>
           <Title>
             {title}
           </Title>
-          <IconModal src={arrow} alt='Seta' isOpen={isModal} onClick={() => handleModal(title)} />
+          <IconModal src={arrow} alt='Seta' isOpen={isModal} />
         </ContentTitle>
         {isModal &&
-          data.filter(item => item.category === title).map(i => (
+          data.filter((item) => item.category === title).map(i => (
             renderOptions(i)
           ))}
       </>
     )
   }
 
-  const renderOptions = (item) => (
-    <ContentText onClick={() => handleInfoModal(item)}>
+  const renderOptions = (item, optionId) => (
+    <ContentText key={optionId} onClick={() => handleInfoModal(item)}>
       <Image src={`data:image/jpeg;base64,${item.imageBase64}`} alt='Img' />
       <Text>{item.title}</Text>
     </ContentText>

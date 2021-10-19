@@ -59,7 +59,7 @@ const Stone = styled.img`
   position: absolute;
   top: ${props => props.top};
   right: ${props => props.right};
-  width: 5.25rem;
+  max-width: 5.25rem;
   transform: scale(1.22,1.25);
   z-index: 1;
   cursor: pointer;
@@ -87,8 +87,8 @@ const Map = ({ trails, trailsState, goToActivitie }) => {
           return (
             <MapFragment
               key={key}
-              left={aliases[trail.name].position.left}
-              bottom={aliases[trail.name].position.bottom}
+              left={aliasesName.position.left}
+              bottom={aliasesName.position.bottom}
               type="image/svg+xml"
             >
               <Stone

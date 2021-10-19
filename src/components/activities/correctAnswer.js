@@ -39,11 +39,10 @@ const MessageBox = styled.div`
   width: 100vw;
   height: ${props => props.height || "90vh"};
 
-  @media(max-width: 425px) {
-    padding-left: 5vw;
-    padding-right: 5vw;
+  @media (max-width: 425px) {
+    padding: 1.5rem 5vw 0;
   }
-  @media(min-width: 1024px) {height: 60vh;}
+  @media (min-width: 1024px) { height: 60vh; }
 `;
 
 const ButtonBox = styled.div`
@@ -58,19 +57,18 @@ const ButtonBox = styled.div`
   width: 100vw;
 
   @media(max-width: 425px) {
-    padding-left: 5vw;
-    padding-right: 5vw;
+    padding: 0 5vw;
   }
 `;
 
 const Img = styled.img`
   width: 100vw;
-  height: 53vh;
+  height: 50vh;
   max-width: 500px;
   object-fit: cover;
 
-  @media(max-width: 425px) {width: 100%;}
-  @media(min-width: 1024px) {height: 40vh;}
+  @media (max-width: 425px) { width: 100%; }
+  @media (min-width: 1024px) { height: 40vh; }
 `;
 
 const ComplementaryInformationBox = styled.div`
@@ -120,7 +118,7 @@ const TextName = styled.h1`
   font-size: 1.625rem;
   color: #0D0D0D;
   font-weight: 900;
-  width: 14rem;
+  text-transform: capitalize;
 `;
 
 const Text = styled.p`
@@ -153,7 +151,7 @@ const CorrectAnswer = (props) => {
         ? setActualModal(modals.noScore)
         : setActualModal(modals.answerDescription)
 
-  }, [props.toScore, modals.answerDescription, modals.toScore, props.idActivitie]);
+  }, [props.toScore, modals.answerDescription, props.idActivitie, props.noScore, modals.toScore, modals.noScore]);
 
   const handleContinue = () => {
     switch (actualModal) {
@@ -175,17 +173,8 @@ const CorrectAnswer = (props) => {
     setIsModalThunk({ isModal: !isModalThunk.isModal, data: data });
   }
 
-  const goActivities = () => {
-    const idActivitie = props.idActivitie && props.idActivitie;
-
-    history.push({
-      pathname: '/activities',
-      state: { idActivitie: idActivitie },
-    });
-  }
-
   const renderModal = () => {
-    const { chances, answer, isTrunk, idActivitie } = props;
+    const { answer, isTrunk, idActivitie } = props;
     switch (actualModal) {
       case modals.toScore:
         return (
@@ -196,7 +185,7 @@ const CorrectAnswer = (props) => {
         );
       case modals.answerDescription:
         return (
-          <MessageBox height={'52vh'}>
+          <MessageBox height={'55vh'}>
             <ComplementaryInformationBox>
               <Title>A resposta é:</Title>
               <TextName>{answer.answer}</TextName>
@@ -219,7 +208,7 @@ const CorrectAnswer = (props) => {
                 margin={"0 0 20px 0"}
                 background={"#399119"}
                 boxShadow={"#245812 0px 7px 0px"}
-                handleClick={goActivities}
+                handleClick={() => history.goBack()}
               >Continuar trilha</Button>
             </ButtonBox>
           </MessageBox>

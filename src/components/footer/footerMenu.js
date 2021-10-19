@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
 
-//Component
-import Config from '../../pages/config';
-
 //Images
 import home from '../../images/icons/menu/home.svg';
 import selectedHome from '../../images/icons/menu/selectedHome.svg';
@@ -56,7 +53,6 @@ const Text = styled.p`
 
 const Footer = ({ screen }) => {
   const history = useHistory();
-  const [isModalConfig, setIsModalConfig] = useState(undefined);
   const [options] = useState([
     {
       img: home,
@@ -84,28 +80,22 @@ const Footer = ({ screen }) => {
     },
   ]);
 
-  const handleRouter = (router) => {
-    if (router === 'config') {
-      setIsModalConfig(!isModalConfig);
-    } else {
-      history.push(`/${router}`);
-      setIsModalConfig(false);
-    }
+  const handleRouter = (router, i) => {
+    history.push(`/${router}`);
   }
   
   return (
     <Alingment>
       <Container>
         {options.map((item, i) => {
-          const isSelected = (isModalConfig && item.router === 'config') || (!isModalConfig && screen === item.router);
+          const isSelected = screen === item.router; 
           return (
-            <Content onClick={() => handleRouter(item.router)} key={i}>
+            <Content onClick={() => handleRouter(item.router, i)} key={i}>
               <img src={isSelected ? item.imgSelected : item.img} alt={item.txt} />
               <Text isSelected={isSelected} trunk={item.txt ==='Baú'}>{item.txt}</Text>
             </Content>
           )
         })}
-        {isModalConfig && <Config />}
       </Container>
     </Alingment>
   );

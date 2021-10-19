@@ -12,6 +12,7 @@ import { trailState } from '../../utils/trail';
 
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';
+import { clearActivity } from '../../dataflow/modules/activity-module';
 import { getTrailsThunk } from '../../dataflow/thunks/trails-thunk';
 
 const mapStateToProps = state => ({
@@ -26,6 +27,10 @@ const mapDispatchToProps = dispatch => ({
 
   getTrailsThunk: () => {
     dispatch(getTrailsThunk());
+  },
+
+  clearActivity: () => {
+    dispatch(clearActivity());
   },
 });
 
@@ -113,6 +118,7 @@ const Trails = (props) => {
     } else {
       handleActivities(key);
     }
+    props.clearActivity();
   }
 
   const handleCloseModal = () => {

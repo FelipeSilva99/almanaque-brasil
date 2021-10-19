@@ -109,7 +109,7 @@ const Box = styled.div`
   }
 `;
 
-function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actionsBook }) {
+function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
   const colors = {
     green: "#00FFEA", orange: "#F29F32", blue: "#8EBEFF", yellow: "#FFD932"
   }
@@ -360,7 +360,8 @@ function IfTurnsOn({ useActivitie, handlerNextActivitie, registerAction, actions
       return;
     }
     if (isCorrectAnswer) {
-      handlerNextActivitie(activitie.id);
+      // handlerNextActivitie();
+      history.goBack();
     }
     if (useAllowScore) {
       //pode pontuar

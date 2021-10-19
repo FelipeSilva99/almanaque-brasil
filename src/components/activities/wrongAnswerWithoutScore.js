@@ -1,9 +1,6 @@
 // Libs
 import React from 'react';
 import styled from 'styled-components';
-import {
-  Link,
-} from "react-router-dom";
 
 // Assets
 import iconElifas from '../../images/elifas/tip.svg';
@@ -107,14 +104,6 @@ const MsgError = styled.div`
   margin: auto;
 `;
 
-const ErrorTip = styled.h2`
-  margin: auto;
-  width: 80%; 
-  font-size: 1rem;
-  font-weight: 800;
-  color: #161616;
-`;
-
 const Avatar = styled.img`
   position: relative;
   right: -130px;
@@ -137,12 +126,6 @@ const ButtonsBox = styled.div`
     padding-left: 5vw;
     padding-right: 5vw;
   }
-`;
-
-const ALink = styled(Link)`
-  width: 100%;
-  display: flex;
-  justify-content: center;
 `;
 
 function WrongAnswerWithoutScore({ handleClick, handleShowAnswer }) {

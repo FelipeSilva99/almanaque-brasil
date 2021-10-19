@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
@@ -9,6 +9,16 @@ import { signOut } from '../../dataflow/modules/signIn-modules';
 import { clearActionsBook } from '../../dataflow/modules/actionsBook-modules';
 import { deleteActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 import { clearModalsState } from '../../dataflow/modules/modals-module';
+
+//Components
+import Header from '../../components/header/headerYellow';
+import Footer from '../../components/footer/footerMenu';
+import Button from '../../components/buttons/button';
+import Item from './item';
+import ModalResetMapAlert from '../../components/modal/resetMapAlert';
+
+//Image
+import iconThunk from '../../images/icons/settings.svg';
 
 const mapDispatchToProps = dispatch => ({
   signOut: () => {
@@ -30,27 +40,19 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const Container = styled.div`
-  position: fixed;
-  bottom: 60px;
-  left: 51vw;
-  width: 10rem;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  background: #fff;
-  text-align: end;
-  z-index: 3;
+  background: #F3F3F3;
+  min-height: 100vh;
+  overflow-x: hidden; 
 `;
 
-const Button = styled.button`
+const BoxConfig = styled.div`
   width: 100%;
-  height: 100%;
-  font-size: 1rem;
-  font-weight: 900;
-  color: #373737;
+  padding: 1rem;
 `;
 
 const Config = (props) => {
   const history = useHistory();
+  const [isModalResetMap, setIsModalResetMap] = useState(undefined);
 
   async function handleSignOut() {
     try {
@@ -62,6 +64,10 @@ const Config = (props) => {
     } catch (error) {
       console.log('error signout: ', error);
     }
+  }
+
+  const handleModalResetMap = () => {
+    setIsModalResetMap(!isModalResetMap);
   }
 
   async function handleResetProgress() {
@@ -77,10 +83,61 @@ const Config = (props) => {
     }
   }
 
+  const openSettings = (router) => {
+    if(router === 'openModalResetMap') {
+      handleModalResetMap();
+    } else if (router === 'agradecimentos') {
+      alert(router);
+      // history.push(`/${router}`);
+    } else {
+      history.push(`/${router}`);
+
+    }
+  }
+
+  const data = [
+    {
+      title: 'Tutorial',
+      router: 'config/tutorial',
+    },
+    {
+      title: 'Reiniciar mapa das trilhas',
+      router: 'openModalResetMap',
+    },
+    {
+      title: 'Termos de uso e privacidade',
+      router: 'config/terms-Of-use',
+    },
+    // {
+    //   title: 'Agradecimentos',
+    //   router: 'agradecimentos',
+    // },
+  ]
+
   return (
     <Container>
-      <Button onClick={handleResetProgress}>Reset</Button>
-      <Button onClick={handleSignOut}>Sair</Button>
+      <Header
+        isVisible
+        text='Configurações'
+        icon={iconThunk}
+        bottom="-42px"
+        right="-38px"
+      />
+      <BoxConfig>
+        {data.map((i, index) => (
+          <Item
+            key={index}
+            title={i.title}
+            handleClick={() => openSettings(i.router)}
+          />
+        ))}
+
+        <Button handleClick={handleSignOut} >
+          Sair do aplicativo
+        </Button>
+      </BoxConfig>
+      {isModalResetMap && <ModalResetMapAlert handleResetProgress={handleResetProgress} handleCloseModal={handleModalResetMap}/>}
+      <Footer screen='config' />
     </Container>
   );
 }

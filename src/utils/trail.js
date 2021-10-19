@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 function countActions(actions, action) {
   return actions.reduce((a, v) => (v === action ? a + 1 : a), 0)
 }

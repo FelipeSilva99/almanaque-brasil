@@ -71,6 +71,18 @@ const Text = styled.p`
   color: #373737;
 `;
 
+const ImgContainer = styled.div`
+
+`;
+
+const Gradient = styled.div`
+  position: absolute;
+  opacity: .5;
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(144deg, #fff 0%, transparent 50%);
+`
+
 const TrunkInfoScreen = ({ itemData, onClick }) => {
   const [showTitle, setShowTitle] = useState(undefined);
   const [data, setData] = useState([]);
@@ -89,7 +101,10 @@ const TrunkInfoScreen = ({ itemData, onClick }) => {
   return (
     <Container ref={myRef} onScroll={onScroll}>
       <Header trunkScreen showTitle={showTitle} title={data.category} goBack={onClick} />
-      <Img src={`data:image/jpeg;base64,${data.imageBase64}`} alt='Imagem da atividade' />
+      <ImgContainer>
+        <Gradient />
+        <Img src={`data:image/jpeg;base64,${data.imageBase64}`} alt='Imagem da atividade' />
+      </ImgContainer>
       <MessageBox>
         <Title>
           {data.title}

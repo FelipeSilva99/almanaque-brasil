@@ -29,9 +29,9 @@ export default function main(state = initialState, action) {
 
     case SYNCED:
       const syncedArray = state.synced;
-      // if(state.pendingSync.length > 0) {
+      if(state.pendingSync.length > 0) {
       state.pendingSync.map(item => syncedArray.push(item))
-      // }
+      }
 
       return {
         pendingSync: [],
@@ -39,7 +39,6 @@ export default function main(state = initialState, action) {
       }
 
     case CLEAR:
-      // console.log('[CLEAR]:', initialState)
       return initialState
 
     default:

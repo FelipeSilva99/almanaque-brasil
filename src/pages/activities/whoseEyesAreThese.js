@@ -33,7 +33,7 @@ const Container = styled.div`
   }
 `;
 
-const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook, handleNextQuestion }) => {
+const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
   const [isModalAnswerOption, setIsModalAnswerOption] = useState(undefined);
   const [modalCorrectAnswer, setModalCorrectAnswer] = useState(false)
   const [answer, setAnswer] = useState(undefined);
@@ -187,7 +187,7 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook, handleNe
           && renderScreen()
         }
         {isModalAnswerOption && renderAnswerOption()}
-        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer goBack={handleNextQuestion} chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages} />}
+        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} errorMessages={useActivitie.errorMessages} />}
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore score={score} idActivitie={activitie.id} />}
         {showAnswer && <CorrectAnswer answer={getCorrectAnswer(useActivitie.answers)} score={score} noScore={isModalWithoutScore === true} idActivitie={activitie.id} />}

@@ -11,16 +11,21 @@ import activityDesign from './activityDesign';
 
 //Redux
 import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
+import { selectedActivity } from '../../dataflow/modules/activity-module';
 
 const mapStateToProps = state => ({
   activities: state.trails,
   selectedTrails: state.trails.selectedTrails,
+  selectedActivity: state.activity.selectedActivity,
   actionsBook: state.actionsBook,
 })
 
 const mapDispatchToProps = dispatch => ({
   postActionsBook: (info) => {
     dispatch(postActionsBook(info));
+  },
+  handleselectedActivity: (info) => {
+    dispatch(selectedActivity(info));
   },
 });
 
@@ -41,10 +46,6 @@ const Stone = styled.div`
     width: ${props => props.width};
 
   }
-  /* div{
-    width: 2rem;
-    height: 2rem;
-    } */
 `;
 
 const Trail = styled.div`
@@ -70,7 +71,7 @@ const ActivitiesRow = styled.div`
 `;
 
 const Activities = (props) => {
-  const [score, setScore] = useState(0)
+  const [score, setScore] = useState(0);
   const [activities, setActivities] = useState(null);
   const [currentActivity, setCurrentActivity] = useState(null);
   const [activitiesProgress, setActivitiesProgress] = useState(undefined);
@@ -89,79 +90,62 @@ const Activities = (props) => {
 
     let canBeDone = true;
 
-    // let newListActivities = [];
-
     const activitiesStates = activities.map((activitie) => {
       const isDoneActivitie = isDone(activitie.id);
-      // const background = setBackgroundColor(activitie)
       const activitieState = isDoneActivitie ? isDoneActivitie : defineState(canBeDone && !isDoneActivitie)
       if (!isDoneActivitie) canBeDone = false;
-      // newListActivities.push({...activitie, state: activitieState});
       return { id: activitie.id, state: activitieState }
     });
 
     setActivitiesProgress(activitiesStates);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activities]);
 
   useEffect(() => {
     const trail = props.selectedTrails;
     const allActivities = props.activities.data[trail].activities;
-    const lastActivityDone = props.history?.location?.state?.idActivitie;
-    const idLastActivity = allActivities[allActivities.length - 1].id;
-    const isLastActivity = lastActivityDone === idLastActivity;
-
-    if(isLastActivity) {
-      setIsModalActivitiesCompleted(true);
-    }
-
+   
     setActivities(allActivities);
-  }, [props.selectedTrails, props.activities.data, props.history?.location?.state?.idActivitie, activitiesProgress]);
+  }, [props.selectedTrails, props.activities.data]);
 
   useEffect(() => {
-    const { pendingSync, synced } = props.actionsBook;
-    let pendingScore;
-    let syncedScore;
+    const lastActivitiesProgress = activitiesProgress && activitiesProgress[activitiesProgress.length - 1];
+    const lastActivityDone = lastActivitiesProgress?.state === 'right' || lastActivitiesProgress?.state === 'wrong';
 
-    if (pendingSync.length > 0) {
-      let pendingList = pendingSync.filter(action => action.success === true);
-      let trailId = synced[pendingSync.length - 1]?.trailId;
+    if(lastActivityDone) { 
+      const idLastActivitiesProgress = lastActivitiesProgress.id
+      let lastActivity = props.selectedActivity === idLastActivitiesProgress;
+
+      setIsModalActivitiesCompleted(lastActivity);
+    }
+  }, [activitiesProgress, props.selectedActivity]);
+
+
+  useEffect(() => {
+    const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync];
+    
+    let totalScore;
+
+    if (listActionsBook.length > 0) {
+      let pendingList = listActionsBook.filter(action => action.success === true);
+      let trailId = listActionsBook[listActionsBook.length - 1]?.trailId;
 
       const points = pendingList
       .filter(action => action.trailId === trailId)
       .map(action => action.score);
 
       if (points.length > 1) {
-        pendingScore = points.length > 0 && points.reduce((prev, cur) => prev + cur);
+        totalScore = points.length > 0 && points.reduce((prev, cur) => prev + cur);
       } else {
-        pendingScore = +points.join("");
+        totalScore = +points.join("");
       }
     } else {
       console.log("no pendingSync actions");
     }
-    
-    if (synced.length > 0) {
-      const syncedList = synced.filter(action => action.success === true);
-      const trailId = synced[synced.length - 1]?.trailId;
 
-      const points = syncedList
-      .filter(action => action.trailId === trailId)
-      .map(action => action.score);
-
-      if (points.length > 1) {
-        syncedScore = points.reduce((prev, cur) => prev + cur);
-      } else {
-        syncedScore = +points.join("");
-      }
-    } else {
-      console.log("no synced actions");
-    }
-    
-    if (pendingScore > 0) {
-      setScore(pendingScore + syncedScore);
-    } else {
-      setScore(syncedScore);
+    if (totalScore > 0) {
+      setScore(totalScore);
     }
   }, [props.actionsBook]);
   
@@ -175,7 +159,9 @@ const Activities = (props) => {
     setCurrentActivity(useCurrentActivity);
   }, [props]);
 
-  const handlerNextActivitie = (index) => {
+  const handlerNextActivitie = (index, activityId) => {
+    props.handleselectedActivity(activityId);
+
     props.history.push({
       pathname: `/activities/${index + 1}`,
     });
@@ -195,7 +181,7 @@ const Activities = (props) => {
               activitieState={activitiesProgress[index]?.state}
               item={item}
               itemValue={index}
-              onClick={() => handlerNextActivitie(index)}
+              onClick={() => handlerNextActivitie(index, item.id)}
               history={props.history}
               iconBloqued={activityName?.stone?.bloqued}
               iconVisualized={activityName?.stone?.visualized}
@@ -216,7 +202,7 @@ const Activities = (props) => {
                 item={item}
                 itemValue={index}
                 lineTo={'straight'}
-                onClick={() => handlerNextActivitie(index)}
+                onClick={() => handlerNextActivitie(index, item.id)}
                 history={props}
                 iconBloqued={activityName?.stone?.bloqued}
                 iconVisualized={activityName?.stone?.visualized}
@@ -227,7 +213,7 @@ const Activities = (props) => {
                 item={array[index + 1]}
                 itemValue={index + 1}
                 lineTo={'left'}
-                onClick={() => handlerNextActivitie(index + 1)}
+                onClick={() => handlerNextActivitie(index + 1, item.id)}
                 history={props}
                 iconBloqued={activityName?.stone?.bloqued}
                 iconVisualized={activityName?.stone?.visualized}
@@ -239,6 +225,7 @@ const Activities = (props) => {
     })
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function isDone(activityId) {
     const actionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync]
     if (actionsBook === undefined) return

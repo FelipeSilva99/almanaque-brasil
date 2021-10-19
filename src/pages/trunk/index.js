@@ -43,6 +43,7 @@ const Title = styled.h1`
 
 const IconModal = styled.img`
   transform: ${props => props.isOpen && 'rotate(90deg)'};
+  transition: .2s ease;
 `;
 
 const ContentText = styled.div`
@@ -96,7 +97,7 @@ const Trunk = (props) => {
 
     return (
       <>
-        <ContentTitle  onClick={() => handleModal(title)}>
+        <ContentTitle onClick={() => handleModal(title)}>
           <Title>
             {title}
           </Title>

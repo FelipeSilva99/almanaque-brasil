@@ -118,6 +118,7 @@ const TextName = styled.h1`
   font-size: 1.625rem;
   color: #0D0D0D;
   font-weight: 900;
+  text-transform: capitalize;
 `;
 
 const Text = styled.p`

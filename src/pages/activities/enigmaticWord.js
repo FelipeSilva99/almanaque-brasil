@@ -1,4 +1,3 @@
-/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -118,7 +117,7 @@ const Word = styled.div`
   background-color: #F08800;
 `;
 
-function EnigmaticWord({ activitie, registerAction, actionsBook, handlerNextActivitie }) {
+function EnigmaticWord({ activitie, registerAction, actionsBook }) {
   const [isLoading, setIsLoading] = useState(true)
   const [enigmas, setEnigmas] = useState(undefined)
   const [modalWrongAnswer, setModalWrongAnswer] = useState(undefined);
@@ -220,10 +219,15 @@ function EnigmaticWord({ activitie, registerAction, actionsBook, handlerNextActi
   }
 
   const handleSubmit = () => {
-    let userAnswer = "";
     const isError = enigmas.map(item => item.userInput).filter(i => !i).length > 0;
     const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
     const useAllowScore = allowScore(activitie.trailId, activitie.id, listActionsBook);
+    const useCorrectAnswer = activitie.answer.answer.toLowerCase();
+    let userAnswer = "";
+    enigmas.map(item => {
+      userAnswer = `${userAnswer}${item.userInput}`
+    })
+    userAnswer = userAnswer.toLowerCase();
 
     if (isError) {
       setIsError(true);
@@ -232,21 +236,13 @@ function EnigmaticWord({ activitie, registerAction, actionsBook, handlerNextActi
       const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
       const useAllowScore = allowScore(activitie.trailId, activitie.id, listActionsBook);
       if (useAllowScore) {
-        enigmas.map((item) => {
-            userAnswer = `${userAnswer}${item.userInput}`;
-          })
         userAnswer = userAnswer.toLowerCase();
-        if (userAnswer === activitie.answer.answer) setModalCorrectAnswer(true);
+        if (userAnswer === useCorrectAnswer) setModalCorrectAnswer(true);
         else handleWrongAnswer()
 
       }
-      // eslint-disable-next-line array-callback-return
     } else {
-      enigmas.map(item => {
-        userAnswer = `${userAnswer}${item.userInput}`
-      })
-      userAnswer = userAnswer.toLowerCase();
-      if (userAnswer === activitie.answer.answer) {
+      if (userAnswer === useCorrectAnswer) {
         setIsModalWithoutScore(true);
         showModalAnswer();
       } 
@@ -260,7 +256,6 @@ function EnigmaticWord({ activitie, registerAction, actionsBook, handlerNextActi
         <Header title={activitie?.name} />
         <Content>
           <Puzzle>
-            {/* {JSON.stringify(activitie?.enigmas)} */}
             {enigmas && enigmas.map((enigma, i) => {
               return (
                 <Enigma key={i}>
@@ -289,7 +284,7 @@ function EnigmaticWord({ activitie, registerAction, actionsBook, handlerNextActi
           handleClick={handleSubmit}
         >responder
         </Button>
-        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer goBack={handlerNextActivitie} chances={chances} handleClick={handleModalWrongAnswer} handleShowAnswer={showModalAnswer} />}
+        {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleModalWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWithoutScore} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer answer={activitie.answer} toScore score={score} idActivitie={activitie.id} />}
         {showAnswer && <CorrectAnswer answer={activitie.answer} score={score} noScore={isModalWithoutScore === true} idActivitie={activitie.id} />}

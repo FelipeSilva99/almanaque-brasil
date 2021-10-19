@@ -86,7 +86,7 @@ const Header = ({
     if (goBack) {
       goBack();
     } else {
-      history.push('/activities');
+      history.goBack();
     }
   }
 

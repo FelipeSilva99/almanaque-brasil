@@ -20,8 +20,6 @@ import Config from '../pages/config';
 import Tutorial from '../pages/tutorial';
 import Terms from '../pages/termsOfUse';
 import Dashboard from '../pages/dashboard';
-
-// import PrivateRoute from './PrivateRoute';
 import {
 	getTrailsThunk,
 } from '../dataflow/thunks/trails-thunk';
@@ -51,7 +49,7 @@ const Routes = (props) => {
 				<PrivateRoute exact path='/trunk' component={Trunk} props={props} />
 				<PrivateRoute exact path='/config' component={Config} />
 				<PrivateRoute exact path='/config/tutorial' component={Tutorial} />
-				<PrivateRoute exact path='/config/termsOfUse' component={Terms} />
+				<PrivateRoute exact path='/config/tutorial/:title' component={Tutorial} />
 			</Switch>
 		</BrowserRouter>
 	)

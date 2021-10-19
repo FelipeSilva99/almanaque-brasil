@@ -26,8 +26,8 @@ const IconArrow = styled.img`
   cursor: pointer;
 `;
 
-const Item = ({ title }) => (
-  <Container>
+const Item = ({ title, handleClick }) => (
+  <Container onClick={handleClick}>
     <Title>{title}</Title>
     <IconArrow src={arrow} alt='Seta' />
   </Container>

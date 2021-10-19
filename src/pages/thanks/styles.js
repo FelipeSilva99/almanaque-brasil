@@ -26,8 +26,8 @@ export const BoxContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 14rem;
   margin-left: 3rem;
+  width: 14rem;
 `;
 export const ContainerImage = styled.div`
   display: flex;

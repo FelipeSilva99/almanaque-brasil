@@ -8,13 +8,13 @@ import Header from '../../components/header/index'
 export default function TermosDeUso() {
   return (
     <S.Container>
-      
+      <Header 
+        title='Termos de uso e privacidade'
+        noTip
+      />
       <S.Box>
-        <Header 
-          title='Termos de uso e privacidade'
-        />
         <div>
-          <S.Titlee>TERMOS E CONDIÇÕES GERAIS DE USO DO APLICATIVO ALMANAQUE MIGUEL BURNIER</S.Titlee>
+          <S.TermTitle>TERMOS E CONDIÇÕES GERAIS DE USO DO APLICATIVO ALMANAQUE MIGUEL BURNIER</S.TermTitle>
           <S.Subtitle>Os serviços do aplicativo Almanaque Miguel Burnier são fornecidos pela pessoa jurídica com a seguinte Razão Social/Nome: Instituto Precisa Ser, com nome fantasia Precisa Ser, inscrito no CNPJ/CPF sob o nº 28.557.413/0001-90.
           </S.Subtitle>
           <S.Subtitle>Todos os conteúdos do Almanaque Miguel Burnier, são fornecidos e tem curadoria da pessoa jurídica com a seguinte Razão Social/nome: Instituto Elifas Andreato, inscrito no CNPJ/CPF sob o nº 14.845.948/0001-52, que foi criado para ampliar o legado do artista Elifas Andreato e contribuir para o desenvolvimento da educação, cultura e cidadania, e pela patrocinadora Gerdau, pela permissão de uso do conteúdo do livro Miguel Burnier, Marcas Históricas, onde textos e imagens foram extraídos para enriquecimento do conteúdo do aplicativo.</S.Subtitle>

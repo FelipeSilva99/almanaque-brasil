@@ -7,6 +7,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
 export const Box = styled.div`
   width: 90%;
@@ -19,12 +20,12 @@ export const TitleBar = styled.h1`
   text-align: center;
   padding: 10px;
 `;
-export const Titlee = styled.h2`
+export const TermTitle = styled.h2`
   color: #373737;
   font-weight: 900;
   text-align: center;
-  font-size: 14px;
-  padding: 10px 0;
+  font-size: .875rem;
+  padding: 2.313rem 0 2rem 0;
 `;
 export const Title = styled.h2`
   color: #373737;

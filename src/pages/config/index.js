@@ -86,30 +86,33 @@ const Config = (props) => {
   const openSettings = (router) => {
     if(router === 'openModalResetMap') {
       handleModalResetMap();
-    } else if (router === 'config/tutorial') {
-      history.push(`/${router}`);
-    } else {
+    } else if (router === 'agradecimentos') {
       alert(router);
       // history.push(`/${router}`);
+    } else {
+      history.push(`/${router}`);
+
     }
   }
 
-  const data = [{
-    title: 'Tutorial',
-    router: 'config/tutorial',
-  },
-  {
-    title: 'Reiniciar mapa das trilhas',
-    router: 'openModalResetMap',
-  },
-  {
-    title: 'Termos de uso e privacidade',
-    router: 'termos-de-uso-e-privacidade',
-  },
-  {
-    title: 'Agradecimentos',
-    router: 'agradecimentos',
-  },]
+  const data = [
+    {
+      title: 'Tutorial',
+      router: 'config/tutorial',
+    },
+    {
+      title: 'Reiniciar mapa das trilhas',
+      router: 'openModalResetMap',
+    },
+    {
+      title: 'Termos de uso e privacidade',
+      router: 'config/terms-Of-use',
+    },
+    // {
+    //   title: 'Agradecimentos',
+    //   router: 'agradecimentos',
+    // },
+  ]
 
   return (
     <Container>

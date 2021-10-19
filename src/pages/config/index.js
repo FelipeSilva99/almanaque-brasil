@@ -47,7 +47,7 @@ const Container = styled.div`
 
 const BoxConfig = styled.div`
   width: 100%;
-  padding: 15px 32px;
+  padding: 1rem;
 `;
 
 const Config = (props) => {

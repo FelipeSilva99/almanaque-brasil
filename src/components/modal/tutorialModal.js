@@ -138,7 +138,7 @@ const ImgElifas = styled.img`
 
 const CloseBtn = styled.button`
   font: 900 1.2em 'Nunito';
-  color: #ffd000;
+  color: #373737;
   transform: scale(1,.9);
 `;
 
@@ -148,9 +148,9 @@ function Tutorial({ screen, handleCloseTutorial }) {
       <Content>
         <ContentInfo>
           <Title>Tutorial</Title>
-          {tutorialData
-            .filter(item => item.game.toLowerCase() === screen.toString().toLowerCase())
-            .map((data, i) => (
+          {tutorialData && tutorialData
+          .filter(item => item.game.toLowerCase() === screen.toString().toLowerCase())
+          .map((data, i) => (
               <TutorialBox key={i}>
                 <Subtitle>{data.game}</Subtitle>
                 <Scroll>

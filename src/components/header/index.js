@@ -73,6 +73,7 @@ const Header = ({
   tips,
   noPadding,
   noBack,
+  noTip,
   isSelectedTips,
   handleModalTip,
   trunkScreen,
@@ -109,7 +110,7 @@ const Header = ({
     <Container trunkScreen={trunkScreen} noPadding={noPadding} animation={showTitle}>
       {!noBack && renderGoBack()}
       <Title trunkScreen={trunkScreen} animation={showTitle}>{title}</Title>
-      {tips ? renderTips() : <ButtonTip noBack={noBack} />}
+      {tips ? renderTips() : <ButtonTip noBack={noBack || noTip} />}
       {isSelectedTips && <ModalTip text={tips} handleModalTip={handleModalTip} />}
     </Container>
   );

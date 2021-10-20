@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
 //Components
 import Button from '../../../components/buttons/button';
@@ -81,7 +82,7 @@ const Home = (props) => {
         >
           continuar com o google
         </Button>
-        <Button
+        {/* <Button
           width='.5625rem'
           backgroundDisabled='#ccc'
           color='#fff' background='#3C5A9A'
@@ -91,7 +92,16 @@ const Home = (props) => {
           icon={iconFacebook}
         >
           continuar com facebook
-        </Button>
+        </Button> */}
+        <FacebookLogin
+          appId="849714892604010"
+          fields="name,email"
+          autoLoad
+          callback={() => console.log('Facebook login')}
+          render={renderProps => (
+            <button onClick={renderProps.onClick}>continuar com facebook</button>
+          )}
+        />
         <Button
           background='#F3F3F3'
           boxShadow='#F3F3F3'

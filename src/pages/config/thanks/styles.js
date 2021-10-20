@@ -2,15 +2,15 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
+  height: 100vh;
   min-height: 100%;
   background: #F3F3F3;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
 
-export const BoxTitle = styled.div`
-`;
 export const Subtitle = styled.p`
   color: #373737;
   font-size: 14px;
@@ -25,9 +25,6 @@ export const Box = styled.div`
 export const BoxContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-left: 3rem;
-  width: 14rem;
 `;
 export const ContainerImage = styled.div`
   display: flex;
@@ -36,12 +33,10 @@ export const ContainerImage = styled.div`
   width: 20rem;
 `;
 export const BoxImage = styled.div`
-  width: 5rem;
+  /* width: 5rem; */
+  width: 10rem;
   height: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-export const Img = styled.img`
-  width: 4rem;
 `;

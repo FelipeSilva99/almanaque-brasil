@@ -3,6 +3,7 @@ import * as S from "./styles";
 
 //Component
 import Header from '../../../components/header/index';
+
 //Images
 import Gerdau from '../../../images/thanks/Gerdau.svg';
 import Instituto from '../../../images/thanks/Instituto.svg';
@@ -12,26 +13,24 @@ import VaiNaWeb from '../../../images/thanks/VaiNaWeb.svg';
 export default function Thanks() {
   return (
     <S.Container>
+      <Header
+        title='Agradecimentos'
+      />
       <S.Box>
-        <Header
-          title='Agradecimentos'
-        />
-        <S.BoxTitle>
-          <S.Subtitle>Agradecemos à comunidade de Miguel Burnier e a todas as pessoas que contribuíram para a realização do aplicativo Almanaque Miguel Burnier.</S.Subtitle>
-        </S.BoxTitle>
+        <S.Subtitle>Agradecemos à comunidade de Miguel Burnier e a todas as pessoas que contribuíram para a realização do aplicativo Almanaque Miguel Burnier.</S.Subtitle>
         <S.BoxContainer>
           <S.ContainerImage>
             <S.BoxImage>
-              <S.Img src={Instituto} alt='Logo Instituto' />
+              <img src={Instituto} alt='Logo Instituto' />
             </S.BoxImage>
             <S.BoxImage>
-              <S.Img src={Holonomics} alt='Logo Holonomics' />
+              <img src={Holonomics} alt='Logo Holonomics' />
             </S.BoxImage>
             <S.BoxImage>
-              <S.Img src={Gerdau} alt='Logo Gerdau' />
+              <img src={Gerdau} alt='Logo Gerdau' />
             </S.BoxImage>
             <S.BoxImage>
-              <S.Img src={VaiNaWeb} alt='Logo Vai na Web' />
+              <img src={VaiNaWeb} alt='Logo Vai na Web' />
             </S.BoxImage>
           </S.ContainerImage>
         </S.BoxContainer>

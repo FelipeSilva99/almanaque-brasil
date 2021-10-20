@@ -58,6 +58,7 @@ const Title = styled.h1`
   line-height: 0;
   color: #373737;
   text-align: center;
+  text-transform: capitalize;
   animation: .3s fadeIn ease-in-out;
 	opacity: ${props => props.trunkScreen && 0};
 

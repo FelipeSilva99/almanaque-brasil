@@ -142,7 +142,7 @@ const Trunk = (props) => {
           : renderScreen()
         }
       </ContainerBox>
-      <Footer screen='trunk' />
+      <Footer screen='bau' />
       {infoModal.isModal && <TrunkInfoScreen itemData={infoModal.data} onClick={handleCloseModal} />}
     </Container>
   );

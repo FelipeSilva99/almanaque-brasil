@@ -67,7 +67,7 @@ const Home = (props) => {
       <Img src={logo} alt='logo' />
       <ContentBox>
         <Button
-          handleClick={() => handleClick('createAccount')}
+          handleClick={() => handleClick('cadastro')}
         >
           inscreva-se
         </Button>

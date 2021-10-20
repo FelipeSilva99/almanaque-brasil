@@ -18,6 +18,7 @@ const Container = styled.div`
   justify-content: flex-end;
   align-items: center;
   background: #ababab;
+  overflow: hidden;
   z-index: 1;
 
   @media (min-width: 1024px) { align-items: center; }
@@ -28,6 +29,10 @@ const Content = styled.div`
   width: 100%;
   height: 93vh;
   max-width: 340px;
+
+  @media (max-height: 600px) {
+    height: 96vh;
+  }
 `;
 
 const ContentInfo = styled.div`
@@ -134,6 +139,10 @@ const ImgElifas = styled.img`
   right: -3%;
   bottom: 0;
   width: 10rem;
+
+  @media (max-height: 600px) {
+    width: 9.5rem;
+  }
 `;
 
 const CloseBtn = styled.button`

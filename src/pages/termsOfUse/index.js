@@ -1,16 +1,16 @@
 import React from "react";
 import * as S from "./styles";
 
-
 //Component
 import Header from '../../components/header/index'
 
-export default function TermosDeUso() {
+export default function TermosDeUso({ closeModal }) {
   return (
     <S.Container>
       <Header 
         title='Termos de uso e privacidade'
         noTip
+        goBack={closeModal}
       />
       <S.Box>
         <div>

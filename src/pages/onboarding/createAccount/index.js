@@ -66,7 +66,7 @@ const CreateAccount = (props) => {
 
   const goToAccountCreatedScreen = () => {
     props.history.push({
-      pathname: `/accountCreated`,
+      pathname: `/conta-criada`,
       state: { email: register.email }
     });
   }

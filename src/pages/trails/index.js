@@ -78,13 +78,13 @@ const Trails = (props) => {
     const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync];
     let trailsState = props.trails.map(trail => trailState(trail.id, listActionsBook, trail));
     let qtdTrailComplete = trailsState.filter(item => item.state === 'done').length;
+    let isTrailComplete = trailsState.length > 0 && qtdTrailComplete === 10;
+    const isAppFinished = isTrailComplete && trailsState?.every(trail => trail.status === 'done')
 
     setTrailsState(trailsState);
     setQtdTrailComplete(qtdTrailComplete);
 
-    const isAppFinished = trailsState.every(trail => trail.status === 'done')
-
-    if (isAppFinished) {
+    if (isTrailComplete &&  isAppFinished) {
       setIsModalAppCompleted(true)
     } else {
       setIsModalAppCompleted(false)
@@ -97,7 +97,7 @@ const Trails = (props) => {
 	}, []);
 
   const handleActivities = (trail) => {
-    props.history.push({pathname: '/activities'});
+    props.history.push({pathname: '/atividades'});
     props.selectedTrails(trail);
   }
 
@@ -150,7 +150,7 @@ const Trails = (props) => {
           </ContentMap>
         ) 
       }
-      <Footer screen='trails' />
+      <Footer screen='trilhas' />
 
       {isModalTrailCompleted.isModal && <TrailCompleted handleClickModal={handleClickModal} handleCloseModal={handleCloseModalCompleteTrail}/>}
       {isModalAppCompleted && <AppCompletedModal handleCloseModal={handleCloseModal} /> }

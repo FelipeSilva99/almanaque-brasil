@@ -142,7 +142,7 @@ const Dashboard = (props) => {
               backgroundSize={'380px'}
               backgroundPositionX={'100%'}
               backgroundPositionY={'100%'}
-              onClick={() => handleClick('trails')}
+              onClick={() => handleClick('trilhas')}
             ><Text>Mapa das<br />trilhas</Text>
             </Card>
 

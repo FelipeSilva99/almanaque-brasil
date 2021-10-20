@@ -2,12 +2,12 @@ import React from "react";
 import * as S from "./styles";
 
 //Component
-import Header from '../../components/header/index'
+import Header from '../../../components/header/index';
 //Images
-import Gerdau from '../../images/thanks/Gerdau.svg';
-import Instituto from '../../images/thanks/Instituto.svg';
-import Holonomics from '../../images/thanks/Holonomics.png';
-import VaiNaWeb from '../../images/thanks/VaiNaWeb.svg';
+import Gerdau from '../../../images/thanks/Gerdau.svg';
+import Instituto from '../../../images/thanks/Instituto.svg';
+import Holonomics from '../../../images/thanks/Holonomics.png';
+import VaiNaWeb from '../../../images/thanks/VaiNaWeb.svg';
 
 export default function Thanks() {
   return (
@@ -36,6 +36,6 @@ export default function Thanks() {
           </S.ContainerImage>
         </S.BoxContainer>
       </S.Box>
-    </S.Container >
+    </S.Container>
   )
 }

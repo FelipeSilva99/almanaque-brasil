@@ -20,7 +20,7 @@ const ContentSelect = ({
   handleChange,
   isTermsAccepted,
   handleAceptTerms,
-  attention
+  attention,
 }) => {
   return (
     <>

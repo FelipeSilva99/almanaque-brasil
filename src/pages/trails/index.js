@@ -97,7 +97,7 @@ const Trails = (props) => {
 	}, []);
 
   const handleActivities = (trail) => {
-    props.history.push({pathname: '/activities'});
+    props.history.push({pathname: '/atividades'});
     props.selectedTrails(trail);
   }
 
@@ -150,7 +150,7 @@ const Trails = (props) => {
           </ContentMap>
         ) 
       }
-      <Footer screen='trails' />
+      <Footer screen='trilhas' />
 
       {isModalTrailCompleted.isModal && <TrailCompleted handleClickModal={handleClickModal} handleCloseModal={handleCloseModalCompleteTrail}/>}
       {isModalAppCompleted && <AppCompletedModal handleCloseModal={handleCloseModal} /> }

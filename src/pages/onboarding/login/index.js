@@ -84,13 +84,13 @@ const Login = (props) => {
       if (error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.");
       if (error.code === "UserNotConfirmedException") {
         props.history.push({
-          pathname: `/accountCreated`,
+          pathname: `/conta-criada`,
           state: { email: register.email }
         });
       };
       if (error.code === "UserNotFoundException") {
         props.history.push({
-          pathname: `/createAccount`,
+          pathname: `/cadastro`,
           state: { email: register.email }
         });
       };
@@ -98,7 +98,7 @@ const Login = (props) => {
   }
 
   const resetPassword = () => {
-    props.history.push('/resetPassword');
+    props.history.push('/redefinir-senha');
   }
 
   const goBack = () => {

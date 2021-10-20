@@ -91,7 +91,6 @@ const Config = (props) => {
       // history.push(`/${router}`);
     } else {
       history.push(`/${router}`);
-
     }
   }
 
@@ -106,12 +105,12 @@ const Config = (props) => {
     },
     {
       title: 'Termos de uso e privacidade',
-      router: 'config/terms-Of-use',
+      router: 'config/termos-de-uso',
     },
-    // {
-    //   title: 'Agradecimentos',
-    //   router: 'agradecimentos',
-    // },
+    {
+      title: 'Agradecimentos',
+      router: 'config/agradecimentos',
+    },
   ]
 
   return (

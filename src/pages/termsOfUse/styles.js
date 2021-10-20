@@ -1,13 +1,18 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  padding-bottom: 5.188rem;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   background: #F3F3F3;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 `;
 export const Box = styled.div`
   width: 90%;

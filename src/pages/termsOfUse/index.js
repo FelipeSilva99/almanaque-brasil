@@ -1,7 +1,6 @@
 import React from "react";
 import * as S from "./styles";
 
-
 //Component
 import Header from '../../components/header/index'
 

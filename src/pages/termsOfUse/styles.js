@@ -17,6 +17,7 @@ export const Container = styled.div`
 export const Box = styled.div`
   width: 90%;
   height: 100%;
+  max-width: 425px;
 `;
 export const TitleBar = styled.h1`
   color: #373737;
@@ -51,7 +52,4 @@ export const BoxList = styled.ul`
   font-size: 14px;
   line-height: 21px;
   margin-left: 17px;
-`;
-
-export const List = styled.li`
 `;

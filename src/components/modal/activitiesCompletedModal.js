@@ -104,7 +104,7 @@ const ImgBento = styled.img`
 
 function ActivitiesCompletedModal({ history, score }) {
   const handleClick = () => {
-    history.push('/trails');
+    history.push('/trilhas');
   }
 
 	return (

@@ -19,8 +19,10 @@ import Trunk from '../pages/trunk';
 import Config from '../pages/config';
 import Tutorial from '../pages/tutorial';
 import Terms from '../pages/termsOfUse';
-import Thanks from '../pages/thanks';
+import Thanks from '../pages/config/thanks';
 import Dashboard from '../pages/dashboard';
+
+//Redux
 import { getTrailsThunk } from '../dataflow/thunks/trails-thunk';
 
 const mapDispatchToProps = dispatch => {
@@ -37,21 +39,21 @@ const Routes = (props) => {
 		<BrowserRouter>
 			<Switch>
 				<UnauthenticatedRoute exact path='/' component={Home} />
-				<UnauthenticatedRoute exact path='/createAccount' component={CreateAccount} />
-				<UnauthenticatedRoute exact path='/accountCreated' component={AccountCreated} />
+				<UnauthenticatedRoute exact path='/cadastro' component={CreateAccount} />
+				<UnauthenticatedRoute exact path='/conta-criada' component={AccountCreated} />
 				<UnauthenticatedRoute exact path='/login' component={Login} />
-				<UnauthenticatedRoute exact path='/resetPassword' component={ResetPassword} />
+				<UnauthenticatedRoute exact path='/redefinir-senha' component={ResetPassword} />
+				<UnauthenticatedRoute exact path='/termos-de-uso' component={Terms} />
 				<PrivateRoute exact path='/dashboard' component={Dashboard} />
-				<PrivateRoute exact path='/trails' component={Trails} />
-				<PrivateRoute exact path='/activities/:trailId' component={Activities} />
-				<PrivateRoute exact path='/activities' component={ActivitiesList} />
-				<PrivateRoute exact path='/trunk' component={Trunk} props={props} />
+				<PrivateRoute exact path='/trilhas' component={Trails} />
+				<PrivateRoute exact path='/atividade/:trailId' component={Activities} />
+				<PrivateRoute exact path='/atividades' component={ActivitiesList} />
+				<PrivateRoute exact path='/bau' component={Trunk} props={props} />
 				<PrivateRoute exact path='/config' component={Config} />
-				<PrivateRoute exact path='/config/termsofuse' component={Terms} />
-				<PrivateRoute exact path='/config/thanks' component={Thanks} />
 				<PrivateRoute exact path='/config/tutorial' component={Tutorial} />
 				<PrivateRoute exact path='/config/tutorial/:title' component={Tutorial} />
-				<PrivateRoute exact path='/config/terms-Of-use' component={Terms} />
+				<PrivateRoute exact path='/config/termos-de-uso' component={Terms} />
+				<PrivateRoute exact path='/config/agradecimentos' component={Thanks} />
 			</Switch>
 		</BrowserRouter>
 	)

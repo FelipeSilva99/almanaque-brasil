@@ -163,7 +163,7 @@ const Activities = (props) => {
     props.handleselectedActivity(activityId);
 
     props.history.push({
-      pathname: `/activities/${index + 1}`,
+      pathname: `/atividade/${index + 1}`,
     });
   }
 
@@ -274,7 +274,7 @@ const Activities = (props) => {
     <Container>
       <Header
         title={activityName?.name}
-        goBack={() => { props.history.push('/trails') }}
+        goBack={() => { props.history.push('/trilhas') }}
       />
 
       {renderStone()}

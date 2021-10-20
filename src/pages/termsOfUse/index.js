@@ -7,11 +7,13 @@ import Header from '../../components/header/index'
 export default function TermosDeUso({ closeModal }) {
   return (
     <S.Container>
-      <Header 
-        title='Termos de uso e privacidade'
-        noTip
-        goBack={closeModal}
-      />
+      <S.ContainerHeader>
+        <Header
+          title='Termos de uso e privacidade'
+          noTip
+          goBack={closeModal}
+        />
+      </S.ContainerHeader>
       <S.Box>
         <div>
           <S.TermTitle>TERMOS E CONDIÇÕES GERAIS DE USO DO APLICATIVO ALMANAQUE MIGUEL BURNIER</S.TermTitle>
@@ -49,14 +51,14 @@ export default function TermosDeUso({ closeModal }) {
         <div>
           <S.Title>6. DAS RESPONSABILIDADES</S.Title>
           <S.Subtitle>É de responsabilidade do usuário:</S.Subtitle>
-            <S.Subtitle>a) defeitos ou vícios técnicos originados no próprio sistema do usuário;</S.Subtitle>
-            <S.Subtitle>b) a correta utilização do aplicativo, prezando pela boa convivência, pelo respeito e cordialidade entre os usuários;</S.Subtitle>
-            <S.Subtitle>c) pelo cumprimento e respeito ao conjunto de regras disposto nesse Termo de Condições Gerais de Uso, na respectiva Política de Privacidade e na legislação nacional e internacional;</S.Subtitle>
-            <S.Subtitle>d) pela proteção aos dados de acesso à sua conta/perfil (login e senha).</S.Subtitle> 
-            <S.Subtitle>O usuário pode instalar/desinstalar o aplicativo a qualquer momento sem qualquer dano para seu aparelho de celular ou para os proprietários do aplicativo.</S.Subtitle>
-            <S.Subtitle>É de responsabilidade do fornecedor do aplicativo:</S.Subtitle>
-            <S.Subtitle>a) A integridade das informações que foram por ele divulgadas, sendo que os comentários ou informações divulgadas pelos usuários são de inteira responsabilidade dos próprios usuários;</S.Subtitle> 
-            <S.Subtitle>b) Não incluir links externos ou páginas que sirvam para fins comerciais ou publicitários ou quaisquer informações ilícitas, violentas, polêmicas, pornográficas, xenofóbicas, discriminatórias ou ofensivas.</S.Subtitle>
+          <S.Subtitle>a) defeitos ou vícios técnicos originados no próprio sistema do usuário;</S.Subtitle>
+          <S.Subtitle>b) a correta utilização do aplicativo, prezando pela boa convivência, pelo respeito e cordialidade entre os usuários;</S.Subtitle>
+          <S.Subtitle>c) pelo cumprimento e respeito ao conjunto de regras disposto nesse Termo de Condições Gerais de Uso, na respectiva Política de Privacidade e na legislação nacional e internacional;</S.Subtitle>
+          <S.Subtitle>d) pela proteção aos dados de acesso à sua conta/perfil (login e senha).</S.Subtitle>
+          <S.Subtitle>O usuário pode instalar/desinstalar o aplicativo a qualquer momento sem qualquer dano para seu aparelho de celular ou para os proprietários do aplicativo.</S.Subtitle>
+          <S.Subtitle>É de responsabilidade do fornecedor do aplicativo:</S.Subtitle>
+          <S.Subtitle>a) A integridade das informações que foram por ele divulgadas, sendo que os comentários ou informações divulgadas pelos usuários são de inteira responsabilidade dos próprios usuários;</S.Subtitle>
+          <S.Subtitle>b) Não incluir links externos ou páginas que sirvam para fins comerciais ou publicitários ou quaisquer informações ilícitas, violentas, polêmicas, pornográficas, xenofóbicas, discriminatórias ou ofensivas.</S.Subtitle>
         </div>
         <div>
           <S.Title>7. DOS DIREITOS AUTORAIS</S.Title>
@@ -107,10 +109,10 @@ export default function TermosDeUso({ closeModal }) {
         <div>
           <S.Title>SEÇÃO 4 - PARA QUE FINALIDADES UTILIZAMOS OS DADOS PESSOAIS DO USUÁRIO?</S.Title>
           <S.Subtitle>Os dados pessoais do usuário coletados e armazenados pelo aplicativo Almanaque Miguel Burnier têm por finalidade:</S.Subtitle>
-            <S.BoxList>
-              <li>Permitir o acesso do usuário a conteúdos do Aplicativo Almanaque Miguel Burnier, destinado exclusivamente para usuários cadastrados.</li>
-            </S.BoxList>
-            <S.Subtitle>O tratamento de dados pessoais para finalidades não previstas nesta Política de Privacidade somente ocorrerá mediante comunicação prévia ao usuário, de modo que os direitos e obrigações aqui previstos permanecem aplicáveis.</S.Subtitle>
+          <S.BoxList>
+            <li>Permitir o acesso do usuário a conteúdos do Aplicativo Almanaque Miguel Burnier, destinado exclusivamente para usuários cadastrados.</li>
+          </S.BoxList>
+          <S.Subtitle>O tratamento de dados pessoais para finalidades não previstas nesta Política de Privacidade somente ocorrerá mediante comunicação prévia ao usuário, de modo que os direitos e obrigações aqui previstos permanecem aplicáveis.</S.Subtitle>
         </div>
         <div>
           <S.Title>SEÇÃO 5 - POR QUANTO TEMPO OS DADOS PESSOAIS FICAM ARMAZENADOS?</S.Title>

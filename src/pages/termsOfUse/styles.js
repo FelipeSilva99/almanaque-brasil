@@ -18,6 +18,15 @@ export const Box = styled.div`
   width: 90%;
   height: 100%;
   max-width: 425px;
+  margin-top: 50px;
+`;
+export const ContainerHeader = styled.div`
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  background: #F3F3F3;
+  width: 100%;
+  top: 0;
 `;
 export const TitleBar = styled.h1`
   color: #373737;

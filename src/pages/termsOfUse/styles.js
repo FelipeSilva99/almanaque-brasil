@@ -21,11 +21,11 @@ export const Box = styled.div`
   margin-top: 50px;
 `;
 export const ContainerHeader = styled.div`
-  background: #F3F3F3;
-  width: 22rem;
   display: flex;
   justify-content: center;
   position: fixed;
+  background: #F3F3F3;
+  width: 100%;
   top: 0;
 `;
 export const TitleBar = styled.h1`

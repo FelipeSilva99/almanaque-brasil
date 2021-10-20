@@ -23,6 +23,8 @@ export const Box = styled.div`
 export const ContainerHeader = styled.div`
   background: #F3F3F3;
   width: 22rem;
+  display: flex;
+  justify-content: center;
   position: fixed;
   top: 0;
 `;

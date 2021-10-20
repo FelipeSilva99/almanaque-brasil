@@ -17,8 +17,6 @@ export function trailState(trailId, actionsBook) {
     }
   }
 
-  console.log({filteredTrail})
-  
   if (filteredTrail.length > 0) {
     const correctActivitiesIds = filteredTrail.filter(action => action.success === true);
     trailsCompleted = correctActivitiesIds.length;

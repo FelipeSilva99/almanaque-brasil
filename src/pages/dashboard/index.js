@@ -153,7 +153,7 @@ const Dashboard = (props) => {
               backgroundSize={'160px'}
               backgroundPositionX={'70px'}
               backgroundPositionY={'45px'}
-              onClick={() => handleClick('trunk')}
+              onClick={() => handleClick('bau')}
             ><Text>Baú</Text>
             </Card>
           </>

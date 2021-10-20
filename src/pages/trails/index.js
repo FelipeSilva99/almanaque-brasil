@@ -80,7 +80,7 @@ const Trails = (props) => {
     let qtdTrailComplete = trailsState.filter(item => item.state === 'done').length;
     let isTrailComplete = trailsState.length > 0 && qtdTrailComplete === 10;
     const isAppFinished = isTrailComplete && trailsState?.every(trail => trail.status === 'done')
-
+console.log({trailsState})
     setTrailsState(trailsState);
     setQtdTrailComplete(qtdTrailComplete);
 

@@ -100,7 +100,13 @@ const TrunkInfoScreen = ({ itemData, onClick }) => {
 
   return (
     <Container ref={myRef} onScroll={onScroll}>
-      <Header trunkScreen showTitle={showTitle} title={data.category} goBack={onClick} />
+      <Header
+        positionFixed
+        trunkScreen
+        showTitle={showTitle}
+        title={data.category}
+        goBack={onClick}
+      />
       <ImgContainer>
         <Gradient />
         <Img src={`data:image/jpeg;base64,${data.imageBase64}`} alt='Imagem da atividade' />

@@ -37,13 +37,13 @@ const ContentTitle = styled.div`
     font-size: 2.6875rem;
     color: #399119;
   }
-  p{
-    font-size: 1.625rem;
-    strong{
-      font-size: 3rem;
-      color: #399119;
-    }
-  }
+  `;
+
+const Text = styled.p`
+  margin: auto;
+  width: 17rem;
+  font-size: 1.625rem;
+  color: #000000;
 `;
 
 const ButtonBox = styled.div`
@@ -76,7 +76,7 @@ const NoScore = ({ handleClick }) => {
     <Container>
       <ContentTitle>
         <h1>Parabéns!</h1>
-        <p>Você acertou! Para pontuar reinicie a trilha nas configurações</p>
+        <Text>Você acertou! Para pontuar reinicie a trilha nas configurações</Text>
       </ContentTitle>
       <ButtonBox backgroundColor={'transparent'}>
         <Button

@@ -158,7 +158,7 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [useActivitie]);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -192,7 +192,6 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
   };
 
   useEffect(() => {
-    // if(isDoneActivitie) {
     if (modalWrongAnswer) {
       registerAction({
         activityId: useActivitie.id,
@@ -216,8 +215,7 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
         books: false,
       })
     }
-    // } 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalCorrectAnswer, modalWrongAnswer]);
 
   const handleClick = (item) => {

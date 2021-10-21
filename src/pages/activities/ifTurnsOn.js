@@ -137,12 +137,15 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
   const [score, setScore] = useState(undefined)
 
   useEffect(() => {
+    console.log('1');
     inMemoryItem === undefined
       ? setHasItemInMemory(false)
       : setHasItemInMemory(true)
   }, [inMemoryItem]);
 
   useEffect(() => {
+    console.log('2');
+
     const newArrayOfActivities = useActivitie?.pairs.map((pair, i) => {
       return {
         id: i,
@@ -155,12 +158,16 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
   }, [useActivitie]);
 
   useEffect(() => {
+    console.log('3');
+
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
   }, [useActivitie]);
 
   useEffect(() => {
+    console.log('4');
+
     const timer = setTimeout(() => {
       if (!!useActivitie) setIsLoading(false)
     }, 2000);
@@ -168,6 +175,8 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
   }, [useActivitie]);
 
   useEffect(() => {
+    console.log('5');
+
     const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
     const useChancesAtActivity = chancesAtActivity(useActivitie.id, listActionsBook);
     setChances(useChancesAtActivity);
@@ -192,6 +201,8 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
   };
 
   useEffect(() => {
+    console.log('6');
+
     // if(isDoneActivitie) {
     if (modalWrongAnswer) {
       registerAction({

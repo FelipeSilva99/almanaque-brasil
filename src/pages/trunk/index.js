@@ -133,6 +133,7 @@ const Trunk = (props) => {
 
     return pairsList.map((item, idx) => renderContent(item, idx))
   }
+  
   return (
     <Container>
       <Header initialLettersName={props.userName[0] + props.userName[1]} text='Baú' icon={iconThunk} />

@@ -104,18 +104,18 @@ const TrunkInfoScreen = ({ itemData, onClick }) => {
         positionFixed
         trunkScreen
         showTitle={showTitle}
-        title={data.category}
+        title={data?.category}
         goBack={onClick}
       />
       <ImgContainer>
         <Gradient />
-        <Img src={`data:image/jpeg;base64,${data.imageBase64}`} alt='Imagem da atividade' />
+        <Img src={`data:image/jpeg;base64,${data?.imageBase64}`} alt='Imagem da atividade' />
       </ImgContainer>
       <MessageBox>
         <Title>
           {data.title}
         </Title>
-        <Text>{data.content}</Text>
+        <Text>{data?.content}</Text>
       </MessageBox>
     </Container>
   );

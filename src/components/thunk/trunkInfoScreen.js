@@ -113,7 +113,7 @@ const TrunkInfoScreen = ({ itemData, onClick }) => {
       </ImgContainer>
       <MessageBox>
         <Title>
-          {data.title}
+          {data?.title}
         </Title>
         <Text>{data?.content}</Text>
       </MessageBox>

@@ -173,6 +173,9 @@ const Activities = (props) => {
     let nextItemIsSingular = true;
 
     return activities.map((item, index, array) => {
+      console.log({item})
+      console.log('oola', activitiesProgress[index]?.state)
+
       if (nextItemIsSingular) {
         nextItemIsSingular = false
         return (

@@ -17,7 +17,7 @@ import ametistaBloqued from '../../images/activity/stones/ametista/ametistaActiv
 import diamante from '../../images/activity/stones/diamante/diamante.svg';
 import diamanteLogo from '../../images/activity/stones/diamante/diamanteLogo.svg';
 import diamanteVisualized from '../../images/activity/stones/diamante/diamanteVisualized.svg';
-import diamanteBloqued from '../../images/activity/stones/diamante/diamanteVisualized.svg';
+import diamanteBloqued from '../../images/activity/stones/diamante/diamanteActivityBlocked.svg';
 
 import esmeralda from '../../images/activity/stones/esmeralda/esmeralda.svg';
 import esmeraldaLogo from '../../images/activity/stones/esmeralda/esmeraldaLogo.svg';

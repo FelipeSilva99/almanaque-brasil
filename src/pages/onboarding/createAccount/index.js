@@ -272,6 +272,7 @@ const CreateAccount = (props) => {
       <Header
         title='Cadastro'
         noPadding
+        zIndex='1'
         goBack={handleGoBack}
       />
       <Content>

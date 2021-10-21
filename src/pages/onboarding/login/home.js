@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import { Auth } from 'aws-amplify';
 
 //Components
 import Button from '../../../components/buttons/button';
@@ -42,6 +43,7 @@ const ContentBox = styled.div`
   justify-content: space-around;
 `;
 
+
 const Home = (props) => {
   const [screen, setScreen] = useState('almanaque');
 
@@ -61,6 +63,62 @@ const Home = (props) => {
     return () => {
       clearTimeout(timer);
     };
+  }
+
+  async function handleSignIn(response) {
+    const { email, accessToken, data_access_expiration_time, name, userID } = response
+    const user = {name, email}
+    Auth.currentUserPoolUser().then(res => console.log('current:', res))
+
+    Auth.federatedSignIn(
+      "facebook",
+      {
+          token: accessToken,
+          // identity_id: userID, // Optional
+          expires_at: data_access_expiration_time * 1000 + new Date().getTime() // the expiration timestamp
+      },
+      user
+    ).then(cred => {
+        // If success, you will get the AWS credentials
+        console.log('AWS login:', cred);
+
+        return Auth.currentSession()
+    }).then(user => {
+        // If success, the user object you passed in Auth.federatedSignIn
+        console.log("currentSession", user);
+    })
+  
+    .catch(e => {
+        console.log(e)
+    });
+
+
+
+
+
+    // console.log("FB login:", response)
+    // const identityId = 'us-east-1:5bb5461a-7637-43c4-b014-0b4bf5fa991b'
+    // try {
+    //   const user = await Auth.federatedSignIn(
+    //     "facebook",
+    //     { 
+    //       token: accessToken,
+    //       identity_id: userID,
+    //       expires_at: data_access_expiration_time
+    //     },
+    //     user={name, email}
+    //   );
+
+    //   console.log("User Logged", user)
+    //   const token = user.signInUserSession.accessToken.jwtToken;
+    //   // props.signIn(user.attributes)
+    //   localStorage.setItem('accessToken', token)
+
+    //   // props.history.push('/dashboard')
+    // } catch (error) {
+    //   console.log('error', error);
+
+    // };
   }
 
   const renderScreenHome = () => (
@@ -97,7 +155,7 @@ const Home = (props) => {
           appId="849714892604010"
           fields="name,email"
           autoLoad
-          callback={() => console.log('Facebook login')}
+          callback={response => handleSignIn(response)}
           render={renderProps => (
             <button onClick={renderProps.onClick}>continuar com facebook</button>
           )}

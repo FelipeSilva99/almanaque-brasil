@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import tutorialData from './tutorialData';
+import CloseBtn from './closeModal';
 
 //Images
 import iconElifas from '../../images/elifas/tip.svg';
@@ -145,12 +146,6 @@ const ImgElifas = styled.img`
   }
 `;
 
-const CloseBtn = styled.button`
-  font: 900 1.2em 'Nunito';
-  color: #373737;
-  transform: scale(1,.9);
-`;
-
 function Tutorial({ screen, handleCloseTutorial }) {
   return (
     <Container>
@@ -168,7 +163,7 @@ function Tutorial({ screen, handleCloseTutorial }) {
               </TutorialBox>
             ))
           }
-          <CloseBtn onClick={handleCloseTutorial}>X</CloseBtn>
+          <CloseBtn handleCloseTutorial={handleCloseTutorial}>X</CloseBtn>
         </ContentInfo>
         <ImgElifas src={iconElifas} />
       </Content>

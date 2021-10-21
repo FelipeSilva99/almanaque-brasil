@@ -136,7 +136,7 @@ const Trunk = (props) => {
   
   return (
     <Container>
-      <Header initialLettersName={props.userName[0] + props.userName[1]} text='Baú' icon={iconThunk} />
+      <Header text='Baú' icon={iconThunk} />
       <ContainerBox>
         {!data.length
           ? <Text>Carregando</Text>

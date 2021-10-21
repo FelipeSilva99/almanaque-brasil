@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import CloseBtn from './closeModal';
+
 //Images
 import iconElifas from '../../images/elifas/tip.svg';
 
@@ -103,12 +105,6 @@ const ImgBento = styled.img`
   width: 11rem;
 `;
 
-const CloseBtn = styled.button`
-  font: 900 1.2em 'Nunito';
-  color: #ffd000;
-  transform: scale(1,.9);
-`;
-
 function Tip({ text, handleModalTip }) {
   return (
     <ContainerTip>
@@ -118,7 +114,7 @@ function Tip({ text, handleModalTip }) {
             <ScrollTip>
               {text?.map(item => <TextTip>{item}</TextTip>)}
             </ScrollTip>
-          <CloseBtn onClick={handleModalTip}>X</CloseBtn>
+          <CloseBtn handleModalTip={handleModalTip}>X</CloseBtn>
           </ContentInfo>
         </ContentInfoTip>
         <ImgBento src={iconElifas} />

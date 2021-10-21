@@ -46,14 +46,13 @@ const Img = styled.img`
 const Header = ({ text, icon, home, initialLettersName, isVisible, bottom, right }) => {
   return (
     <Container>
-      {text
+      {initialLettersName
         ? (
         <>
           <Circle isVisible={isVisible}>{initialLettersName}</Circle>
-          <Text home={home}>{`Oi, ${text}`}</Text>
+          <Text home={home}>{text}</Text>
         </>
-      )
-        : <Text>Olá</Text>}
+      ) : <Text>Olá</Text>}
       {console.log(text)}
       {icon &&
         <Img

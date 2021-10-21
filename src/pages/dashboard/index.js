@@ -127,7 +127,7 @@ const Dashboard = (props) => {
       {!props.modals.welcomeModal.wasShowed && <WelcomeModal showThunk={() => handleModalThunk} handleClose={handleCloseModal} />}
       <Header
         initialLettersName={props?.user?.name && props?.user?.name[0] + props.user?.name[1]}
-        text={props.user.name}
+        text={`Oi, ${props.user.name}`}
         icon={home}
       />
 

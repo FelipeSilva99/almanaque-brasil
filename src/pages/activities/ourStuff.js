@@ -189,7 +189,7 @@ const OurStuff = ({ useActivitie, registerAction, actionsBook, handleNextQuestio
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWithoutScore} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore isTrunk idActivitie={activitie.chestContentId} score={score}/>}
         {showAnswer && <CorrectAnswer answer={isAnswerCorrect()[0]} noScore={isModalWithoutScore === true} isTrunk idActivitie={activitie.chestContentId} score={score}/>}
-        {isTutorial && <Tutorial screen='Coisas nossas' handleCloseTutorial={handleCloseTutorial} /> }
+        {isTutorial && <Tutorial screen='Coisas nossas' btnContent='Jogar' handleCloseTutorial={handleCloseTutorial} /> }
       </Container>
     )
   );

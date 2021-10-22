@@ -73,7 +73,7 @@ const Home = (props) => {
         </Button>
         <Button
           backgroundDisabled='#ccc'
-          background='#FFFFFF'
+          buttonBg='#FFFFFF'
           boxShadow='#EFE2E2 0px 7px 0px'
           // disabled={true}
           isIcon
@@ -84,7 +84,7 @@ const Home = (props) => {
         <Button
           width='.5625rem'
           backgroundDisabled='#ccc'
-          color='#fff' background='#3C5A9A'
+          color='#fff' buttonBg='#3C5A9A'
           boxShadow='#153372 0px 7px 0px'
           // disabled={true}
           isIcon
@@ -93,7 +93,7 @@ const Home = (props) => {
           continuar com facebook
         </Button>
         <Button
-          background='#F3F3F3'
+          buttonBg='#F3F3F3'
           boxShadow='#F3F3F3'
           handleClick={() => handleClick('login')}
         >

@@ -288,7 +288,7 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWithoutScore} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer answer={activitie.answer} toScore score={score} idActivitie={activitie.id} />}
         {showAnswer && <CorrectAnswer answer={activitie.answer} score={score} noScore={isModalWithoutScore === true} idActivitie={activitie.id} />}
-        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
+        {isTutorial && <Tutorial screen={activitie?.name} btnContent='Jogar' handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )
   )

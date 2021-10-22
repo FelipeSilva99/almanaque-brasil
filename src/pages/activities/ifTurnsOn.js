@@ -471,7 +471,7 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
           </ContentBox>
           <ContainerButton
             color={isCorrectAnswer && '#fff'}
-            background={isCorrectAnswer && '#399119'}
+            buttonBg={isCorrectAnswer && '#399119'}
             boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
             noBorder={!isCorrectAnswer}
             isCorrectAnswer={isCorrectAnswer}
@@ -484,7 +484,7 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
         {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isModalCorrectAnswer && isModalWithoutScore === undefined && <ScoreScreen score={score} handleClick={handleContinue} />}
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
+        {isTutorial && <Tutorial screen={activitie?.name} btnContent='Jogar' handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )
   )

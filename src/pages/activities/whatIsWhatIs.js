@@ -438,7 +438,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer answer={useActivitie.answers[0]} toScore score={score} idActivitie={activitie.id}/>}
         {showAnswer && <CorrectAnswer answer={useActivitie.answers[0]} score={score} noScore={isModalWithoutScore === true} idActivitie={activitie.id}/>}
-        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
+        {isTutorial && <Tutorial screen={activitie?.name} btnContent='Jogar' handleCloseTutorial={handleCloseTutorial} /> }
       </Container>
     )
   );

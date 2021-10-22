@@ -240,7 +240,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
       {hasChances ? (
         <Button
           margin={"0 0 20px 0"}
-          background={"#ff3d4a"}
+          buttonBg={"#ff3d4a"}
           color={"#FFFFFF"}
           boxShadow={"#e61a28 0px 7px 0px"}
           handleClick={handleClick}
@@ -249,7 +249,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
         <Button
           handleClick={handleShowAnswer}
           margin={"0 0 20px 0"}
-          background={"#399119"}
+          buttonBg={"#399119"}
           color={"#FFFFFF"}
           boxShadow={"#245812 0px 7px 0px"}
         >Saber a resposta</Button>
@@ -258,7 +258,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
       }
       <Button
         margin={"0 0 20px 0"}
-        background={"rgb(252, 208, 41)"}
+        buttonBg={"rgb(252, 208, 41)"}
         boxShadow={"rgb(238 137 47) 0px 7px 0px"}
         handleClick={handleActivity}
       >

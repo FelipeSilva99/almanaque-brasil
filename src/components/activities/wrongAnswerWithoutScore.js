@@ -161,7 +161,7 @@ function WrongAnswerWithoutScore({ handleClick, handleShowAnswer }) {
     <>
       <Button
         margin={"0 0 20px 0"}
-        background={"#ff3d4a"}
+        buttonBg={"#ff3d4a"}
         color={"#FFFFFF"}
         boxShadow={"#e61a28 0px 7px 0px"}
         handleClick={handleClick}
@@ -169,7 +169,7 @@ function WrongAnswerWithoutScore({ handleClick, handleShowAnswer }) {
       <Button
         handleClick={handleShowAnswer}
         margin={"0 0 20px 0"}
-        background={"#399119"}
+        buttonBg={"#399119"}
         color={"#FFFFFF"}
         boxShadow={"#245812 0px 7px 0px"}
       >Saber a resposta</Button>

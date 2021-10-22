@@ -48,7 +48,7 @@ const ButtonTip = styled.button`
   justify-content: center;
   align-items: center;
   background: ${props => props.isSelectedTips && '#fff'};
-  z-index: 2;
+  z-index: 6;
 `;
 
 const Title = styled.h1`

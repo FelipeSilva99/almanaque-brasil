@@ -190,7 +190,7 @@ const DidYouKnow = (props) => {
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWithoutScore} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer answer={answer} toScore  isTrunk idActivitie={activitie.chestContentId} score={score} />}
         {showAnswer.isModal && <CorrectAnswer answer={showAnswer.answer} noScore={isModalWithoutScore === true} isTrunk idActivitie={activitie.chestContentId} score={score} />}
-        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
+        {isTutorial && <Tutorial screen={activitie?.name} btnContent='Jogar' handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )
   );

@@ -19,8 +19,8 @@ Amplify.configure({
 
 		oauth: {
 			domain: "almanaque-miguel-burnier-dev.auth.us-east-1.amazoncognito.com",
-			redirectSignIn: "http://localhost:3000",
-			redirectSignOut: "http://localhost:3000",
+			redirectSignIn: process.env.REACT_APP_REDIRECT_SIGNIN,
+			redirectSignOut: process.env.REACT_APP_REDIRECT_SIGNOUT,
 			responseType: "token"
 		}		
 	}

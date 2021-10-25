@@ -95,15 +95,6 @@ const Home = (props) => {
   async function federatedeSignin(provider) {
     try {
       Auth.federatedSignIn({ provider })
-      // console.log("1")
-      // const accessToken = user.signInUserSession.accessToken.jwtToken;
-      // // const idToken = user.signInUserSession.idToken.jwtToken;
-      // console.log("2")
-      // props.signIn(user.attributes)
-      // localStorage.setItem('accessToken', accessToken)
-      // props.getActionsBook()
-      // props.history.push('/dashboard')
-      // console.log("User", user)
     } catch (error) {
       console.log('error', error);
     }
@@ -118,40 +109,27 @@ const Home = (props) => {
         >
           inscreva-se
         </Button>
-        {/* <Button
+        <Button
           backgroundDisabled='#ccc'
           background='#FFFFFF'
           boxShadow='#EFE2E2 0px 7px 0px'
-          // disabled={true}
+          handleClick={() => federatedeSignin("Facebook")}
           isIcon
           icon={iconGoogle}
         >
           continuar com o google
-        </Button> */}
-        <button onClick={(e) => {
-          e.preventDefault()
-          federatedeSignin("Facebook")}
-        }>
-          Continuar com Facebook
-        </button>
-
-        <button onClick={(e) => {
-          e.preventDefault()
-          federatedeSignin("Google")}
-        }>
-          Continuar com Google
-        </button>
-        {/* <Button
+        </Button>
+        <Button
           width='.5625rem'
           backgroundDisabled='#ccc'
           color='#fff' background='#3C5A9A'
           boxShadow='#153372 0px 7px 0px'
-          // disabled={true}
+          handleClick={() => federatedeSignin("Facebook")}
           isIcon
           icon={iconFacebook}
         >
           continuar com facebook
-        </Button> */}
+        </Button>
         <Button
           background='#F3F3F3'
           boxShadow='#F3F3F3'

@@ -66,31 +66,35 @@ const Home = (props) => {
   }
 
   async function handleSignIn(response) {
-    const { email, accessToken, data_access_expiration_time, name, userID } = response
-    const user = {name, email}
-    Auth.currentUserPoolUser().then(res => console.log('current:', res))
 
-    Auth.federatedSignIn(
-      "facebook",
-      {
-          token: accessToken,
-          // identity_id: userID, // Optional
-          expires_at: data_access_expiration_time * 1000 + new Date().getTime() // the expiration timestamp
-      },
-      user
-    ).then(cred => {
-        // If success, you will get the AWS credentials
-        console.log('AWS login:', cred);
 
-        return Auth.currentSession()
-    }).then(user => {
-        // If success, the user object you passed in Auth.federatedSignIn
-        console.log("currentSession", user);
-    })
+
+
+    // const { email, accessToken, data_access_expiration_time, name, userID } = response
+    // const user = {name, email}
+    // Auth.currentUserPoolUser().then(res => console.log('current:', res))
+
+    // Auth.federatedSignIn(
+    //   "facebook",
+    //   {
+    //       token: accessToken,
+    //       // identity_id: userID, // Optional
+    //       expires_at: data_access_expiration_time * 1000 + new Date().getTime() // the expiration timestamp
+    //   },
+    //   user
+    // ).then(cred => {
+    //     // If success, you will get the AWS credentials
+    //     console.log('AWS login:', cred);
+    //     return Auth.currentCredentials()
+    // }).then(credentials => {
+    //     // If success, the user object you passed in Auth.federatedSignIn
+    //     const token = credentials.webIdentityCredentials
+    //     console.log("TOKEN", token);
+    // })
   
-    .catch(e => {
-        console.log(e)
-    });
+    // .catch(e => {
+    //     console.log(e)
+    // });
 
 
 
@@ -130,7 +134,7 @@ const Home = (props) => {
         >
           inscreva-se
         </Button>
-        <Button
+        {/* <Button
           backgroundDisabled='#ccc'
           background='#FFFFFF'
           boxShadow='#EFE2E2 0px 7px 0px'
@@ -139,7 +143,20 @@ const Home = (props) => {
           icon={iconGoogle}
         >
           continuar com o google
-        </Button>
+        </Button> */}
+        <button onClick={() => {
+          const provider = 'Facebook'
+          Auth.federatedSignIn({provider})
+        }}>
+          Continuar com Facebook
+        </button>
+
+        <button onClick={() => {
+          const provider = 'Google'
+          Auth.federatedSignIn({provider})
+        }}>
+          Continuar com Google
+        </button>
         {/* <Button
           width='.5625rem'
           backgroundDisabled='#ccc'
@@ -151,15 +168,20 @@ const Home = (props) => {
         >
           continuar com facebook
         </Button> */}
-        <FacebookLogin
+        {/* <FacebookLogin
           appId="849714892604010"
           fields="name,email"
           autoLoad
-          callback={response => handleSignIn(response)}
+          callback={response => console.log("Calback response:", response)}
           render={renderProps => (
-            <button onClick={renderProps.onClick}>continuar com facebook</button>
+            <button onClick={() => {
+              const provider = 'Facebook'
+              Auth.federatedSignIn(
+                {provider}
+              )
+            }}>continuar com facebook</button>
           )}
-        />
+        /> */}
         <Button
           background='#F3F3F3'
           boxShadow='#F3F3F3'

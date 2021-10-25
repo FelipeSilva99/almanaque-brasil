@@ -105,7 +105,7 @@ const activityDesign = {
 
   "Diamante": {
     "name": "Diamante",
-    "color": "",
+    "color": "#96ddfc",
     "stone": {
       "stone": diamante,
       "logo": diamanteLogo,

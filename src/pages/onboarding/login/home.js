@@ -101,10 +101,10 @@ const Close = styled.div`
 const Content = styled.div`
   padding: 1.875rem 1rem 1rem;
   min-height: 100vh;
-  background: #F3F3F3;
   display: flex;
   align-items: center;
   flex-direction: column;
+  background: #F3F3F3;
   justify-content: center;
 `;
 

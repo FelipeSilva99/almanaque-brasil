@@ -153,7 +153,6 @@ const Home = (props) => {
     };
   }
 
-<<<<<<< HEAD
   useEffect(() => {
     console.log("testing")
     Auth.currentAuthenticatedUser().then(user => {
@@ -177,7 +176,6 @@ const Home = (props) => {
       console.log('error', error);
     }
   }
-=======
   const [openSpan, setOpenSpan]= useState(false)
   const renderSpan = () => (
     <BoxSpan>
@@ -188,7 +186,6 @@ const Home = (props) => {
       </Span>
     </BoxSpan>
   )
->>>>>>> 3ea8f7fa3a14a8cbd44cbc999f4d965e5ccef8c9
 
   const renderScreenHome = () => (
     <Content>

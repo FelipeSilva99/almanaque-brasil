@@ -198,7 +198,7 @@ const CorrectAnswer = (props) => {
                 <Button
                   color={"#373737"}
                   margin={"0 0 20px 0"}
-                  background={"#FFD000"}
+                  buttonBg={"#FFD000"}
                   boxShadow={"#F08800 0px 7px 0px"}
                   handleClick={handleModalThunk}
                 >Veja mais no nosso Baú</Button>
@@ -206,7 +206,7 @@ const CorrectAnswer = (props) => {
               <Button
                 color={"#fff"}
                 margin={"0 0 20px 0"}
-                background={"#399119"}
+                buttonBg={"#399119"}
                 boxShadow={"#245812 0px 7px 0px"}
                 handleClick={() => history.goBack()}
               >Continuar trilha</Button>

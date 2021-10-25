@@ -116,7 +116,6 @@ const Config = (props) => {
   return (
     <Container>
       <Header
-        isVisible
         text='Configurações'
         icon={iconThunk}
         bottom="-42px"

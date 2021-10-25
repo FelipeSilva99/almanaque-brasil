@@ -52,7 +52,7 @@ const tutorialData = [
       'Olhe a imagem e subtraia a sílaba indicada.',
       'Digite a sílaba que restou no espaço abaixo da imagem.',
     ]
-  },
-]
+  }
+];
 
 export default tutorialData

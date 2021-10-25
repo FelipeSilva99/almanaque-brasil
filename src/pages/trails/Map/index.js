@@ -52,7 +52,7 @@ const MapFragment = styled.div`
   left: ${props => props.left};
   bottom: ${props => props.bottom};
   transform: scale(1.03,1.028);
-  z-index: 1;
+  z-index: ${props => props.esmeralda ? '2' : '1'};
 `;
 
 const Stone = styled.img`
@@ -61,7 +61,6 @@ const Stone = styled.img`
   right: ${props => props.right};
   max-width: 5.25rem;
   transform: scale(1.22,1.25);
-  z-index: 1;
   cursor: pointer;
 `;
 
@@ -83,22 +82,22 @@ const Map = ({ trails, trailsState, goToActivitie }) => {
         {trails.map((trail, key) => {
           const aliasesName = aliases[trail.name];
           const useTrailsState = trailsState?.filter(item => item?.trailId === trail?.id && item?.state)[0]?.state || 'todo';
-          
           return (
             <MapFragment
               key={key}
               left={aliasesName.position.left}
               bottom={aliasesName.position.bottom}
               type="image/svg+xml"
+              esmeralda={trail.name === 'Esmeralda'}
+              onClick={() => handleMapFragmentClick(trail, key)}
             >
               <Stone
-                onClick={() => handleMapFragmentClick(trail, key)}
                 top={aliasesName.stone.position.top}
                 right={aliasesName.stone.position.right}
                 src={aliasesName.stone.state.[useTrailsState]}
                 alt={aliasesName.name}
               />
-              <img onClick={() => handleMapFragmentClick(trail, key)} src={aliasesName.img} alt='mapa'/>
+              <img src={aliasesName.img}  alt='mapa'/>
             </MapFragment>
           )
         })}

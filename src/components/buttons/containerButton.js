@@ -35,7 +35,7 @@ const Text = styled.p`
 const ContainerButton = ({
   height,
   color,
-  background,
+  buttonBg,
   boxShadow,
   noBorder,
   children,
@@ -47,7 +47,7 @@ const ContainerButton = ({
       {isError && <Text>{isError}</Text>}
       <Button
         color={color}
-        background={background}
+        buttonBg={buttonBg}
         boxShadow={boxShadow}
         handleClick={handleClick}
       >

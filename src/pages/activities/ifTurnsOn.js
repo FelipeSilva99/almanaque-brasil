@@ -63,6 +63,7 @@ const ContentInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-align: center;
   border-radius: 8px;
   user-select: none;
   background-color: ${props => (props.isCorrectAnswer && 'none') || props.backgroundColor};
@@ -158,7 +159,7 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [useActivitie]);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -192,7 +193,6 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
   };
 
   useEffect(() => {
-    // if(isDoneActivitie) {
     if (modalWrongAnswer) {
       registerAction({
         activityId: useActivitie.id,
@@ -216,8 +216,7 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
         books: false,
       })
     }
-    // } 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalCorrectAnswer, modalWrongAnswer]);
 
   const handleClick = (item) => {
@@ -473,7 +472,7 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
           </ContentBox>
           <ContainerButton
             color={isCorrectAnswer && '#fff'}
-            background={isCorrectAnswer && '#399119'}
+            buttonBg={isCorrectAnswer && '#399119'}
             boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
             noBorder={!isCorrectAnswer}
             isCorrectAnswer={isCorrectAnswer}
@@ -486,7 +485,7 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
         {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isModalCorrectAnswer && isModalWithoutScore === undefined && <ScoreScreen score={score} handleClick={handleContinue} />}
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
+        {isTutorial && <Tutorial screen={activitie?.name} btnContent='Jogar' handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )
   )

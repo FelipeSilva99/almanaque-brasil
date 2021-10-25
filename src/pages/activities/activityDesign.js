@@ -2,52 +2,52 @@
 import aguaMarinha from '../../images/activity/stones/aguaMarinha/aguaMarinha.svg';
 import aguaMarinhaLogo from '../../images/activity/stones/aguaMarinha/aguaMarinhaLogo.svg';
 import aguaMarinhaVisualized from '../../images/activity/stones/aguaMarinha/aguaMarinhaVisualized.svg';
-import aguaMarinhaBloqued from '../../images/activity/stones/aguaMarinha/aguaMarinhaBloqued.svg';
+import aguaMarinhaBloqued from '../../images/activity/stones/aguaMarinha/aguaMarinhaActivityBlocked.svg';
 
 import alexandrita from '../../images/activity/stones/alexandrita/alexandrita.svg';
 import alexandritaLogo from '../../images/activity/stones/alexandrita/alexandritaLogo.svg';
 import alexandritaVisualized from '../../images/activity/stones/alexandrita/alexandritaVisualized.svg';
-import alexandritaBloqued from '../../images/activity/stones/alexandrita/alexandritaBloqued.svg';
+import alexandritaBloqued from '../../images/activity/stones/alexandrita/alexandritaActivityBlocked.svg';
 
 import ametista from '../../images/activity/stones/ametista/ametista.svg';
 import ametistaLogo from '../../images/activity/stones/ametista/ametistaLogo.svg';
 import ametistaVisualized from '../../images/activity/stones/ametista/ametistaVisualized.svg';
-import ametistaBloqued from '../../images/activity/stones/ametista/ametistaBloqued.svg';
+import ametistaBloqued from '../../images/activity/stones/ametista/ametistaActivityBlocked.svg';
 
 import diamante from '../../images/activity/stones/diamante/diamante.svg';
 import diamanteLogo from '../../images/activity/stones/diamante/diamanteLogo.svg';
 import diamanteVisualized from '../../images/activity/stones/diamante/diamanteVisualized.svg';
-import diamanteBloqued from '../../images/activity/stones/diamante/diamanteVisualized.svg';
+import diamanteBloqued from '../../images/activity/stones/diamante/diamanteActivityBlocked.svg';
 
 import esmeralda from '../../images/activity/stones/esmeralda/esmeralda.svg';
 import esmeraldaLogo from '../../images/activity/stones/esmeralda/esmeraldaLogo.svg';
 import esmeraldaVisualized from '../../images/activity/stones/esmeralda/esmeraldaVisualized.svg';
-import esmeraldaBloqued from '../../images/activity/stones/esmeralda/esmeraldaBloqued.svg';
+import esmeraldaBloqued from '../../images/activity/stones/esmeralda/esmeraldaActivityBlocked.svg';
 
 import ouro from '../../images/activity/stones/ouro/ouro.svg';
 import ouroLogo from '../../images/activity/stones/ouro/ouroLogo.svg';
 import ouroVisualized from '../../images/activity/stones/ouro/ouroVisualized.svg';
-import ouroBloqued from '../../images/activity/stones/ouro/ouroBloqued.svg';
+import ouroBloqued from '../../images/activity/stones/ouro/ouroActivityBlocked.svg';
 
 import prata from '../../images/activity/stones/prata/prata.svg';
 import prataLogo from '../../images/activity/stones/prata/prataLogo.svg';
 import prataVisualized from '../../images/activity/stones/prata/prataVisualized.svg';
-import prataBloqued from '../../images/activity/stones/prata/prataBloqued.svg';
+import prataBloqued from '../../images/activity/stones/prata/prataActivityBlocked.svg';
 
 import safira from '../../images/activity/stones/safira/safira.svg';
 import safiraLogo from '../../images/activity/stones/safira/safiraLogo.svg';
 import safiraVisualized from '../../images/activity/stones/safira/safiraVisualized.svg';
-import safiraBloqued from '../../images/activity/stones/safira/safiraBloqued.svg';
+import safiraBloqued from '../../images/activity/stones/safira/safiraActivityBlocked.svg';
 
 import topazio from '../../images/activity/stones/topazio/topazio.svg';
 import topazioLogo from '../../images/activity/stones/topazio/topazioLogo.svg';
 import topazioVisualized from '../../images/activity/stones/topazio/topazioVisualized.svg';
-import topazioBloqued from '../../images/activity/stones/topazio/topazioBloqued.svg';
+import topazioBloqued from '../../images/activity/stones/topazio/topazioActivityBlocked.svg';
 
 import turmalina from '../../images/activity/stones/turmalina/turmalina.svg';
 import turmalinaLogo from '../../images/activity/stones/turmalina/turmalinaLogo.svg';
 import turmalinaVisualized from '../../images/activity/stones/turmalina/turmalinaVisualized.svg';
-import turmalinaBloqued from '../../images/activity/stones/turmalina/turmalinaBloqued.svg';
+import turmalinaBloqued from '../../images/activity/stones/turmalina/turmalinaActivityBlocked.svg';
 
 // Assets houses
 import churchBlack from '../../images/activity/houses/black/church.svg';

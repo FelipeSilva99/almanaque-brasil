@@ -19,7 +19,7 @@ const Circle = styled.div`
   margin-right: 20px;
   width: 33px;
   height: 33px;
-  display: ${props => props.isVisible ? 'none' : 'flex'};
+  display: ${props => props.isVisible ?  'flex' : 'none'};
   justify-content: center;
   align-items: center;
   font-size: 0.75rem;

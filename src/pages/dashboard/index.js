@@ -126,7 +126,8 @@ const Dashboard = (props) => {
     <Container>
       {!props.modals.welcomeModal.wasShowed && <WelcomeModal showThunk={() => handleModalThunk} handleClose={handleCloseModal} />}
       <Header
-        initialLettersName={props.user?.name[0] + props.user?.name[1]}
+        isVisible
+        initialLettersName={props?.user?.name && props?.user?.name[0] + props.user?.name[1]}
         text={`Oi, ${props.user.name}`}
         icon={home}
       />
@@ -153,7 +154,7 @@ const Dashboard = (props) => {
               backgroundSize={'160px'}
               backgroundPositionX={'70px'}
               backgroundPositionY={'45px'}
-              onClick={() => handleClick('trunk')}
+              onClick={() => handleClick('bau')}
             ><Text>Baú</Text>
             </Card>
           </>

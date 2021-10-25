@@ -39,7 +39,7 @@ const Btn = styled.p`
 const Button = ({
   height,
   width,
-  background,
+  buttonBg,
   boxShadow,
   children,
   disabled,
@@ -52,7 +52,7 @@ const Button = ({
   return (
     <Content
       height={height}
-      background={background}
+      background={buttonBg}
       boxShadow={boxShadow}
       margin={margin}
       disabled={disabled}

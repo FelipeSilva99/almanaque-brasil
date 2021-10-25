@@ -26,12 +26,13 @@ export const Content = styled.div`
 
 export const ContentInfo = styled.div`
   position: relative;
+  top: 13rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
   padding: ${props => props.isTutorial ? '.8rem 1.4rem 1rem' : '1.5rem 1rem 1.5rem'};
-  width: 91%;
+  width:  ${props => props.helpScreen ? '100%' : '91%'};
   letter-spacing: .5px;
   filter: drop-shadow(1px 4px 3px #999);
   border-radius: ${props => props.isTutorial ? '30px' : '20px'};
@@ -73,9 +74,9 @@ export const Title = styled.h2`
 export const Subtitle = styled.h1`
   margin: .2rem 0 1.5rem;
   text-align: center;
-  font-size: 1.4em;
+  font-size: ${props => props.font || '1.4em'};
   line-height: 1;
-  font-weight: 900;
+  font-weight: ${props => props.fontWeight || '900'};
   color: ${props => props.color || '#373737'};
 `;
 
@@ -106,6 +107,8 @@ export const Text = styled.li`
   display: flex;
   align-items: center;
   margin: ${props => props.isTip ? '1rem 0 5rem' : '0 0 1.6rem'};
+  font-size: ${props => props.helpScreen  && '1.25rem'};
+  font-weight: ${props => props.helpScreen  && '900'};
   line-height: 1.35;
   counter-increment: count;
 

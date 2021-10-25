@@ -13,7 +13,7 @@ const Container = styled.form`
   max-width: 425px;
   height: 100%;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: ${props => props.login ? 'flex-start' : 'center'};
   flex-direction: column;
 
@@ -132,7 +132,7 @@ const Form = ({
             <Error>{isError}</Error>
           </>
         )}
-        <Button>{children ? children : 'Próximo'}</Button>  
+        <Button margin='0'>{children ? children : 'Próximo'}</Button>  
       </Container>
   );
 }

@@ -181,7 +181,7 @@ const Home = (props) => {
     <BoxSpan>
       <Span>
         <Paragraph>Precisa de ajuda? Envie um e-mail para:</Paragraph>
-        <Email>emailteste@email.com</Email>
+        <Email>ajuda.almanaque.app@precisaser.org</Email>
         <Close onClick={()=> setOpenSpan(false)}>x</Close>
       </Span>
     </BoxSpan>

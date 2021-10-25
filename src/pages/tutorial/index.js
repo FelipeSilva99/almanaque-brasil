@@ -26,8 +26,6 @@ export default function Tutorial() {
     history.goBack()
   };
 
-  console.log(tutorialData)
-
   return (
     <S.Container>
       <Header title='Tutorial' />

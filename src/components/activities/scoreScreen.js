@@ -101,7 +101,7 @@ const ScoreScreen = ({ handleClick, score }) => {
           handleClick={handleClick}
           color={"#fff"}
           margin={"0 0 20px 0"}
-          background={"#399119"}
+          buttonBg={"#399119"}
           boxShadow={"#245812 0px 7px 0px"}
         >Continuar</Button>
       </ButtonBox>

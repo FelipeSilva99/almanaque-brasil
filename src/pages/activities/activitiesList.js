@@ -274,6 +274,7 @@ const Activities = (props) => {
     <Container>
       <Header
         title={activityName?.name}
+        positionFixed
         goBack={() => { props.history.push('/trilhas') }}
       />
 

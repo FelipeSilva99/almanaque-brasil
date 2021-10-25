@@ -14,13 +14,13 @@ import selectedTip from '../../images/icons/selectedTip.svg';
 const Container = styled.header`
   width: 100%;
   max-width: 425px;
-  position: ${props => props.trunkScreen ? 'fixed' : 'relative'};
+  position: ${props => props.positionFixed ? 'fixed' : 'relative'};
   padding: ${props => (props.trunkScreen && '1.5rem 1rem 1.5rem 0') || (!props.noPadding && '1rem')};
   background: transparent;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1;
+  z-index: ${props => props.zIndex ? props.zIndex : '4'};
   animation: .3s fadeIn ease-in-out;
 
   ${({ animation }) => animation && `
@@ -48,7 +48,7 @@ const ButtonTip = styled.button`
   justify-content: center;
   align-items: center;
   background: ${props => props.isSelectedTips && '#fff'};
-  z-index: 2;
+  z-index: 6;
 `;
 
 const Title = styled.h1`
@@ -77,6 +77,8 @@ const Header = ({
   noTip,
   isSelectedTips,
   handleModalTip,
+  positionFixed,
+  zIndex,
   trunkScreen,
   showTitle,
   goBack
@@ -108,7 +110,7 @@ const Header = ({
   )
 
   return (
-    <Container trunkScreen={trunkScreen} noPadding={noPadding} animation={showTitle}>
+    <Container positionFixed={positionFixed} zIndex={zIndex} trunkScreen={trunkScreen} noPadding={noPadding} animation={showTitle}>
       {!noBack && renderGoBack()}
       <Title trunkScreen={trunkScreen} animation={showTitle}>{title}</Title>
       {tips ? renderTips() : <ButtonTip noBack={noBack || noTip} />}

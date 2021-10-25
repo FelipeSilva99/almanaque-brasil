@@ -123,8 +123,8 @@ const AccountCreated = () => {
           </Text>
         </Tutorial>
         
-        <Button margin='1rem' background='#ffd000' boxShadow='0 6.5px 0 #f08800' handleClick={goHome}>continuar para o login</Button>
-        <Button margin='0' background='transparent' boxShadow='nobe' handleClick={resendConfirmationCode}>reenviar</Button>
+        <Button margin='1rem' buttonBg='#ffd000' boxShadow='0 6.5px 0 #f08800' handleClick={goHome}>continuar para o login</Button>
+        <Button margin='0' buttonBg='transparent' boxShadow='nobe' handleClick={resendConfirmationCode}>reenviar</Button>
         {isError && <Error>{isError.msg ? isError.msg : 'Erro ao reenviar'}</Error>}
       </Content>
     </Container>

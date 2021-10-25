@@ -198,7 +198,7 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
             <Button
               margin='0'
               height='39px'
-              background='#399119'
+              buttonBg='#399119'
               boxShadow='#245812 0px 7px 0px'
               color={'#fff'}
               handleClick={() => setCurrentScreen(screens.score)}
@@ -217,7 +217,7 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
             </ScoreDiv>
             <Button
               height='39px'
-              background='#399119'
+              buttonBg='#399119'
               color={'#fff'}
               boxShadow='#245812 0px 7px 0px'
               handleClick={handleGoBack}
@@ -249,7 +249,7 @@ const InfoScreen = ({ useActivitie, isShowLogo, eureka, handleNextQuestion, regi
             </Subtitle>
             <Button
               height='39px'
-              background='#ffd000'
+              buttonBg='#ffd000'
               boxShadow='0 7px 0 #f08800'
               handleClick={() => handleCurrentScreen(screens.knowledge)}
             >

@@ -34,10 +34,19 @@ const Container = styled.div`
   justify-content: center;
   overflow: hidden;
   width: 100%;
-  /* height: 100vh; */
+  background: #f3f3f3;
+  height: 100vh;
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+`;
+
+const Title = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: #f3f3f3;
 `;
 
 const Activities = (props) => {
@@ -95,7 +104,7 @@ const Activities = (props) => {
       {
         activities && activities.length > 0
           ? renderActivitie(activities[currentActivitie-1], props.registerAction)
-          : <h1>Carregando</h1>
+          : <Title>Carregando</Title>
       }
     </Container>
   );

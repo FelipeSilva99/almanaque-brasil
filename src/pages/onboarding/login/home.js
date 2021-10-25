@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import { Auth } from 'aws-amplify';
+import { connect } from 'react-redux';
+
+// Redux modules
+import { signIn } from '../../../dataflow/modules/signIn-modules';
+import { getActionsBook } from '../../../dataflow/thunks/actionsBook-thunks';
 
 //Components
 import Button from '../../../components/buttons/button';
@@ -43,6 +47,13 @@ const ContentBox = styled.div`
   justify-content: space-around;
 `;
 
+const mapDispatchToProps = dispatch => {
+  return {
+    signIn: (info) => dispatch(signIn(info)),
+    getActionsBook: () => dispatch(getActionsBook())
+  }
+};
+
 
 const Home = (props) => {
   const [screen, setScreen] = useState('almanaque');
@@ -65,64 +76,37 @@ const Home = (props) => {
     };
   }
 
-  async function handleSignIn(response) {
+  useEffect(() => {
+    console.log("testing")
+    Auth.currentAuthenticatedUser().then(user => {
+      // console.log("USER", user)
+      console.log("1")
+      const accessToken = user.signInUserSession.accessToken.jwtToken;
+      // const idToken = user.signInUserSession.idToken.jwtToken;
+      console.log("2")
+      props.signIn(user.attributes)
+      localStorage.setItem('accessToken', accessToken)
+      props.getActionsBook()
+      props.history.push('/dashboard')
+      console.log("User", user)
+    }).catch(err => console.log("Errorrrrr", err))
+  }, [])
 
-
-
-
-    // const { email, accessToken, data_access_expiration_time, name, userID } = response
-    // const user = {name, email}
-    // Auth.currentUserPoolUser().then(res => console.log('current:', res))
-
-    // Auth.federatedSignIn(
-    //   "facebook",
-    //   {
-    //       token: accessToken,
-    //       // identity_id: userID, // Optional
-    //       expires_at: data_access_expiration_time * 1000 + new Date().getTime() // the expiration timestamp
-    //   },
-    //   user
-    // ).then(cred => {
-    //     // If success, you will get the AWS credentials
-    //     console.log('AWS login:', cred);
-    //     return Auth.currentCredentials()
-    // }).then(credentials => {
-    //     // If success, the user object you passed in Auth.federatedSignIn
-    //     const token = credentials.webIdentityCredentials
-    //     console.log("TOKEN", token);
-    // })
-  
-    // .catch(e => {
-    //     console.log(e)
-    // });
-
-
-
-
-
-    // console.log("FB login:", response)
-    // const identityId = 'us-east-1:5bb5461a-7637-43c4-b014-0b4bf5fa991b'
-    // try {
-    //   const user = await Auth.federatedSignIn(
-    //     "facebook",
-    //     { 
-    //       token: accessToken,
-    //       identity_id: userID,
-    //       expires_at: data_access_expiration_time
-    //     },
-    //     user={name, email}
-    //   );
-
-    //   console.log("User Logged", user)
-    //   const token = user.signInUserSession.accessToken.jwtToken;
-    //   // props.signIn(user.attributes)
-    //   localStorage.setItem('accessToken', token)
-
-    //   // props.history.push('/dashboard')
-    // } catch (error) {
-    //   console.log('error', error);
-
-    // };
+  async function federatedeSignin(provider) {
+    try {
+      Auth.federatedSignIn({ provider })
+      // console.log("1")
+      // const accessToken = user.signInUserSession.accessToken.jwtToken;
+      // // const idToken = user.signInUserSession.idToken.jwtToken;
+      // console.log("2")
+      // props.signIn(user.attributes)
+      // localStorage.setItem('accessToken', accessToken)
+      // props.getActionsBook()
+      // props.history.push('/dashboard')
+      // console.log("User", user)
+    } catch (error) {
+      console.log('error', error);
+    }
   }
 
   const renderScreenHome = () => (
@@ -144,17 +128,17 @@ const Home = (props) => {
         >
           continuar com o google
         </Button> */}
-        <button onClick={() => {
-          const provider = 'Facebook'
-          Auth.federatedSignIn({provider})
-        }}>
+        <button onClick={(e) => {
+          e.preventDefault()
+          federatedeSignin("Facebook")}
+        }>
           Continuar com Facebook
         </button>
 
-        <button onClick={() => {
-          const provider = 'Google'
-          Auth.federatedSignIn({provider})
-        }}>
+        <button onClick={(e) => {
+          e.preventDefault()
+          federatedeSignin("Google")}
+        }>
           Continuar com Google
         </button>
         {/* <Button
@@ -168,20 +152,6 @@ const Home = (props) => {
         >
           continuar com facebook
         </Button> */}
-        {/* <FacebookLogin
-          appId="849714892604010"
-          fields="name,email"
-          autoLoad
-          callback={response => console.log("Calback response:", response)}
-          render={renderProps => (
-            <button onClick={() => {
-              const provider = 'Facebook'
-              Auth.federatedSignIn(
-                {provider}
-              )
-            }}>continuar com facebook</button>
-          )}
-        /> */}
         <Button
           background='#F3F3F3'
           boxShadow='#F3F3F3'
@@ -214,4 +184,7 @@ const Home = (props) => {
   );
 }
 
-export default Home;
+export default connect(
+  null,
+  mapDispatchToProps
+)(Home);

@@ -12,15 +12,15 @@ import Routes from './routes/routes';
 Amplify.configure({
 	Auth: {
 		// identityPoolId: 'us-east-1:5bb5461a-7637-43c4-b014-0b4bf5fa991b',
-		userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
-		userPoolWebClientId: process.env.REACT_APP_COGNITO_WEB_CLIENT_ID,
-		clientId: process.env.REACT_APP_COGNITO_WEB_CLIENT_ID,
-		region: process.env.REACT_APP_COGNITO_REGION,
+		userPoolId: "us-east-1_cqXwEPWQV",
+		userPoolWebClientId: "3o2tf27sl7md9mming6kjecr2i",
+		clientId: "3o2tf27sl7md9mming6kjecr2i",
+		region: "us-east-1",
 
 		oauth: {
 			domain: "almanaque-miguel-burnier-dev.auth.us-east-1.amazoncognito.com",
-			redirectSignIn: "http://localhost:3000/",
-			redirectSignOut: "http://localhost:3000/",
+			redirectSignIn: "http://localhost:3000",
+			redirectSignOut: "http://localhost:3000",
 			responseType: "token"
 		}		
 	}

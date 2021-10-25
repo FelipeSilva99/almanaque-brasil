@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Auth } from 'aws-amplify';
+import { connect } from 'react-redux';
+
+// Redux modules
+import { signIn } from '../../../dataflow/modules/signIn-modules';
+import { getActionsBook } from '../../../dataflow/thunks/actionsBook-thunks';
 
 //Components
 import Button from '../../../components/buttons/button';
@@ -118,6 +124,14 @@ const ContentBox = styled.div`
   justify-content: space-around;
 `;
 
+const mapDispatchToProps = dispatch => {
+  return {
+    signIn: (info) => dispatch(signIn(info)),
+    getActionsBook: () => dispatch(getActionsBook())
+  }
+};
+
+
 const Home = (props) => {
   const [screen, setScreen] = useState('almanaque');
 
@@ -139,6 +153,29 @@ const Home = (props) => {
     };
   }
 
+  useEffect(() => {
+    console.log("testing")
+    Auth.currentAuthenticatedUser().then(user => {
+      // console.log("USER", user)
+      console.log("1")
+      const accessToken = user.signInUserSession.accessToken.jwtToken;
+      // const idToken = user.signInUserSession.idToken.jwtToken;
+      console.log("2")
+      props.signIn(user.attributes)
+      localStorage.setItem('accessToken', accessToken)
+      props.getActionsBook()
+      props.history.push('/dashboard')
+      console.log("User", user)
+    }).catch(err => console.log("Errorrrrr", err))
+  }, [])
+
+  async function federatedeSignin(provider) {
+    try {
+      Auth.federatedSignIn({ provider })
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
   const [openSpan, setOpenSpan]= useState(false)
   const renderSpan = () => (
     <BoxSpan>
@@ -166,7 +203,7 @@ const Home = (props) => {
           backgroundDisabled='#ccc'
           buttonBg='#FFFFFF'
           boxShadow='#EFE2E2 0px 7px 0px'
-          // disabled={true}
+          handleClick={() => federatedeSignin("Facebook")}
           isIcon
           icon={iconGoogle}
         >
@@ -177,7 +214,7 @@ const Home = (props) => {
           backgroundDisabled='#ccc'
           color='#fff' buttonBg='#3C5A9A'
           boxShadow='#153372 0px 7px 0px'
-          // disabled={true}
+          handleClick={() => federatedeSignin("Facebook")}
           isIcon
           icon={iconFacebook}
         >
@@ -215,4 +252,7 @@ const Home = (props) => {
   );
 }
 
-export default Home;
+export default connect(
+  null,
+  mapDispatchToProps
+)(Home);

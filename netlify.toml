@@ -28,14 +28,16 @@
 [context.development.environment]
   NODE_ENV = "development"
   AMBIENT = "development"
-  REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/actions"
-  REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_1jHyLS2pd"
-  REACT_APP_COGNITO_WEB_CLIENT_ID = "5hjm47evfa0buh1to68d7fsee8"
+  REACT_APP_COGNITO_USER_POOL_ID="us-east-1_cqXwEPWQV"
+  REACT_APP_COGNITO_WEB_CLIENT_ID="3o2tf27sl7md9mming6kjecr2i"
   REACT_APP_COGNITO_REGION="us-east-1"
-  REACT_APP_TRAILS_ENDPOINT = "https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/trails"
-  REACT_APP_TRUNK_ENDPOINT="https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/chest"
-  REACT_APP_USER_STATS="https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/stats"
+  REACT_APP_TRAILS_ENDPOINT="https://5ltaa6klie.execute-api.us-east-1.amazonaws.com/dev/trails"
+  REACT_APP_ACTIONS_BOOK_ENDPOINT="https://5ltaa6klie.execute-api.us-east-1.amazonaws.com/dev/actions"
+  REACT_APP_TRUNK_ENDPOINT="https://5ltaa6klie.execute-api.us-east-1.amazonaws.com/dev/chest"
   REACT_APP_WELCOME_MODAL_TRUNK_CONTENT_TITLE="Elifas Andreato"
+  REACT_APP_DOMAIN="almanaque-miguel-burnier-dev.auth.us-east-1.amazoncognito.com"
+  REACT_APP_REDIRECT_SIGNIN="https://development.almanaque.app"
+  REACT_APP_REDIRECT_SIGNOUT="https://development.almanaque.app"
 
 # Deploy Preview context: all deploys generated from a pull/merge request will
 # inherit these settings.
@@ -46,13 +48,16 @@
 [context.deploy-preview.environment]
   NODE_ENV = "development"
   AMBIENT = "development"
-  REACT_APP_ACTIONS_BOOK_ENDPOINT = "https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/actions"
-  REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_1jHyLS2pd"
-  REACT_APP_COGNITO_WEB_CLIENT_ID = "5hjm47evfa0buh1to68d7fsee8"
+  REACT_APP_COGNITO_USER_POOL_ID="us-east-1_cqXwEPWQV"
+  REACT_APP_COGNITO_WEB_CLIENT_ID="3o2tf27sl7md9mming6kjecr2i"
   REACT_APP_COGNITO_REGION="us-east-1"
-  REACT_APP_TRAILS_ENDPOINT = "https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/trails"
-  REACT_APP_TRUNK_ENDPOINT="https://qmblagf3u4.execute-api.us-east-1.amazonaws.com/dev/chest"
+  REACT_APP_TRAILS_ENDPOINT="https://5ltaa6klie.execute-api.us-east-1.amazonaws.com/dev/trails"
+  REACT_APP_ACTIONS_BOOK_ENDPOINT="https://5ltaa6klie.execute-api.us-east-1.amazonaws.com/dev/actions"
+  REACT_APP_TRUNK_ENDPOINT="https://5ltaa6klie.execute-api.us-east-1.amazonaws.com/dev/chest"
   REACT_APP_WELCOME_MODAL_TRUNK_CONTENT_TITLE="Elifas Andreato"
+  REACT_APP_DOMAIN="almanaque-miguel-burnier-dev.auth.us-east-1.amazoncognito.com"
+  REACT_APP_REDIRECT_SIGNIN="https://development.almanaque.app"
+  REACT_APP_REDIRECT_SIGNOUT="https://development.almanaque.app"
 
 # Branch Deploy context: all deploys that are not from a pull/merge request or
 # from the Production branch will inherit these settings.

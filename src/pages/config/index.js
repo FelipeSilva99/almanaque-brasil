@@ -16,6 +16,7 @@ import Footer from '../../components/footer/footerMenu';
 import Button from '../../components/buttons/button';
 import Item from './item';
 import ModalResetMapAlert from '../../components/modal/resetMapAlert';
+
 import Modal from '../../components/modal/modal';
 
 //Image
@@ -93,8 +94,6 @@ const Config = (props) => {
   const openSettings = (router) => {
     if (router === 'openModalResetMap') {
       handleModalResetMap();
-    } else if (router === 'openModalRHelp') {
-      handleModalHelp();
     } else {
       history.push(`/${router}`);
     }
@@ -111,7 +110,7 @@ const Config = (props) => {
     },
     {
       title: 'Precisa de ajuda?',
-      router: 'openModalRHelp',
+      router: 'config/precisa-de-ajuda',
     },
     {
       title: 'Termos de uso e privacidade',
@@ -122,10 +121,6 @@ const Config = (props) => {
       router: 'config/agradecimentos',
     },
   ]
-
-  const content = {
-    email: ['ajuda.almanaque.app@precisaser.org']
-  };
 
   return (
     <Container>
@@ -149,16 +144,6 @@ const Config = (props) => {
         </Button>
       </BoxConfig>
       {isModalResetMap && <ModalResetMapAlert handleResetProgress={handleResetProgress} handleCloseModal={handleModalResetMap} />}
-      {isModalHelp && <Modal
-        subtitle='Precisa de ajuda? Envie um e-mail para:'
-        data={content.email}
-        background='#ababab45'
-        handleClick={handleModalHelp}
-        height='75vh'
-        font='1rem'
-        fontWeight='300'
-        helpScreen
-      />}
       <Footer screen='config' />
     </Container>
   );

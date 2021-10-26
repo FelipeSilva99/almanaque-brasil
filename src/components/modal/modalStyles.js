@@ -21,7 +21,7 @@ export const Content = styled.div`
   position: relative;
   width: 100%;
   height: ${props => props.height || '94vh'};
-  max-width: 340px;
+  max-width: 393px;
 `;
 
 export const ContentInfo = styled.div`

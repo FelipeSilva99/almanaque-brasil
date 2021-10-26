@@ -58,11 +58,12 @@ const Config = (props) => {
 
   async function handleSignOut() {
     try {
-      await Auth.signOut();
       props.clearModalsState();
       localStorage.clear();
-      history.push('/');
       props.signOut();
+      await Auth.signOut();
+      history.push('/');
+      console.log("Sair")
     } catch (error) {
       console.log('error signout: ', error);
     }

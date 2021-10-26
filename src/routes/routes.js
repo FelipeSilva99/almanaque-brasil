@@ -28,8 +28,8 @@ import { getTrailsThunk } from '../dataflow/thunks/trails-thunk';
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getTrailsThunk: (accessToken) => {
-			dispatch(getTrailsThunk(accessToken));
+		getTrailsThunk: (idToken) => {
+			dispatch(getTrailsThunk(idToken));
 		},
 	}
 };

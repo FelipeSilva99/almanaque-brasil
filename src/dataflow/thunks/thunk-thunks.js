@@ -6,7 +6,7 @@ import {
 } from '../modules/thunk-module';
 
 export const getDataThunk = () => async (dispatch) => {
-  const accessToken = localStorage.getItem('accessToken');
+  const idToken = localStorage.getItem('idToken');
 
   try {
     const response = await axios({
@@ -14,7 +14,7 @@ export const getDataThunk = () => async (dispatch) => {
       url: `${process.env.REACT_APP_TRUNK_ENDPOINT}`,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `${accessToken}`,
+        'Authorization': `${idToken}`,
       },
     })
     dispatch(saveThunk(response.data.Items));

@@ -1,7 +1,7 @@
 export const isAuthenticated = () => {
-	const accessToken = localStorage.getItem('accessToken')
+	const idToken = localStorage.getItem('idToken')
 
-	if (accessToken) {
+	if (idToken) {
 		return true;
 	}
 	return false;

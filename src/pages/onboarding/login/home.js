@@ -163,13 +163,11 @@ const Home = (props) => {
   useEffect(() => {
     console.log("testing")
     Auth.currentAuthenticatedUser().then(user => {
-      // console.log("USER", user)
-      console.log("1")
-      const accessToken = user.signInUserSession.accessToken.jwtToken;
+      console.log("USER", user)
+      const idToken = user.signInUserSession.idToken.jwtToken;
       // const idToken = user.signInUserSession.idToken.jwtToken;
-      console.log("2")
       props.signIn(user.attributes)
-      localStorage.setItem('accessToken', accessToken)
+      localStorage.setItem('idToken', idToken)
       props.getActionsBook()
       props.history.push('/dashboard')
       console.log("User", user)

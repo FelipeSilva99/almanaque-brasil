@@ -26,7 +26,7 @@ export const Content = styled.div`
 
 export const ContentInfo = styled.div`
   position: relative;
-  top: 13rem;
+  /* top: 13rem; */
   display: flex;
   flex-direction: column;
   align-items: center;

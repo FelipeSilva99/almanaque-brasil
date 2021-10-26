@@ -56,13 +56,13 @@ const BoxSpan = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
-  height: 100%;
+  height: ${props => props.openSpan && '100%'};
   max-width: 425px;
   background: ${props => props.openSpan && 'rgba(0,0,0,.3)'};
   transition: .1s;
 `;
 
-const Span = styled.div`
+const ContentHelp = styled.div`
   position: relative;
   top: 5.2rem;
   display: flex;
@@ -71,8 +71,7 @@ const Span = styled.div`
   align-items: center;
   margin: 0 auto;
   padding-top: 3.5rem;
-  width: 91%;
-  height: 32vh;
+  width: 93%;
   max-width: 420px;
   box-shadow: 0 5px 5px #999;
   border-radius: 22px 4px 20px 20px;
@@ -89,10 +88,11 @@ const Span = styled.div`
 
 const Paragraph = styled.p`
   color: #373737;
-  font: 500 1.02rem 'Nunito', sans-serif;
+  font: 500 1rem 'Nunito', sans-serif;
 `;
 
 const Email = styled.h3`
+  padding: 1.688rem 0 1.836rem 0;
   color: #373737;
   font: 900 1.2rem 'Nunito', sans-serif;
   word-break: break-word;
@@ -187,11 +187,11 @@ const Home = (props) => {
   const [openSpan, setOpenSpan]= useState(false);
 
   const renderSpan = () => (
-    <Span openSpan={openSpan}>
+    <ContentHelp openSpan={openSpan}>
       <Paragraph>Precisa de ajuda? Envie um e-mail para:</Paragraph>
       <Email>ajuda.almanaque.app@precisaser.org</Email>
       <Close onClick={()=> setOpenSpan(false)}>x</Close>
-    </Span>
+    </ContentHelp>
   );
 
   const renderScreenHome = () => (

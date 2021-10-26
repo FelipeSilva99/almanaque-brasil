@@ -74,9 +74,9 @@ const Login = (props) => {
   async function handleSignIn() {
     try {
       const user = await Auth.signIn(register.email, register.password);
-      const token = user.signInUserSession.accessToken.jwtToken;
+      const token = user.signInUserSession.idToken.jwtToken;
       props.signIn(user.attributes)
-      localStorage.setItem('accessToken', token)
+      localStorage.setItem('idToken', token)
       props.getActionsBook()
       props.history.push('/dashboard')
     } catch (error) {

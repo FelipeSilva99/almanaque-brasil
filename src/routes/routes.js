@@ -20,6 +20,7 @@ import Config from '../pages/config';
 import Tutorial from '../pages/tutorial';
 import Terms from '../pages/termsOfUse';
 import Thanks from '../pages/config/thanks';
+import NeedHelp from '../pages/config/needHelp';
 import Dashboard from '../pages/dashboard';
 
 //Redux
@@ -54,6 +55,7 @@ const Routes = (props) => {
 				<PrivateRoute exact path='/config/tutorial/:title' component={Tutorial} />
 				<PrivateRoute exact path='/config/termos-de-uso' component={Terms} />
 				<PrivateRoute exact path='/config/agradecimentos' component={Thanks} />
+				<PrivateRoute exact path='/config/precisa-de-ajuda' component={NeedHelp} />
 			</Switch>
 		</BrowserRouter>
 	)

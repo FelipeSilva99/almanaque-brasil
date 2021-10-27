@@ -210,7 +210,7 @@ const Home = (props) => {
           backgroundDisabled='#ccc'
           buttonBg='#FFFFFF'
           boxShadow='#EFE2E2 0px 7px 0px'
-          handleClick={() => federatedeSignin("Facebook")}
+          handleClick={() => federatedeSignin("Google")}
           isIcon
           icon={iconGoogle}
         >

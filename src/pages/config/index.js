@@ -17,8 +17,6 @@ import Button from '../../components/buttons/button';
 import Item from './item';
 import ModalResetMapAlert from '../../components/modal/resetMapAlert';
 
-import Modal from '../../components/modal/modal';
-
 //Image
 import iconThunk from '../../images/icons/settings.svg';
 
@@ -55,9 +53,8 @@ const BoxConfig = styled.div`
 const Config = (props) => {
   const history = useHistory();
   const [isModalResetMap, setIsModalResetMap] = useState(undefined);
-  const [isModalHelp, setIsModalHelp] = useState(undefined);
 
-  async function handleSignOut() {
+   const handleSignOut = async () => {
     try {
       props.clearModalsState();
       localStorage.clear();
@@ -72,10 +69,6 @@ const Config = (props) => {
 
   const handleModalResetMap = () => {
     setIsModalResetMap(!isModalResetMap);
-  }
-
-  const handleModalHelp = () => {
-    setIsModalHelp(!isModalHelp);
   }
 
   async function handleResetProgress() {

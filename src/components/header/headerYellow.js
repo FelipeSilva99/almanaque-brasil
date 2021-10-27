@@ -51,7 +51,7 @@ const Header = ({ text, icon, home, initialLettersName, isVisible, bottom, right
       {icon &&
         <Img
           src={icon}
-          alt={text}
+          alt={home ? 'home' : text}
           home={home}
           bottom={bottom}
           right={right}

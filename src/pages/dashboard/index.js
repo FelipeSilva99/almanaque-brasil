@@ -42,7 +42,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 4rem 1rem 0;
+  padding: 3.188rem 1rem 0;
 `;
 
 const Text = styled.h1`
@@ -57,7 +57,7 @@ const Card = styled.button`
   margin-bottom: 2rem;
   width: 100%;
   height: 10rem;
-  max-width: ${props => props.maxWidth};
+  max-width: ${props => props.lastCard && '200px'};
   border-radius: 16px;
   padding: 16px;
   box-shadow: 0 3px 10px #ccc;
@@ -76,7 +76,9 @@ const Card = styled.button`
   }
 
   @media (max-width: 320px) {
-    height: 8rem;
+    width: ${props => props.lastCard && '51%'};
+    height: 7.5rem;
+    background-size: ${props => props.backgroundSizeMob};
   }
   @media (min-width: 1024px) {
     margin-right: ${props => props.marginRight && '2rem'};
@@ -88,9 +90,11 @@ const ElifasSVG = styled.img`
   right: -1rem;
   bottom: 3rem;
   width: 12rem;
+
+  @media (max-width: 320px) {
+    right: -2rem;
+  }
 `;
-
-
 
 const Dashboard = (props) => {
   const [modalThunk, setModalThunk] = useState({ isModal: false, data: undefined });
@@ -141,6 +145,7 @@ const Dashboard = (props) => {
               backgroundColor={'#eaedeb'}
               marginRight
               backgroundSize={'380px'}
+              backgroundSizeMob={'295px'}
               backgroundPositionX={'100%'}
               backgroundPositionY={'100%'}
               onClick={() => handleClick('trilhas')}
@@ -149,11 +154,12 @@ const Dashboard = (props) => {
 
             <Card
               backgroundColor={"#f4de9b"}
-              maxWidth={'200px'}
               backgroundImage={thunk}
               backgroundSize={'160px'}
+              backgroundSizeMob={'99px'}
               backgroundPositionX={'70px'}
               backgroundPositionY={'45px'}
+              lastCard
               onClick={() => handleClick('bau')}
             ><Text>Baú</Text>
             </Card>

@@ -17,6 +17,8 @@ import Button from '../../components/buttons/button';
 import Item from './item';
 import ModalResetMapAlert from '../../components/modal/resetMapAlert';
 
+import Modal from '../../components/modal/modal';
+
 //Image
 import iconThunk from '../../images/icons/settings.svg';
 
@@ -53,14 +55,16 @@ const BoxConfig = styled.div`
 const Config = (props) => {
   const history = useHistory();
   const [isModalResetMap, setIsModalResetMap] = useState(undefined);
+  const [isModalHelp, setIsModalHelp] = useState(undefined);
 
   async function handleSignOut() {
     try {
-      await Auth.signOut();
       props.clearModalsState();
       localStorage.clear();
-      history.push('/');
       props.signOut();
+      await Auth.signOut();
+      history.push('/');
+      console.log("Sair")
     } catch (error) {
       console.log('error signout: ', error);
     }
@@ -68,6 +72,10 @@ const Config = (props) => {
 
   const handleModalResetMap = () => {
     setIsModalResetMap(!isModalResetMap);
+  }
+
+  const handleModalHelp = () => {
+    setIsModalHelp(!isModalHelp);
   }
 
   async function handleResetProgress() {
@@ -84,11 +92,8 @@ const Config = (props) => {
   }
 
   const openSettings = (router) => {
-    if(router === 'openModalResetMap') {
+    if (router === 'openModalResetMap') {
       handleModalResetMap();
-    } else if (router === 'agradecimentos') {
-      alert(router);
-      // history.push(`/${router}`);
     } else {
       history.push(`/${router}`);
     }
@@ -102,6 +107,10 @@ const Config = (props) => {
     {
       title: 'Reiniciar mapa das trilhas',
       router: 'openModalResetMap',
+    },
+    {
+      title: 'Precisa de ajuda?',
+      router: 'config/precisa-de-ajuda',
     },
     {
       title: 'Termos de uso e privacidade',
@@ -134,7 +143,7 @@ const Config = (props) => {
           Sair do aplicativo
         </Button>
       </BoxConfig>
-      {isModalResetMap && <ModalResetMapAlert handleResetProgress={handleResetProgress} handleCloseModal={handleModalResetMap}/>}
+      {isModalResetMap && <ModalResetMapAlert handleResetProgress={handleResetProgress} handleCloseModal={handleModalResetMap} />}
       <Footer screen='config' />
     </Container>
   );

@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Auth } from 'aws-amplify';
+import { connect } from 'react-redux';
+
+// Redux modules
+import { signIn } from '../../../dataflow/modules/signIn-modules';
+import { getActionsBook } from '../../../dataflow/thunks/actionsBook-thunks';
 
 //Components
 import Button from '../../../components/buttons/button';
@@ -22,23 +28,21 @@ const Img = styled.img`
 `;
 
 const BtnDoubt = styled.button`
-  font-family: 'Nunito', sans-serif;
-  font-size: 24px;
-  font-weight: bold;
-  position: relative;
-  top: 36px;
-  left: 160px;
-  padding-top: 5px;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: ${props => props.margin || 'auto'};
-	width: 100%;
-	height: ${props => props.height || '38px'};
-  max-width: 40px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  padding-top: 5px;
+  width: 100%;
+  height: ${props => props.height || '34px'};
+  max-width: 36px;
+  border-radius: 50%;
+  font: 900 1.5rem 'Nunito', sans-serif;
+	box-shadow: ${props => props.boxShadow || '0 5px 0 #000000'};
 	background: ${props => props.background || '#373737'};
-  border-radius: 20px;
-	box-shadow: ${props => props.boxShadow || '0 7px 0 #000000'};
   color: #FFD000;
 
   :disabled {
@@ -52,53 +56,62 @@ const BoxSpan = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
-  height: 100%;
+  height: ${props => props.openSpan && '100%'};
   max-width: 425px;
-  background: rgba(0,0,0,.3);
+  background: ${props => props.openSpan && 'rgba(0,0,0,.3)'};
+  transition: .1s;
 `;
-const Span = styled.div`
+
+const ContentHelp = styled.div`
+  position: relative;
+  top: 5.2rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   flex-direction: column;
   align-items: center;
-  position: absolute;
-  top: 135px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 16px;
-  width: 95%;
+  margin: 0 auto;
+  padding-top: 3.5rem;
+  width: 93%;
   max-width: 420px;
-  height: 224px;
-  background: #ffffff;
-  ::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  right: 14px;
-  border-width: 20px;
-  border-style: solid;
-  border-color: transparent transparent #fff transparent;}
+  box-shadow: 0 5px 5px #999;
+  border-radius: 22px 4px 20px 20px;
+  background: #fff;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: -2.4rem; right: 0;
+    border: 20px solid;
+    border-color: transparent transparent #fff transparent;
+  }
 `;
 
 const Paragraph = styled.p`
-  font-size: 16px;
   color: #373737;
-  font-family: 'Nunito', sans-serif;
+  font: 500 1rem 'Nunito', sans-serif;
 `;
+
 const Email = styled.h3`
-  font-size: 20px;
-  margin-top: 26px;
+  padding: 1.688rem 0 1.836rem 0;
   color: #373737;
-  font-family: 'Nunito', sans-serif;
+  font: 900 1.2rem 'Nunito', sans-serif;
+  word-break: break-word;
+
+  @media (max-width: 400px) { font-size: 1rem; }
 `;
+
 const Close = styled.div`
-  font-size: 31px;
-  margin-top: 20px;
-  font-weight: bold;
   color: #373737;
-  font-family: 'Nunito', sans-serif;
+  font: 800 2.1rem 'Nunito', sans-serif;
+  transform: scale(1,.85);
+  transition: .2s ease;
+  cursor: pointer;
+
+  &:hover { transform: scale(1.1,.95); }
 `;
+
 const Content = styled.div`
+  position: relative;
   padding: 1.875rem 1rem 1rem;
   min-height: 100vh;
   display: flex;
@@ -118,12 +131,20 @@ const ContentBox = styled.div`
   justify-content: space-around;
 `;
 
+const mapDispatchToProps = dispatch => {
+  return {
+    signIn: (info) => dispatch(signIn(info)),
+    getActionsBook: () => dispatch(getActionsBook())
+  }
+};
+
+
 const Home = (props) => {
   const [screen, setScreen] = useState('almanaque');
 
   const handleClick = (type) => {
     props.history.push({ pathname: `/${type}` });
-  }
+  };
 
   const handleNextScreen = () => {
     let timer;
@@ -137,24 +158,47 @@ const Home = (props) => {
     return () => {
       clearTimeout(timer);
     };
-  }
+  };
 
-  const [openSpan, setOpenSpan]= useState(false)
+  useEffect(() => {
+    console.log("testing")
+    Auth.currentAuthenticatedUser().then(user => {
+      console.log("USER", user)
+      const idToken = user.signInUserSession.idToken.jwtToken;
+      // const idToken = user.signInUserSession.idToken.jwtToken;
+      props.signIn(user.attributes)
+      localStorage.setItem('idToken', idToken)
+      props.getActionsBook()
+      props.history.push('/dashboard')
+      console.log("User", user)
+    }).catch(err => console.log("Errorrrrr", err))
+  }, [])
+
+  async function federatedeSignin(provider) {
+    try {
+      Auth.federatedSignIn({ provider })
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  const [openSpan, setOpenSpan]= useState(false);
+
   const renderSpan = () => (
-    <BoxSpan>
-      <Span>
-        <Paragraph>Precisa de ajuda? Envie um e-mail para:</Paragraph>
-        <Email>emailteste@email.com</Email>
-        <Close onClick={()=> setOpenSpan(false)}>x</Close>
-      </Span>
-    </BoxSpan>
-  )
+    <ContentHelp openSpan={openSpan}>
+      <Paragraph>Precisa de ajuda? Envie um e-mail para:</Paragraph>
+      <Email>ajuda.almanaque.app@precisaser.org</Email>
+      <Close onClick={()=> setOpenSpan(false)}>x</Close>
+    </ContentHelp>
+  );
 
   const renderScreenHome = () => (
     <Content>
-      <BtnDoubt onClick={()=> setOpenSpan(true)}>?
-      </BtnDoubt>
-      {openSpan ? renderSpan() : null}
+      <BoxSpan openSpan={openSpan}>
+        <BtnDoubt onClick={()=> setOpenSpan(openSpan ? false : true)}>?</BtnDoubt>
+        {openSpan ? renderSpan() : null}
+      </BoxSpan>
+      
       <Img src={logo} alt='logo' />
       <ContentBox>
         <Button
@@ -166,7 +210,7 @@ const Home = (props) => {
           backgroundDisabled='#ccc'
           buttonBg='#FFFFFF'
           boxShadow='#EFE2E2 0px 7px 0px'
-          // disabled={true}
+          handleClick={() => federatedeSignin("Google")}
           isIcon
           icon={iconGoogle}
         >
@@ -177,7 +221,7 @@ const Home = (props) => {
           backgroundDisabled='#ccc'
           color='#fff' buttonBg='#3C5A9A'
           boxShadow='#153372 0px 7px 0px'
-          // disabled={true}
+          handleClick={() => federatedeSignin("Facebook")}
           isIcon
           icon={iconFacebook}
         >
@@ -215,4 +259,7 @@ const Home = (props) => {
   );
 }
 
-export default Home;
+export default connect(
+  null,
+  mapDispatchToProps
+)(Home);

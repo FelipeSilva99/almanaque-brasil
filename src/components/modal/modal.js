@@ -26,7 +26,10 @@ export default function Modal({
   background,
   btnContent,
   buttonBg,
-  elifas
+  elifas,
+  fontWeight,
+  font,
+  helpScreen
 }) {
   const renderElifas = () => {
     switch (elifas) {
@@ -45,18 +48,19 @@ export default function Modal({
         <S.ContentInfo
           isTutorial={isTutorial}
           isTip={isTip}
+          helpScreen={helpScreen}
         >
           {title && <S.Title>{title}</S.Title>}
 
           <S.TutorialBox>
             {subtitle && 
-              <S.Subtitle color={color}>{subtitle}</S.Subtitle>}
+              <S.Subtitle color={color} fontWeight={fontWeight} font={font}>{subtitle}</S.Subtitle>}
             
             <S.Scroll isTutorial={isTutorial}>
               {isTutorial ? data[0].text.map(item => 
                 <S.Text isTutorial={isTutorial}>{item}</S.Text>) 
                 : data.map(item => 
-                <S.Text isTip={isTip} isScore={isScore}>{item}</S.Text>)
+                <S.Text isTip={isTip} isScore={isScore} helpScreen={helpScreen}>{item}</S.Text>)
               }
             </S.Scroll>
           </S.TutorialBox>

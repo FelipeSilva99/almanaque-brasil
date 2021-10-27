@@ -39,4 +39,8 @@ export const BoxImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 320px) {
+    width: 9rem;
+  }
 `;

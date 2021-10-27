@@ -63,6 +63,7 @@ const ContentInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-align: center;
   border-radius: 8px;
   user-select: none;
   background-color: ${props => (props.isCorrectAnswer && 'none') || props.backgroundColor};

@@ -13,7 +13,7 @@ import { trailState } from '../../utils/trail';
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';
 import { clearActivity } from '../../dataflow/modules/activity-module';
-import { getTrailsThunk } from '../../dataflow/thunks/trails-thunk';
+
 
 const mapStateToProps = state => ({
   trails: state.trails.data,
@@ -23,10 +23,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   selectedTrails: (info) => {
     dispatch(selectedTrails(info));
-  },
-
-  getTrailsThunk: () => {
-    dispatch(getTrailsThunk());
   },
 
   clearActivity: () => {
@@ -91,10 +87,6 @@ const Trails = (props) => {
     }
 
 	}, [props.actionsBook, props.trails]);
-
-	useEffect(() => {
-		props.getTrailsThunk();
-	}, []);
 
   const handleActivities = (trail) => {
     props.history.push({pathname: '/atividades'});

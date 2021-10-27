@@ -26,7 +26,6 @@ export const Content = styled.div`
 
 export const ContentInfo = styled.div`
   position: relative;
-  /* top: 13rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -142,6 +141,7 @@ export const ImgElifas = styled.img`
   @media (max-width: 425px) {
     right: ${props => props.isWelcome ? '-14%' : '0'};
   }
+  
   @media (max-height: 600px) {
     width: ${props => props.isTutorial ? '8' : '10'}rem;
     width: ${props => props.isWelcome && '13rem'};

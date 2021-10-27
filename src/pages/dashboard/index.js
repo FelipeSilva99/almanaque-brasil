@@ -71,7 +71,7 @@ const Card = styled.button`
   background-repeat: no-repeat;
   text-align: left;
   font-size: 1rem;
-  transition: .3s ease-in-out;
+  transition: .2s ease-in-out;
 
   &:hover {
     box-shadow: 0 6px 10px rgba(0,0,0,0.20), 0 1px 10px rgba(0,0,0,0.10);

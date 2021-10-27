@@ -32,6 +32,7 @@ const ContentTitle = styled.div`
   margin: 1.5rem 0;
   display: flex;
   justify-content: space-between;
+  user-select: none;
   cursor: pointer;
 `;
 

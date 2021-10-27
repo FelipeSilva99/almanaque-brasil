@@ -28,7 +28,7 @@ const Alingment = styled.footer`
 
 const Container = styled.div`
   position: relative;
-  padding: .7rem 0 0;
+  padding: .8rem 0 .2rem;
   width: 100%;
   max-width: 425px;
   display: flex;
@@ -43,6 +43,7 @@ const Content = styled.button`
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 3rem;
 `;
 
 const Text = styled.p`

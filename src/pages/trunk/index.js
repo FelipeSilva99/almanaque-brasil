@@ -74,6 +74,7 @@ const Text = styled.h1`
 
 const Trunk = (props) => {
   const [modal, setIsModal] = useState({ isModal: false, item: undefined });
+  const [check, setCheck] = useState ("");
   const [infoModal, setIsInfoModal] = useState({ isModal: undefined, data: undefined });
   const [data, setData] = useState([]);
 
@@ -83,6 +84,7 @@ const Trunk = (props) => {
 
   const handleModal = (item) => {
     setIsModal({ isModal: !modal.isModal, item: item });
+    setCheck(item)
   }
 
   const handleInfoModal = (data) => {
@@ -102,9 +104,9 @@ const Trunk = (props) => {
           <Title>
             {title}
           </Title>
-          <IconModal src={arrow} alt='Seta' isOpen={isModal} />
+          <IconModal src={arrow} alt='Seta' isOpen={check === title} />
         </ContentTitle>
-        {isModal &&
+        {check === title &&
           data.filter((item) => item.category === title).map(i => (
             renderOptions(i)
           ))}

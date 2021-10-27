@@ -20,7 +20,7 @@ const Alingment = styled.footer`
   display: flex;
   justify-content: center;
   width: 100%;
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;

@@ -17,6 +17,7 @@ import thunk from '../../images/icons/menu/selectedThunk.svg';
 //Redux
 import { getDataThunk } from '../../dataflow/thunks/thunk-thunks';
 import { setModal } from '../../dataflow/modules/modals-module';
+import { getTrailsThunk } from '../../dataflow/thunks/trails-thunk';
 
 const mapStateToProps = state => ({
   trails: state.trails.data,
@@ -27,6 +28,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  getTrailsThunk: () => dispatch(getTrailsThunk()),
   setModal: (modal) => { dispatch(setModal(modal)) },
   getDataThunk: () => {
     dispatch(getDataThunk());
@@ -100,10 +102,19 @@ const Dashboard = (props) => {
   const [modalThunk, setModalThunk] = useState({ isModal: false, data: undefined });
   const [showWelcomeModal, setWelcomeModal] = useState(true);
 
+  // GET thunk
   useEffect(() => {
+    if(trails?.length > 5) return 
     props.getDataThunk();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // GET trails
+  useEffect(() => {
+    if(trails?.length > 5) return 
+    props.getTrailsThunk();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleClick = (route) => {
     props.history.push({ pathname: `/${route}` });

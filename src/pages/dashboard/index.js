@@ -137,13 +137,32 @@ const Dashboard = (props) => {
     setWelcomeModal(!showWelcomeModal)
   }
 
+  const userName = () => {
+    const name = props.user.name || '';
+    const userName = name.includes(" ") ? name.split(" ") : name;
+  
+    if (Array.isArray(userName)) {
+      const firstName = userName[0].length > 10 
+      ? `${userName[0].slice(0,10)}...`
+      : userName[0];
+
+      const lastName = userName[userName.length - 1].length > 10 
+      ? `${userName[userName.length - 1].slice(0,10)}...`
+      : userName[userName.length - 1];
+
+      return `${firstName} ${lastName}`
+    } else {
+      return name
+    }
+  };
+
   return (
     <Container>
       {!props.modals.welcomeModal.wasShowed && <WelcomeModal showThunk={() => handleModalThunk} handleClose={handleCloseModal} />}
       <Header
         isVisible
         initialLettersName={props?.user?.name && props?.user?.name[0] + props.user?.name[1]}
-        text={`Oi, ${props.user.name}`}
+        text={`Oi, ${userName()}`}
         icon={home}
       />
 

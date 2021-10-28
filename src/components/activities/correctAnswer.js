@@ -23,7 +23,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   background: #f3f3f3;
-  z-index: 2;
+  z-index: 4;
 `;
 
 const MessageBox = styled.div`

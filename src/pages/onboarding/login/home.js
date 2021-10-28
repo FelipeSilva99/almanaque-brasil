@@ -165,7 +165,6 @@ const Home = (props) => {
     Auth.currentAuthenticatedUser().then(user => {
       console.log("USER", user)
       const idToken = user.signInUserSession.idToken.jwtToken;
-      // const idToken = user.signInUserSession.idToken.jwtToken;
       props.signIn(user.attributes)
       localStorage.setItem('idToken', idToken)
       props.getActionsBook()
@@ -175,6 +174,7 @@ const Home = (props) => {
   }, [])
 
   async function federatedeSignin(provider) {
+    console.log('Evy');
     try {
       Auth.federatedSignIn({ provider })
     } catch (error) {

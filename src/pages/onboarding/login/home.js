@@ -161,7 +161,6 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    console.log("testing")
     Auth.currentAuthenticatedUser().then(user => {
       console.log("USER", user)
       const idToken = user.signInUserSession.idToken.jwtToken;
@@ -170,11 +169,10 @@ const Home = (props) => {
       props.getActionsBook()
       props.history.push('/dashboard')
       console.log("User", user)
-    }).catch(err => console.log("Errorrrrr", err))
+    }).catch(err => console.log("Error", err))
   }, [])
 
   async function federatedeSignin(provider) {
-    console.log('Evy');
     try {
       Auth.federatedSignIn({ provider })
     } catch (error) {

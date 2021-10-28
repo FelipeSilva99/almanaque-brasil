@@ -142,15 +142,11 @@ const Dashboard = (props) => {
     const userName = name.includes(" ") ? name.split(" ") : name;
   
     if (Array.isArray(userName)) {
-      const firstName = userName[0].length > 10 
-      ? `${userName[0].slice(0,10)}...`
-      : userName[0];
+      const firstName = userName[0];
+      const lastName = userName[userName.length - 1];
+      const user = `${firstName} ${lastName}`;
 
-      const lastName = userName[userName.length - 1].length > 10 
-      ? `${userName[userName.length - 1].slice(0,10)}...`
-      : userName[userName.length - 1];
-
-      return `${firstName} ${lastName}`
+      return user.length > 10 ? `${user.slice(0,10)}...` : user
     } else {
       return name
     }

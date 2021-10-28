@@ -43,7 +43,7 @@ const Content = styled.div`
   z-index: 1;
 
   span {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #36A39A;
     line-height: 0;
@@ -413,7 +413,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
       <>
         <Header iconBack={iconBack} title={activitie?.name} />
         <Content isModal={isModalAnswer}>
-          <Title><span>"</span>{activitie?.question}</Title><span>"</span>
+          <Title><span>"</span>{activitie?.question}<span>"</span></Title>
         </Content>
         <Button
           handleClick={handleIsModalAnswer}

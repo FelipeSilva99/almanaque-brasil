@@ -16,7 +16,7 @@ const Container = styled.header`
   max-width: 425px;
   position: ${props => props.positionFixed ? 'fixed' : 'relative'};
   padding: ${props => (props.trunkScreen && '1.5rem 1rem 1.5rem 0') || (!props.noPadding && '1rem')};
-  background: transparent;
+  background: ${props => props.background ? props.background : 'transparent'};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -58,7 +58,6 @@ const Title = styled.h1`
   line-height: 0;
   color: #373737;
   text-align: center;
-  text-transform: capitalize;
   animation: .3s fadeIn ease-in-out;
 	opacity: ${props => props.trunkScreen && 0};
 
@@ -67,6 +66,10 @@ const Title = styled.h1`
     transition: .4s ease-in-out;
     opacity: 1
   `}
+
+  ::first-letter {
+    text-transform: capitalize;
+  }
 `;
 
 const Header = ({
@@ -78,6 +81,7 @@ const Header = ({
   isSelectedTips,
   handleModalTip,
   positionFixed,
+  background,
   zIndex,
   trunkScreen,
   showTitle,
@@ -110,9 +114,16 @@ const Header = ({
   )
 
   return (
-    <Container positionFixed={positionFixed} zIndex={zIndex} trunkScreen={trunkScreen} noPadding={noPadding} animation={showTitle}>
+    <Container
+      positionFixed={positionFixed}
+      zIndex={zIndex}
+      trunkScreen={trunkScreen}
+      noPadding={noPadding}
+      animation={showTitle}
+      background={background}
+    >
       {!noBack && renderGoBack()}
-      <Title trunkScreen={trunkScreen} animation={showTitle}>{title}</Title>
+      <Title trunkScreen={trunkScreen} animation={showTitle} >{title}</Title>
       {tips ? renderTips() : <ButtonTip noBack={noBack || noTip} />}
       {isSelectedTips && <ModalTip text={tips} handleModalTip={handleModalTip} />}
     </Container>

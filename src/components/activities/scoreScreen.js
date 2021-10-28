@@ -21,7 +21,7 @@ const Container = styled.div`
   background-color: #FFFFFF;
   width: 100vw;
   height: ${props => props.height || "95vh"};
-  z-index: 1;
+  z-index: 4;
 
   @media(max-width: 425px) {
     padding-left: 5vw;

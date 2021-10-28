@@ -61,7 +61,6 @@ const Form = ({
   type,
   isError,
   selector,
-  lastScreen,
   handleChange,
   showPassword,
   handleViewPassword,

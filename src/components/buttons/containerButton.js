@@ -16,6 +16,7 @@ const Content = styled.div`
   flex-direction: column;
   border-top-left-radius: ${props => !props.noBorder && '25px'};
   border-top-right-radius: ${props => !props.noBorder && '25px'};
+  z-index: 111;
 
   @media(min-width: 1024px) {
     padding: 0 3.5rem;

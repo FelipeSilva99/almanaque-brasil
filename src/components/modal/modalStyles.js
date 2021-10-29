@@ -109,9 +109,9 @@ export const Text = styled.li`
   position: relative;
   display: flex;
   align-items: center;
+  font-size: ${props => props.helpScreen ? '1.25rem' : '1rem'};
   width: 90%;
   margin: ${props => props.margin || '.5rem 0 1.5rem'};
-  font-size: ${props => props.helpScreen  && '1.25rem'};
   font-weight: ${props => props.helpScreen  && '900'};
   line-height: 1.45;
   letter-spacing: 1.2px;

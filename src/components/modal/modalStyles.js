@@ -106,7 +106,7 @@ export const Text = styled.li`
   display: flex;
   align-items: center;
   margin: ${props => props.isTip ? '1rem 0 5rem' : '0 0 1.6rem'};
-  font-size: ${props => props.helpScreen  && '1.25rem'};
+  font-size: ${props => props.helpScreen ? '1.25rem' : '1rem'};
   font-weight: ${props => props.helpScreen  && '900'};
   line-height: 1.35;
   counter-increment: count;

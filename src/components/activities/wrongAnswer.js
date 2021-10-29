@@ -88,7 +88,7 @@ const DialogBox = styled.div`
     line-height: 2.3rem;
     color: #FB6C76;
 
-    @media(max-width: 375px) {
+    @media(max-width: 320px) {
       font-size: 1.4rem;
     }
   }
@@ -262,7 +262,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
         boxShadow={"rgb(238 137 47) 0px 7px 0px"}
         handleClick={handleActivity}
       >
-        Voltar a Trilha
+        Continuar Trilha
       </Button>
     </>
   );

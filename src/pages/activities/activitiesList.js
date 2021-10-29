@@ -40,7 +40,7 @@ const Container = styled.div`
 const Stone = styled.div`
   display: flex;
   justify-content: center;
-  padding: ${props => props.padding || '4rem 0 5rem'};
+  padding: ${props => props.padding || '6rem 0 5rem'};
   
   img {
     width: ${props => props.width};
@@ -275,6 +275,8 @@ const Activities = (props) => {
       <Header
         title={activityName?.name}
         positionFixed
+        background='#fafafa'
+        boxShadow
         goBack={() => { props.history.push('/trilhas') }}
       />
 

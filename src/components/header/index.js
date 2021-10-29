@@ -22,6 +22,7 @@ const Container = styled.header`
   align-items: center;
   z-index: ${props => props.zIndex ? props.zIndex : '4'};
   animation: .3s fadeIn ease-in-out;
+  box-shadow:  ${props => props.boxShadow && '0 -5px 15px #00000020'};
 
   ${({ animation }) => animation && `
     background: #fff;
@@ -82,6 +83,7 @@ const Header = ({
   handleModalTip,
   positionFixed,
   background,
+  boxShadow,
   zIndex,
   trunkScreen,
   showTitle,
@@ -121,6 +123,7 @@ const Header = ({
       noPadding={noPadding}
       animation={showTitle}
       background={background}
+      boxShadow={boxShadow}
     >
       {!noBack && renderGoBack()}
       <Title trunkScreen={trunkScreen} animation={showTitle} >{title}</Title>

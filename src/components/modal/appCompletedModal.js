@@ -14,7 +14,6 @@ export default function AppCompletedModal({ handleCloseModal }) {
       data={content.text}
       background='#ababab45'
       handleClick={handleCloseModal}
-      height='75vh'
       elifas='ok'
     />
 	);

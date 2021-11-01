@@ -150,14 +150,16 @@ const Activities = (props) => {
   }, [props.actionsBook]);
   
   useEffect(() => {
-    props.postActionsBook(props.actionsBook)
+    if(props.actionsBook.pendingSync.length > 0) {
+      props.postActionsBook(props.actionsBook);
+    }
   }, [props]);
 
   useEffect(() => {
-    const useCurrentActivity = props.activities.data[props.selectedTrails].name;
+    const useCurrentActivity = props?.activities?.data[props.selectedTrails]?.name;
 
     setCurrentActivity(useCurrentActivity);
-  }, [props]);
+  }, []);
 
   const handlerNextActivitie = (index, activityId) => {
     props.handleselectedActivity(activityId);

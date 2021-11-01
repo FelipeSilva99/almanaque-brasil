@@ -12,34 +12,35 @@ import wave from '../../images/icons/punctuation/wave.svg';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   position: fixed;
   bottom: 0;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  padding-top: 1.5rem;
+  padding: 1.8rem 1rem;
   background-color: #FFFFFF;
-  width: 100vw;
+  width: 100%;
+  max-width: 425px;
   height: ${props => props.height || "95vh"};
+  overflow: hidden;
   z-index: 4;
-
-  @media(max-width: 425px) {
-    padding-left: 5vw;
-    padding-right: 5vw;
-  }
 `;
 
 const ContentTitle = styled.div`
-  margin: 10vh 0 18vh 0;
+  margin-top: 3rem;
   text-align: center;
-  h1{
+
+  h1 {
     font-weight: 800;
     font-size: 2.6875rem;
     color: #399119;
   }
-  p{
+
+  p {
     font-size: 1.625rem;
-    strong{
+
+    strong {
       font-size: 3rem;
       color: #399119;
     }
@@ -47,42 +48,37 @@ const ContentTitle = styled.div`
 `;
 
 const ScoreText = styled.p`
-  position: relative;
-  bottom: 8vh;
+  padding-bottom: 2rem;
   font-size: 2.1875rem;
   font-weight: 900;
-  color: #373737;
-  strong{
-    font-size: 8.3125rem;
+  color: #000;
+
+  strong {
+    font-size: 9rem;
     font-weight: 900;
     color: #399119;
   }
 `;
 
 const ButtonBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: fixed;
-  bottom: 0;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
   padding-top: 4vh;
+  width: 100%;
   background-color: ${props => props.backgroundColor || '#FFFFFF'};
-  width: 100vw;
-
-  @media(max-width: 425px) {
-    padding-left: 5vw;
-    padding-right: 5vw;
-  }
 `;
 
 
 const ScoreScreen = ({ handleClick, score }) => {
   const HorseShoe = styled.img`
     position: absolute;
-    right: ${props => (props.img === 'wave' && '-149px') || (props.img === 'cactus' && '-130px') || (props.img === 'hardShell' && '-40px')};
-    bottom: ${props => (props.img === 'wave' && '-195px') || (props.img === 'cactus' && '-65px') || (props.img === 'hardShell' && '-10px')};
+    right: ${props => 
+      (props.img === 'wave' && '-149px') 
+    || (props.img === 'cactus' && '-130px') 
+    || (props.img === 'hardShell' && '-20px')};
+    bottom: ${props => 
+      (props.img === 'wave' && '-195px') 
+    || (props.img === 'cactus' && '-65px') 
+    || (props.img === 'hardShell' && '-5px')};
+
     z-index: -1;
   `;
 
@@ -100,7 +96,6 @@ const ScoreScreen = ({ handleClick, score }) => {
         <Button
           handleClick={handleClick}
           color={"#fff"}
-          margin={"0 0 20px 0"}
           buttonBg={"#399119"}
           boxShadow={"#245812 0px 7px 0px"}
         >Continuar</Button>

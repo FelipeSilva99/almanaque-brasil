@@ -72,6 +72,7 @@ export const Title = styled.h2`
   text-align: center;
   font-weight: 300;
   font-size: 1.1em;
+  color: #373737;
 `;
 
 export const Subtitle = styled.h1`
@@ -113,6 +114,7 @@ export const Text = styled.li`
   width: 90%;
   margin: ${props => props.margin || '.5rem 0 1.5rem'};
   font-weight: ${props => props.helpScreen  && '900'};
+  color: #373737;
   line-height: 1.45;
   letter-spacing: 1.2px;
   counter-increment: count;
@@ -129,7 +131,6 @@ export const Text = styled.li`
     left: -2.9rem;
     font-size: 2.15em;
     font-weight: 900;
-    color: #373737;
   }
   
   @media (max-width: 425px) {

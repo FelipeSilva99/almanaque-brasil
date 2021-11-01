@@ -31,13 +31,19 @@ const Container = styled.header`
 
 const Figure = styled.figure`
   padding-left: ${props => props.trunkScreen && '1.5rem'};
-  width: 2.25rem;
+  width: 2.3rem;
   display: ${props => props.noBack ? 'none' : 'flex'};
+  transition: .2s ease;
   cursor: pointer;
+  
+  &:hover {
+    transform: translateX(-3px);
+    filter: drop-shadow(0 -2px 5px #00000010);
+  }
 `;
 
 const Img = styled.img`
-  width: .80rem;
+  width: 1rem;
   transform: rotate(180deg);
 `;
 

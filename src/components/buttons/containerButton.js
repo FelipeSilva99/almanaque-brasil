@@ -8,7 +8,7 @@ import Button from './button';
 const Content = styled.div`
   padding: 0 1rem;
   width: 100%;
-  height: ${props => props.height || '6.2rem'};
+  height: ${props => props.height || '5.3rem'};
 	background: #fff;
   display: flex;
   align-items: center;
@@ -16,10 +16,6 @@ const Content = styled.div`
   flex-direction: column;
   border-top-left-radius: ${props => !props.noBorder && '25px'};
   border-top-right-radius: ${props => !props.noBorder && '25px'};
-
-  @media(min-width: 1024px) {
-    padding: 0 3.5rem;
-  };
 `;
 
 const Text = styled.p`

@@ -2,8 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
-  width: 75%;
-  margin: auto;
+  width: 80%;
+  height: 65%;
+  margin: auto 0;
   padding-top: ${props => props.isModal && '1rem'};
   ${({ isModal }) => isModal && `flex: 1`};
   display: flex;
@@ -26,35 +27,47 @@ const Container = styled.div`
   ::-webkit-scrollbar-thumb:hover {
     background: transparent;
   }
+`;
 
-  @media (max-width: 320px) { width: 80%; }
+const ImgBox = styled.figure`
+  width: 100%;
+  height: 11rem;
+  border-radius: 15px;
+  overflow: hidden;
+
+  @media (max-width: 380px) { height: 8.5rem; }
 `;
 
 const Img = styled.img`
   width: 100%;
-  border-radius: 10px;
-  box-shadow: 0px 5px 6px silver;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
 `;
 
 const Title = styled.h1`
-  padding: 1rem 0;
-  font-size: 1rem;
+  padding: 1rem 0 44px;
+  color: #373737;
+  font-size: 1em;
   font-weight: 800;
   line-height: 1.3rem;
-  color: #373737;
   text-align: center;
+
+  @media (max-width: 425px) { padding-bottom: 1.3rem; }
 `;
 
 const Text = styled.p`
   padding-bottom: 1rem;
-  font-size: .875rem;
-  color: #000000;
+  color: #373737;
+  font-size: .85rem;
 `;
 
 const ContentImageText = ({ isModal, image, title, info }) => {
   return (
     <Container isModal={isModal}>
-      <Img src={image} alt={"imagem da atividade"} />
+      <ImgBox>
+        <Img src={image} alt={"imagem da atividade"} />
+      </ImgBox>
       <Title>{title}</Title>
       {info && !isModal && <Text>{info}</Text>}
     </Container>

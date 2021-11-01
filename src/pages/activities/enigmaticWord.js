@@ -282,6 +282,7 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
         <Button
           isError={isError && 'Você precisa digitar em todos os campos'}
           handleClick={handleSubmit}
+          buttonBg='#ffd000'
         >responder
         </Button>
         {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleModalWrongAnswer} handleShowAnswer={showModalAnswer} />}

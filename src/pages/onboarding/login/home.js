@@ -215,17 +215,6 @@ const Home = (props) => {
           continuar com o google
         </Button>
         <Button
-          width='.5625rem'
-          backgroundDisabled='#ccc'
-          color='#fff' buttonBg='#3C5A9A'
-          boxShadow='#153372 0px 7px 0px'
-          handleClick={() => federatedeSignin("Facebook")}
-          isIcon
-          icon={iconFacebook}
-        >
-          continuar com facebook
-        </Button>
-        <Button
           buttonBg='#F3F3F3'
           boxShadow='#F3F3F3'
           handleClick={() => handleClick('login')}

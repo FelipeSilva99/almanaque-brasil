@@ -19,7 +19,7 @@ import ActivityReducer from './dataflow/modules/activity-module';
 const rootPersistConfig = {
   key: 'root',
   storage,
-  blacklist: ['thunk', 'login', 'actions-book', 'trails']
+  blacklist: ['thunk', 'login', 'actionsBook', 'trails']
 }
 
 const thunkPersistConfig = {

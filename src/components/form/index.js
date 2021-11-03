@@ -32,7 +32,7 @@ const Label = styled.label`
 `;
 
 const Subtitle = styled.p`
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
   font-size: 1rem;
   color: #373737;
   text-align: center;

@@ -15,6 +15,7 @@ const Container = styled.div`
 
 const Logo = styled.img`
   padding-top: 6.625rem;
+  
 `;
 
 const Footer = styled.img`

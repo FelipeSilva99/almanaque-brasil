@@ -26,10 +26,10 @@ export default function main(state = initialState, action) {
       }
 
     case SYNCED:
-      return {
+      return Object.assign({}, state, {
         pendingSync: [],
         synced: [...state.synced, ...state.pendingSync]
-      }
+      })
 
     case CLEAR:
       return initialState

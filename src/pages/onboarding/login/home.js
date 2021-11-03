@@ -20,6 +20,7 @@ import iconGoogle from '../../../images/icons/onboarding/iconGoogle.svg';
 const Container = styled.div`
   min-height: 100vh;
   background: #FFFEFC;
+  height: -webkit-fill-available;
 `;
 
 const Img = styled.img`
@@ -53,13 +54,13 @@ const BtnDoubt = styled.button`
 `;
 
 const BoxSpan = styled.div`
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: ${props => props.openSpan && '100%'};
-  max-width: 425px;
-  background: ${props => props.openSpan && 'rgba(0,0,0,.3)'};
-  transition: .1s;
+  // position: absolute;
+  // top: 0;
+  // width: 100%;
+  // height: ${props => props.openSpan && '100%'};
+  // max-width: 425px;
+  // background: ${props => props.openSpan && 'rgba(0,0,0,.3)'};
+  // transition: .1s;
 `;
 
 const ContentHelp = styled.div`
@@ -111,9 +112,8 @@ const Close = styled.div`
 `;
 
 const Content = styled.div`
-  position: relative;
   padding: 1.875rem 1rem 1rem;
-  min-height: 100vh;
+  height: -webkit-fill-available;
   display: flex;
   align-items: center;
   flex-direction: column;

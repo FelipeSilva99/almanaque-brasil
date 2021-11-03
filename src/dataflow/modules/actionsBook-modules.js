@@ -14,11 +14,9 @@ export default function main(state = initialState, action) {
 
   switch (action.type) {
     case REGISTER:
-      const newArray = state.pendingSync;
-      newArray.push(action.info)
       return {
-        synced: [...state.synced],
-        pendingSync: newArray
+        ...state,
+        pendingSync: [...state.pendingSync, action.info]
       }
 
     case REFRESH_LOCAL_DATA:
@@ -28,14 +26,9 @@ export default function main(state = initialState, action) {
       }
 
     case SYNCED:
-      const syncedArray = state.synced;
-      if(state.pendingSync.length > 0) {
-      state.pendingSync.map(item => syncedArray.push(item))
-      }
-
       return {
         pendingSync: [],
-        synced: syncedArray
+        synced: [...state.synced, ...state.pendingSync]
       }
 
     case CLEAR:

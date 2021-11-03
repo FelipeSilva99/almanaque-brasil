@@ -161,6 +161,7 @@ const WhoseEyesAreThese = ({ useActivitie, registerAction, actionsBook }) => {
         />
         <Button
           handleClick={handleIsModalAnswerOption}
+          buttonBg='#ffd000'
         >
           responder
         </Button>

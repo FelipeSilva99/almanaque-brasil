@@ -14,7 +14,6 @@ export const Container = styled.div`
   z-index: 1;
 `;
 export const Box = styled.div`
-  padding-left: 1rem;
   width: 90%;
   height: 100%;
   max-width: 425px;

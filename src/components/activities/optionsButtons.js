@@ -4,7 +4,8 @@ import styled from 'styled-components'
 const ContainerAnswer = styled.div`
   position: absolute;
   bottom: 0;
-  width: 100vw;
+  width: 100%;
+  max-width: 425px;
   min-height: 40vh;
   display: flex;
   flex-direction: column;
@@ -15,8 +16,8 @@ const ContainerAnswer = styled.div`
   border-top-right-radius: 25px;
   overflow: hidden;
 
-  @media (min-width: 1024px) {height: 60%;}
-  @media (max-width: 320px) {min-height: 45vh;}
+  @media (min-width: 1024px) { height: 55%; }
+  @media (max-width: 320px) { min-height: 45vh; }
 `;
 
 const ContentAnswerOption = styled.button`

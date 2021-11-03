@@ -402,6 +402,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
       </BoxAnswer>
       <Button
         handleClick={handleSubmit}
+        buttonBg='#ffd000'
       >
         Confirmar Resposta
       </Button>

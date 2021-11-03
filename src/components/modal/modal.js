@@ -18,9 +18,9 @@ export default function Modal({
   showThunk,
   resetProgress,
   isTip,
-  height,
   title,
   subtitle,
+  margin,
   color,
   data,
   background,
@@ -44,7 +44,7 @@ export default function Modal({
 
   return (
     <S.Container background={background}>
-      <S.Content height={height}>
+      <S.Content>
         <S.ContentInfo
           isTutorial={isTutorial}
           isTip={isTip}
@@ -60,7 +60,13 @@ export default function Modal({
               {isTutorial ? data[0].text.map(item => 
                 <S.Text isTutorial={isTutorial}>{item}</S.Text>) 
                 : data.map(item => 
-                <S.Text isTip={isTip} isScore={isScore} helpScreen={helpScreen}>{item}</S.Text>)
+                <S.Text
+                  margin={margin}
+                  isTip={isTip}
+                  isWelcome={isWelcome}
+                  isScore={isScore}
+                  helpScreen={helpScreen}
+                >{item}</S.Text>)
               }
             </S.Scroll>
           </S.TutorialBox>

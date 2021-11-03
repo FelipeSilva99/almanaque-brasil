@@ -30,35 +30,27 @@ const MessageBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   position: fixed;
   bottom: 0;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  padding-top: 1.5rem;
+  padding: 1.5rem 1rem .5rem;
   background-color: #FFFFFF;
-  width: 100vw;
+  width: 100%;
+  max-width: 425px;
   height: ${props => props.height || "90vh"};
-
-  @media (max-width: 425px) {
-    padding: 1.5rem 5vw 0;
-  }
-  @media (min-width: 1024px) { height: 60vh; }
 `;
 
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: fixed;
-  bottom: 0;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   background-color: ${props => props.backgroundColor || '#FFFFFF'};
-  width: 100vw;
-
-  @media(max-width: 425px) {
-    padding: 0 5vw;
-  }
+  width: 100%;
+  max-width: 425px;
 `;
 
 const Img = styled.img`
@@ -68,14 +60,13 @@ const Img = styled.img`
   object-fit: cover;
 
   @media (max-width: 425px) { width: 100%; }
-  @media (min-width: 1024px) { height: 40vh; }
 `;
 
 const ComplementaryInformationBox = styled.div`
-  padding-bottom: 4rem;
-  height: 100%;
+  padding: 0 .5rem 1rem;
+  width: 100%;
+  height: 60%;
   display: flex;
-  align-items: center;
   flex-direction: column;
   text-align: center;
   color: #373737;
@@ -101,9 +92,6 @@ const Scroll = styled.div`
   ::-webkit-scrollbar-thumb:hover {
     background: transparent;
   }
-
-  @media(max-width: 320px) {height: 43%;}
-  @media(min-width: 1024px) {height: 90vh;}
 `;
 
 const Title = styled.h1`
@@ -123,7 +111,7 @@ const TextName = styled.h1`
 
 const Text = styled.p`
   margin-top: 1rem;
-  width: 80vw;
+  width: 100%;
   max-width: 412px;
   font-size: .875rem;
   color: #000000;
@@ -185,7 +173,7 @@ const CorrectAnswer = (props) => {
         );
       case modals.answerDescription:
         return (
-          <MessageBox height={'55vh'}>
+          <MessageBox height={'60vh'}>
             <ComplementaryInformationBox>
               <Title>A resposta é:</Title>
               <TextName>{answer.answer}</TextName>

@@ -155,6 +155,7 @@ const OurStuff = ({ useActivitie, registerAction, actionsBook, handleNextQuestio
         />
         <Button
           handleClick={handleIsModalAnswerOption}
+          buttonBg='#ffd000'
         >
           responder
         </Button>

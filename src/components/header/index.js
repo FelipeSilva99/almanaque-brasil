@@ -22,6 +22,7 @@ const Container = styled.header`
   align-items: center;
   z-index: ${props => props.zIndex ? props.zIndex : '4'};
   animation: .3s fadeIn ease-in-out;
+  box-shadow:  ${props => props.boxShadow && '0 -5px 15px #00000020'};
 
   ${({ animation }) => animation && `
     background: #fff;
@@ -30,13 +31,19 @@ const Container = styled.header`
 
 const Figure = styled.figure`
   padding-left: ${props => props.trunkScreen && '1.5rem'};
-  width: 2.25rem;
+  width: 2.3rem;
   display: ${props => props.noBack ? 'none' : 'flex'};
+  transition: .2s ease;
   cursor: pointer;
+  
+  &:hover {
+    transform: translateX(-3px);
+    filter: drop-shadow(0 -2px 5px #00000010);
+  }
 `;
 
 const Img = styled.img`
-  width: .80rem;
+  width: 1rem;
   transform: rotate(180deg);
 `;
 
@@ -82,6 +89,7 @@ const Header = ({
   handleModalTip,
   positionFixed,
   background,
+  boxShadow,
   zIndex,
   trunkScreen,
   showTitle,
@@ -121,6 +129,7 @@ const Header = ({
       noPadding={noPadding}
       animation={showTitle}
       background={background}
+      boxShadow={boxShadow}
     >
       {!noBack && renderGoBack()}
       <Title trunkScreen={trunkScreen} animation={showTitle} >{title}</Title>

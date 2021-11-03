@@ -472,7 +472,7 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
           </ContentBox>
           <ContainerButton
             color={isCorrectAnswer && '#fff'}
-            buttonBg={isCorrectAnswer && '#399119'}
+            buttonBg={isCorrectAnswer ? '#399119' : '#ffd000'}
             boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
             noBorder={!isCorrectAnswer}
             isCorrectAnswer={isCorrectAnswer}

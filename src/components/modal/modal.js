@@ -12,6 +12,7 @@ export default function Modal({
   handleCloseTutorial,
   handleModalTip,
   handleClick,
+  isResend,
   isTutorial,
   isWelcome,
   isScore,
@@ -47,6 +48,7 @@ export default function Modal({
       <S.Content>
         <S.ContentInfo
           isTutorial={isTutorial}
+          isResend={isResend}
           isTip={isTip}
           helpScreen={helpScreen}
         >
@@ -54,8 +56,16 @@ export default function Modal({
 
           <S.TutorialBox>
             {subtitle && 
-              <S.Subtitle color={color} fontWeight={fontWeight} font={font}>{subtitle}</S.Subtitle>}
-            
+              <S.Subtitle
+                color={color}
+                fontWeight={fontWeight}
+                font={font}
+                isResend={isResend}
+              >
+                {subtitle}
+              </S.Subtitle>
+            }
+
             <S.Scroll isTutorial={isTutorial}>
               {isTutorial ? data[0].text.map(item => 
                 <S.Text isTutorial={isTutorial}>{item}</S.Text>) 
@@ -83,7 +93,7 @@ export default function Modal({
           />
         </S.ContentInfo>
         
-        {renderElifas()}
+        {!isResend && renderElifas()}
       </S.Content>
     </S.Container>
   );

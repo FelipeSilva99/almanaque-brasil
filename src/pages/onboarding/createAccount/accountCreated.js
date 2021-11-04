@@ -6,6 +6,7 @@ import { Auth } from 'aws-amplify';
 //Components
 import Header from '../../../components/header';
 import Button from '../../../components/buttons/button';
+import Modal from "../../../components/modal/modal.js";
 
 // Styles
 const Container = styled.div`
@@ -85,6 +86,7 @@ const AccountCreated = () => {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [isError, setIsError] = useState(false);
+  const [isResend, setIsResend] = useState(false);
 
   useEffect(() => {
     setEmail(history?.location?.state?.email);
@@ -105,12 +107,34 @@ const AccountCreated = () => {
       } else {
         setIsError({isError: true, msg: err.message});
       }
-    }
-  }
+    };
+
+    isError.isError === false && 
+    setIsResend(isResend ? false : true);
+  };
+
+  const handleResendModal = () => {
+    setIsResend(false);
+  };
+
+  const content = {
+    title: 'Seu e-mail de confirmação foi reenviado!',
+    text: ['No caso de não ter recebido o e-mail, verifique a caixa de spam.']
+  };
 
   return (
     <Container>
       <Header noBack title='Confirmar criação da conta' />
+      {isResend && 
+          <Modal
+            subtitle={content.title}
+            data={content.text}
+            handleClick={handleResendModal}
+            background='#70707075'
+            font='1.315em'
+            isResend={isResend}
+          />
+      }
       <Content>
         <Title>Quase finalizado!</Title>
         <Tutorial>
@@ -119,7 +143,7 @@ const AccountCreated = () => {
           <Step>Clique em: continuar para o login.</Step>
           <Text>
             <span>Obs: </span>
-            Caso não tenha recebido o e-mail, clique em: reenviar.
+            Verifique sua caixa de spam e no caso de não ter recebido o e-mail, clique em: reenviar.
           </Text>
         </Tutorial>
         

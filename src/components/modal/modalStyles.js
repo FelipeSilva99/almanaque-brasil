@@ -51,7 +51,7 @@ export const ContentInfo = styled.div`
     content: '';
     left: ${props => props.isTip ? '42%' : '51%'};
     bottom: ${props => props.isTutorial ? '-9%' : '-12%'};
-    display: block;
+    display: ${props => props.isResend && 'none'};
     width: 50px;
     height: 70px;
     border: 0px solid;
@@ -80,7 +80,7 @@ export const Subtitle = styled.h1`
   margin: .5rem 0 ${props => props.isTutorial ? '2.5rem' : '.7rem'};
   text-align: center;
   font-size: ${props => props.font || '1.25em'};
-  line-height: 1;
+  line-height: ${props => !props.isResend && '1'};
   font-weight: ${props => props.fontWeight || '900'};
   color: ${props => props.color || '#373737'};
 `;

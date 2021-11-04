@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createRef } from 'react';
+import TratedText from '../../components/tratedText';
 import styled from 'styled-components';
 
 //Component
@@ -115,7 +116,7 @@ const TrunkInfoScreen = ({ itemData, onClick }) => {
         <Title>
           {data?.title}
         </Title>
-        <Text>{data?.content}</Text>
+        <TratedText>{data?.content}</TratedText>
       </MessageBox>
     </Container>
   );

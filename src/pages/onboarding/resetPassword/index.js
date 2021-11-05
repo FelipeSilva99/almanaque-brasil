@@ -178,6 +178,7 @@ const ResetPassword = (props) => {
         name='code'
         value={register?.code}
         placeholder='Digite o código aqui'
+        maxLength='6'
         isError={isError?.code && isError?.msg}
         handleChange={handleChange}
         handleSubmit={handleSubmit}

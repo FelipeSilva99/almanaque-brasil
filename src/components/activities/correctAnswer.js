@@ -113,11 +113,11 @@ const Text = styled.p`
   margin-top: 1rem;
   width: 100%;
   max-width: 412px;
-  font-size: .875rem;
+  font-size: .78rem;
   color: #000000;
   text-align: left;
 
-  @media(min-width: 1024px) {font-size: 1rem;}
+  @media (min-width: 1024px) { font-size: 1rem; }
 `;
 
 const CorrectAnswer = (props) => {

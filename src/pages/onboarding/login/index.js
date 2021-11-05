@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 //Components
 import Form from '../../../components/form'
 import Header from '../../../components/header';
+import SplashAlmanaque from '../../../components/splash'
 
 //Redux
 import { signIn } from '../../../dataflow/modules/signIn-modules';
@@ -53,6 +54,16 @@ const Login = (props) => {
   )
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLoading = () => {
+    let timer;  
+    timer = setTimeout(() => props.history.push('/dashboard'), 2000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }
 
   const handleViewPassword = (ev) => {
     ev.stopPropagation();
@@ -78,7 +89,9 @@ const Login = (props) => {
       props.signIn(user.attributes)
       localStorage.setItem('idToken', token)
       props.getActionsBook()
-      props.history.push('/dashboard')
+      setIsLoading(true)
+      handleLoading()
+      // props.history.push('/dashboard')
     } catch (error) {
       console.log('error', error);
       if (error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.");
@@ -105,8 +118,11 @@ const Login = (props) => {
     props.history.push('/');
   }
 
-  return (
-    <Container>
+  const renderScreen = () => {
+    if (isLoading){
+      return <SplashAlmanaque />
+    }
+    return <Container>
       <Header
         title="Login"
         noPadding
@@ -127,6 +143,12 @@ const Login = (props) => {
         <ResetButton onClick={resetPassword}>Esqueceu a senha?</ResetButton>
       </ButtonSpacer>
     </Container>
+  }
+
+  return (
+    <> 
+      {renderScreen()}
+    </>
   );
 }
 

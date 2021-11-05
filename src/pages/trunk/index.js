@@ -83,7 +83,9 @@ const Trunk = (props) => {
 
   const handleModal = (item) => {
     setIsModal({ isModal: !modal.isModal, item: item });
+    if(check !== item)
     setCheck(item)
+    else setCheck("")
   }
 
   const handleInfoModal = (data) => {

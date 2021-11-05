@@ -19,35 +19,39 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
-  height: ${props => props.height || '94vh'};
+  height: 100vh;
   max-width: 393px;
 `;
 
 export const ContentInfo = styled.div`
   position: relative;
-  /* top: 13rem; */
+  bottom: 3rem;
+  bottom: ${props => props.isTip && '18%'};
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   margin: 0 auto;
-  padding: ${props => props.isTutorial ? '.8rem 1.4rem 1rem' : '1.5rem 1rem 1.5rem'};
+  padding: ${props => props.isTutorial ? '1rem 1.1rem' : '1.5rem 1rem 1rem'};
   width:  ${props => props.helpScreen ? '100%' : '91%'};
-  letter-spacing: .5px;
+  min-height: ${props => props.isTip && '55vh'};
+  letter-spacing: 1px;
   filter: drop-shadow(1px 4px 3px #999);
   border-radius: ${props => props.isTutorial ? '30px' : '20px'};
   background: #fff;
 
-  img {
-    cursor: pointer;
-  }
+  img { cursor: pointer; }
 
   &:after {
     position: absolute;
     content: '';
     left: ${props => props.isTip ? '42%' : '51%'};
     bottom: ${props => props.isTutorial ? '-9%' : '-12%'};
-    display: block;
+    display: ${props => props.isResend && 'none'};
     width: 50px;
     height: 70px;
     border: 0px solid;
@@ -68,20 +72,21 @@ export const TutorialBox = styled.div`
 export const Title = styled.h2`
   text-align: center;
   font-weight: 300;
-  font-size: 1em;
+  font-size: 1.1em;
+  color: #373737;
 `;
 
 export const Subtitle = styled.h1`
-  margin: .2rem 0 1.5rem;
+  margin: .5rem 0 ${props => props.isTutorial ? '2.5rem' : '.7rem'};
   text-align: center;
-  font-size: ${props => props.font || '1.4em'};
-  line-height: 1;
+  font-size: ${props => props.font || '1.25em'};
+  line-height: ${props => !props.isResend && '1'};
   font-weight: ${props => props.fontWeight || '900'};
   color: ${props => props.color || '#373737'};
 `;
 
 export const Scroll = styled.ol`
-  padding-left: ${props => props.isTutorial ? '2.7rem' : '0'};
+  padding-left: ${props => props.isTutorial ? '3.3rem' : '0'};
   list-style: none;
   counter-reset: count;
 
@@ -106,10 +111,13 @@ export const Text = styled.li`
   position: relative;
   display: flex;
   align-items: center;
-  margin: ${props => props.isTip ? '1rem 0 5rem' : '0 0 1.6rem'};
-  font-size: ${props => props.helpScreen  && '1.25rem'};
+  font-size: ${props => props.helpScreen ? '1.25rem' : '1rem'};
+  width: 90%;
+  margin: ${props => props.margin || '.5rem 0 1.5rem'};
   font-weight: ${props => props.helpScreen  && '900'};
-  line-height: 1.35;
+  color: #373737;
+  line-height: 1.45;
+  letter-spacing: ${props => props.isTip ? '.5px' : '1.2px'};
   counter-increment: count;
 
   &:nth-child(2) {
@@ -121,29 +129,28 @@ export const Text = styled.li`
   &:before {
     ${props => props.isTutorial && 'content: counter(count) "°";'}
     position: absolute;
-    left: -2.8rem;
-    font-size: 2em;
+    left: -2.9rem;
+    font-size: 2.15em;
     font-weight: 900;
-    color: #373737;
   }
   
   @media (max-width: 425px) {
     padding: ${props => props.padding && '1.5rem 0 .4rem 0 '};
-    font-size: .9em;
+    font-size: .95em;
   }
 `;
 
 export const ImgElifas = styled.img`
   position: absolute;
-  right: ${props => props.isWelcome ? '-25' : '-11'}%;
+  right: ${props => props.isWelcome ? '-11' : '0'}%;
   bottom: 0;
-  width: ${props => props.isWelcome ? '16' : '12'}rem;
+  width: ${props => props.isWelcome ? '14' : '11'}rem;
 
   @media (max-width: 425px) {
     right: ${props => props.isWelcome ? '-14%' : '0'};
   }
+  
   @media (max-height: 600px) {
-    width: ${props => props.isTutorial ? '8' : '10'}rem;
-    width: ${props => props.isWelcome && '13rem'};
+    width: ${props => props.isWelcome ? '12' : '9'}rem;
   }
 `;

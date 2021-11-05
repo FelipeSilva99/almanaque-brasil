@@ -19,7 +19,7 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   justify-content: center;
-  z-index: 2;
+  z-index: 4;
 `
 
 const RandomBox = styled.div`
@@ -85,7 +85,7 @@ const DialogBox = styled.div`
     line-height: 2.3rem;
     color: #FB6C76;
 
-    @media(max-width: 375px) {
+    @media(max-width: 320px) {
       font-size: 1.4rem;
     }
   }

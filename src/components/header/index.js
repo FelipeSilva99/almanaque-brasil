@@ -16,12 +16,13 @@ const Container = styled.header`
   max-width: 425px;
   position: ${props => props.positionFixed ? 'fixed' : 'relative'};
   padding: ${props => (props.trunkScreen && '1.5rem 1rem 1.5rem 0') || (!props.noPadding && '1rem')};
-  background: transparent;
+  background: ${props => props.background ? props.background : 'transparent'};
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: ${props => props.zIndex ? props.zIndex : '4'};
   animation: .3s fadeIn ease-in-out;
+  box-shadow:  ${props => props.boxShadow && '0 -5px 15px #00000020'};
 
   ${({ animation }) => animation && `
     background: #fff;
@@ -30,13 +31,19 @@ const Container = styled.header`
 
 const Figure = styled.figure`
   padding-left: ${props => props.trunkScreen && '1.5rem'};
-  width: 2.25rem;
+  width: 2.3rem;
   display: ${props => props.noBack ? 'none' : 'flex'};
+  transition: .2s ease;
   cursor: pointer;
+  
+  &:hover {
+    transform: translateX(-3px);
+    filter: drop-shadow(0 -2px 5px #00000010);
+  }
 `;
 
 const Img = styled.img`
-  width: .80rem;
+  width: 1rem;
   transform: rotate(180deg);
 `;
 
@@ -58,7 +65,6 @@ const Title = styled.h1`
   line-height: 0;
   color: #373737;
   text-align: center;
-  text-transform: capitalize;
   animation: .3s fadeIn ease-in-out;
 	opacity: ${props => props.trunkScreen && 0};
 
@@ -67,6 +73,10 @@ const Title = styled.h1`
     transition: .4s ease-in-out;
     opacity: 1
   `}
+
+  ::first-letter {
+    text-transform: capitalize;
+  }
 `;
 
 const Header = ({
@@ -78,6 +88,8 @@ const Header = ({
   isSelectedTips,
   handleModalTip,
   positionFixed,
+  background,
+  boxShadow,
   zIndex,
   trunkScreen,
   showTitle,
@@ -110,9 +122,17 @@ const Header = ({
   )
 
   return (
-    <Container positionFixed={positionFixed} zIndex={zIndex} trunkScreen={trunkScreen} noPadding={noPadding} animation={showTitle}>
+    <Container
+      positionFixed={positionFixed}
+      zIndex={zIndex}
+      trunkScreen={trunkScreen}
+      noPadding={noPadding}
+      animation={showTitle}
+      background={background}
+      boxShadow={boxShadow}
+    >
       {!noBack && renderGoBack()}
-      <Title trunkScreen={trunkScreen} animation={showTitle}>{title}</Title>
+      <Title trunkScreen={trunkScreen} animation={showTitle} >{title}</Title>
       {tips ? renderTips() : <ButtonTip noBack={noBack || noTip} />}
       {isSelectedTips && <ModalTip text={tips} handleModalTip={handleModalTip} />}
     </Container>

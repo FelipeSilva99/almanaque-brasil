@@ -12,7 +12,6 @@ const Container = styled.div`
 const LineToRight = styled.div`
   position: relative;
   top: 60px;
-  // left: 48%;
   right: -47%;
   width: 184px;
   height: 170px;

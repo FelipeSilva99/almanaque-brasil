@@ -8,7 +8,7 @@ import arrow from '../../images/icons/onboarding/arrow.svg';
 // Styles
 const Content = styled.div`
   margin-top: 1rem;
-  padding-left: 1rem;
+  padding: 0 1rem;
   width: 100%;
   border-radius: 8px;
   font-size: 1rem;
@@ -40,7 +40,8 @@ const Option = styled.div`
 const Figure = styled.figure`
   position: relative;
   float: right;
-  margin: .75rem 1rem .625rem 0;
+  margin: .75rem 0 .625rem 0;
+  
   >img{
     width: 70%;
     transform: ${props => props.isOpen ? 'rotate(90deg)' : 'rotate(-90deg)'};

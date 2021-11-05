@@ -18,6 +18,7 @@ import thunk from '../../images/icons/menu/selectedThunk.svg';
 //Redux
 import { getDataThunk } from '../../dataflow/thunks/thunk-thunks';
 import { setModal } from '../../dataflow/modules/modals-module';
+import { getTrailsThunk } from '../../dataflow/thunks/trails-thunk';
 
 const mapStateToProps = state => ({
   trails: state.trails.data,
@@ -28,6 +29,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  getTrailsThunk: () => dispatch(getTrailsThunk()),
   setModal: (modal) => { dispatch(setModal(modal)) },
   getDataThunk: () => {
     dispatch(getDataThunk());
@@ -70,7 +72,7 @@ const Card = styled.button`
   background-repeat: no-repeat;
   text-align: left;
   font-size: 1rem;
-  transition: .3s ease-in-out;
+  transition: .2s ease-in-out;
 
   &:hover {
     box-shadow: 0 6px 10px rgba(0,0,0,0.20), 0 1px 10px rgba(0,0,0,0.10);
@@ -102,10 +104,19 @@ const Dashboard = (props) => {
   const [showWelcomeModal, setWelcomeModal] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
+  // GET thunk
   useEffect(() => {
+    if(trails?.length > 5) return 
     props.getDataThunk();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // GET trails
+  useEffect(() => {
+    if(trails?.length > 5) return 
+    props.getTrailsThunk();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleClick = (route) => {
     props.history.push({ pathname: `/${route}` });
@@ -135,6 +146,21 @@ const Dashboard = (props) => {
     }, 2000);
     return () => clearTimeout(timer);
   },[]);
+  
+  const userName = () => {
+    const name = props.user.name || '';
+    const userName = name.includes(" ") ? name.split(" ") : name;
+  
+    if (Array.isArray(userName)) {
+      const firstName = userName[0];
+      const lastName = userName[userName.length - 1];
+      const user = `${firstName} ${lastName}`;
+
+      return user.length > 10 ? `${user.slice(0,10)}...` : user
+    } else {
+      return name
+    }
+  };
 
   return (
     isLoading ? <Loader /> : (
@@ -143,7 +169,7 @@ const Dashboard = (props) => {
       <Header
         isVisible
         initialLettersName={props?.user?.name && props?.user?.name[0] + props.user?.name[1]}
-        text={`Oi, ${props.user.name}`}
+        text={`Oi, ${userName()}`}
         icon={home}
       />
 

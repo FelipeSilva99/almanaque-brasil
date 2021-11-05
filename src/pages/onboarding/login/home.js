@@ -161,17 +161,15 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    console.log("testing")
     Auth.currentAuthenticatedUser().then(user => {
       console.log("USER", user)
       const idToken = user.signInUserSession.idToken.jwtToken;
-      // const idToken = user.signInUserSession.idToken.jwtToken;
       props.signIn(user.attributes)
       localStorage.setItem('idToken', idToken)
       props.getActionsBook()
       props.history.push('/dashboard')
       console.log("User", user)
-    }).catch(err => console.log("Errorrrrr", err))
+    }).catch(err => console.log("Error", err))
   }, [])
 
   async function federatedeSignin(provider) {
@@ -215,17 +213,6 @@ const Home = (props) => {
           icon={iconGoogle}
         >
           continuar com o google
-        </Button>
-        <Button
-          width='.5625rem'
-          backgroundDisabled='#ccc'
-          color='#fff' buttonBg='#3C5A9A'
-          boxShadow='#153372 0px 7px 0px'
-          handleClick={() => federatedeSignin("Facebook")}
-          isIcon
-          icon={iconFacebook}
-        >
-          continuar com facebook
         </Button>
         <Button
           buttonBg='#F3F3F3'

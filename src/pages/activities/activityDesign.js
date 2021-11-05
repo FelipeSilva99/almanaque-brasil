@@ -123,8 +123,8 @@ const activityDesign = {
     "name": 'ametista',
     "color": "#985EB7",
     "stone": {
-      "logo": ametista,
-      "stone": ametistaLogo,
+      "logo": ametistaLogo,
+      "stone": ametista,
       "bloqued": ametistaBloqued,
       "visualized": ametistaVisualized,
     },

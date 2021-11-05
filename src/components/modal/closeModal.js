@@ -5,9 +5,10 @@ import Button from "../buttons/button"
 
 const CloseBtn = styled.button`
   text-transform: uppercase;
-  font: 900 1.5em 'Nunito';
+  font: 900 1.6em 'Nunito';
   color: #373737;
-  transform: scale(1,.9);
+  transform: scale(1,.82);
+  z-index: 111;
 `;
 
 export default function CloseModal({

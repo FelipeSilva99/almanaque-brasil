@@ -41,6 +41,7 @@ const Img = styled.img`
   bottom: ${props => props.bottom || '0'};
   right: ${props => props.right || '-30px'};
   width: ${props => props.home ? '7rem' : '9rem'};
+  z-index: -1;
 `;
 
 const Header = ({ text, icon, home, initialLettersName, isVisible, bottom, right }) => {
@@ -51,7 +52,7 @@ const Header = ({ text, icon, home, initialLettersName, isVisible, bottom, right
       {icon &&
         <Img
           src={icon}
-          alt={text}
+          alt={home ? 'home' : text}
           home={home}
           bottom={bottom}
           right={right}

@@ -7,6 +7,7 @@ export default function Tip({ text, handleModalTip }) {
     <Modal
       data={text}
       handleClick={handleModalTip}
+      background='#70707075'
       isTip={true}
     />
   );

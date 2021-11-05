@@ -40,7 +40,7 @@ const Container = styled.div`
 const Stone = styled.div`
   display: flex;
   justify-content: center;
-  padding: ${props => props.padding || '4rem 0 5rem'};
+  padding: ${props => props.padding || '6rem 0 5rem'};
   
   img {
     width: ${props => props.width};
@@ -150,14 +150,16 @@ const Activities = (props) => {
   }, [props.actionsBook]);
   
   useEffect(() => {
-    props.postActionsBook(props.actionsBook)
+    if(props.actionsBook.pendingSync.length > 0) {
+      props.postActionsBook(props.actionsBook);
+    }
   }, [props]);
 
   useEffect(() => {
-    const useCurrentActivity = props.activities.data[props.selectedTrails].name;
+    const useCurrentActivity = props?.activities?.data[props.selectedTrails]?.name;
 
     setCurrentActivity(useCurrentActivity);
-  }, [props]);
+  }, []);
 
   const handlerNextActivitie = (index, activityId) => {
     props.handleselectedActivity(activityId);
@@ -275,6 +277,8 @@ const Activities = (props) => {
       <Header
         title={activityName?.name}
         positionFixed
+        background='#fafafa'
+        boxShadow
         goBack={() => { props.history.push('/trilhas') }}
       />
 

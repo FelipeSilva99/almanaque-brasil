@@ -160,6 +160,7 @@ const DidYouKnow = (props) => {
         />
         <Button
           handleClick={handleIsModalAnswerOption}
+          buttonBg='#ffd000'
         >
           responder
         </Button>

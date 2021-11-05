@@ -12,15 +12,16 @@ export default function Modal({
   handleCloseTutorial,
   handleModalTip,
   handleClick,
+  isResend,
   isTutorial,
   isWelcome,
   isScore,
   showThunk,
   resetProgress,
   isTip,
-  height,
   title,
   subtitle,
+  margin,
   color,
   data,
   background,
@@ -44,9 +45,10 @@ export default function Modal({
 
   return (
     <S.Container background={background}>
-      <S.Content height={height}>
+      <S.Content>
         <S.ContentInfo
           isTutorial={isTutorial}
+          isResend={isResend}
           isTip={isTip}
           helpScreen={helpScreen}
         >
@@ -54,13 +56,27 @@ export default function Modal({
 
           <S.TutorialBox>
             {subtitle && 
-              <S.Subtitle color={color} fontWeight={fontWeight} font={font}>{subtitle}</S.Subtitle>}
-            
+              <S.Subtitle
+                color={color}
+                fontWeight={fontWeight}
+                font={font}
+                isResend={isResend}
+              >
+                {subtitle}
+              </S.Subtitle>
+            }
+
             <S.Scroll isTutorial={isTutorial}>
               {isTutorial ? data[0].text.map(item => 
                 <S.Text isTutorial={isTutorial}>{item}</S.Text>) 
                 : data.map(item => 
-                <S.Text isTip={isTip} isScore={isScore} helpScreen={helpScreen}>{item}</S.Text>)
+                <S.Text
+                  margin={margin}
+                  isTip={isTip}
+                  isWelcome={isWelcome}
+                  isScore={isScore}
+                  helpScreen={helpScreen}
+                >{item}</S.Text>)
               }
             </S.Scroll>
           </S.TutorialBox>
@@ -77,7 +93,7 @@ export default function Modal({
           />
         </S.ContentInfo>
         
-        {renderElifas()}
+        {!isResend && renderElifas()}
       </S.Content>
     </S.Container>
   );

@@ -45,7 +45,9 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
+  position: relative;
   padding: 3.188rem 1rem 0;
+  max-width: 425px;
 `;
 
 const Text = styled.h1`
@@ -89,8 +91,7 @@ const Card = styled.button`
 `;
 
 const ElifasSVG = styled.img`
-  position: absolute;
-  right: -1rem;
+  position: fixed;
   bottom: 3rem;
   width: 12rem;
 

@@ -20,11 +20,13 @@ import iconGoogle from '../../../images/icons/onboarding/iconGoogle.svg';
 const Container = styled.div`
   min-height: 100vh;
   background: #FFFEFC;
+  height: -webkit-fill-available;
 `;
 
 const Img = styled.img`
-  flex: 3;
-  width: 11.25rem;
+  // flex: 1;
+  padding-top: 7.188rem;
+  width: 11.8rem;
 `;
 
 const BtnDoubt = styled.button`
@@ -52,7 +54,7 @@ const BtnDoubt = styled.button`
   }
 `;
 
-const BoxSpan = styled.div`
+const BoxHelp = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
@@ -60,6 +62,7 @@ const BoxSpan = styled.div`
   max-width: 425px;
   background: ${props => props.openSpan && 'rgba(0,0,0,.3)'};
   transition: .1s;
+  z-index: 2;
 `;
 
 const ContentHelp = styled.div`
@@ -112,23 +115,20 @@ const Close = styled.div`
 
 const Content = styled.div`
   position: relative;
-  padding: 1.875rem 1rem 1rem;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   background: #F3F3F3;
-  justify-content: center;
 `;
 
-const ContentBox = styled.div`
-  padding-bottom: 50px;
+const ContentButton = styled.div`
+  position: fixed;
+  padding: 0 1rem 1.5rem 1rem;
+  bottom: 0;
   width: 100%;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-around;
+  max-width: 425px;
+  min-height: auto;
 `;
 
 const mapDispatchToProps = dispatch => {
@@ -137,7 +137,6 @@ const mapDispatchToProps = dispatch => {
     getActionsBook: () => dispatch(getActionsBook())
   }
 };
-
 
 const Home = (props) => {
   const [screen, setScreen] = useState('almanaque');
@@ -192,18 +191,12 @@ const Home = (props) => {
 
   const renderScreenHome = () => (
     <Content>
-      <BoxSpan openSpan={openSpan}>
+      <BoxHelp openSpan={openSpan}>
         <BtnDoubt onClick={()=> setOpenSpan(openSpan ? false : true)}>?</BtnDoubt>
         {openSpan ? renderSpan() : null}
-      </BoxSpan>
-      
+      </BoxHelp>
       <Img src={logo} alt='logo' />
-      <ContentBox>
-        <Button
-          handleClick={() => handleClick('cadastro')}
-        >
-          inscreva-se
-        </Button>
+      <ContentButton>
         <Button
           backgroundDisabled='#ccc'
           buttonBg='#FFFFFF'
@@ -215,13 +208,19 @@ const Home = (props) => {
           continuar com o google
         </Button>
         <Button
+          margin='1rem 0'
+          handleClick={() => handleClick('cadastro')}
+        >
+          inscreva-se
+        </Button>
+        <Button
           buttonBg='#F3F3F3'
           boxShadow='#F3F3F3'
           handleClick={() => handleClick('login')}
         >
           entrar
         </Button>
-      </ContentBox>
+      </ContentButton>
     </Content>
   )
 

@@ -9,7 +9,7 @@ import trailsIcon from '../../images/icons/progressHeader/trails.svg'
 
 import { getPointsAtTrail, getBookBadges } from '../../utils/statistics'
 
-const Row = styled.div`
+const Row = styled.header`
   display: flex;
   flex-direction: row;
   justify-content: space-around;

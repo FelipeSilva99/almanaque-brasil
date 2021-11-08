@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: -webkit-fill-available;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -14,7 +14,10 @@ export const Container = styled.div`
   overflow: hidden;
   z-index: 5;
 
-  @media (min-width: 1024px) { align-items: center; }
+  @media (min-width: 768px) {
+    align-items: center;
+    position: absolute;
+  }
 `;
 
 export const Content = styled.div`

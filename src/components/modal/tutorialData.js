@@ -36,8 +36,8 @@ const tutorialData = [
     ]
   },
   {
-    game: 'De quem são estes olhos',
-    route: 'de-quem-sao-estes-olhos',
+    game: 'De quem são esses olhos',
+    route: 'de-quem-sao-esses-olhos',
     text: [
       'Tente reconhecer de quem são os olhos que estão em destaque.',
       'Clicando em responder, você verá opções de resposta.',

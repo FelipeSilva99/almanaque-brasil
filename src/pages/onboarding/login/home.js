@@ -9,8 +9,8 @@ import { getActionsBook } from '../../../dataflow/thunks/actionsBook-thunks';
 
 //Components
 import Button from '../../../components/buttons/button';
-import SplashAlmanaque from '../../splash';
-import SplashPartner from '../../splash/achievement';
+import SplashAlmanaque from '../../../components/splash';
+import SplashPartner from '../../../components/splash/achievement';
 
 //Images
 import logo from '../../../images/logo/almanaque.svg';

@@ -70,7 +70,7 @@ const Activities = (props) => {
   const renderActivitie = (currentActivitie, registerAction) => {
     // Renderizar component de acordo com o tipo de ativivdade
     switch (currentActivitie.type) {
-      case "de-quem-sao-estes-olhos":
+      case "de-quem-sao-esses-olhos":
         return <WhoseEyesAreThese registerAction={registerAction} useActivitie={currentActivitie} actionsBook={props.actionsBook}/>
 
       case "o-que-e-o-que-e":

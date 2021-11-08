@@ -7,6 +7,7 @@ import Header from '../../components/header/headerYellow';
 import Footer from '../../components/footer/footerMenu';
 import WelcomeModal from '../../components/modal/welcomeModal';
 import TrunkInfoScreen from '../../components/thunk/trunkInfoScreen';
+import Loader from '../dashboard/loader.js';
 
 //Image
 import home from '../../images/icons/menu/selectedHome.svg';
@@ -102,6 +103,7 @@ const ElifasSVG = styled.img`
 const Dashboard = (props) => {
   const [modalThunk, setModalThunk] = useState({ isModal: false, data: undefined });
   const [showWelcomeModal, setWelcomeModal] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   // GET thunk
   useEffect(() => {
@@ -138,6 +140,14 @@ const Dashboard = (props) => {
     setWelcomeModal(!showWelcomeModal)
   }
 
+  useEffect(() => {
+    if (isLoading === undefined) setIsLoading(true)
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 2000);
+    return () => clearTimeout(timer);
+  },[]);
+  
   const userName = () => {
     const name = props.user.name || '';
     const userName = name.includes(" ") ? name.split(" ") : name;
@@ -154,6 +164,7 @@ const Dashboard = (props) => {
   };
 
   return (
+    isLoading ? <Loader /> : (
     <Container>
       {!props.modals.welcomeModal.wasShowed && <WelcomeModal showThunk={() => handleModalThunk} handleClose={handleCloseModal} />}
       <Header
@@ -197,6 +208,7 @@ const Dashboard = (props) => {
       {modalThunk?.isModal && <TrunkInfoScreen itemData={modalThunk?.data} onClick={handleModalThunk} />}
       <Footer screen='dashboard' />
     </Container>
+    )
   );
 }
 

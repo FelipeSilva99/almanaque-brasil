@@ -33,27 +33,28 @@ export const Content = styled.div`
 export const ContentInfo = styled.div`
   position: relative;
   bottom: 3rem;
+  bottom: ${props => props.isTip && '18%'};
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   margin: 0 auto;
-  padding: ${props => props.isTutorial ? '1rem 1.1rem' : '1.5rem 1rem 1.5rem'};
+  padding: ${props => props.isTutorial ? '1rem 1.1rem' : '1.5rem 1rem 1rem'};
   width:  ${props => props.helpScreen ? '100%' : '91%'};
+  min-height: ${props => props.isTip && '55vh'};
   letter-spacing: 1px;
   filter: drop-shadow(1px 4px 3px #999);
   border-radius: ${props => props.isTutorial ? '30px' : '20px'};
   background: #fff;
 
-  img {
-    cursor: pointer;
-  }
+  img { cursor: pointer; }
 
   &:after {
     position: absolute;
     content: '';
     left: ${props => props.isTip ? '42%' : '51%'};
     bottom: ${props => props.isTutorial ? '-9%' : '-12%'};
-    display: block;
+    display: ${props => props.isResend && 'none'};
     width: 50px;
     height: 70px;
     border: 0px solid;
@@ -82,7 +83,7 @@ export const Subtitle = styled.h1`
   margin: .5rem 0 ${props => props.isTutorial ? '2.5rem' : '.7rem'};
   text-align: center;
   font-size: ${props => props.font || '1.25em'};
-  line-height: 1;
+  line-height: ${props => !props.isResend && '1'};
   font-weight: ${props => props.fontWeight || '900'};
   color: ${props => props.color || '#373737'};
 `;
@@ -119,7 +120,7 @@ export const Text = styled.li`
   font-weight: ${props => props.helpScreen  && '900'};
   color: #373737;
   line-height: 1.45;
-  letter-spacing: 1.2px;
+  letter-spacing: ${props => props.isTip ? '.5px' : '1.2px'};
   counter-increment: count;
 
   &:nth-child(2) {

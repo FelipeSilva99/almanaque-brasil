@@ -14,12 +14,11 @@ body {
   font-family: 'Nunito', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* height: -webkit-fill-available; */
 }
 
 #root{
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   max-width: 425px; 
 }
 
@@ -31,8 +30,6 @@ code {
 html {
   font-size: 16px;
   flex: 1;
-  /* height: -webkit-fill-available; */
-
 }
 
 main {

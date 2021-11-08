@@ -6,44 +6,45 @@ import styled from 'styled-components';
 import aliases from './aliases';
 import skeleton from '../../../images/trails/map/skeleton.svg'
 
-const AlignToCenter = styled.div`
+const AlignToCenter = styled.main`
   &::-webkit-scrollbar {
     display: none;               /* width of the entire scrollbar */
   }
-  position: absolute;
+  position: fixed;
   background-color: #ebeeec;
   bottom: 20px;
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  height: 100%;
+  min-width: 425px;
   overflow: hidden;
   z-index: 0;
 
-  @media (max-width: 360px) { bottom: 5px; }
-
-  @media (max-height: 630px) {
-    bottom: -2.2rem;
+  @media (max-width: 320px) {
+    bottom: -32px;
   }
 `;
 
 const MapBackground = styled.div`
-  position: relative;
-  width: 100%;
-  min-height: 430px;
-  height: 100vh;
+  position: fixed;
+  max-width: 425px;
   transform: scale(1,.975);
-
+  min-height: 100%;
+  height: -webkit-fill-available;
+  
+  @media (max-width: 360px) {
+    left: -2rem;
+    transform: scale(.9,.85);
+  }
+  @media (max-height: 630px) {
+    transform: scale(.8,.8);
+  }
+  
   @media (max-width: 400px) {
     left: -1.5rem;
   }
-
-  @media (max-width: 360px) {
-    left: -2rem;
-    transform: scale(.9,.95);
-  }
-
-  @media (max-height: 630px) {
-    transform: scale(.8,.8);
+  
+  @media (max-width: 320px) {
+    left: -1rem;
+    transform: scale(.8,.7);
   }
 `;
 
@@ -51,6 +52,7 @@ const MapFragment = styled.div`
   position: absolute;
   left: ${props => props.left};
   bottom: ${props => props.bottom};
+  display: unset;
   transform: scale(1.03,1.028);
   z-index: ${props => props.esmeralda ? '2' : '1'};
 `;

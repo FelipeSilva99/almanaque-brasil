@@ -50,13 +50,15 @@ export const Box = styled.div`
   overflow: hidden;
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #f3f3f3;
 `;
 
 const ContentMap = styled.div`
-  height: 80%;
-  background-color: pink;
+  min-height: 100%;
+  background: red;
+  height: -webkit-fill-available;
+  // background: #f3f3f3;
 `;
 
 export const Row = styled.div`
@@ -117,16 +119,6 @@ const Trails = (props) => {
     setIsModalAppCompleted(false);
   }
 
-  // const renderTrails = (trails) => {
-  //   return trails.map((trail, key) => {
-  //     return (
-  //       <Card key={key} onClick={() => handleClick(trail.id)}>
-  //         <h2>{`Trilha ${trail.id}`}</h2>
-  //       </Card>
-  //     )
-  //   })
-  // }
-
   const trails = props?.trails;
   return (
     <Box>
@@ -135,12 +127,7 @@ const Trails = (props) => {
         actionsBook={[...props.actionsBook.synced, ...props.actionsBook.pendingSync]}
       />
       {
-        trails && (
-          <ContentMap>
-            {/* {renderTrails(trails)} */}
-            <Map trails={trails} trailsState={trailsState} goToActivitie={handleClick}></Map>
-          </ContentMap>
-        ) 
+        trails && <Map trails={trails} trailsState={trailsState} goToActivitie={handleClick}></Map>
       }
       <Footer screen='trilhas' />
 

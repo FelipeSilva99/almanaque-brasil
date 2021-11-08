@@ -26,7 +26,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 const Content = styled.div`
   position: absolute;
@@ -46,7 +46,7 @@ const Content = styled.div`
     padding-top: .5rem;
     height: ${props => props.isCorrectAnswer ? '100%' : '85%'} ;
   }
-`
+`;
 
 const ContentBox = styled.div`
   width: 100%;
@@ -70,9 +70,10 @@ const ContentInfo = styled.div`
   
   img {
     border-radius: 8px;
+    box-shadow: 0 3px 6px #00000029;
     opacity: ${props => (props.isCorrectAnswer && '1') || props.opacity}
   }
-`
+`;
 
 const Text = styled.div`
   width: 7rem;
@@ -85,7 +86,7 @@ const Text = styled.div`
   font-weight: 900;
   border-radius: 8px;
   box-shadow: ${props => props.isCorrectAnswer ? 'none' : '0 3px 6px #00000029'};
-`
+`;
 
 const TextCorrectAnswer = styled.h1`
   padding-bottom: 2rem;
@@ -93,7 +94,7 @@ const TextCorrectAnswer = styled.h1`
   color: #373737;
   font-weight: 900;
   text-align: center;
-`
+`;
 
 const Box = styled.div`
   padding: 0 3rem;
@@ -173,20 +174,6 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
     const useChancesAtActivity = chancesAtActivity(useActivitie.id, listActionsBook);
     setChances(useChancesAtActivity);
   }, [actionsBook, useActivitie.id]);
-
-  // const activityWasDone = () => {
-  //   const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
-  //   const useDoneActivitie = isDone(useActivitie.id, listActionsBook);
-
-  //   if(useDoneActivitie === 'right' || useDoneActivitie === 'wrong') {
-  //     setIsDoneActivitie(true);
-  //   } 
-  // }
-
-  // useEffect(() => {
-  //   activityWasDone();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [useActivitie]);
 
   const handleModalTip = () => {
     setIsModalTip(!isModalTip)

@@ -54,14 +54,15 @@ const BtnDoubt = styled.button`
   }
 `;
 
-const BoxSpan = styled.div`
-  // position: absolute;
-  // top: 0;
-  // width: 100%;
-  // height: ${props => props.openSpan && '100%'};
-  // max-width: 425px;
-  // background: ${props => props.openSpan && 'rgba(0,0,0,.3)'};
-  // transition: .1s;
+const BoxHelp = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: ${props => props.openSpan && '100%'};
+  max-width: 425px;
+  background: ${props => props.openSpan && 'rgba(0,0,0,.3)'};
+  transition: .1s;
+  z-index: 2;
 `;
 
 const ContentHelp = styled.div`
@@ -190,10 +191,10 @@ const Home = (props) => {
 
   const renderScreenHome = () => (
     <Content>
-      <BoxSpan openSpan={openSpan}>
+      <BoxHelp openSpan={openSpan}>
         <BtnDoubt onClick={()=> setOpenSpan(openSpan ? false : true)}>?</BtnDoubt>
         {openSpan ? renderSpan() : null}
-      </BoxSpan>
+      </BoxHelp>
       <Img src={logo} alt='logo' />
       <ContentButton>
         <Button

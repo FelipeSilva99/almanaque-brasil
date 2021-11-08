@@ -9,6 +9,7 @@ export default function Tip({ text, handleModalTip }) {
       handleClick={handleModalTip}
       background='#70707075'
       isTip={true}
+      noAbsolute
     />
   );
 }

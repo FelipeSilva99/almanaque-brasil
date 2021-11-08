@@ -16,7 +16,7 @@ export const Container = styled.div`
 
   @media (min-width: 768px) {
     align-items: center;
-    position: absolute;
+    position:  ${props => !props.noAbsolute && 'absolute'};
   }
 `;
 

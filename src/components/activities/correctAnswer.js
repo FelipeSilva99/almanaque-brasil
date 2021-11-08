@@ -54,9 +54,9 @@ const ButtonBox = styled.div`
 `;
 
 const Img = styled.img`
-  width: 100vw;
+  width: 100%;
   height: 50vh;
-  max-width: 500px;
+  max-width: 425px;
   object-fit: cover;
 
   @media (max-width: 425px) { width: 100%; }

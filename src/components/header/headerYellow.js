@@ -7,10 +7,8 @@ const Container = styled.header`
   padding: 2.375rem 1rem;
   width: 100%;
   background: #F4DE9B;
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
+  border-radius: 0 0 24px 24px;
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
   overflow: hidden;
 `;
@@ -34,14 +32,14 @@ const Text = styled.h1`
   font-weight: 900;
   color: #373737;
   text-decoration: none;
+  z-index: 1;
 `;
 
 const Img = styled.img`
   position: absolute;
   bottom: ${props => props.bottom || '0'};
-  right: ${props => props.right || '-30px'};
-  width: ${props => props.home ? '7rem' : '9rem'};
-  z-index: -1;
+  right: ${props => props.right || '-25px'};
+  width: ${props => props.home ? '6.6rem' : '8rem'};
 `;
 
 const Header = ({ text, icon, home, initialLettersName, isVisible, bottom, right }) => {

@@ -168,6 +168,8 @@ const Dashboard = (props) => {
     <Container>
       {!props.modals.welcomeModal.wasShowed && <WelcomeModal showThunk={() => handleModalThunk} handleClose={handleCloseModal} />}
       <Header
+        home
+        bottom='-6px'
         isVisible
         initialLettersName={props?.user?.name && props?.user?.name[0] + props.user?.name[1]}
         text={`Oi, ${userName()}`}

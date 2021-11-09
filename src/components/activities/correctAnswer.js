@@ -54,9 +54,9 @@ const ButtonBox = styled.div`
 `;
 
 const Img = styled.img`
-  width: 100vw;
-  height: 50vh;
-  max-width: 500px;
+  width: 100%;
+  height: 45vh;
+  max-width: 425px;
   object-fit: cover;
 
   @media (max-width: 425px) { width: 100%; }
@@ -113,11 +113,11 @@ const Text = styled.p`
   margin-top: 1rem;
   width: 100%;
   max-width: 412px;
-  font-size: .875rem;
+  font-size: .78rem;
   color: #000000;
   text-align: left;
 
-  @media(min-width: 1024px) {font-size: 1rem;}
+  @media (min-width: 1024px) { font-size: 1rem; }
 `;
 
 const CorrectAnswer = (props) => {
@@ -173,7 +173,7 @@ const CorrectAnswer = (props) => {
         );
       case modals.answerDescription:
         return (
-          <MessageBox height={'60vh'}>
+          <MessageBox height={'58vh'}>
             <ComplementaryInformationBox>
               <Title>A resposta é:</Title>
               <TextName>{answer.answer}</TextName>

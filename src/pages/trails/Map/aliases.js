@@ -152,7 +152,7 @@ const trailsMap = {
   },
 
   "Safira": {
-    "position": {bottom: "107px", left: "291px"},
+    "position": {bottom: "108px", left: "292px"},
     "img": safiraMap,
     "name": 'safira',
     "stone": {
@@ -166,7 +166,7 @@ const trailsMap = {
   },
 
   "Alexandrita": {
-    "position": {bottom: "3px", left: "143px"},
+    "position": {bottom: "3px", left: "144px"},
     "img": alexandritaMap,
     "name": 'alexandrita',
     "stone": {

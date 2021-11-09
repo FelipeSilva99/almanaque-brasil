@@ -124,6 +124,7 @@ const Form = ({
               value={value}
               placeholder={placeholder}
               type={type}
+              maxLength='10'
               handleChange={handleChange}
               showPassword={showPassword}
               handleViewPassword={handleViewPassword}

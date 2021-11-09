@@ -17,13 +17,14 @@ import selectedSettings from '../../images/icons/menu/selectedSettings.svg';
 
 // Styles
 const Alingment = styled.footer`
-  display: flex;
-  justify-content: center;
+  margin: auto;
   width: 100%;
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
+  max-width: 425px;
+  background: ${props => props.trails && '#436a50'};
 `;
 
 const Container = styled.div`
@@ -89,7 +90,7 @@ const Footer = ({ screen }) => {
   }
   
   return (
-    <Alingment>
+    <Alingment trails={screen ==='trilhas'}>
       <Container>
         {options.map((item, i) => {
           const isSelected = screen === item.router; 

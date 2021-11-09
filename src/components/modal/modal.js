@@ -28,6 +28,7 @@ export default function Modal({
   btnContent,
   buttonBg,
   elifas,
+  noAbsolute,
   fontWeight,
   font,
   helpScreen
@@ -44,7 +45,7 @@ export default function Modal({
   };
 
   return (
-    <S.Container background={background}>
+    <S.Container noAbsolute={noAbsolute} background={background}>
       <S.Content>
         <S.ContentInfo
           isTutorial={isTutorial}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
+import { connect } from 'react-redux';
 
 //Images
 import home from '../../images/icons/menu/home.svg';
@@ -14,6 +15,11 @@ import selectedThunk from '../../images/icons/menu/selectedThunk.svg';
 
 import settings from '../../images/icons/menu/settings.svg';
 import selectedSettings from '../../images/icons/menu/selectedSettings.svg';
+
+//Redux
+const mapStateToProps = state => ({
+  trails: state.trails,
+});
 
 // Styles
 const Alingment = styled.footer`
@@ -56,7 +62,7 @@ const Text = styled.p`
   padding-top: ${props => props.trunk && '.2rem'};
 `;
 
-const Footer = ({ screen }) => {
+const Footer = ( props ) => {
   const history = useHistory();
   const [options] = useState([
     {
@@ -88,12 +94,14 @@ const Footer = ({ screen }) => {
   const handleRouter = (router, i) => {
     history.push(`/${router}`);
   }
+
+  const setBackgroundColor = props.screen ==='trilhas' && props?.trails?.data.length > 0;
   
   return (
-    <Alingment trails={screen ==='trilhas'}>
+    <Alingment trails={setBackgroundColor}>
       <Container>
         {options.map((item, i) => {
-          const isSelected = screen === item.router; 
+          const isSelected = props.screen === item.router; 
           return (
             <Content onClick={() => handleRouter(item.router, i)} key={i}>
               <img src={isSelected ? item.imgSelected : item.img} alt={item.txt} />
@@ -106,4 +114,6 @@ const Footer = ({ screen }) => {
   );
 }
 
-export default Footer;
+export default connect(
+  mapStateToProps,
+)(Footer);

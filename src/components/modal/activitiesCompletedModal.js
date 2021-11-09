@@ -25,6 +25,7 @@ export default function ActivitiesCompletedModal({ history, score }) {
       handleClick={handleClick}
       btnContent={content.button}
       buttonBg='#ffd000'
+      noAbsolute
       isScore={true}
     />
 	);

@@ -103,7 +103,7 @@ const TrunkInfoScreen = ({ itemData, onClick }) => {
     <Container ref={myRef} onScroll={onScroll}>
       <Header
         positionFixed
-        trunkScreen
+        trunkScreen={true}
         showTitle={showTitle}
         title={data?.category}
         goBack={onClick}

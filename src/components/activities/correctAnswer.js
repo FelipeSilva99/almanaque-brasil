@@ -55,7 +55,7 @@ const ButtonBox = styled.div`
 
 const Img = styled.img`
   width: 100%;
-  height: 50vh;
+  height: 45vh;
   max-width: 425px;
   object-fit: cover;
 
@@ -173,7 +173,7 @@ const CorrectAnswer = (props) => {
         );
       case modals.answerDescription:
         return (
-          <MessageBox height={'60vh'}>
+          <MessageBox height={'58vh'}>
             <ComplementaryInformationBox>
               <Title>A resposta é:</Title>
               <TextName>{answer.answer}</TextName>

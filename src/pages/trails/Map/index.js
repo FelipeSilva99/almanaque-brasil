@@ -84,6 +84,7 @@ const Map = ({ trails, trailsState, goToActivitie }) => {
         {trails.map((trail, key) => {
           const aliasesName = aliases[trail.name];
           const useTrailsState = trailsState?.filter(item => item?.trailId === trail?.id && item?.state)[0]?.state || 'todo';
+
           return (
             <MapFragment
               key={key}

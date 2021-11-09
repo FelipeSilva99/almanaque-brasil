@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 //Components
 import Header from '../../components/header';
-import ActivitieIcon from '../../components/trail/activitieIcon';
+import ActivitieIcon from '../../components/activities/activitieIcon';
 import Way from '../../components/trail/way';
 import ActivitiesCompleted from '../../components/modal/activitiesCompletedModal';
 import activityDesign from './activityDesign';

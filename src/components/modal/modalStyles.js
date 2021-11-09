@@ -115,7 +115,7 @@ export const Text = styled.li`
   display: flex;
   align-items: center;
   font-size: ${props => props.helpScreen ? '1.25rem' : '1rem'};
-  width: 90%;
+  width: 92%;
   margin: ${props => props.margin || '.5rem 0 1.5rem'};
   font-weight: ${props => props.helpScreen  && '900'};
   color: #373737;

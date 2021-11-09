@@ -20,7 +20,8 @@ export function trailState(trailId, actionsBook) {
   if (filteredTrail.length > 0) {
     const correctActivitiesIds = filteredTrail.filter(action => action.success === true);
     trailsCompleted = correctActivitiesIds.length;
-    if (correctActivitiesIds.length === 10) {
+
+    if (correctActivitiesIds.length >= 10) {
       return {
         trailId,
         state: 'done'

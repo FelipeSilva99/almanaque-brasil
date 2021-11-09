@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 //Image
-// import iconVisualized from '../../images/activity/iconVisualized.svg';
-// import iconBloqued from '../../images/activity/iconBloqued.svg';
 import iconBookBloqued from '../../images/activity/iconBookBloqued.svg';
 import iconBookVisualized from '../../images/activity/iconBookVisualized.svg';
 import checkIcon from '../../images/activity/check.svg';

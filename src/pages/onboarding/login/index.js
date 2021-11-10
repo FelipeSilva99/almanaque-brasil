@@ -20,7 +20,6 @@ const Container = styled.div`
 `;
 
 const ResetButton = styled.button`
-  /* width: 100%; */
 	display: flex;
 	justify-content: center;
 	align-items: center;

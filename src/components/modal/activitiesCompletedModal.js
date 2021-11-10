@@ -21,11 +21,11 @@ export default function ActivitiesCompletedModal({ history, score }) {
     <Modal
       subtitle={content.title}
       data={content.text}
+      bottom='-2rem'
       background='#ababab45'
       handleClick={handleClick}
       btnContent={content.button}
       buttonBg='#ffd000'
-      noAbsolute
       isScore={true}
     />
 	);

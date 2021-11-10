@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 //Components
 import Form from '../../../components/form'
 import Header from '../../../components/header';
-import SplashAlmanaque from '../../../components/splash'
+import SplashAlmanaque from '../../../components/splash/indexLoader'
 
 //Redux
 import { signIn } from '../../../dataflow/modules/signIn-modules';

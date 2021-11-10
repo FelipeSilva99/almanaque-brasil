@@ -230,6 +230,7 @@
           subtitle='Gostariamos de saber o seu nome.'
           name='username'
           value={register?.username}
+          maxLength='10'
           placeholder='Digite seu nome aqui'
           isError={isError.username && isError.msg}
           handleChange={handleChange}

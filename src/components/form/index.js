@@ -56,6 +56,7 @@ const Form = ({
   subtitle,
   name,
   value,
+  maxLength,
   children,
   placeholder,
   type,
@@ -124,7 +125,7 @@ const Form = ({
               value={value}
               placeholder={placeholder}
               type={type}
-              maxLength='10'
+              maxLength={maxLength}
               handleChange={handleChange}
               showPassword={showPassword}
               handleViewPassword={handleViewPassword}

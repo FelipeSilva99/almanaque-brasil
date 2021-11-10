@@ -69,7 +69,7 @@ const Stone = styled.img`
 const Skeleton = styled.img`
   position: absolute;
   bottom: 6px;
-  width: 427px;
+  width: 426.5px;
   z-index: -1;
 `;
 

@@ -104,7 +104,7 @@ const Activities = (props) => {
 
   useEffect(() => {
     const trail = props.selectedTrails;
-    const allActivities = props.activities.data[trail].activities;
+    const allActivities = props?.activities?.data[trail]?.activities;
    
     setActivities(allActivities);
   }, [props.selectedTrails, props.activities.data]);

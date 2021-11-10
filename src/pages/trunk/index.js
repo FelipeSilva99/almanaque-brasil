@@ -51,6 +51,7 @@ const ContentText = styled.div`
   padding-bottom: 1rem;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Image = styled.img`
@@ -98,8 +99,6 @@ const Trunk = (props) => {
   }
 
   const renderContent = (title) => {
-    const isModal = modal.isModal && modal.item === title;
-
     return (
       <>
         <ContentTitle onClick={() => handleModal(title)}>

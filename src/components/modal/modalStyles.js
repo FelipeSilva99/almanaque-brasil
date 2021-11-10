@@ -31,7 +31,7 @@ export const Content = styled.div`
 
 export const ContentInfo = styled.div`
   position: relative;
-  bottom: 3rem;
+  bottom: -6rem;
   bottom: ${props => props.isTip && '18%'};
   display: flex;
   flex-direction: column;

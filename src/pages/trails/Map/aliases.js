@@ -96,7 +96,7 @@ const trailsMap = {
   },
 
   "Turmalina": {
-    "position": {bottom: "347px", left: "227px"},
+    "position": {bottom: "347px", left: "226.3px"},
     "img": turmalinaMap,
     "name": 'turmalina',
     "stone": {
@@ -152,7 +152,7 @@ const trailsMap = {
   },
 
   "Safira": {
-    "position": {bottom: "108px", left: "292px"},
+    "position": {bottom: "108px", left: "291px"},
     "img": safiraMap,
     "name": 'safira',
     "stone": {
@@ -166,7 +166,7 @@ const trailsMap = {
   },
 
   "Alexandrita": {
-    "position": {bottom: "3px", left: "144px"},
+    "position": {bottom: "3px", left: "143px"},
     "img": alexandritaMap,
     "name": 'alexandrita',
     "stone": {

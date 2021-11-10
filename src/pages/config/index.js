@@ -120,8 +120,8 @@ const Config = (props) => {
       <Header
         text='Configurações'
         icon={iconThunk}
-        bottom="-42px"
-        right="-38px"
+        bottom="-40px"
+        right="-30px"
       />
       <BoxConfig>
         {data.map((i, index) => (

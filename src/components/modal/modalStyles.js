@@ -14,10 +14,9 @@ export const Container = styled.div`
   overflow: hidden;
   z-index: 5;
 
-  @media (min-width: 768px) {
-    align-items: center;
-    position:  ${props => !props.noAbsolute && 'absolute'};
-  }
+  // @media (min-width: 768px) {
+  //   position:  ${props => !props.noAbsolute && 'absolute'};
+  // }
 `;
 
 export const Content = styled.div`
@@ -32,7 +31,7 @@ export const Content = styled.div`
 
 export const ContentInfo = styled.div`
   position: relative;
-  bottom: 3rem;
+  bottom: -6rem;
   bottom: ${props => props.isTip && '18%'};
   display: flex;
   flex-direction: column;

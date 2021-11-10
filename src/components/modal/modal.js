@@ -21,6 +21,7 @@ export default function Modal({
   isTip,
   title,
   subtitle,
+  bottom,
   margin,
   color,
   data,
@@ -48,6 +49,7 @@ export default function Modal({
     <S.Container noAbsolute={noAbsolute} background={background}>
       <S.Content>
         <S.ContentInfo
+          bottom={bottom}
           isTutorial={isTutorial}
           isResend={isResend}
           isTip={isTip}

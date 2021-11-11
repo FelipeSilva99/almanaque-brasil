@@ -117,7 +117,7 @@ const ErrorTip = styled.h2`
 
 const Avatar = styled.img`
   position: relative;
-  right: -130px;
+  left: 100px;
 `;
 
 const ButtonsBox = styled.div`
@@ -132,6 +132,7 @@ const ButtonsBox = styled.div`
   padding-top: 4vh;
   background-color: #FFFFFF;
   width: 100%;
+  max-width: 440px;
 
   @media(max-width: 425px) {
     padding-left: 5vw;

@@ -102,12 +102,14 @@ const Loader = ({dashboard}) => {
     try {
       const response = await axios({
         method: 'get',
-        url: 'https://5ltaa6klie.execute-api.us-east-1.amazonaws.com/dev/version',
+        // url: 'https://5ltaa6klie.execute-api.us-east-1.amazonaws.com/dev/version',
+        url: 'https://v0ba3uvbvc.execute-api.us-east-1.amazonaws.com/prod/version',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `${idToken}`,
         },
       })
+      console.log('response', response)
 
       const dataResponse = response?.data.Items[0]?.version;
       const version = !!dataResponse ? dataResponse : 0;

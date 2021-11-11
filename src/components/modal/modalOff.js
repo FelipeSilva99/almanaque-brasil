@@ -8,9 +8,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
+  max-width: 425px;
   height: 100vh;
   background: #0000004d;
-  max-width: 425px;
 `;
 
 const BoxModal = styled.div`
@@ -24,6 +24,7 @@ const BoxModal = styled.div`
   margin: 0 auto;
   width: 90%;
   height: 35%;
+  max-height: 245.74px;
 `;
 
 const Close = styled.div`

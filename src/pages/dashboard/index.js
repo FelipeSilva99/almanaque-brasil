@@ -109,7 +109,7 @@ const Dashboard = (props) => {
 
   // GET thunk
   useEffect(() => {
-    if (trails?.length > 5) return
+    if (thunks?.length > 5) return
     props.getDataThunk();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

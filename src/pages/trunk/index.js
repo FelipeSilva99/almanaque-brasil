@@ -98,9 +98,9 @@ const Trunk = (props) => {
     setIsInfoModal({ isModal: false });
   }
 
-  const renderContent = (title) => {
+  const renderContent = (title, key) => {
     return (
-      <>
+      <div key={key}>
         <ContentTitle onClick={() => handleModal(title)}>
           <Title>
             {title}
@@ -111,7 +111,7 @@ const Trunk = (props) => {
           data.filter((item) => item.category === title).map(i => (
             renderOptions(i)
           ))}
-      </>
+      </div>
     )
   }
 

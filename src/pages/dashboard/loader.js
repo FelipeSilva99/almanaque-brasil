@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
+import axios from 'axios';
 
 //Image
 import home from '../../images/dialogBox/dialogBoxLittle.svg';
@@ -78,14 +79,6 @@ const BoxElifas = styled.div`
   height: 231px;
   position: relative;
   background-image: url(${elifas});
-  /* @media (width: 360px) {
-    top: 56.8vw;
-    left: 26vw;
-  }
-  @media (width: 375px) {
-    top: 58vw;
-    left: 26vw;
-  } */
 `;
 
 const BoxContainer = styled.div`
@@ -95,6 +88,45 @@ const BoxContainer = styled.div`
 `;
 
 const Loader = () => {
+
+  useEffect(() => {
+    handleCleanCaches();
+  })
+
+  const handleCleanCaches = async () => {
+    const idToken = localStorage.getItem('idToken');
+    const savedVersion = localStorage.getItem('version');
+
+    try {
+      const response = await axios({
+        method: 'get',
+        url: 'https://5ltaa6klie.execute-api.us-east-1.amazonaws.com/dev/version',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${idToken}`,
+        },
+      })
+
+      const dataResponse = response?.data.Items[0]?.version;
+      const version = !!dataResponse ? dataResponse : 0;
+
+      if (savedVersion < version) {
+        // clean caches
+        if ('caches' in window) {
+          caches.keys().then((names) => {
+            // Delete all the cache files
+            names.forEach(name => {
+              caches.delete(name);
+            })
+          });
+        }
+        localStorage.setItem('version', version)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Container>
       <Box>
@@ -108,9 +140,9 @@ const Loader = () => {
           <Ball animDelay=".4s" />
         </BoxLoader>
       </Box>
-        <BoxContainer>
-          <BoxElifas />
-        </BoxContainer>
+      <BoxContainer>
+        <BoxElifas />
+      </BoxContainer>
     </Container>
   );
 };

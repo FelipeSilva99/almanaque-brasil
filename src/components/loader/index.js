@@ -87,13 +87,15 @@ const BoxContainer = styled.div`
   bottom: 0;
 `;
 
-const Loader = () => {
+const Loader = ({dashboard}) => {
 
   useEffect(() => {
-    handleCleanCaches();
+    if(dashboard) handleCleanCaches();
   })
 
   const handleCleanCaches = async () => {
+    console.log('een')
+
     const idToken = localStorage.getItem('idToken');
     const savedVersion = localStorage.getItem('version');
 
@@ -129,6 +131,8 @@ const Loader = () => {
 
   return (
     <Container>
+   { console.log('loader')}
+
       <Box>
         <>
           <Title>Espere só mais um pouquinho!</Title>

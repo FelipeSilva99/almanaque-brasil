@@ -1,59 +1,40 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux';
+import React from 'react';
+import { useHistory } from "react-router-dom";
+
 
 import Modal from "./modal"
-import ImgFace from "../../images/Grupo2065.svg"
+import ImgFace from "../../images/face.svg"
 
-//Redux
-import { getDataThunk } from '../../dataflow/thunks/thunk-thunks';
-import { getTrailsThunk } from '../../dataflow/thunks/trails-thunk';
+const ErrorModal = () => {
+  const history = useHistory();
 
-const mapStateToProps = state => ({
-  trails: state.trails.data,
-  thunk: state.thunk.data,
-});
-
-const mapDispatchToProps = dispatch => ({
-  getTrailsThunk: () => dispatch(getTrailsThunk()),
-  getDataThunk: () => dispatch(getDataThunk()),
-});
-
-const ErrorModal = (props) => {
   const content = {
     title: 'Opa! A aplicação parou.',
     text: [
-      'Por favor, reinicie o aplicativo.',
+      'Por favor, vá para home para atualizar.',
       <img src={ImgFace} alt="Emoji triste" style={{ margin: '0 auto' }} />
-    ]
+    ],
+    button: 'ir para home'
   };
 
-  // GET thunk
-  // useEffect(() => {
-  //   if (props?.thunks?.length > 5) return
-  //   props.getDataThunk();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const handleClick = () => {
+    history.push(`/dashboard`);
+  }
 
-  // // GET trails
-  // useEffect(() => {
-  //   if (props?.trails?.length > 5) return
-  //   props.getTrailsThunk();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-    return(
-      <Modal
-        subtitle={content.title}
-        data={content.text}
-        background='#0000004d'
-        balloonColor='#f3f3f3'
-        margin='1.5rem auto 0'
-        isError
-      />
-    );
+  return (
+    <Modal
+      subtitle={content.title}
+      data={content.text}
+      background='#0000004d'
+      balloonColor='#f3f3f3'
+      margin='0 auto 1.899rem auto '
+      width='100%'
+      font='1.5rem'
+      btnHeight
+      btnContent={content.button}
+      handleClick={handleClick}
+    />
+  );
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ErrorModal);
+export default ErrorModal;

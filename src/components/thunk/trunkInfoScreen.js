@@ -66,16 +66,6 @@ const Title = styled.h1`
   font-weight: 900;
 `;
 
-const Text = styled.p`
-  margin-bottom: .5rem;
-  font-size: 1rem;
-  color: #373737;
-`;
-
-const ImgContainer = styled.div`
-
-`;
-
 const Gradient = styled.div`
   position: absolute;
   opacity: .5;
@@ -108,10 +98,10 @@ const TrunkInfoScreen = ({ itemData, onClick }) => {
         title={data?.category}
         goBack={onClick}
       />
-      <ImgContainer>
+      <>
         <Gradient />
         <Img src={`data:image/jpeg;base64,${data?.imageBase64}`} alt='Imagem da atividade' />
-      </ImgContainer>
+      </>
       <MessageBox>
         <Title>
           {data?.title}

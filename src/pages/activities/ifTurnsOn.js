@@ -160,6 +160,7 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

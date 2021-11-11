@@ -11,15 +11,17 @@
 [context.main.environment]
   NODE_ENV = "main"
   AMBIENT = "main"
-  REACT_APP_COGNITO_USER_POOL_ID=us-east-1_502Jtv2g7
-  REACT_APP_COGNITO_WEB_CLIENT_ID=3729955vpj5n9pb78b02a4662q
-  REACT_APP_COGNITO_REGION=us-east-1
-  REACT_APP_ACTIONS_BOOK_ENDPOINT=https://v0ba3uvbvc.execute-api.us-east-1.amazonaws.com/prod/actions
-  REACT_APP_TRAILS_ENDPOINT=https://v0ba3uvbvc.execute-api.us-east-1.amazonaws.com/prod/trails
-  REACT_APP_TRUNK_ENDPOINT=https://v0ba3uvbvc.execute-api.us-east-1.amazonaws.com/prod/chest
-  REACT_APP_IMAGES_ENDPOINT=https://v0ba3uvbvc.execute-api.us-east-1.amazonaws.com/prod/images
-  REACT_APP_VERSION_ENDPOINT=https://v0ba3uvbvc.execute-api.us-east-1.amazonaws.com/prod/version
+  REACT_APP_COGNITO_USER_POOL_ID="us-east-1_502Jtv2g7"
+  REACT_APP_COGNITO_WEB_CLIENT_ID="3729955vpj5n9pb78b02a4662q"
+  REACT_APP_COGNITO_REGION="us-east-1"
+
+  REACT_APP_ACTIONS_BOOK_ENDPOINT="https://v0ba3uvbvc.execute-api.us-east-1.amazonaws.com/prod/actions"
+  REACT_APP_TRAILS_ENDPOINT="https://v0ba3uvbvc.execute-api.us-east-1.amazonaws.com/prod/trails"
+  REACT_APP_TRUNK_ENDPOINT="https://v0ba3uvbvc.execute-api.us-east-1.amazonaws.com/prod/chest"
+  REACT_APP_IMAGES_ENDPOINT="https://v0ba3uvbvc.execute-api.us-east-1.amazonaws.com/prod/images"
+  REACT_APP_VERSION_ENDPOINT="https://v0ba3uvbvc.execute-api.us-east-1.amazonaws.com/prod/version"
   REACT_APP_WELCOME_MODAL_TRUNK_CONTENT_TITLE="Elifas Andreato"
+
   REACT_APP_DOMAIN="almanaque-miguel-burnier-prod.auth.us-east-1.amazoncognito.com"
   REACT_APP_REDIRECT_SIGNIN="https://almanaque.app/dashboard"
   REACT_APP_REDIRECT_SIGNOUT="https://almanaque.app/"
@@ -39,9 +41,6 @@
   REACT_APP_ACTIONS_BOOK_ENDPOINT="https://5ltaa6klie.execute-api.us-east-1.amazonaws.com/dev/actions"
   REACT_APP_TRUNK_ENDPOINT="https://5ltaa6klie.execute-api.us-east-1.amazonaws.com/dev/chest"
   REACT_APP_WELCOME_MODAL_TRUNK_CONTENT_TITLE="Elifas Andreato"
-  REACT_APP_DOMAIN="almanaque-miguel-burnier-dev.auth.us-east-1.amazoncognito.com"
-  REACT_APP_REDIRECT_SIGNIN="https://development.almanaque.app/dashboard"
-  REACT_APP_REDIRECT_SIGNOUT="https://development.almanaque.app/dashboard"
 
 # Deploy Preview context: all deploys generated from a pull/merge request will
 # inherit these settings.

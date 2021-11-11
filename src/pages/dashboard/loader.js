@@ -52,7 +52,7 @@ const Title = styled.h2`
   text-align: center;
 `;
 
-const Text = styled.h2`
+const Text = styled.p`
   font-size: 1rem;
   color: #373737;
 `;

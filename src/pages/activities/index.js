@@ -114,6 +114,7 @@ const Activities = (props) => {
           ? renderActivitie(activities[currentActivitie-1], props.registerAction)
           : <Title>Carregando</Title>
       }
+
       {/* {!activities.length && <ModalErro />}
       {console.log(!activities.length)} */}
     </Container>

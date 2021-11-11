@@ -12,6 +12,7 @@ const AnimBall = keyframes`
 `;
 
 const Container = styled.div`
+  position: relative;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -62,22 +63,14 @@ const BoxElifas = styled.div`
   display: flex;
   width: 169px;
   height: 231px;
-  top: 19.2vw;
-  left: 5vw;
   position: relative;
   background-image: url(${elifas});
-  @media (width: 360px) {
-    top: 56.8vw;
-    left: 26vw;
-  }
-  @media (width: 375px) {
-    top: 58vw;
-    left: 26vw;
-  }
 `;
 
 const BoxContainer = styled.div`
   position: absolute;
+  bottom: 0;
+  right: 0;
 `;
 
 const SplashPresentationn = (props) => {

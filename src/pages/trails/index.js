@@ -54,13 +54,6 @@ export const Box = styled.div`
   background-color: #f3f3f3;
 `;
 
-const ContentMap = styled.div`
-  min-height: 100%;
-  background: red;
-  height: -webkit-fill-available;
-  // background: #f3f3f3;
-`;
-
 export const Row = styled.div`
   display: flex;
   flex-direction: row;

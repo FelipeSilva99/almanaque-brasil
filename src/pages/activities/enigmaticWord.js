@@ -228,8 +228,6 @@ function EnigmaticWord({ activitie, registerAction, actionsBook }) {
       userAnswer = `${userAnswer}${item.userInput}`
     })
     userAnswer = userAnswer.toLowerCase();
-console.log({userAnswer})
-console.log({useCorrectAnswer})
 
     if (isError) {
       setIsError(true);

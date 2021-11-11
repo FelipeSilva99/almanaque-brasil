@@ -94,8 +94,6 @@ const Loader = ({dashboard}) => {
   })
 
   const handleCleanCaches = async () => {
-    console.log('een')
-
     const idToken = localStorage.getItem('idToken');
     const savedVersion = localStorage.getItem('version');
 
@@ -131,8 +129,6 @@ const Loader = ({dashboard}) => {
 
   return (
     <Container>
-   { console.log('loader')}
-
       <Box>
         <>
           <Title>Espere só mais um pouquinho!</Title>

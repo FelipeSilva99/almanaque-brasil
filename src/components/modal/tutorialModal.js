@@ -14,6 +14,7 @@ export default function TutorialModal({ screen, handleCloseTutorial, btnContent 
       data={data}
       btnContent={btnContent}
       isTutorial={true}
+      elifas='tip'
       handleClick={handleCloseTutorial}
     />
   );

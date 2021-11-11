@@ -40,6 +40,8 @@ export default function Modal({
         return <S.ImgElifas isTutorial={isTutorial} isWelcome src={guideElifas} />
       case 'ok':
         return <S.ImgElifas isTutorial={isTutorial} src={okElifas} />
+      case 'none':
+        return
       default:
         return <S.ImgElifas isTutorial={isTutorial} src={tipElifas} />
     }

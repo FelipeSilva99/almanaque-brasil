@@ -46,8 +46,8 @@ const Title = styled.h2`
 }
 `
 const Subtitle = styled.p`
-  padding: 30px;
   color: #373737;
+  padding: 30px;
   @media(max-height: 750px) {
     padding: 22px;
 }

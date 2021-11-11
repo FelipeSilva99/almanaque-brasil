@@ -9,6 +9,7 @@ import ProgressHeader from '../../components/progressHeader';
 import TrailCompleted from '../../components/modal/trailCompletedModal';
 import AppCompletedModal from '../../components/modal/appCompletedModal';
 import { trailState } from '../../utils/trail';
+import ModalErro from "../../components/modal/modalErro";
 
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';
@@ -126,6 +127,7 @@ const Trails = (props) => {
 
       {isModalTrailCompleted.isModal && <TrailCompleted handleClickModal={handleClickModal} handleCloseModal={handleCloseModalCompleteTrail}/>}
       {isModalAppCompleted && <AppCompletedModal handleCloseModal={handleCloseModal} /> }
+      {!trails.length && <ModalErro />}
     </Box>
   );
 }

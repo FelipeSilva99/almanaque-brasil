@@ -5,8 +5,6 @@ import {
   useParams,
 } from "react-router-dom";
 
-import ModalErro from "../../components/modal/modalErro";
-
 import { register } from '../../dataflow/modules/actionsBook-modules'
 
 //Components

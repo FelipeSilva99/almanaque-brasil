@@ -32,30 +32,35 @@ export default function Modal({
   noAbsolute,
   fontWeight,
   font,
-  helpScreen
+  helpScreen,
+  balloonColor,
+  isError
 }) {
   const renderElifas = () => {
     switch (elifas) {
-      case 'elifas':
+      case 'guide':
         return <S.ImgElifas isTutorial={isTutorial} isWelcome src={guideElifas} />
       case 'ok':
         return <S.ImgElifas isTutorial={isTutorial} src={okElifas} />
-      case 'none':
-        return
-      default:
+      case 'tip':
         return <S.ImgElifas isTutorial={isTutorial} src={tipElifas} />
+      default:
+        break 
     }
   };
 
   return (
     <S.Container noAbsolute={noAbsolute} background={background}>
-      <S.Content>
+      <S.Content isTip={isTip}>
         <S.ContentInfo
           bottom={bottom}
           isTutorial={isTutorial}
           isResend={isResend}
           isTip={isTip}
           helpScreen={helpScreen}
+          balloonColor={balloonColor}
+          isError={isError}
+          elifas={elifas}
         >
           {title && <S.Title>{title}</S.Title>}
 
@@ -71,12 +76,13 @@ export default function Modal({
               </S.Subtitle>
             }
 
-            <S.Scroll isTutorial={isTutorial}>
+            <S.Scroll isTutorial={isTutorial} isError={isError}>
               {isTutorial ? data[0].text.map(item => 
                 <S.Text isTutorial={isTutorial}>{item}</S.Text>) 
                 : data.map(item => 
                 <S.Text
                   margin={margin}
+                  isError={isError}
                   isTip={isTip}
                   isWelcome={isWelcome}
                   isScore={isScore}
@@ -86,16 +92,18 @@ export default function Modal({
             </S.Scroll>
           </S.TutorialBox>
 
-          <CloseBtn
-            handleCloseTutorial={handleCloseTutorial}
-            handleModalTip={handleModalTip}
-            handleClick={handleClick}
-            btnContent={btnContent}
-            buttonBg={buttonBg}
-            isWelcome={isWelcome}
-            showThunk={showThunk}
-            resetProgress={resetProgress}
-          />
+          {!isError &&
+            <CloseBtn
+              handleCloseTutorial={handleCloseTutorial}
+              handleModalTip={handleModalTip}
+              handleClick={handleClick}
+              btnContent={btnContent}
+              buttonBg={buttonBg}
+              isWelcome={isWelcome}
+              showThunk={showThunk}
+              resetProgress={resetProgress}
+            />
+          }
         </S.ContentInfo>
         
         {!isResend && renderElifas()}

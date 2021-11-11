@@ -8,7 +8,7 @@ import ActivitieIcon from '../../components/activities/activitieIcon';
 import Way from '../../components/trail/way';
 import ActivitiesCompleted from '../../components/modal/activitiesCompletedModal';
 import activityDesign from './activityDesign';
-import ModalOff from "../../components/modal/modalOff";
+import OfflineModal from "../../components/modal/offlineModal";
 
 //Redux
 import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
@@ -312,7 +312,7 @@ const Activities = (props) => {
 
       {renderLogoStone()}
       {isModalActivitiesCompleted && <ActivitiesCompleted score={score} history={props.history}/>}
-      {props.isActivityLimit && <ModalOff handleCloseModal={() => handleCloseModal()}/>}
+      {props.isActivityLimit && <OfflineModal handleCloseModal={() => handleCloseModal()}/>}
       
     </Container>
   );

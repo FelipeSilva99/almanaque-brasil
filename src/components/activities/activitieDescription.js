@@ -8,8 +8,8 @@ const Container = styled.div`
   padding-top: ${props => props.isModal && '1rem'};
   ${({ isModal }) => isModal && `flex: 1`};
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
 
   overflow-y: auto; 
   ::-webkit-scrollbar {

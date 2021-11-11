@@ -8,16 +8,19 @@ import ActivitieIcon from '../../components/activities/activitieIcon';
 import Way from '../../components/trail/way';
 import ActivitiesCompleted from '../../components/modal/activitiesCompletedModal';
 import activityDesign from './activityDesign';
+import ModalOff from "../../components/modal/modalOff";
 
 //Redux
 import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 import { selectedActivity } from '../../dataflow/modules/activity-module';
+import { setIsModalActivityLimit } from '../../dataflow/modules/modals-module';
 
 const mapStateToProps = state => ({
   activities: state.trails,
   selectedTrails: state.trails.selectedTrails,
   selectedActivity: state.activity.selectedActivity,
   actionsBook: state.actionsBook,
+  isActivityLimit: state.modals.isActivityLimit,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -26,6 +29,9 @@ const mapDispatchToProps = dispatch => ({
   },
   handleselectedActivity: (info) => {
     dispatch(selectedActivity(info));
+  },
+  setIsModalActivityLimit: (info) => {
+    dispatch(setIsModalActivityLimit(info));
   },
 });
 
@@ -169,6 +175,10 @@ const Activities = (props) => {
     });
   }
 
+  const handleCloseModal = () => {
+    props.setIsModalActivityLimit(false);
+  }
+
   const renderActivities = () => {
     // logic for deciding whether to return one or two items in a row
     if (activitiesProgress === undefined) return
@@ -302,6 +312,7 @@ const Activities = (props) => {
 
       {renderLogoStone()}
       {isModalActivitiesCompleted && <ActivitiesCompleted score={score} history={props.history}/>}
+      {props.isActivityLimit && <ModalOff handleCloseModal={() => handleCloseModal()}/>}
       
     </Container>
   );

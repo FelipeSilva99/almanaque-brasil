@@ -26,7 +26,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 const Content = styled.div`
   position: absolute;
@@ -46,7 +46,7 @@ const Content = styled.div`
     padding-top: .5rem;
     height: ${props => props.isCorrectAnswer ? '100%' : '85%'} ;
   }
-`
+`;
 
 const ContentBox = styled.div`
   width: 100%;
@@ -63,15 +63,17 @@ const ContentInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-align: center;
   border-radius: 8px;
   user-select: none;
   background-color: ${props => (props.isCorrectAnswer && 'none') || props.backgroundColor};
   
   img {
     border-radius: 8px;
+    box-shadow: 0 3px 6px #00000029;
     opacity: ${props => (props.isCorrectAnswer && '1') || props.opacity}
   }
-`
+`;
 
 const Text = styled.div`
   width: 7rem;
@@ -84,7 +86,7 @@ const Text = styled.div`
   font-weight: 900;
   border-radius: 8px;
   box-shadow: ${props => props.isCorrectAnswer ? 'none' : '0 3px 6px #00000029'};
-`
+`;
 
 const TextCorrectAnswer = styled.h1`
   padding-bottom: 2rem;
@@ -92,7 +94,7 @@ const TextCorrectAnswer = styled.h1`
   color: #373737;
   font-weight: 900;
   text-align: center;
-`
+`;
 
 const Box = styled.div`
   padding: 0 3rem;
@@ -158,7 +160,8 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
     if (useActivitie.trailId === 0) {
       setIsTutorial(true);
     }
-  }, [useActivitie]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -173,26 +176,11 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
     setChances(useChancesAtActivity);
   }, [actionsBook, useActivitie.id]);
 
-  // const activityWasDone = () => {
-  //   const listActionsBook = [...actionsBook.synced, ...actionsBook.pendingSync];
-  //   const useDoneActivitie = isDone(useActivitie.id, listActionsBook);
-
-  //   if(useDoneActivitie === 'right' || useDoneActivitie === 'wrong') {
-  //     setIsDoneActivitie(true);
-  //   } 
-  // }
-
-  // useEffect(() => {
-  //   activityWasDone();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [useActivitie]);
-
   const handleModalTip = () => {
     setIsModalTip(!isModalTip)
   };
 
   useEffect(() => {
-    // if(isDoneActivitie) {
     if (modalWrongAnswer) {
       registerAction({
         activityId: useActivitie.id,
@@ -216,8 +204,7 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
         books: false,
       })
     }
-    // } 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalCorrectAnswer, modalWrongAnswer]);
 
   const handleClick = (item) => {
@@ -473,7 +460,7 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
           </ContentBox>
           <ContainerButton
             color={isCorrectAnswer && '#fff'}
-            background={isCorrectAnswer && '#399119'}
+            buttonBg={isCorrectAnswer ? '#399119' : '#ffd000'}
             boxShadow={isCorrectAnswer && '0 7px 0 #245812'}
             noBorder={!isCorrectAnswer}
             isCorrectAnswer={isCorrectAnswer}
@@ -486,7 +473,7 @@ function IfTurnsOn({ useActivitie, registerAction, actionsBook, history }) {
         {modalWrongAnswer && isModalWithoutScore === undefined && <WrongAnswer chances={chances} handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {isModalCorrectAnswer && isModalWithoutScore === undefined && <ScoreScreen score={score} handleClick={handleContinue} />}
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
-        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} />}
+        {isTutorial && <Tutorial screen={activitie?.name} btnContent='Jogar' handleCloseTutorial={handleCloseTutorial} />}
       </Container>
     )
   )

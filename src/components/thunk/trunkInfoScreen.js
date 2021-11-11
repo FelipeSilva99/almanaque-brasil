@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createRef } from 'react';
+import TratedText from '../../components/tratedText';
 import styled from 'styled-components';
 
 //Component
@@ -65,16 +66,6 @@ const Title = styled.h1`
   font-weight: 900;
 `;
 
-const Text = styled.p`
-  margin-bottom: .5rem;
-  font-size: 1rem;
-  color: #373737;
-`;
-
-const ImgContainer = styled.div`
-
-`;
-
 const Gradient = styled.div`
   position: absolute;
   opacity: .5;
@@ -89,7 +80,8 @@ const TrunkInfoScreen = ({ itemData, onClick }) => {
   const myRef = createRef();
 
   useEffect(() => {
-    setData(itemData);
+    const useData = itemData && itemData;
+    setData(useData);
   }, [itemData]);
 
   const onScroll = () => {
@@ -100,16 +92,22 @@ const TrunkInfoScreen = ({ itemData, onClick }) => {
 
   return (
     <Container ref={myRef} onScroll={onScroll}>
-      <Header trunkScreen showTitle={showTitle} title={data.category} goBack={onClick} />
-      <ImgContainer>
+      <Header
+        positionFixed
+        trunkScreen={true}
+        showTitle={showTitle}
+        title={data?.category}
+        goBack={onClick}
+      />
+      <>
         <Gradient />
-        <Img src={`data:image/jpeg;base64,${data.imageBase64}`} alt='Imagem da atividade' />
-      </ImgContainer>
+        <Img src={`data:image/jpeg;base64,${data?.imageBase64}`} alt='Imagem da atividade' />
+      </>
       <MessageBox>
         <Title>
-          {data.title}
+          {data?.title}
         </Title>
-        <Text>{data.content}</Text>
+        <TratedText>{data?.content}</TratedText>
       </MessageBox>
     </Container>
   );

@@ -32,6 +32,7 @@ const ContentTitle = styled.div`
   margin: 1.5rem 0;
   display: flex;
   justify-content: space-between;
+  user-select: none;
   cursor: pointer;
 `;
 
@@ -50,6 +51,7 @@ const ContentText = styled.div`
   padding-bottom: 1rem;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Image = styled.img`
@@ -73,6 +75,7 @@ const Text = styled.h1`
 
 const Trunk = (props) => {
   const [modal, setIsModal] = useState({ isModal: false, item: undefined });
+  const [check, setCheck] = useState ("");
   const [infoModal, setIsInfoModal] = useState({ isModal: undefined, data: undefined });
   const [data, setData] = useState([]);
 
@@ -82,6 +85,9 @@ const Trunk = (props) => {
 
   const handleModal = (item) => {
     setIsModal({ isModal: !modal.isModal, item: item });
+    if(check !== item)
+    setCheck(item)
+    else setCheck("")
   }
 
   const handleInfoModal = (data) => {
@@ -92,22 +98,20 @@ const Trunk = (props) => {
     setIsInfoModal({ isModal: false });
   }
 
-  const renderContent = (title) => {
-    const isModal = modal.isModal && modal.item === title;
-
+  const renderContent = (title, key) => {
     return (
-      <>
+      <div key={key}>
         <ContentTitle onClick={() => handleModal(title)}>
           <Title>
             {title}
           </Title>
-          <IconModal src={arrow} alt='Seta' isOpen={isModal} />
+          <IconModal src={arrow} alt='Seta' isOpen={check === title} />
         </ContentTitle>
-        {isModal &&
+        {check === title &&
           data.filter((item) => item.category === title).map(i => (
             renderOptions(i)
           ))}
-      </>
+      </div>
     )
   }
 
@@ -133,9 +137,10 @@ const Trunk = (props) => {
 
     return pairsList.map((item, idx) => renderContent(item, idx))
   }
+  
   return (
     <Container>
-      <Header initialLettersName={props.userName[0] + props.userName[1]} text='Baú' icon={iconThunk} />
+      <Header text='Baú' icon={iconThunk} />
       <ContainerBox>
         {!data.length
           ? <Text>Carregando</Text>

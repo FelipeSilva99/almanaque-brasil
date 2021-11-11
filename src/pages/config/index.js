@@ -54,13 +54,14 @@ const Config = (props) => {
   const history = useHistory();
   const [isModalResetMap, setIsModalResetMap] = useState(undefined);
 
-  async function handleSignOut() {
+   const handleSignOut = async () => {
     try {
-      await Auth.signOut();
       props.clearModalsState();
       localStorage.clear();
-      history.push('/');
       props.signOut();
+      await Auth.signOut();
+      history.push('/');
+      console.log("Sair")
     } catch (error) {
       console.log('error signout: ', error);
     }
@@ -84,11 +85,8 @@ const Config = (props) => {
   }
 
   const openSettings = (router) => {
-    if(router === 'openModalResetMap') {
+    if (router === 'openModalResetMap') {
       handleModalResetMap();
-    } else if (router === 'agradecimentos') {
-      alert(router);
-      // history.push(`/${router}`);
     } else {
       history.push(`/${router}`);
     }
@@ -104,6 +102,10 @@ const Config = (props) => {
       router: 'openModalResetMap',
     },
     {
+      title: 'Precisa de ajuda?',
+      router: 'config/precisa-de-ajuda',
+    },
+    {
       title: 'Termos de uso e privacidade',
       router: 'config/termos-de-uso',
     },
@@ -116,11 +118,10 @@ const Config = (props) => {
   return (
     <Container>
       <Header
-        isVisible
         text='Configurações'
         icon={iconThunk}
-        bottom="-42px"
-        right="-38px"
+        bottom="-40px"
+        right="-30px"
       />
       <BoxConfig>
         {data.map((i, index) => (
@@ -135,7 +136,7 @@ const Config = (props) => {
           Sair do aplicativo
         </Button>
       </BoxConfig>
-      {isModalResetMap && <ModalResetMapAlert handleResetProgress={handleResetProgress} handleCloseModal={handleModalResetMap}/>}
+      {isModalResetMap && <ModalResetMapAlert handleResetProgress={handleResetProgress} handleCloseModal={handleModalResetMap} />}
       <Footer screen='config' />
     </Container>
   );

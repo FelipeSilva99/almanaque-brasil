@@ -45,7 +45,15 @@ const ResetPassword = (props) => {
   const handleCheckEmail = async (email) => {
     Auth.forgotPassword(email)
       .then(data => console.log('data', data))
-      .catch(err => console.log('error', err));
+      .catch(err => {
+        if(err.message === "Username/client id combination not found.") {
+          props.history.push({
+            pathname: `/cadastro`,
+            state: { email: register?.email }
+          });
+        }
+        console.log('error', err);
+      });
   }
 
   const handleNewPassword = async (email, code, password) => {
@@ -170,6 +178,7 @@ const ResetPassword = (props) => {
         name='code'
         value={register?.code}
         placeholder='Digite o código aqui'
+        maxLength='6'
         isError={isError?.code && isError?.msg}
         handleChange={handleChange}
         handleSubmit={handleSubmit}

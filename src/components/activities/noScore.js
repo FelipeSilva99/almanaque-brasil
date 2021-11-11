@@ -13,37 +13,42 @@ const Container = styled.div`
   align-items: center;
   position: fixed;
   bottom: 0;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
-  padding-top: 1.5rem;
+  border-radius: 25px 25px 0 0;
+  padding: 1.5rem;
   background-color: #FFFFFF;
-  width: 100vw;
+  width: 100%;
+  max-width: 425px;
   height: ${props => props.height || "95vh"};
+  overflow: hidden;
   z-index: 1;
 
-  @media(max-width: 425px) {
-    padding-left: 5vw;
-    padding-right: 5vw;
+  @media (max-width: 425px) {
+    padding: 1rem;
+    font-size: .8rem;
   }
 `;
 
-const ContentTitle = styled.div`
+const Content = styled.div`
   margin: 10vh 0 18vh 0;
-  text-align: center;
+  padding: 0 1rem;
   max-width: 425px;
-  
-  h1{
-    font-weight: 800;
-    font-size: 2.6875rem;
-    color: #399119;
-  }
-  p{
-    font-size: 1.625rem;
-    strong{
-      font-size: 3rem;
-      color: #399119;
-    }
-  }
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  color: #399119;
+  font-weight: 800;
+  font-size: 2.9em;
+`;
+
+const Text = styled.p`
+  font-size: 1.75em;
+  color: #000000;
+`;
+
+const Subtitle = styled(Text)`
+  margin-bottom: 1.8rem;
+  text-align: center;
 `;
 
 const ButtonBox = styled.div`
@@ -52,38 +57,35 @@ const ButtonBox = styled.div`
   align-items: center;
   position: fixed;
   bottom: 0;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
-  padding-top: 4vh;
+  padding: 4vh 1.5rem 0;
+  width: 100%;
+  max-width: 425px;
   background-color: ${props => props.backgroundColor || '#FFFFFF'};
-  width: 100vw;
 
-  @media(max-width: 425px) {
-    padding-left: 5vw;
-    padding-right: 5vw;
-  }
+  @media (max-width: 425px) { padding: 4vh 1rem 0; }
 `;
 
 const HorseShoe = styled.img`
   position: absolute;
-  right: -40px;
-  bottom: -10px;
+  right: -20px;
+  bottom: 0;
   z-index: -1;
 `;
 
 const NoScore = ({ handleClick }) => {
   return (
     <Container>
-      <ContentTitle>
-        <h1>Parabéns!</h1>
-        <p>Você acertou! Para pontuar reinicie a trilha nas configurações</p>
-      </ContentTitle>
+      <Content>
+        <Title>Parabéns!</Title>
+        <Subtitle>Você acertou!</Subtitle>
+        <Text>Como você já passou por essa atividade, não pontuará dessa vez</Text>
+      </Content>
       <ButtonBox backgroundColor={'transparent'}>
         <Button
           handleClick={handleClick}
           color={"#fff"}
           margin={"0 0 20px 0"}
-          background={"#399119"}
+          buttonBg={"#399119"}
           boxShadow={"#245812 0px 7px 0px"}
         >Continuar</Button>
       </ButtonBox>

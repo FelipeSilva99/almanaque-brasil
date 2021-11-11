@@ -9,11 +9,12 @@ import ProgressHeader from '../../components/progressHeader';
 import TrailCompleted from '../../components/modal/trailCompletedModal';
 import AppCompletedModal from '../../components/modal/appCompletedModal';
 import { trailState } from '../../utils/trail';
+import ErrorModal from "../../components/modal/errorModal";
 
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';
 import { clearActivity } from '../../dataflow/modules/activity-module';
-import { getTrailsThunk } from '../../dataflow/thunks/trails-thunk';
+
 
 const mapStateToProps = state => ({
   trails: state.trails.data,
@@ -23,10 +24,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   selectedTrails: (info) => {
     dispatch(selectedTrails(info));
-  },
-
-  getTrailsThunk: () => {
-    dispatch(getTrailsThunk());
   },
 
   clearActivity: () => {
@@ -54,13 +51,8 @@ export const Box = styled.div`
   overflow: hidden;
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #f3f3f3;
-`;
-
-const ContentMap = styled.div`
-  height: 80%;
-  background-color: pink;
 `;
 
 export const Row = styled.div`
@@ -78,22 +70,22 @@ const Trails = (props) => {
     const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync];
     let trailsState = props.trails.map(trail => trailState(trail.id, listActionsBook, trail));
     let qtdTrailComplete = trailsState.filter(item => item.state === 'done').length;
-    let isTrailComplete = trailsState.length > 0 && qtdTrailComplete === 10;
-    const isAppFinished = isTrailComplete && trailsState?.every(trail => trail.status === 'done')
 
     setTrailsState(trailsState);
     setQtdTrailComplete(qtdTrailComplete);
 
-    if (isTrailComplete &&  isAppFinished) {
-      setIsModalAppCompleted(true)
-    } else {
-      setIsModalAppCompleted(false)
-    }
-
 	}, [props.actionsBook, props.trails]);
 
-	useEffect(() => {
-		props.getTrailsThunk();
+  useEffect(() => {
+    const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync];
+    let trailsState = props.trails.map(trail => trailState(trail.id, listActionsBook, trail));
+    let qtdTrailComplete = trailsState.filter(item => item.state === 'done').length;
+    let isAppComplete = trailsState.length > 0 && qtdTrailComplete === 10;
+
+    if (isAppComplete) {
+      setIsModalAppCompleted(true);
+    }
+
 	}, []);
 
   const handleActivities = (trail) => {
@@ -125,16 +117,6 @@ const Trails = (props) => {
     setIsModalAppCompleted(false);
   }
 
-  // const renderTrails = (trails) => {
-  //   return trails.map((trail, key) => {
-  //     return (
-  //       <Card key={key} onClick={() => handleClick(trail.id)}>
-  //         <h2>{`Trilha ${trail.id}`}</h2>
-  //       </Card>
-  //     )
-  //   })
-  // }
-
   const trails = props?.trails;
   return (
     <Box>
@@ -143,17 +125,13 @@ const Trails = (props) => {
         actionsBook={[...props.actionsBook.synced, ...props.actionsBook.pendingSync]}
       />
       {
-        trails && (
-          <ContentMap>
-            {/* {renderTrails(trails)} */}
-            <Map trails={trails} trailsState={trailsState} goToActivitie={handleClick}></Map>
-          </ContentMap>
-        ) 
+        trails && <Map trails={trails} trailsState={trailsState} goToActivitie={handleClick}></Map>
       }
       <Footer screen='trilhas' />
 
       {isModalTrailCompleted.isModal && <TrailCompleted handleClickModal={handleClickModal} handleCloseModal={handleCloseModalCompleteTrail}/>}
       {isModalAppCompleted && <AppCompletedModal handleCloseModal={handleCloseModal} /> }
+      {!trails.length && <ErrorModal />}
     </Box>
   );
 }

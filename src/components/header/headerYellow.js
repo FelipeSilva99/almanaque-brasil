@@ -7,10 +7,8 @@ const Container = styled.header`
   padding: 2.375rem 1rem;
   width: 100%;
   background: #F4DE9B;
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
+  border-radius: 0 0 24px 24px;
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
   overflow: hidden;
 `;
@@ -19,7 +17,7 @@ const Circle = styled.div`
   margin-right: 20px;
   width: 33px;
   height: 33px;
-  display: ${props => props.isVisible ? 'none' : 'flex'};
+  display: ${props => props.isVisible ?  'flex' : 'none'};
   justify-content: center;
   align-items: center;
   font-size: 0.75rem;
@@ -34,13 +32,14 @@ const Text = styled.h1`
   font-weight: 900;
   color: #373737;
   text-decoration: none;
+  z-index: 1;
 `;
 
 const Img = styled.img`
   position: absolute;
   bottom: ${props => props.bottom || '0'};
-  right: ${props => props.right || '-30px'};
-  width: ${props => props.home ? '7rem' : '9rem'};
+  right: ${props => props.right || '-25px'};
+  width: ${props => props.home ? '6.6rem' : '8rem'};
 `;
 
 const Header = ({ text, icon, home, initialLettersName, isVisible, bottom, right }) => {
@@ -51,7 +50,7 @@ const Header = ({ text, icon, home, initialLettersName, isVisible, bottom, right
       {icon &&
         <Img
           src={icon}
-          alt={text}
+          alt={home ? 'home' : text}
           home={home}
           bottom={bottom}
           right={right}

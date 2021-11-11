@@ -16,21 +16,47 @@ import ThunkReducer from './dataflow/modules/thunk-module';
 import ModalsReducer from './dataflow/modules/modals-module';
 import ActivityReducer from './dataflow/modules/activity-module';
 
-const reducers = combineReducers({
-  trails: TrailsReducer,
-  login: LoginReducer,
+const rootPersistConfig = {
+  key: 'root',
+  storage,
+  blacklist: ['thunk', 'login', 'actionsBook', 'trails']
+}
+
+const thunkPersistConfig = {
+  key: 'thunk',
+  storage,
+  blacklist: ['somethingTemporary']
+}
+
+const loginPersistConfig = {
+  key: 'login',
+  storage,
+  blacklist: ['somethingTemporary']
+}
+
+const actionsBookPersistConfig = {
+  key: 'actions-book',
+  storage,
+  blacklist: ['somethingTemporary']
+}
+
+const trailsPersistConfig = {
+  key: 'trails',
+  storage,
+  blacklist: ['somethingTemporary']
+}
+
+
+const rootReducer = combineReducers({
+  trails: persistReducer(trailsPersistConfig, TrailsReducer),
+  login: persistReducer(loginPersistConfig, LoginReducer),
   modals: ModalsReducer,             
-  actionsBook: ActionsBookReducer,
-  thunk: ThunkReducer,
+  actionsBook: persistReducer(actionsBookPersistConfig, ActionsBookReducer),
+  thunk: persistReducer(thunkPersistConfig, ThunkReducer),
   activity: ActivityReducer,
 });
 
-const persistConfig = {
-  key: 'root',
-  storage,
-}
-
-const persistedReducer = persistReducer(persistConfig, reducers);
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 const bundle = compose(applyMiddleware(thunkMiddleware));
 const createStoreWithMiddleware = bundle(createStore);
 

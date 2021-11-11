@@ -49,6 +49,7 @@ const ContentInput = ({
   type,
   handleChange, 
   autoFocus,
+  maxLength,
   handleFocus,
   showPassword,
   handleViewPassword
@@ -65,7 +66,7 @@ const ContentInput = ({
         autoFocus={autoFocus !== undefined ? autoFocus : true}
         onChange={handleChange}
         onFocus={handleFocus}
-        maxLength={isCodeScreen && 6}
+        maxLength={maxLength}
       />
        {name === 'password' && (
         <Button onClick={handleViewPassword}>

@@ -13,7 +13,7 @@ const Container = styled.form`
   max-width: 425px;
   height: 100%;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: ${props => props.login ? 'flex-start' : 'center'};
   flex-direction: column;
 
@@ -32,7 +32,7 @@ const Label = styled.label`
 `;
 
 const Subtitle = styled.p`
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
   font-size: 1rem;
   color: #373737;
   text-align: center;
@@ -56,12 +56,12 @@ const Form = ({
   subtitle,
   name,
   value,
+  maxLength,
   children,
   placeholder,
   type,
   isError,
   selector,
-  lastScreen,
   handleChange,
   showPassword,
   handleViewPassword,
@@ -125,6 +125,7 @@ const Form = ({
               value={value}
               placeholder={placeholder}
               type={type}
+              maxLength={maxLength}
               handleChange={handleChange}
               showPassword={showPassword}
               handleViewPassword={handleViewPassword}
@@ -132,7 +133,7 @@ const Form = ({
             <Error>{isError}</Error>
           </>
         )}
-        <Button>{children ? children : 'Próximo'}</Button>  
+        <Button margin='0'>{children ? children : 'Próximo'}</Button>  
       </Container>
   );
 }

@@ -43,7 +43,7 @@ const Content = styled.div`
   z-index: 1;
 
   span {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #36A39A;
     line-height: 0;
@@ -402,6 +402,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
       </BoxAnswer>
       <Button
         handleClick={handleSubmit}
+        buttonBg='#ffd000'
       >
         Confirmar Resposta
       </Button>
@@ -413,7 +414,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
       <>
         <Header iconBack={iconBack} title={activitie?.name} />
         <Content isModal={isModalAnswer}>
-          <Title><span>"</span>{activitie?.question}</Title><span>"</span>
+          <Title><span>"</span>{activitie?.question}<span>"</span></Title>
         </Content>
         <Button
           handleClick={handleIsModalAnswer}
@@ -438,7 +439,7 @@ const WhatIsWhatIs = ({ useActivitie, registerAction, actionsBook }) => {
         {isModalWithoutScore === false && <WrongAnswerWithoutScore handleClick={handleWrongAnswer} handleShowAnswer={showModalAnswer} />}
         {modalCorrectAnswer && <CorrectAnswer answer={useActivitie.answers[0]} toScore score={score} idActivitie={activitie.id}/>}
         {showAnswer && <CorrectAnswer answer={useActivitie.answers[0]} score={score} noScore={isModalWithoutScore === true} idActivitie={activitie.id}/>}
-        {isTutorial && <Tutorial screen={activitie?.name} handleCloseTutorial={handleCloseTutorial} /> }
+        {isTutorial && <Tutorial screen={activitie?.name} btnContent='Jogar' handleCloseTutorial={handleCloseTutorial} /> }
       </Container>
     )
   );

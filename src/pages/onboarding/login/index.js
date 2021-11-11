@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 //Components
 import Form from '../../../components/form'
 import Header from '../../../components/header';
+import SplashAlmanaque from '../../../components/splash/indexLoader'
 
 //Redux
 import { signIn } from '../../../dataflow/modules/signIn-modules';
@@ -19,7 +20,6 @@ const Container = styled.div`
 `;
 
 const ResetButton = styled.button`
-  /* width: 100%; */
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -53,6 +53,16 @@ const Login = (props) => {
   )
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLoading = () => {
+    let timer;  
+    timer = setTimeout(() => props.history.push('/dashboard'), 2000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }
 
   const handleViewPassword = (ev) => {
     ev.stopPropagation();
@@ -74,11 +84,13 @@ const Login = (props) => {
   async function handleSignIn() {
     try {
       const user = await Auth.signIn(register.email, register.password);
-      const token = user.signInUserSession.accessToken.jwtToken;
+      const token = user.signInUserSession.idToken.jwtToken;
       props.signIn(user.attributes)
-      localStorage.setItem('accessToken', token)
+      localStorage.setItem('idToken', token)
       props.getActionsBook()
-      props.history.push('/dashboard')
+      setIsLoading(true)
+      handleLoading()
+      // props.history.push('/dashboard')
     } catch (error) {
       console.log('error', error);
       if (error.code === "NotAuthorizedException") setError("O e-mail ou senha inseridos estão incorretos.");
@@ -105,8 +117,11 @@ const Login = (props) => {
     props.history.push('/');
   }
 
-  return (
-    <Container>
+  const renderScreen = () => {
+    if (isLoading){
+      return <SplashAlmanaque />
+    }
+    return <Container>
       <Header
         title="Login"
         noPadding
@@ -127,6 +142,12 @@ const Login = (props) => {
         <ResetButton onClick={resetPassword}>Esqueceu a senha?</ResetButton>
       </ButtonSpacer>
     </Container>
+  }
+
+  return (
+    <> 
+      {renderScreen()}
+    </>
   );
 }
 

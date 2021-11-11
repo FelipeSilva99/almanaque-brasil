@@ -96,7 +96,7 @@ const trailsMap = {
   },
 
   "Turmalina": {
-    "position": {bottom: "347px", left: "227px"},
+    "position": {bottom: "347px", left: "226.3px"},
     "img": turmalinaMap,
     "name": 'turmalina',
     "stone": {
@@ -152,7 +152,7 @@ const trailsMap = {
   },
 
   "Safira": {
-    "position": {bottom: "107px", left: "291px"},
+    "position": {bottom: "108px", left: "291px"},
     "img": safiraMap,
     "name": 'safira',
     "stone": {

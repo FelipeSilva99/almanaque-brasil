@@ -23,59 +23,50 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   background: #f3f3f3;
-  z-index: 2;
+  z-index: 4;
 `;
 
 const MessageBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   position: fixed;
   bottom: 0;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  padding-top: 1.5rem;
+  padding: 1.5rem 1rem .5rem;
   background-color: #FFFFFF;
-  width: 100vw;
+  width: 100%;
+  max-width: 425px;
   height: ${props => props.height || "90vh"};
-
-  @media (max-width: 425px) {
-    padding: 1.5rem 5vw 0;
-  }
-  @media (min-width: 1024px) { height: 60vh; }
 `;
 
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: fixed;
-  bottom: 0;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   background-color: ${props => props.backgroundColor || '#FFFFFF'};
-  width: 100vw;
-
-  @media(max-width: 425px) {
-    padding: 0 5vw;
-  }
+  width: 100%;
+  max-width: 425px;
 `;
 
 const Img = styled.img`
-  width: 100vw;
-  height: 50vh;
-  max-width: 500px;
+  width: 100%;
+  height: 45vh;
+  max-width: 425px;
   object-fit: cover;
 
   @media (max-width: 425px) { width: 100%; }
-  @media (min-width: 1024px) { height: 40vh; }
 `;
 
 const ComplementaryInformationBox = styled.div`
-  padding-bottom: 4rem;
-  height: 100%;
+  padding: 0 .5rem 1rem;
+  width: 100%;
+  height: 60%;
   display: flex;
-  align-items: center;
   flex-direction: column;
   text-align: center;
   color: #373737;
@@ -101,9 +92,6 @@ const Scroll = styled.div`
   ::-webkit-scrollbar-thumb:hover {
     background: transparent;
   }
-
-  @media(max-width: 320px) {height: 43%;}
-  @media(min-width: 1024px) {height: 90vh;}
 `;
 
 const Title = styled.h1`
@@ -123,13 +111,13 @@ const TextName = styled.h1`
 
 const Text = styled.p`
   margin-top: 1rem;
-  width: 80vw;
+  width: 100%;
   max-width: 412px;
-  font-size: .875rem;
+  font-size: .78rem;
   color: #000000;
   text-align: left;
 
-  @media(min-width: 1024px) {font-size: 1rem;}
+  @media (min-width: 1024px) { font-size: 1rem; }
 `;
 
 const CorrectAnswer = (props) => {
@@ -185,7 +173,7 @@ const CorrectAnswer = (props) => {
         );
       case modals.answerDescription:
         return (
-          <MessageBox height={'55vh'}>
+          <MessageBox height={'58vh'}>
             <ComplementaryInformationBox>
               <Title>A resposta é:</Title>
               <TextName>{answer.answer}</TextName>
@@ -198,7 +186,7 @@ const CorrectAnswer = (props) => {
                 <Button
                   color={"#373737"}
                   margin={"0 0 20px 0"}
-                  background={"#FFD000"}
+                  buttonBg={"#FFD000"}
                   boxShadow={"#F08800 0px 7px 0px"}
                   handleClick={handleModalThunk}
                 >Veja mais no nosso Baú</Button>
@@ -206,7 +194,7 @@ const CorrectAnswer = (props) => {
               <Button
                 color={"#fff"}
                 margin={"0 0 20px 0"}
-                background={"#399119"}
+                buttonBg={"#399119"}
                 boxShadow={"#245812 0px 7px 0px"}
                 handleClick={() => history.goBack()}
               >Continuar trilha</Button>

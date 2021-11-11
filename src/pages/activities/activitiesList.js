@@ -4,20 +4,23 @@ import styled from 'styled-components';
 
 //Components
 import Header from '../../components/header';
-import ActivitieIcon from '../../components/trail/activitieIcon';
+import ActivitieIcon from '../../components/activities/activitieIcon';
 import Way from '../../components/trail/way';
 import ActivitiesCompleted from '../../components/modal/activitiesCompletedModal';
 import activityDesign from './activityDesign';
+import OfflineModal from "../../components/modal/offlineModal";
 
 //Redux
 import { postActionsBook } from '../../dataflow/thunks/actionsBook-thunks';
 import { selectedActivity } from '../../dataflow/modules/activity-module';
+import { setIsModalActivityLimit } from '../../dataflow/modules/modals-module';
 
 const mapStateToProps = state => ({
   activities: state.trails,
   selectedTrails: state.trails.selectedTrails,
   selectedActivity: state.activity.selectedActivity,
   actionsBook: state.actionsBook,
+  isActivityLimit: state.modals.isActivityLimit,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -26,6 +29,9 @@ const mapDispatchToProps = dispatch => ({
   },
   handleselectedActivity: (info) => {
     dispatch(selectedActivity(info));
+  },
+  setIsModalActivityLimit: (info) => {
+    dispatch(setIsModalActivityLimit(info));
   },
 });
 
@@ -40,7 +46,7 @@ const Container = styled.div`
 const Stone = styled.div`
   display: flex;
   justify-content: center;
-  padding: ${props => props.padding || '4rem 0 5rem'};
+  padding: ${props => props.padding || '6rem 0 5rem'};
   
   img {
     width: ${props => props.width};
@@ -104,7 +110,7 @@ const Activities = (props) => {
 
   useEffect(() => {
     const trail = props.selectedTrails;
-    const allActivities = props.activities.data[trail].activities;
+    const allActivities = props?.activities?.data[trail]?.activities;
    
     setActivities(allActivities);
   }, [props.selectedTrails, props.activities.data]);
@@ -150,14 +156,16 @@ const Activities = (props) => {
   }, [props.actionsBook]);
   
   useEffect(() => {
-    props.postActionsBook(props.actionsBook)
+    if(props.actionsBook.pendingSync.length > 0) {
+      props.postActionsBook(props.actionsBook);
+    }
   }, [props]);
 
   useEffect(() => {
-    const useCurrentActivity = props.activities.data[props.selectedTrails].name;
+    const useCurrentActivity = props?.activities?.data[props.selectedTrails]?.name;
 
     setCurrentActivity(useCurrentActivity);
-  }, [props]);
+  }, []);
 
   const handlerNextActivitie = (index, activityId) => {
     props.handleselectedActivity(activityId);
@@ -165,6 +173,10 @@ const Activities = (props) => {
     props.history.push({
       pathname: `/atividade/${index + 1}`,
     });
+  }
+
+  const handleCloseModal = () => {
+    props.setIsModalActivityLimit(false);
   }
 
   const renderActivities = () => {
@@ -274,6 +286,9 @@ const Activities = (props) => {
     <Container>
       <Header
         title={activityName?.name}
+        positionFixed
+        background='#fafafa'
+        boxShadow
         goBack={() => { props.history.push('/trilhas') }}
       />
 
@@ -297,6 +312,7 @@ const Activities = (props) => {
 
       {renderLogoStone()}
       {isModalActivitiesCompleted && <ActivitiesCompleted score={score} history={props.history}/>}
+      {props.isActivityLimit && <OfflineModal handleCloseModal={() => handleCloseModal()}/>}
       
     </Container>
   );

@@ -14,6 +14,8 @@ const Container = styled.div`
   background: #FFF;
   border-radius: 16px;
   box-shadow: 0px 3px 6px #00000029;
+  user-select: none;
+  cursor: pointer;
 `;
 
 const Title = styled.h3`
@@ -23,7 +25,6 @@ const Title = styled.h3`
 
 const IconArrow = styled.img`
   transform: ${props => props.isOpen && 'rotate(90deg)'};
-  cursor: pointer;
 `;
 
 const Item = ({ title, handleClick }) => (

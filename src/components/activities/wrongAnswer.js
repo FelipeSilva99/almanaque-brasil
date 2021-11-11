@@ -22,7 +22,7 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   justify-content: center;
-  z-index: 2;
+  z-index: 4;
 `
 
 const RandomBox = styled.div`
@@ -88,7 +88,7 @@ const DialogBox = styled.div`
     line-height: 2.3rem;
     color: #FB6C76;
 
-    @media(max-width: 375px) {
+    @media(max-width: 320px) {
       font-size: 1.4rem;
     }
   }
@@ -117,7 +117,7 @@ const ErrorTip = styled.h2`
 
 const Avatar = styled.img`
   position: relative;
-  right: -130px;
+  left: 100px;
 `;
 
 const ButtonsBox = styled.div`
@@ -132,6 +132,7 @@ const ButtonsBox = styled.div`
   padding-top: 4vh;
   background-color: #FFFFFF;
   width: 100%;
+  max-width: 440px;
 
   @media(max-width: 425px) {
     padding-left: 5vw;
@@ -240,7 +241,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
       {hasChances ? (
         <Button
           margin={"0 0 20px 0"}
-          background={"#ff3d4a"}
+          buttonBg={"#ff3d4a"}
           color={"#FFFFFF"}
           boxShadow={"#e61a28 0px 7px 0px"}
           handleClick={handleClick}
@@ -249,7 +250,7 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
         <Button
           handleClick={handleShowAnswer}
           margin={"0 0 20px 0"}
-          background={"#399119"}
+          buttonBg={"#399119"}
           color={"#FFFFFF"}
           boxShadow={"#245812 0px 7px 0px"}
         >Saber a resposta</Button>
@@ -258,11 +259,11 @@ function WrongAnswer({ chances, handleClick, handleShowAnswer, errorMessages }) 
       }
       <Button
         margin={"0 0 20px 0"}
-        background={"rgb(252, 208, 41)"}
+        buttonBg={"rgb(252, 208, 41)"}
         boxShadow={"rgb(238 137 47) 0px 7px 0px"}
         handleClick={handleActivity}
       >
-        Voltar a Trilha
+        Continuar Trilha
       </Button>
     </>
   );

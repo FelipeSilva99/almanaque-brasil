@@ -20,6 +20,7 @@ const mapStateToProps = state => ({
   activities: state.trails,
   selectedTrails: state.trails.selectedTrails,
   actionsBook: state.actionsBook,
+  isActivityLimit: state.modals.isActivityLimit,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -34,16 +35,30 @@ const Container = styled.div`
   justify-content: center;
   overflow: hidden;
   width: 100%;
-  /* height: 100vh; */
+  background: #f3f3f3;
+  height: 100vh;
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+`;
+
+const Title = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: #f3f3f3;
 `;
 
 const Activities = (props) => {
   const [activities, setActivities] = useState(null);
   const [currentActivitie, setCurrentActivitie] = useState(1);
   const { trailId } = useParams();
+  const [isResend, setIsResend] = useState(false);
+
+  const handleResendModal = () => {
+    setIsResend(false);
+  };
 
   useEffect(() => {
     const trail = props.selectedTrails;
@@ -61,7 +76,7 @@ const Activities = (props) => {
   const renderActivitie = (currentActivitie, registerAction) => {
     // Renderizar component de acordo com o tipo de ativivdade
     switch (currentActivitie.type) {
-      case "de-quem-sao-estes-olhos":
+      case "de-quem-sao-esses-olhos":
         return <WhoseEyesAreThese registerAction={registerAction} useActivitie={currentActivitie} actionsBook={props.actionsBook}/>
 
       case "o-que-e-o-que-e":
@@ -95,8 +110,11 @@ const Activities = (props) => {
       {
         activities && activities.length > 0
           ? renderActivitie(activities[currentActivitie-1], props.registerAction)
-          : <h1>Carregando</h1>
+          : <Title>Carregando</Title>
       }
+
+      {/* {!activities.length && <ModalErro />}
+      {console.log(!activities.length)} */}
     </Container>
   );
 }

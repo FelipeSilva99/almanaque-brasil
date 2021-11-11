@@ -94,15 +94,13 @@ const Loader = ({dashboard}) => {
   })
 
   const handleCleanCaches = async () => {
-    console.log('een')
-
     const idToken = localStorage.getItem('idToken');
     const savedVersion = localStorage.getItem('version');
 
     try {
       const response = await axios({
         method: 'get',
-        url: 'https://5ltaa6klie.execute-api.us-east-1.amazonaws.com/dev/version',
+        url: 'https://v0ba3uvbvc.execute-api.us-east-1.amazonaws.com/prod/version',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `${idToken}`,
@@ -131,8 +129,6 @@ const Loader = ({dashboard}) => {
 
   return (
     <Container>
-   { console.log('loader')}
-
       <Box>
         <>
           <Title>Espere só mais um pouquinho!</Title>

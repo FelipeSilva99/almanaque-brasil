@@ -3,14 +3,16 @@ import styled from 'styled-components';
 
 
 const Container = styled.div`
-  position: absolute;
-  display: ${props=>props.isOpen ? 'none': 'flex'};
+  position: fixed;
+  top: 0;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
+  max-width: 425px;
   height: 100vh;
   background: #0000004d;
-  max-width: 425px;
+  z-index: 4;
 `;
 
 const BoxModal = styled.div`
@@ -24,6 +26,7 @@ const BoxModal = styled.div`
   margin: 0 auto;
   width: 90%;
   height: 35%;
+  max-height: 245.74px;
 `;
 
 const Close = styled.div`
@@ -53,16 +56,13 @@ const Subtitle = styled.p`
 }
 `
 
-export default function ModalOff() {
-  
-  const [openSpan, setOpenSpan]= useState(false);
-
+export default function ModalOff({ handleCloseModal }) {
   return (
-    <Container isOpen={openSpan}>
+    <Container>
       <BoxModal>
         <Title>Você está jogando off-line!</Title>
         <Subtitle>Você já atingiu o máximo de atividades sem internet. Caso queira continuar jogando, reative sua conexão.</Subtitle>
-        <Close onClick={()=> setOpenSpan(true)}>x</Close>
+        <Close onClick={handleCloseModal}>x</Close>
       </BoxModal>
     </Container>
   )

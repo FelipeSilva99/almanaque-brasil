@@ -24,7 +24,7 @@ const BoxModal = styled.div`
   border-radius: 20px;
   margin: 0 auto;
   width: 90%;
-  height: 25%;
+  padding: 1rem 0;
 `;
 
 const Title = styled.h2`

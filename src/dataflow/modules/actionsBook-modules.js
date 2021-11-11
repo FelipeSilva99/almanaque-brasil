@@ -6,7 +6,7 @@ const CLEAR = 'actionsBook/CLEAR';
 
 const initialState = {
   pendingSync: [],
-  synced: []
+  synced: [],
 }
 
 // Reducer

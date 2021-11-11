@@ -80,7 +80,7 @@ const TrunkInfoScreen = ({ itemData, onClick }) => {
   const myRef = createRef();
 
   useEffect(() => {
-    const data = itemData && itemData;
+    const useData = itemData && itemData;
     setData(data);
   }, [itemData]);
 

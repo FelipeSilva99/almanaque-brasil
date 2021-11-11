@@ -5,6 +5,7 @@ import { Auth } from 'aws-amplify';
 import { 
   clearActionsBook, synced, refreshLocalData
 } from '../modules/actionsBook-modules';
+import {setIsModalActivityLimit} from "../modules/modals-module";
 
 export const postActionsBook = (book) => async (dispatch) => {
   const auth = await Auth.currentAuthenticatedUser()
@@ -82,6 +83,7 @@ var batchWriteActions = async (actions, idToken, dispatch) => { // Função Recu
     let limite = 25
     if(actions.length > limite){
       var rest = actions.splice(limite)
+      dispatch(setIsModalActivityLimit(true))
       console.log("Chunk: ",actions.length, "Rest: ", rest.length);
       batchWriteActions(rest);
     }

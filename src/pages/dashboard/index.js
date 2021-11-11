@@ -44,7 +44,7 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
-const Content = styled.div`
+const Content = styled.main`
   position: relative;
   padding: 3.188rem 1rem 0;
   max-width: 425px;
@@ -104,26 +104,45 @@ const Dashboard = (props) => {
   const [modalThunk, setModalThunk] = useState({ isModal: false, data: undefined });
   const [showWelcomeModal, setWelcomeModal] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const trails = props?.trails;
+  const thunks = props?.thunk;
 
   // GET thunk
   useEffect(() => {
-    if(trails?.length > 5) return 
+    if (trails?.length > 5) return
     props.getDataThunk();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // GET trails
   useEffect(() => {
-    if(trails?.length > 5) return 
+    if (trails?.length > 5) return
     props.getTrailsThunk();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+   //Loading
+   useEffect(() => {
+    const hasTrails = trails.length > 0;
+    const hasThunk = thunks.length > 0;
+    setIsLoading(true);
+
+    if (hasTrails && hasThunk) {
+      setIsLoading(false);
+    }
+    // else {
+    // if(isLoading === false) {
+    // const timer = setTimeout(() => {
+    //  setIsLoading(false)
+    // }, 2000);
+    // return () => clearTimeout(timer);
+    //}
+    // }
+  }, [trails, thunks]);
+
   const handleClick = (route) => {
     props.history.push({ pathname: `/${route}` });
   }
-
-  const trails = props?.trails;
 
   const handleCloseModal = () => {
     setWelcomeModal(!showWelcomeModal)
@@ -140,24 +159,16 @@ const Dashboard = (props) => {
     setWelcomeModal(!showWelcomeModal)
   }
 
-  useEffect(() => {
-    if (isLoading === undefined) setIsLoading(true)
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 2000);
-    return () => clearTimeout(timer);
-  },[]);
-  
   const userName = () => {
     const name = props.user.name || '';
     const userName = name.includes(" ") ? name.split(" ") : name;
-  
+
     if (Array.isArray(userName)) {
       const firstName = userName[0];
       const lastName = userName[userName.length - 1];
       const user = `${firstName} ${lastName}`;
 
-      return user.length > 10 ? `${user.slice(0,10)}...` : user
+      return user.length > 10 ? `${user.slice(0, 10)}...` : user
     } else {
       return name
     }
@@ -165,51 +176,51 @@ const Dashboard = (props) => {
 
   return (
     isLoading ? <Loader /> : (
-    <Container>
-      {!props.modals.welcomeModal.wasShowed && <WelcomeModal showThunk={() => handleModalThunk} handleClose={handleCloseModal} />}
-      <Header
-        home
-        bottom='-6px'
-        isVisible
-        initialLettersName={props?.user?.name && props?.user?.name[0] + props.user?.name[1]}
-        text={`Oi, ${userName()}`}
-        icon={home}
-      />
+      <Container>
+        {!props.modals.welcomeModal.wasShowed && <WelcomeModal showThunk={() => handleModalThunk} handleClose={handleCloseModal} />}
+        <Header
+          home
+          bottom='-6px'
+          isVisible
+          initialLettersName={props?.user?.name && props?.user?.name[0] + props.user?.name[1]}
+          text={`Oi, ${userName()}`}
+          icon={home}
+        />
 
-      <Content>
-        <Text paddingBottom>Qual atividade você quer fazer?</Text>
-        {trails && (
-          <>
-            <Card
-              backgroundImage={dashboardTrail}
-              backgroundColor={'#eaedeb'}
-              marginRight
-              backgroundSize={'380px'}
-              backgroundSizeMob={'295px'}
-              backgroundPositionX={'100%'}
-              backgroundPositionY={'100%'}
-              onClick={() => handleClick('trilhas')}
-            ><Text>Mapa das<br />trilhas</Text>
-            </Card>
+        <Content>
+          <Text paddingBottom>Qual atividade você quer fazer?</Text>
+          {trails && (
+            <>
+              <Card
+                backgroundImage={dashboardTrail}
+                backgroundColor={'#eaedeb'}
+                marginRight
+                backgroundSize={'380px'}
+                backgroundSizeMob={'295px'}
+                backgroundPositionX={'100%'}
+                backgroundPositionY={'100%'}
+                onClick={() => handleClick('trilhas')}
+              ><Text>Mapa das<br />trilhas</Text>
+              </Card>
 
-            <Card
-              backgroundColor={"#f4de9b"}
-              backgroundImage={thunk}
-              backgroundSize={'160px'}
-              backgroundSizeMob={'99px'}
-              backgroundPositionX={'70px'}
-              backgroundPositionY={'45px'}
-              lastCard
-              onClick={() => handleClick('bau')}
-            ><Text>Baú</Text>
-            </Card>
-          </>
-        )}
-        {props.modals.welcomeModal.wasShowed && <ElifasSVG onClick={() => handleCloseModal()} src={elifas} />}
-      </Content>
-      {modalThunk?.isModal && <TrunkInfoScreen itemData={modalThunk?.data} onClick={handleModalThunk} />}
-      <Footer screen='dashboard' />
-    </Container>
+              <Card
+                backgroundColor={"#f4de9b"}
+                backgroundImage={thunk}
+                backgroundSize={'160px'}
+                backgroundSizeMob={'99px'}
+                backgroundPositionX={'70px'}
+                backgroundPositionY={'45px'}
+                lastCard
+                onClick={() => handleClick('bau')}
+              ><Text>Baú</Text>
+              </Card>
+            </>
+          )}
+          {props.modals.welcomeModal.wasShowed && <ElifasSVG onClick={() => handleCloseModal()} src={elifas} />}
+        </Content>
+        {modalThunk?.isModal && <TrunkInfoScreen itemData={modalThunk?.data} onClick={handleModalThunk} />}
+        <Footer screen='dashboard' />
+      </Container>
     )
   );
 }

@@ -25,6 +25,7 @@ const AlignToCenter = styled.main`
 
 const MapBackground = styled.div`
   position: fixed;
+  bottom: 0;
   max-width: 425px;
   transform: scale(1,.975);
   min-height: 100%;

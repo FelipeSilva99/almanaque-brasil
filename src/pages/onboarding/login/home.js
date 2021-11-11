@@ -14,7 +14,6 @@ import SplashPartner from '../../../components/splash/achievement';
 
 //Images
 import logo from '../../../images/logo/almanaque.svg';
-import iconFacebook from '../../../images/icons/onboarding/iconFacebook.svg';
 import iconGoogle from '../../../images/icons/onboarding/iconGoogle.svg';
 
 const Container = styled.div`
@@ -24,7 +23,6 @@ const Container = styled.div`
 `;
 
 const Img = styled.img`
-  // flex: 1;
   padding-top: 7.188rem;
   width: 11.8rem;
 `;
@@ -153,11 +151,22 @@ const Home = (props) => {
     if (screen === 'partner') {
       timer = setTimeout(() => setScreen('home'), 2000);
     }
-    
+
     return () => {
       clearTimeout(timer);
     };
   };
+
+  useEffect(() => {
+    if ('caches' in window) {
+      caches.keys().then((names) => {
+        // Delete all the cache files
+        names.forEach(name => {
+          caches.delete(name);
+        })
+      });
+    }
+  }, [])
 
   useEffect(() => {
     Auth.currentAuthenticatedUser().then(user => {
@@ -179,20 +188,20 @@ const Home = (props) => {
     }
   };
 
-  const [openSpan, setOpenSpan]= useState(false);
+  const [openSpan, setOpenSpan] = useState(false);
 
   const renderSpan = () => (
     <ContentHelp openSpan={openSpan}>
       <Paragraph>Precisa de ajuda? Envie um e-mail para:</Paragraph>
       <Email>ajuda.almanaque.app@precisaser.org</Email>
-      <Close onClick={()=> setOpenSpan(false)}>x</Close>
+      <Close onClick={() => setOpenSpan(false)}>x</Close>
     </ContentHelp>
   );
 
   const renderScreenHome = () => (
     <Content>
       <BoxHelp openSpan={openSpan}>
-        <BtnDoubt onClick={()=> setOpenSpan(openSpan ? false : true)}>?</BtnDoubt>
+        <BtnDoubt onClick={() => setOpenSpan(openSpan ? false : true)}>?</BtnDoubt>
         {openSpan ? renderSpan() : null}
       </BoxHelp>
       <Img src={logo} alt='logo' />

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
+import axios from 'axios';
 
 //Image
 import home from '../../images/dialogBox/dialogBoxLittle.svg';
@@ -12,6 +13,7 @@ const AnimBall = keyframes`
 `;
 
 const Container = styled.div`
+  position: relative;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -22,8 +24,10 @@ const Container = styled.div`
 `;
 
 const BoxLoader = styled.div`
+  margin-top: 2.5rem;
+  margin-bottom: 4.625rem;
   width: 60px;
-  height: 40px;
+  /* height: 40px; */
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -40,16 +44,23 @@ const Ball = styled.div`
 `;
 
 const Title = styled.h2`
+  margin-bottom: 18px;
   width: 280px;
   font-size: 24px;
   font-weight: 900;
   color: #373737;
-  margin-bottom: 18px;
   text-align: center;
+`;
+
+const Text = styled.h2`
+  font-size: 1rem;
+  color: #373737;
 `;
 
 const Box = styled.div`
   background-image: url(${home});
+  background-size: 97%;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,36 +68,71 @@ const Box = styled.div`
   width: 340px;
   height: 277px;
   border-radius: 20px;
+
+  @media (max-width: 320px) {
+    width: 100%;
+  }
 `;
 const BoxElifas = styled.div`
   display: flex;
   width: 169px;
   height: 231px;
-  top: 19.2vw;
-  left: 5vw;
   position: relative;
   background-image: url(${elifas});
-  @media (width: 360px) {
-    top: 56.8vw;
-    left: 26vw;
-  }
-  @media (width: 375px) {
-    top: 58vw;
-    left: 26vw;
-  }
 `;
 
 const BoxContainer = styled.div`
   position: absolute;
+  right: 0;
+  bottom: 0;
 `;
 
 const Loader = () => {
+
+  useEffect(() => {
+    handleCleanCaches();
+  })
+
+  const handleCleanCaches = async () => {
+    const idToken = localStorage.getItem('idToken');
+    const savedVersion = localStorage.getItem('version');
+
+    try {
+      const response = await axios({
+        method: 'get',
+        url: 'https://5ltaa6klie.execute-api.us-east-1.amazonaws.com/dev/version',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${idToken}`,
+        },
+      })
+
+      const dataResponse = response?.data.Items[0]?.version;
+      const version = !!dataResponse ? dataResponse : 0;
+
+      if (savedVersion < version) {
+        // clean caches
+        if ('caches' in window) {
+          caches.keys().then((names) => {
+            // Delete all the cache files
+            names.forEach(name => {
+              caches.delete(name);
+            })
+          });
+        }
+        localStorage.setItem('version', version)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Container>
       <Box>
         <>
           <Title>Espere só mais um pouquinho!</Title>
-          <p>Estamos carregando o conteúdo.</p>
+          <Text>Estamos carregando o conteúdo.</Text>
         </>
         <BoxLoader>
           <Ball />
@@ -94,9 +140,9 @@ const Loader = () => {
           <Ball animDelay=".4s" />
         </BoxLoader>
       </Box>
-        <BoxContainer>
-          <BoxElifas />
-        </BoxContainer>
+      <BoxContainer>
+        <BoxElifas />
+      </BoxContainer>
     </Container>
   );
 };

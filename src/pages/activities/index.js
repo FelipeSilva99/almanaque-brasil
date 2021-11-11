@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import {
   useParams,
 } from "react-router-dom";
+import Modal from "../../components/modal/modal";
+import ModalOff from "../../components/modal/modalOff";
+import ModalErro from "../../components/modal/modalErro";
 
 import { register } from '../../dataflow/modules/actionsBook-modules'
 
@@ -53,6 +56,11 @@ const Activities = (props) => {
   const [activities, setActivities] = useState(null);
   const [currentActivitie, setCurrentActivitie] = useState(1);
   const { trailId } = useParams();
+  const [isResend, setIsResend] = useState(false);
+
+  const handleResendModal = () => {
+    setIsResend(false);
+  };
 
   useEffect(() => {
     const trail = props.selectedTrails;
@@ -105,6 +113,9 @@ const Activities = (props) => {
         activities && activities.length > 0
           ? renderActivitie(activities[currentActivitie-1], props.registerAction)
           : <Title>Carregando</Title>
+      }
+      {true && 
+        <ModalOff />
       }
     </Container>
   );

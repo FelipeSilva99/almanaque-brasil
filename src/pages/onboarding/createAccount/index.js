@@ -24,13 +24,13 @@
     padding-top: 5vh;
 
     @media (max-height: 600px) {
-      height: calc(95vh - 2rem );
+      height: calc(95vh - 6rem );
     }
   `;
 
   const AttentionText = styled.p`
     margin-top: 1rem;
-    font-size: .9rem;
+    font-size: 12px;
     color: #FF3333;
   `;
 
@@ -38,7 +38,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 110%;
     text-align: center;
   `;
 

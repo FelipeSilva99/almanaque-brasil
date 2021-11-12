@@ -9,8 +9,8 @@
   command = "CI=false yarn build"
 
 [context.production.environment]
-  NODE_ENV = "main"
-  AMBIENT = "main"
+  NODE_ENV = "production"
+  AMBIENT = "production"
   REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_502Jtv2g7"
   REACT_APP_COGNITO_WEB_CLIENT_ID = "3729955vpj5n9pb78b02a4662q"
   REACT_APP_COGNITO_REGION = "us-east-1"

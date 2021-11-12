@@ -81,11 +81,12 @@ export const deleteActionsBook = () => async (dispatch) => {
 var batchWriteActions = async (actions, idToken, dispatch) => { // Função Recursiva
   try{
     let limite = 25
+
     if(actions.length > limite){
       var rest = actions.splice(limite)
-      dispatch(setIsModalActivityLimit(true))
       console.log("Chunk: ",actions.length, "Rest: ", rest.length);
       batchWriteActions(rest);
+      dispatch(setIsModalActivityLimit(true))
     }
     const data = {
       actions: actions
@@ -104,6 +105,7 @@ var batchWriteActions = async (actions, idToken, dispatch) => { // Função Recu
     return response;
 
   } catch (error) {
+    console.log('error', error);
     throw error;
   }
 }

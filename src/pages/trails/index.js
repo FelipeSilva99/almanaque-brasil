@@ -9,6 +9,7 @@ import ProgressHeader from '../../components/progressHeader';
 import TrailCompleted from '../../components/modal/trailCompletedModal';
 import AppCompletedModal from '../../components/modal/appCompletedModal';
 import { trailState } from '../../utils/trail';
+import ErrorModal from "../../components/modal/errorModal";
 
 //Redux
 import { selectedTrails } from '../../dataflow/modules/trails-module';
@@ -69,19 +70,23 @@ const Trails = (props) => {
     const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync];
     let trailsState = props.trails.map(trail => trailState(trail.id, listActionsBook, trail));
     let qtdTrailComplete = trailsState.filter(item => item.state === 'done').length;
-    let isTrailComplete = trailsState.length > 0 && qtdTrailComplete === 10;
-    const isAppFinished = isTrailComplete && trailsState?.every(trail => trail.status === 'done')
 
     setTrailsState(trailsState);
     setQtdTrailComplete(qtdTrailComplete);
 
-    if (isTrailComplete &&  isAppFinished) {
-      setIsModalAppCompleted(true)
-    } else {
-      setIsModalAppCompleted(false)
+	}, [props.actionsBook, props.trails]);
+
+  useEffect(() => {
+    const listActionsBook = [...props.actionsBook.synced, ...props.actionsBook.pendingSync];
+    let trailsState = props.trails.map(trail => trailState(trail.id, listActionsBook, trail));
+    let qtdTrailComplete = trailsState.filter(item => item.state === 'done').length;
+    let isAppComplete = trailsState.length > 0 && qtdTrailComplete === 10;
+
+    if (isAppComplete) {
+      setIsModalAppCompleted(true);
     }
 
-	}, [props.actionsBook, props.trails]);
+	}, []);
 
   const handleActivities = (trail) => {
     props.history.push({pathname: '/atividades'});
@@ -126,6 +131,7 @@ const Trails = (props) => {
 
       {isModalTrailCompleted.isModal && <TrailCompleted handleClickModal={handleClickModal} handleCloseModal={handleCloseModalCompleteTrail}/>}
       {isModalAppCompleted && <AppCompletedModal handleCloseModal={handleCloseModal} /> }
+      {!trails.length && <ErrorModal />}
     </Box>
   );
 }

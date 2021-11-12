@@ -19,7 +19,7 @@ export default function WelcomeModal({ showThunk, handleClose }) {
       handleClick={handleClose}
       btnContent={content.button}
       buttonBg='#ffd000'
-      elifas='elifas'
+      elifas='guide'
       isWelcome={true}
     />
   );

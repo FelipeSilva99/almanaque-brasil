@@ -12,20 +12,31 @@ const initialState = {
 export default function foo(state = initialState, action) {
   switch (action.type) {
     case SET_MODAL: {
-      return {
+      return Object.assign({}, state, {
         ...state,
         [action.info.modal]: {
           wasShowed: action.info.wasShowed
         }
-      }
+      })
+      // return {
+      //   ...state,
+      //   [action.info.modal]: {
+      //     wasShowed: action.info.wasShowed
+      //   }
+      // }
     }
 
     case CLEAR_MODALS_STATE: {
-      return {
+      return Object.assign({}, state, {
         welcomeModal: {
           wasShowed: false
         }
-      };
+      })
+      // return {
+      //   welcomeModal: {
+      //     wasShowed: false
+      //   }
+      // };
     }
     case SET_MODAL_IS_ACTIVITY_LIMIT: {
       return Object.assign({}, state, {

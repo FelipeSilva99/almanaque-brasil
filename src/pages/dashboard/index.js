@@ -7,7 +7,7 @@ import Header from '../../components/header/headerYellow';
 import Footer from '../../components/footer/footerMenu';
 import WelcomeModal from '../../components/modal/welcomeModal';
 import TrunkInfoScreen from '../../components/thunk/trunkInfoScreen';
-import Loader from '../dashboard/loader.js';
+import Loader from '../../components/loader';
 
 //Image
 import home from '../../images/icons/menu/selectedHome.svg';
@@ -109,7 +109,7 @@ const Dashboard = (props) => {
 
   // GET thunk
   useEffect(() => {
-    if (trails?.length > 5) return
+    if (thunks?.length > 5) return
     props.getDataThunk();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -175,7 +175,7 @@ const Dashboard = (props) => {
   };
 
   return (
-    isLoading ? <Loader /> : (
+    isLoading ? <Loader dashboard/> : (
       <Container>
         {!props.modals.welcomeModal.wasShowed && <WelcomeModal showThunk={() => handleModalThunk} handleClose={handleCloseModal} />}
         <Header

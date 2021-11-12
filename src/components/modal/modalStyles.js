@@ -13,10 +13,6 @@ export const Container = styled.div`
   background: ${props => props.background || '#ababab'};
   overflow: hidden;
   z-index: 5;
-
-  // @media (min-width: 768px) {
-  //   position:  ${props => !props.noAbsolute && 'absolute'};
-  // }
 `;
 
 export const Content = styled.div`
@@ -24,6 +20,7 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-bottom: ${props => !props.isTip && '5rem'};
   width: 100%;
   height: 100vh;
   max-width: 393px;
@@ -31,7 +28,6 @@ export const Content = styled.div`
 
 export const ContentInfo = styled.div`
   position: relative;
-  /* bottom: -6rem; */
   bottom: ${props => props.isTip && '18%'};
   display: flex;
   flex-direction: column;
@@ -42,13 +38,14 @@ export const ContentInfo = styled.div`
   width:  ${props => props.helpScreen ? '100%' : '91%'};
   min-height: ${props => props.isTip && '55vh'};
   letter-spacing: 1px;
-  filter: drop-shadow(1px 4px 3px #999);
+  filter: ${props => !props.isError && 'drop-shadow(1px 4px 3px #999)'};
   border-radius: ${props => props.isTutorial ? '30px' : '20px'};
-  background: #fff;
+  background: ${props => props.balloonColor || '#fff'};
 
   img { cursor: pointer; }
 
   &:after {
+    ${props => !props.elifas && 'display: none;'}
     position: absolute;
     content: '';
     left: ${props => props.isTip ? '42%' : '51%'};
@@ -89,6 +86,7 @@ export const Subtitle = styled.h1`
 
 export const Scroll = styled.ol`
   padding-left: ${props => props.isTutorial ? '3.3rem' : '0'};
+  text-align: ${props => props.isError && 'center'};
   list-style: none;
   counter-reset: count;
 
@@ -114,7 +112,7 @@ export const Text = styled.li`
   display: flex;
   align-items: center;
   font-size: ${props => props.helpScreen ? '1.25rem' : '1rem'};
-  width: 92%;
+  width: ${props => props.width && '100%' || !props.isError && '92%'};
   margin: ${props => props.margin || '.5rem 0 1.5rem'};
   font-weight: ${props => props.helpScreen  && '900'};
   color: #373737;
@@ -135,6 +133,10 @@ export const Text = styled.li`
     font-size: 2.15em;
     font-weight: 900;
   }
+
+  img {
+    width: ${props => props.isIcon && '3.125rem'};
+  }
   
   @media (max-width: 425px) {
     padding: ${props => props.padding && '1.5rem 0 .4rem 0 '};
@@ -153,6 +155,6 @@ export const ImgElifas = styled.img`
   }
   
   @media (max-height: 600px) {
-    width: ${props => props.isWelcome ? '12' : '9'}rem;
+    width: ${props => props.isWelcome ? '12' : '8.5'}rem;
   }
 `;

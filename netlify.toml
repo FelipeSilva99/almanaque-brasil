@@ -4,11 +4,11 @@
   # Default build command.
   command = "CI=false yarn build"
 
-[context.main]
+[context.production]
   publish = "build/"
   command = "CI=false yarn build"
 
-[context.main.environment]
+[context.production.environment]
   NODE_ENV = "main"
   AMBIENT = "main"
   REACT_APP_COGNITO_USER_POOL_ID = "us-east-1_502Jtv2g7"

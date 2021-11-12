@@ -79,7 +79,7 @@ const ContentImageText = ({ isModal, image, title, info }) => {
   return (
     <Container isModal={isModal}>
       <ImgBox>
-        <Img src={image} alt={"imagem da atividade"} />
+        <Img src={image} alt={"imagem da atividade"}  />
       </ImgBox>
       <Title check={check}>{title}</Title>
       {info && !isModal && <Text>{info}</Text>}

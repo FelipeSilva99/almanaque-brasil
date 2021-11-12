@@ -22,6 +22,7 @@ export default function ResetMapAlert({ handleResetProgress, handleCloseModal })
       handleClick={handleCloseModal}
       btnContent={content.button}
       buttonBg='#ffd000'
+      elifas='tip'
       isWelcome={true}
     />
   );

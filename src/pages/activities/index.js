@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import {
   useParams,
 } from "react-router-dom";
-import Modal from "../../components/modal/modal";
-import ModalOff from "../../components/modal/modalOff";
-import ModalErro from "../../components/modal/modalErro";
 
 import { register } from '../../dataflow/modules/actionsBook-modules'
 
@@ -23,6 +20,7 @@ const mapStateToProps = state => ({
   activities: state.trails,
   selectedTrails: state.trails.selectedTrails,
   actionsBook: state.actionsBook,
+  isActivityLimit: state.modals.isActivityLimit,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -114,9 +112,8 @@ const Activities = (props) => {
           ? renderActivitie(activities[currentActivitie-1], props.registerAction)
           : <Title>Carregando</Title>
       }
-      {true && 
-        <ModalOff />
-      }
+
+      {/*{!activities.length && <ModalErro />} */}
     </Container>
   );
 }

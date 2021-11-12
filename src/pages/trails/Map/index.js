@@ -10,9 +10,9 @@ const AlignToCenter = styled.main`
   &::-webkit-scrollbar {
     display: none;               /* width of the entire scrollbar */
   }
-  position: fixed;
+  /* position: fixed; */
   background-color: #ebeeec;
-  bottom: 20px;
+  /* bottom: 20px; */
   height: 100%;
   min-width: 425px;
   overflow: hidden;
@@ -32,19 +32,20 @@ const MapBackground = styled.div`
   height: -webkit-fill-available;
   
   @media (max-width: 360px) {
-    left: -2rem;
+    /* left: -2rem; */
     transform: scale(.9,.85);
   }
   @media (max-height: 630px) {
     transform: scale(.8,.8);
   }
   
-  @media (max-width: 400px) {
+  /* @media (max-width: 400px) {
     left: -1.5rem;
-  }
+  } */
   
   @media (max-width: 320px) {
     left: -1rem;
+    bottom: -31px;
     transform: scale(.8,.7);
   }
 `;
@@ -85,7 +86,6 @@ const Map = ({ trails, trailsState, goToActivitie }) => {
         {trails.map((trail, key) => {
           const aliasesName = aliases[trail.name];
           const useTrailsState = trailsState?.filter(item => item?.trailId === trail?.id && item?.state)[0]?.state || 'todo';
-
           return (
             <MapFragment
               key={key}

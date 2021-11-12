@@ -38,14 +38,16 @@ export function trailState(trailId, actionsBook) {
       actionsById.push(action.activityId);
 
     });
+
     actionsById.map(action => {
+
       const counter = countActions(allActions, action);
-      if(counter === 3) {
+      if(counter >= 3) {
         trailsCompleted = trailsCompleted + 1
       }
     })
 
-    if(trailsCompleted === 10) {
+    if(trailsCompleted >= 10) {
       return {
         trailId,
         state: 'done'
